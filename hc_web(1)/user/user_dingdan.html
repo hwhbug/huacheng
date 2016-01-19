@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style>
+			.mui-icon-email {
+				line-height: 30px;
+				font-size: 26px !important;
+				padding-right: 10px !important;
+				margin: 0 !important;
+			}
+			
+			p {
+				color: #666666;
+				margin-bottom: 5px;
+			}
+			
+			.icon-fenxiang:before {
+				color: #3EA8DA;
+			}
+			
+			.yellow,
+			.red {
+				border: none !important;
+			}
+			
+			ul {
+				border: none !important;
+			}
+			
+			.btn_user li {
+				border-bottom: 1px solid #C0C0C0;
+			}
+			
+			.mui-segmented-control {
+				border: 1px solid #FFFFFF;
+			}
+			
+			.mui-segmented-control .mui-control-item.mui-active {
+				background: #D82F4E;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				border-left: 1px solid #FFFFFF;
+				color: #FFFFFF;
+				background: #f79c0c;
+			}
+			
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			
+			.mui-content {
+				height: 100%
+			}
+			
+			.mui-control-content {
+				height: 100%;
+			}
+			.mui-slider-right {
+				position: relative;
+			}
+			
+			.mui-slider-right .mui-btn {
+				position: relative;
+				top: 0px;
+			}
+			
+			.huise {
+				position: relative !important;
+			}
+			
+			.mui-table-view-cell:after {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-icon mui-action-back mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">订单管理
+			</h1>
+
+		</header>
+
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="container">
+					<div style="padding: 10px 10px;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1">
+								全部订单
+							</a>
+							<a class="mui-control-item" href="#item2">
+								未完成（5）
+							</a>
+							<a class="mui-control-item" href="#item3">
+								已完成
+							</a>
+						</div>
+					</div>
+					<!--全部订单开始-->
+					<div>
+						<div id="item1" class="mui-control-content mui-active">
+							<ul class="mui-table-view">
+								<!--这是一条记录-->
+								<li class="mui-table-view-cell mui-media huise">
+									<div class="mui-slider-right mui-disabled">
+										<a class="mui-btn mui-btn-yellow">查看订单</a>
+										<a class="mui-btn mui-btn-red">删除记录</a>
+									</div>
+									<div class="mui-slider-handle">
+												<img class="mui-media-object mui-pull-left" src="../image/shop-3.jpg">
+												<div class="mui-media-body">
+													蓝月亮洗衣液  <button class="not mui-pull-right">未完成</button>
+													<h4 class="font-red">￥16.90<p style="float: right;">原价：<span class="zhonghuaxian">￥36.00</span></p></h4>
+													<p>属性：5L 薰衣草 牛仔</p>
+													<p>商家：美特好（文化中心）</p>
+												</div>
+											
+									</div>
+								</li>
+								<!--这是一条记录结束-->
+								<!--这是一条记录-->
+								<li class="mui-table-view-cell mui-media huise">
+									<div class="mui-slider-right mui-disabled">
+										<a class="mui-btn mui-btn-yellow">查看订单</a>
+										<a class="mui-btn mui-btn-red">删除记录</a>
+									</div>
+									<div class="mui-slider-handle">
+												<img class="mui-media-object mui-pull-left" src="../image/shop-3.jpg">
+												<div class="mui-media-body">
+													蓝月亮洗衣液  <button class="not mui-pull-right">未完成</button>
+													<h4 class="font-red">￥16.90<p style="float: right;">原价：<span class="zhonghuaxian">￥36.00</span></p></h4>
+													<p>属性：5L 薰衣草 牛仔</p>
+													<p>商家：美特好（文化中心）</p>
+												</div>
+											
+									</div>
+								</li>
+								<!--这是一条记录结束-->
+								<!--这是一条记录-->
+								<li class="mui-table-view-cell mui-media huise">
+									<div class="mui-slider-right mui-disabled">
+										<a class="mui-btn mui-btn-yellow">查看订单</a>
+										<a class="mui-btn mui-btn-red">删除记录</a>
+									</div>
+									<div class="mui-slider-handle">
+												<img class="mui-media-object mui-pull-left" src="../image/shop-3.jpg">
+												<div class="mui-media-body">
+													蓝月亮洗衣液  <button class="yes mui-pull-right">已完成</button>
+													<h4 class="font-red">￥16.90<p style="float: right;">原价：<span class="zhonghuaxian">￥36.00</span></p></h4>
+													<p>属性：5L 薰衣草 牛仔</p>
+													<p>商家：美特好（文化中心）</p>
+												</div>
+											
+									</div>
+								</li>
+								<!--这是一条记录结束-->
+								<!--这是一条记录-->
+								<li class="mui-table-view-cell mui-media huise">
+									<div class="mui-slider-right mui-disabled">
+										<a class="mui-btn mui-btn-yellow">查看订单</a>
+										<a class="mui-btn mui-btn-red">删除记录</a>
+									</div>
+									<div class="mui-slider-handle">
+												<img class="mui-media-object mui-pull-left" src="../image/shop-3.jpg">
+												<div class="mui-media-body">
+													蓝月亮洗衣液  <button class="yes mui-pull-right">已完成</button>
+													<h4 class="font-red">￥16.90<p style="float: right;">原价：<span class="zhonghuaxian">￥36.00</span></p></h4>
+													<p>属性：5L 薰衣草 牛仔</p>
+													<p>商家：美特好（文化中心）</p>
+												</div>
+											
+									</div>
+								</li>
+								<!--这是一条记录结束-->
+								<!--这是一条记录-->
+								<li class="mui-table-view-cell mui-media huise">
+									<div class="mui-slider-right mui-disabled">
+										<a class="mui-btn mui-btn-yellow">查看订单</a>
+										<a class="mui-btn mui-btn-red">删除记录</a>
+									</div>
+									<div class="mui-slider-handle">
+												<img class="mui-media-object mui-pull-left" src="../image/shop-3.jpg">
+												<div class="mui-media-body">
+													蓝月亮洗衣液  <button class="yes mui-pull-right">已完成</button>
+													<h4 class="font-red">￥16.90<p style="float: right;">原价：<span class="zhonghuaxian">￥36.00</span></p></h4>
+													<p>属性：5L 薰衣草 牛仔</p>
+													<p>商家：美特好（文化中心）</p>
+												</div>
+											
+									</div>
+								</li>
+								<!--这是一条记录结束-->
+								
+							</ul>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul class="mui-table-view">
+								<!--这是一条记录-->
+								<li class="mui-table-view-cell mui-media huise">
+									<div class="mui-slider-right mui-disabled">
+										<a class="mui-btn mui-btn-yellow">查看订单</a>
+										<a class="mui-btn mui-btn-red">删除记录</a>
+									</div>
+									<div class="mui-slider-handle">
+												<img class="mui-media-object mui-pull-left" src="../image/shop-3.jpg">
+												<div class="mui-media-body">
+													蓝月亮洗衣液  <button class="not mui-pull-right">未完成</button>
+													<h4 class="font-red">￥16.90<p style="float: right;">原价：<span class="zhonghuaxian">￥36.00</span></p></h4>
+													<p>属性：5L 薰衣草 牛仔</p>
+													<p>商家：美特好（文化中心）</p>
+												</div>
+											
+									</div>
+								</li>
+								<!--这是一条记录结束-->
+								<!--这是一条记录-->
+								<li class="mui-table-view-cell mui-media huise">
+									<div class="mui-slider-right mui-disabled">
+										<a class="mui-btn mui-btn-yellow">查看订单</a>
+										<a class="mui-btn mui-btn-red">删除记录</a>
+									</div>
+									<div class="mui-slider-handle">
+												<img class="mui-media-object mui-pull-left" src="../image/shop-3.jpg">
+												<div class="mui-media-body">
+													蓝月亮洗衣液  <button class="not mui-pull-right">未完成</button>
+													<h4 class="font-red">￥16.90<p style="float: right;">原价：<span class="zhonghuaxian">￥36.00</span></p></h4>
+													<p>属性：5L 薰衣草 牛仔</p>
+													<p>商家：美特好（文化中心）</p>
+												</div>
+											
+									</div>
+								</li>
+								<!--这是一条记录结束-->
+							</ul>
+						</div>
+						<div id="item3" class="mui-control-content">
+							<ul class="mui-table-view">
+								<!--这是一条记录-->
+								<li class="mui-table-view-cell mui-media huise">
+									<div class="mui-slider-right mui-disabled">
+										<a class="mui-btn mui-btn-yellow">查看订单</a>
+										<a class="mui-btn mui-btn-red">删除记录</a>
+									</div>
+									<div class="mui-slider-handle">
+												<img class="mui-media-object mui-pull-left" src="../image/shop-3.jpg">
+												<div class="mui-media-body">
+													蓝月亮洗衣液  <button class="yes mui-pull-right">已完成</button>
+													<h4 class="font-red">￥16.90<p style="float: right;">原价：<span class="zhonghuaxian">￥36.00</span></p></h4>
+													<p>属性：5L 薰衣草 牛仔</p>
+													<p>商家：美特好（文化中心）</p>
+												</div>
+											
+									</div>
+								</li>
+								<!--这是一条记录结束-->
+								<!--这是一条记录-->
+								<li class="mui-table-view-cell mui-media huise">
+									<div class="mui-slider-right mui-disabled">
+										<a class="mui-btn mui-btn-yellow">查看订单</a>
+										<a class="mui-btn mui-btn-red">删除记录</a>
+									</div>
+									<div class="mui-slider-handle">
+												<img class="mui-media-object mui-pull-left" src="../image/shop-3.jpg">
+												<div class="mui-media-body">
+													蓝月亮洗衣液  <button class="yes mui-pull-right">已完成</button>
+													<h4 class="font-red">￥16.90<p style="float: right;">原价：<span class="zhonghuaxian">￥36.00</span></p></h4>
+													<p>属性：5L 薰衣草 牛仔</p>
+													<p>商家：美特好（文化中心）</p>
+												</div>
+											
+									</div>
+								</li>
+								<!--这是一条记录结束-->
+								<!--这是一条记录-->
+								<li class="mui-table-view-cell mui-media huise">
+									<div class="mui-slider-right mui-disabled">
+										<a class="mui-btn mui-btn-yellow">查看订单</a>
+										<a class="mui-btn mui-btn-red">删除记录</a>
+									</div>
+									<div class="mui-slider-handle">
+												<img class="mui-media-object mui-pull-left" src="../image/shop-3.jpg">
+												<div class="mui-media-body">
+													蓝月亮洗衣液  <button class="yes mui-pull-right">已完成</button>
+													<h4 class="font-red">￥16.90<p style="float: right;">原价：<span class="zhonghuaxian">￥36.00</span></p></h4>
+													<p>属性：5L 薰衣草 牛仔</p>
+													<p>商家：美特好（文化中心）</p>
+												</div>
+											
+									</div>
+								</li>
+								<!--这是一条记录结束-->
+							</ul>
+						</div>
+					</div>
+					<!--全部订单结束-->
+					<!-- 侧滑后右侧变黑-->
+
+				</div>
+
+			</div>
+		</div>
+		</div>
+
+		<script>
+			mui('.mui-scroll-wrapper').scroll();
+		</script>
+
+	</body>
+
+</html>

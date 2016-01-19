@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/cross-down.css" rel="stylesheet" />
+		<script src="../js/jquery-1.9.1.min.js" type="text/javascript"></script>
+		<style>
+			.mui-backdrop {
+				position: absolute !important;
+				z-index: 100 !important;
+				height: 40%;
+				top: 0;
+			}
+			
+			.active {
+				border: 1px solid #CF2D28;
+				color: #CF2D28;
+			}
+			
+			a {
+				color: #333333;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!-- 侧滑导航根容器 -->
+
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+
+			<!-- 菜单容器 -->
+			<aside id="offCanvasSide" class="mui-off-canvas-left">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!-- 菜单具体展示内容 -->
+
+						<h3><span class=" icon-homefill mui-icon" href="###">
+							<a href="###">主页 ></a>
+							<!--<button id="offCanvasHide" type="button">关闭</button>-->
+						
+						</h3>
+						<ul class="left_btn mui-table-view mui-grid-view mui-grid-9">
+							<li><a href="###"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
+							<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
+							<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
+							<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
+							<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
+							<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
+							<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
+							<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
+							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
+							<li><a href="###"><span class=" icon-iconfontjifen36 mui-icon" href="###"></span>金融理财></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+
+						</ul>
+
+					</div>
+				</div>
+			</aside>
+			<!-- 左侧菜单结束 -->
+
+			<!-- 主页面容器 -->
+
+			<div class="mui-inner-wrap">
+
+				<!-- 主页面标题 -->
+
+				<header class="mui-bar mui-bar-nav">
+					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<h1 class="mui-title"></h1>
+				</header>
+				<!--主界面区域-->
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop">
+					<div class="mui-scroll">
+						<!--banner-->
+						<div class="mui-slider">
+							<div class="mui-slider-group">
+								<div class="mui-slider-item">
+									<!--<img src="../image/cp1.jpg" />-->
+								</div>
+							</div>
+						</div>
+						<!--banner区域结束-->
+						<!--按钮区域-->
+
+						<div class="shop_acter_text">
+							<div class="left">
+								<h2 class="pro_name"></h2>
+								<h2 class="font-red mx_jiage">￥</h2>
+								<p class="black">原价：<span class="zhonghuaxian">￥</span> | 销量：<span class="Quantity"></span>件</p>
+
+							</div>
+							<div class="right">
+								<button id="add_shop_car" type="button" class="mui-btn mui-btn-danger red jiesuan_btn">
+									加入购物车
+									<!--<span class="mui-badge mui-badge-danger">1</span>-->
+								</button>
+								<button id="shop_car" type="button" class="mui-btn mui-badge-danger yellow jiesuan_btn">
+									去结算
+								</button>
+							</div>
+						</div>
+						<div class="repair3_table" style="line-height: 30px; color:#666666;">
+
+							<a href="#bottomPopover" class="xuanze">商品属性： 
+							
+							<span id="choise" class="choise"></span>
+							<span id="productattr" style="display: none;"/></span>
+							<span id="choise_productattrname" style="display: none;"/></span>
+							<span class="mui-icon mui-icon-arrowright mui-pull-right" style="line-height: 30px;"></span>
+							</a>
+						</div>
+
+						<div class="repair3_table" style="line-height: 30px; color:#666666;">
+							<a>数量 :</a>
+							<div class="mui-numbox mui-pull-right" data-numbox-min='1' data-numbox-max='20'>
+								<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+								<input id="buynumber" style="margin-top:0 !important;" class="mui-numbox-input" type="number" value="1" />
+								<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+							</div>
+						</div>
+						<div class="red font-bai" style="padding: 5px; margin-top: 5px;">商品详情</div>
+						<div class="shop_main">
+							<!--<img src="../image/sd7.png" />-->
+						</div>
+
+						<div class="mui-off-canvas-backdrop"></div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!--弹出属性菜单-->
+		<div id="bottomPopover" class="mui-popover mui-popover-bottom">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="repair3_table" style="border-bottom: 1px solid  #EEEEEE;">
+						<div class="sm_shop_img"></div>
+						<div class="right">
+							<h2 class="pro_name"></h2>
+							<h2 class="font-red mx_jiage">￥</h2>
+							<p class="black">原价：<span class="zhonghuaxian">￥</span> | 销量：<span class="Quantity"></span>件</p>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+					<div class="tanchu_shuxing">
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!--弹出属性菜单-->
+
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/myapp.js"></script>
+		<script src="../js/app.js"></script>
+		<script>
+			mui.init();
+			//*************************************结算************************************
+			document.getElementById('shop_car').addEventListener('tap', function() {
+				//打开关于页面
+				mui.ajax('http://101.201.196.202:82/product/whetherlogin', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode == 200) {
+							mui.openWindow({
+								url: 'shop_car.html',
+								id: 'shop_car'
+							});
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
+			});
+			mui('.mui-scroll-wrapper').scroll();
+			mui('body').on('shown', '.mui-popover', function(e) {
+				//console.log('shown', e.detail.id);//detail为当前popover元素
+			});
+			mui('body').on('hidden', '.mui-popover', function(e) {
+				//console.log('hidden', e.detail.id);//detail为当前popover元素
+			});
+			//			$(".tanchu_shuxing .mui-btn").click(function() {
+			//				//				var i = $(this).parent("div").index();
+			//				if ($(this).hasClass("active")) {
+			//					$(this).removeClass("active")
+			//				} else {
+			//					$(this).siblings(".mui-btn").removeClass("active");
+			//					$(this).addClass("active");
+			//				}
+			//				$('.shuxing_text').html($(".tanchu_shuxing .active").text() + $(".tanchu_shuxing .active .shuxing_block").text());
+			//			});
+			///////////////////**********************************以下为获取数据**********************************************
+			window.addEventListener('productsId', function(event) {
+				//获得事件参数
+				var cuxiao_id = event.detail.cuxiao_id;
+				//				页面加载时，清空数据层的缓存数据
+				$(".mui-title").empty();
+				$(".left .pro_name").empty();
+				$(".left .font-red.mx_jiage").empty();
+				$(".left .zhonghuaxian").empty();
+				$(".shop_main").empty();
+				$(".right .pro_name").empty();
+				$(".right .font-red.mx_jiage").empty();
+				$(".right .zhonghuaxian").empty();
+				$(".sm_shop_img").empty();
+				$(".tanchu_shuxing").empty();
+				$('.choise').empty();
+				$('.Quantity').empty();
+				//根据id向服务器请求新闻详情
+				mui.ajax('http://101.201.196.202:82//product/Panicbuy_Detail', {
+						data: {
+							id: cuxiao_id,
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'GET', //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var str = "";
+							//alert(cuxiao_id)
+							$(".mui-title").html(data.Names);
+							$(".left .pro_name").html(data.Names);
+							$(".left .font-red.mx_jiage").html("￥" + data.Price1);
+							$(".left .zhonghuaxian").html("￥" + data.Price2);
+							$(".shop_main").html(data.Description);
+							$(".right .pro_name").html(data.Names);
+							$(".right .font-red.mx_jiage").html("￥" + data.Price1);
+							$(".right .zhonghuaxian").html("￥" + data.Price2);
+							$('.Quantity').html(data.Quantity);
+							$(".sm_shop_img").html("<img src=\"http://101.201.196.202:82/Images/ProductImg/" + data.Brand.brand_logo + " \"/>");
+							//获取产品的相册列表
+							mui.ajax('http://101.201.196.202:82/product/Panicbuy', {
+								data: {
+									productid: data.ID
+								},
+								dataType: 'json', //服务器返回json格式数据
+								type: 'GET', //HTTP请求类型,
+								timeout: 10000, //超时时间设置为10秒；
+								success: function(data1) {
+									var gallery = "";
+									//服务器返回响应，根据响应结果，分析是否登录成功；
+									for (var j = 0; j < data1.length; j++) {
+										gallery += "<div class=\"mui-slider-item\"><img src=\"http://101.201.196.202:82/Images/ProductImg/" + data1[j].Names + "\" /></div>";
+									}
+									$(".mui-slider-group").html(gallery);
+								}
+							});
+							//获取属性列表
+							mui.ajax('http://101.201.196.202:82/product/Panicbuy_Purchase', {
+								data: {
+									producttypeid: data.ProductsType_ID,
+								},
+								dataType: 'json', //服务器返回json格式数据
+								type: 'GET', //HTTP请求类型,
+								timeout: 10000, //超时时间设置为10秒；
+								success: function(data2) {
+									//服务器返回响应，根据响应结果，分析是否登录成功；
+									//获取所属产品的属性列表
+									var ProductAttribute = "";
+									var post_attr = "";
+									mui.getJSON('http://101.201.196.202:82/product/Customers_Detail', {
+											productid: data.ID,
+										},
+										function(data3) {
+											for (var i = 0; i < data2.length; i++) {
+												ProductAttribute += "<p class =\"black\">" + data2[i].Names + "</p><div>";
+												for (var p = 0; p < data3.length; p++) {
+													if (data3[p].ProductAttributeType_ID == data2[i].ID) {
+														ProductAttribute += "<div class=\"mui-btn\">" + data3[p].Names + "<span class=\"shuxing_block\">&nbsp;</span></div>"
+													}
+												}
+												ProductAttribute = ProductAttribute + "</div>";
+												post_attr += data2[i].Names + ",";
+											}
+											$(".tanchu_shuxing").html(ProductAttribute);
+											$("#productattr").html(post_attr);
+											//*****************************此为选中提交js************************
+											$(".tanchu_shuxing .mui-btn").click(function() {
+												if ($(this).hasClass("active")) {
+													$(this).removeClass("active")
+												} else {
+													$(this).siblings(".mui-btn").removeClass("active");
+													$(this).addClass("active");
+												}
+												$('.choise').html($(".tanchu_shuxing .active").text());
+												$('#choise_productattrname').html($(".tanchu_shuxing .active").text());
+											});
+											//*****************************此为选中提交js************************
+										});
+								}
+							});
+						}
+					})
+					//*************************************加入购物车*****************************
+					(function($, doc) {
+						$.init();
+						$.plusReady(function() {
+							var settings = app.getSettings();
+							var add_shop_car = doc.getElementById('add_shop_car');
+							var choise_productattrname = doc.getElementById('choise_productattrname');
+							var buynumber = doc.getElementById('buynumber');
+							var productattr = doc.getElementById('productattr');
+							add_shop_car.addEventListener('tap', function(event) {
+								//****************************用户提交成功返回*********************************
+								mui.ajax('http://101.201.196.202:82/product/AddCart', {
+									data: {
+										"ProAttrType": productattr.innerHTML,
+										"Quantity": buynumber.value,
+										"ProAttrName": choise_productattrname.innerHTML.replace(/\&nbsp;/g, ","),
+										"Products_ID": cuxiao_id,
+										"ShoppingCartType": "2"
+											//								"Business_ID":""
+									},
+									dataType: 'json', //服务器返回json格式数据
+									type: 'Post', //HTTP请求类型,
+									timeout: 10000, //超时时间设置为10秒；
+									success: function(data) {
+										if (data.statusCode == 200) {
+											plus.ui.toast(data.message);
+										} else {
+											plus.ui.toast(data.message);
+										}
+									}
+								})
+							});
+						});
+					}(mui, document));
+			});
+		</script>
+
+	</body>
+
+</html>

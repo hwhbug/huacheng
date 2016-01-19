@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>社区慧生活</title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<script src="js/mui.picker.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script src="js/city.data.js"></script>
+		<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+		<style>
+			.mui-media-body {
+				font-size: 14px !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- 侧滑导航根容器 -->
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+			<!-- 菜单容器 -->
+			<aside id="offCanvasSide" class="mui-off-canvas-left">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!-- 菜单具体展示内容 -->
+						<h3><span class=" icon-homefill mui-icon" href="###">
+							<a href="###">主页 ></a>
+							<!--<button id="offCanvasHide" type="button">关闭</button>-->
+						</h3>
+						<ul class="left_btn">
+							<li id="offCanvasHide"><a href="http://www.baidu.com" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
+							<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
+							<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
+							<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
+							<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
+							<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
+							<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
+							<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
+							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
+							<li><a href="###"><span class=" icon-iconfontjifen36 mui-icon" href="###"></span>金融理财></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+						</ul>
+					</div>
+				</div>
+			</aside>
+			<!-- 左侧菜单结束 -->
+
+			<!-- 主页面容器 -->
+
+			<div class="mui-inner-wrap">
+				<!-- 主页面标题 -->
+				<header class="mui-bar mui-bar-nav">
+					<button id="login" class="login mui-icon icon-myfill">
+						<p>登录</p>
+					</button>
+					<button id="offCanvasShow" type="button" style="margin-bottom: 2px;"><img src="image/index_01.gif"></button>
+					<h1 class="mui-title"><button id='showCityPicker3' class="mui-btn mui-btn-block adress" type='button'>
+						<div id='cityResult3' class="ui-alert"> 选择小区 ˇ </div></button></h1>
+				</header>
+				<!--主界面区域--> 
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper index_content">
+					<div class="mui-scroll">
+
+						<!-- 主界面具体展示内容 -->
+						<!--banner-->
+						<div class="mui-slider">
+							<div class="mui-slider-group">
+
+								<div class="mui-slider-item">
+									<img src="image/index_01_03.gif">
+								</div>
+
+								<div class="mui-slider-item">
+									<img src="image/index_01_03.gif">
+								</div>
+
+								<div class="mui-slider-item">
+									<img src="image/index_01_03.gif">
+								</div>
+							</div>
+						</div>
+						<!--banner区域结束-->
+						<!--按钮区域-->
+
+						<div id="container">
+							<ul class="mui-table-view mui-grid-view mui-grid-9 btn_nav">
+
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<a href="#">
+										<span class="mui-icon icon-sponsorfill"></span>
+										<div class="mui-media-body">物业缴费</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<a id="repair" href="#">
+										<span class="mui-icon icon-wrench"></span>
+										<div class="mui-media-body">家用报修</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<a href="#">
+										<span class="mui-icon icon-xinshenger"></span>
+										<div class="mui-media-body">家政在线</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_8">
+									<a href="#">
+										<span class="mui-icon icon-airplane"></span>
+										<div class="mui-media-body">外出旅游</div>
+									</a>
+								</li>
+
+								<li id="shop" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_2">
+									<a href="#">
+										<span class="mui-icon icon-shoppingcart"></span>
+										<div class="mui-media-body">购物</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 in_banner">
+									<img class="mui-media-object" src="image/index_19.gif">
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_1">
+									<a href="#">
+										<span class="mui-icon icon-diancan"></span>
+										<div class="mui-media-body">订餐</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<a href="#">
+										<span class="mui-icon icon-falv"></span>
+										<div class="mui-media-body">法律援助</div>
+									</a>
+								</li>
+
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_9">
+									<a href="#">
+										<span class="mui-icon icon-usersecret"></span>
+										<div class="mui-media-body">居家养老</div>
+									</a>
+								</li>
+
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_10">
+									<a href="#">
+										<span class="mui-icon icon-jilijiangjin"></span>
+										<div class="mui-media-body">二手交易</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_11">
+									<a href="#">
+										<span class="mui-icon icon-jiankang"></span>
+										<div class="mui-media-body">健康管理</div>
+									</a>
+								</li>
+
+							</ul>
+						</div>
+
+						<!--按钮区域结束-->
+						<div id="banner">
+							<img src="image/banner_37.gif" />
+
+						</div>
+						<div id="main">
+							<ul class="mui-table-view" id="index-product">
+
+							</ul>
+						</div>
+
+						<!-- 侧滑后右侧变黑-->
+						<div class="mui-off-canvas-backdrop"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/myapp.js"></script>
+		<script src="js/geturl.js"></script>
+		<script src="js/pages/index/index.js"></script>
+		<script>
+//			// 扩展API加载完毕后调用onPlusReady回调函数 
+//			document.addEventListener("plusready", onPlusReady, false);
+//			// 扩展API加载完毕，现在可以正常调用扩展API
+//			function onPlusReady() {
+//				// 使用百度地图地位模块获取位置信息
+//				plus.geolocation.getCurrentPosition(function(p) {
+//					alert( p.addresses);
+//				}, function(e) {
+//					alert("Geolocation error: " + e.message);
+//				}, {
+//					provider: 'baidu'
+//				});
+//			}
+		</script>
+	</body>
+
+</html>

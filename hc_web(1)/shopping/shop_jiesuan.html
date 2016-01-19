@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/cross-down.css" rel="stylesheet" />
+		<script src="../js/jquery-1.9.1.min.js" type="text/javascript"></script>
+		<style>
+			.left_jiage {
+				float: left;
+				padding: 10px 0;
+				margin-top: 6px;
+			}
+			html{
+				background: #FFFFFF;
+			}
+			.zhifu {
+				width: 30%;
+				float: right;
+				background: #CF2D28;
+				color: #FFFFFF;
+				border: none;
+				margin-top: 25px;
+			}
+			
+			.footer {
+				padding: 0 10px;
+				border-top: 1px solid #EEE;
+			}
+			.mui-slider-right{
+				position: relative; 
+			}
+			.mui-slider-right .mui-btn {
+			
+				position:relative;
+				top:0px;
+			}
+			.huise {
+				position: relative !important; 
+			}
+			.mui-table-view-cell:after {
+				display: none;
+			}
+			p{
+				margin-bottom: 0;
+				line-height: 1.5em;
+			}
+			.jiesuan li{
+				border-bottom: 1px solid #EEEEEE;
+				padding: 10px 0;
+				`
+			}
+			.mui-table-view-cell{
+				font-size: 16px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+
+		<!-- 侧滑导航根容器 -->
+
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">结算中心</h1>
+		</header>
+
+		<!--主界面区域-->
+		<div class="repair3_table mui-content jiesuan">
+			<ul>
+				<li>
+					<p>蓝月亮洗衣液x1<span class="font-red mui-pull-right">￥50.00</span></p>
+				</li>
+				<li>
+					<p>蓝月亮洗衣液x2<span class="font-red mui-pull-right">￥150.00</span></p>
+				</li>
+				<li>
+					<p>蓝月亮洗衣液x3<span class="font-red mui-pull-right">￥70.00</span></p>
+				</li>
+				<li>
+					<p>蓝月亮洗衣液x5<span class="font-red mui-pull-right">￥50.00</span></p>
+				</li>
+				<li>
+					<p>蓝月亮洗衣液x1<span class="font-red mui-pull-right">￥50.00</span></p>
+				</li>
+				<li>
+					<p>蓝月亮洗衣液x2<span class="font-red mui-pull-right">￥50.00</span></p>
+				</li>
+
+			
+			
+		
+			</ul>
+
+		</div>
+		<!-- FOOTER区域-->
+		<nav class="mui-bar mui-bar-tab footer">
+			<div class="dizhi" style="line-height: 30px; color:#666666;">
+				<p class="black">收货人：李晨源 <span class="mui-pull-right" ：>联系电话：15035667535</span></p>
+				<p>收货地址：山西省 晋中市 榆次区</p>
+				<p>山西省晋中市榆次区中都北路军安小区对面易魔方数字设计中心 </p>
+			</div>
+			<p class="black">支付方式</p>
+			<ul class="mui-table-view mui-table-view-radio">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						华晟一卡通
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-selected">
+					<a class="mui-navigate-right">
+						支付宝
+					</a>
+				</li>
+			</ul>
+
+			<div class="clear"></div>
+			<div class="left_jiage">
+
+				<strong>共计：<span class="font-red mx_jiage">￥210</span></strong>
+				<p>本次消费可获得积分：1000</p>
+			</div>
+			<button class="zhifu">
+				去结算
+			</button>
+		</nav>
+
+		<script src="../js/mui.min.js"></script>
+		<script>
+		
+			mui('.mui-scroll-wrapper').scroll();
+			
+		</script>
+
+	</body>
+
+</html>

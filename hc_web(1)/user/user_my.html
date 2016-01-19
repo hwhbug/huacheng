@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style>
+			.mui-icon-email {
+				line-height: 30px;
+				font-size: 26px !important;
+				padding-right: 10px !important;
+				margin: 0 !important;
+			}
+			
+			p {
+				color: #FFFFFF;
+				margin-bottom:0;
+			}
+			
+			.icon-fenxiang:before {
+				color: #3EA8DA;
+			}
+			
+			.yellow,
+			.red {
+				border: none !important;
+			}
+			
+			ul {
+				border: none !important;
+			}
+			.btn_user li{
+				border-bottom: 1px solid #C0C0C0;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-icon mui-action-back mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">个人中心</h1>
+			<span id="icon-menu" class="mui-icon mui-icon-email mui-pull-right font-blue"></span>
+		</header>
+
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="container">
+					<div class="myuser">
+						<div class="left sm_shop_img"><img src="../image/30-023131_451.jpg"></div>
+						<div class="right">
+							<p>尊敬的：<span class="">李先生</span> 欢迎回来！</p>
+							<p>手机：150****7535</p>
+							<p>社区慧生活已为您服务 <span class="font-yellow mx_jiage">22</span> 次</p>
+							<p>积分：1500</p>
+						</div>
+					</div>
+					<!--主功能按钮-->
+					<ul class="mui-table-view mui-grid-view mui-grid-9 btn_nav">
+						<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 yellow">
+							<span class="font-bai">购物车</span>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 red">
+							<span class="font-bai">每日签到</span>
+						</li>
+						<li id="user_dingdan" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<a href="#">
+								<span class="mui-icon icon-wd1"></span>
+								<div class="mui-media-body">订单管理</div>
+							</a>
+						</li>
+						<li id="user_fuwu" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<a href="#">
+								<span class="mui-icon icon-wd2"></span>
+								<div class="mui-media-body">我的服务</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<a id="repair" href="#">
+								<span class="mui-icon icon-wd3"></span>
+								<div class="mui-media-body">物业账单</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<a id="repair" href="#">
+								<span class="mui-icon icon-wd4"></span>
+								<div class="mui-media-body">我的发布</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<a id="repair" href="#">
+								<span class="mui-icon icon-fenxiang"></span>
+								<div class="mui-media-body">分享信息</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<a id="repair" href="#">
+								<span class="mui-icon icon-wd6"></span>
+								<div class="mui-media-body">消息管理</div>
+							</a>
+						</li>
+					</ul>
+					<!--周边新开列表结束-->
+					<ul class="mui-table-view btn_user">
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right">	
+									用户协议
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right">	
+									隐私条款
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right">	
+									意见反馈
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right">	
+									客服帮助
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right">	
+									关于我们
+							</a>
+						</li>
+						<li id="loginout" class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right">	
+									注销账户
+							</a>
+						</li>
+					</ul>
+					<!-- 侧滑后右侧变黑-->
+
+				</div>
+
+			</div>
+		</div>
+		</div>
+
+		<script>
+			mui('.mui-scroll-wrapper').scroll();
+			mui('.mui-scroll-wrapper').scroll();
+			document.getElementById('user_dingdan').addEventListener('tap', function() {
+				//打开关于页面
+				mui.openWindow({
+					url: 'user_dingdan.html',
+					id: 'user_dingdan'
+				});
+			});
+			document.getElementById('user_fuwu').addEventListener('tap', function() {
+				//打开关于页面
+				mui.openWindow({
+					url: 'user_fuwu.html',
+					id: 'user_fuwu'
+				});
+			});
+			document.getElementById('loginout').addEventListener('tap', function() {
+				//打开关于页面
+				mui.ajax('http://101.201.196.202:82/home/Logout', {
+								data: {},
+								dataType: 'json', //服务器返回json格式数据
+								type: 'Post', //HTTP请求类型,
+								timeout: 10000, //超时时间设置为10秒；
+								success: function(data) {
+									if (data.statusCode == 200) {
+										plus.ui.toast(data.message);
+											var wobj = plus.webview.getWebviewById(plus.runtime.appid);
+											wobj.reload()
+											mui.back();
+									} 
+								}
+							})
+			});
+		</script>
+
+	</body>
+
+</html>

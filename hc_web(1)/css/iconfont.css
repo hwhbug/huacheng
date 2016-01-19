@@ -1,0 +1,47 @@
+
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot'); /* IE9*/
+  src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */;
+  url('iconfont.woff') format('woff'), /* chrome、firefox */
+  url('iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/;
+
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-zhanghumingxi:before { content: "\e60c"; }
+.icon-xinshenger:before { content: "\e60d";color:#d82f4e ; }
+.icon-wrench:before { content: "\e600"; color:#3ea8da; }
+.icon-teamaker:before { content: "\e601"; color:#3ea8da;}
+.icon-coinyen:before { content: "\e602"; color: #f17e25; }
+.icon-airplane:before { content: "\e603"; color:#1aa54b; font-size: 1em; }
+.icon-iconfontjiage:before { content: "\e605";  color:#d82f4e ;}
+.icon-iconfontjifen36:before { content: "\e606";color:#3ea8da;  }
+.icon-usersecret:before { content: "\e607";color:#1aa54b;  }
+.icon-shangpu:before { content: "\e609"; color:#d82f4e ; }
+.icon-jilijiangjin:before { content: "\e60a"; color:#f17e25 ;}
+.icon-shoppingcart:before { content: "\e60b";color:#d82f4e ; font-size: 1.3em; }
+.icon-diancan:before { content: "\e604"; color: #f17e25; font-size: 1.2em; }
+.icon-likefill:before { content: "\e60e"; }
+.icon-cartfill:before { content: "\e60f"; color:#d82f4e;}
+.icon-homefill:before { content: "\e610"; color:#FFFFFF; }
+.icon-myfill:before { content: "\e611"; color:#d82f4e ;}
+.icon-sponsorfill:before { content: "\e612";color:#3ea8da;  }
+.icon-miaojiepromotion:before { content: "\e614"; color: #7eb627; }
+.icon-shop:before { content: "\e613"; color: #d82f4e; }
+.icon-iconfonttehuijingxuan:before { content: "\e616"; color: #EC971F; }
+.icon-iconfontqiang:before { content: "\e615"; color:#C13D91 ; }
+.icon-fenxiang:before { content: "\e608"; color: #AAAAAA; font-size:0.8em; }
+.icon-wd6:before { content: "\e617"; color: #3EA8DA; }
+.icon-wd1:before { content: "\e618"; color: #3EA8DA; }
+.icon-wd4:before { content: "\e619"; color: #3EA8DA;}
+.icon-wd2:before { content: "\e61b"; color: #3EA8DA; }
+.icon-wd3:before { content: "\e61c"; color: #3EA8DA; }
+.icon-falv:before { content: "\e61d";color:#1aa54b; }
+.icon-jiankang:before { content: "\e61a"; color:#D82F4E; font-size: 0.9em; }
