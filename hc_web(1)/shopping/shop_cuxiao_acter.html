@@ -153,7 +153,7 @@
 						<div class="right">
 							<h2 class="pro_name"></h2>
 							<h2 class="font-red mx_jiage">￥</h2>
-							<p class="black">原价：<span class="zhonghuaxian">￥</span> | 销量：<span class="Quantity"></span>件</p>
+							<p class="black">原价：<span class="zhonghuaxian">￥</span>" | 销量：<span class="Quantity"></span>件</p>
 						</div>
 						<div style="clear: both;"></div>
 					</div>
@@ -309,39 +309,46 @@
 						}
 					})
 					//*************************************加入购物车*****************************
-					(function($, doc) {
-						$.init();
-						$.plusReady(function() {
-							var settings = app.getSettings();
-							var add_shop_car = doc.getElementById('add_shop_car');
-							var choise_productattrname = doc.getElementById('choise_productattrname');
-							var buynumber = doc.getElementById('buynumber');
-							var productattr = doc.getElementById('productattr');
-							add_shop_car.addEventListener('tap', function(event) {
-								//****************************用户提交成功返回*********************************
-								mui.ajax('http://101.201.196.202:82/product/AddCart', {
-									data: {
-										"ProAttrType": productattr.innerHTML,
-										"Quantity": buynumber.value,
-										"ProAttrName": choise_productattrname.innerHTML.replace(/\&nbsp;/g, ","),//正则表达式替换所有字符
-										"Products_ID": cuxiao_id,
-										"ShoppingCartType": "2"
-											//								"Business_ID":""
-									},
-									dataType: 'json', //服务器返回json格式数据
-									type: 'Post', //HTTP请求类型,
-									timeout: 10000, //超时时间设置为10秒；
-									success: function(data) {
-										if (data.statusCode == 200) {
-											plus.ui.toast(data.message);
-										} else {
-											plus.ui.toast(data.message);
-										}
-									}
-								})
-							});
-						});
-					}(mui, document));
+				var settings = app.getSettings();
+				var add_shop_car = document.getElementById('add_shop_car');
+				var choise_productattrname = document.getElementById('choise_productattrname');
+				var buynumber = document.getElementById('buynumber');
+				var productattr = document.getElementById('productattr');
+				//正则表达式判断空格出现的次数
+				var re = new RegExp("&nbsp;", "g");
+				var reattr = new RegExp(",", "g");
+				add_shop_car.addEventListener('tap', function(event) {
+					if (choise_productattrname.innerHTML.replace(/\&nbsp;/g, ",") == "") {
+						plus.ui.toast("请完善信息");
+						return;
+					} else {
+						if (choise_productattrname.innerHTML.match(re).length != productattr.innerHTML.match(reattr).length) {
+							plus.ui.toast("属性选择不完善");
+							return;
+						}
+					}
+					//****************************用户提交成功返回*********************************
+					mui.ajax('http://101.201.196.202:82/product/AddCart', {
+						data: {
+							"ProAttrType": productattr.innerHTML,
+							"Quantity": buynumber.value,
+							"ProAttrName": choise_productattrname.innerHTML.replace(/\&nbsp;/g, ","), //正则表达式替换所有字符
+							"Products_ID": cuxiao_id,
+							"ShoppingCartType": "2"
+								//								"Business_ID":""
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'Post', //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							if (data.statusCode == 200) {
+								plus.ui.toast(data.message);
+							} else {
+								plus.ui.toast(data.message);
+							}
+						}
+					})
+				});
 			});
 		</script>
 

@@ -164,8 +164,8 @@
 				<!-- FOOTER区域-->
 				<nav class="mui-bar mui-bar-tab footer">
 					<div class="left_jiage">
-						<strong>共计：<span class="font-red mx_jiage">￥</span></strong>
-						<p>本次消费可获得积分：</p>
+						<strong>共计：<span class="font-red mx_jiage">￥0</span></strong>
+						<p>本次消费可获得积分：0</p>
 					</div>
 					<button id="zhifu" class="zhifu">
 						去结算
@@ -214,9 +214,11 @@
 			mui('#order').on('change', 'input', function() {
 				var value = this.checked ? "true" : "false";
 				if (value == "true") {
-					$("#left_jiage").html();
+					alert(this.parentElement.parentElement.getElementsByClassName("zhonghuaxian").innerText);
+					$(".left_jiage").html("<strong>共计：<span class=\"font-red mx_jiage\">￥"+"</span></strong><p>本次消费可获得积分：</p>");
+					
 				} else {
-					$("#left_jiage").html();
+					$(".left_jiage").html("<strong>共计：<span class=\"font-red mx_jiage\">￥"+"</span></strong><p>本次消费可获得积分：</p>");
 				}
 			});
 			document.getElementById('zhifu').addEventListener('tap', function() {
