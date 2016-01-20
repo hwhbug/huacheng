@@ -327,6 +327,11 @@
 							return;
 						}
 					}
+					alert(productattr.innerHTML);
+					alert(buynumber.value);
+					alert(choise_productattrname.innerHTML.replace(/\&nbsp;/g, ","));
+					alert(cuxiao_id);
+					
 					//****************************用户提交成功返回*********************************
 					mui.ajax('http://101.201.196.202:82/product/AddCart', {
 						data: {

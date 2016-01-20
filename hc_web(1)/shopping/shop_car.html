@@ -129,7 +129,7 @@
 				</header>
 
 				<!--主界面区域-->
-				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop">
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop" >
 					<div class="mui-scroll">
 						<ul id="order" class="mui-table-view">
 							<!--这是一条订单-->
@@ -149,6 +149,7 @@
 												蓝月亮洗衣液
 												<h4 class="font-red">￥16.90<p style="float: right;">原价：<span class="zhonghuaxian">￥36.00</span></p></h4>
 												<p>属性：5L 薰衣草 牛仔</p>
+												<p >数量：5</p>
 												<p>商家：美特好（文化中心）</p>
 											</div>
 										</a>
@@ -164,8 +165,8 @@
 				<!-- FOOTER区域-->
 				<nav class="mui-bar mui-bar-tab footer">
 					<div class="left_jiage">
-						<strong>共计：<span class="font-red mx_jiage">￥0</span></strong>
-						<p>本次消费可获得积分：0</p>
+						<strong>共计：<span id="mx_jiage" class="font-red mx_jiage">￥0</span></strong>
+						<p>本次消费可获得积分：<span id="jifeng"></span></p>
 					</div>
 					<button id="zhifu" class="zhifu">
 						去结算
@@ -200,26 +201,60 @@
 				success: function(data) {
 					var shopcar = "";
 					for (var i = 0; i < data.length; i++) {
-						shopcar += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a class=\"mui-btn mui-btn-red\">删除订单</a></div><div class=\"mui-slider-handle\"><div class=\"left mui-checkbox\"><input class=\"shop-radio\" name=\"radio\" value=\"shop-1\" type=\"checkbox\"></div><div class=\"right\"><a href=\"javascript:;\"><img class=\"mui-media-object mui-pull-left\" src=\"http://101.201.196.202:82/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body mui-pull-left\">" + data[i].Products.Names + "<h4 class=\"font-red\">￥" + data[i].Products.Price1 + "</h4><p>属性：" + data[i].ProAttrName + "</p>";
+						shopcar += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除订单</a></div><div class=\"mui-slider-handle\"><div class=\"left mui-checkbox\"><input class=\"shop-radio\" name=\"radio\" value=\"shop-1\" type=\"checkbox\"></div><div class=\"right\"><a href=\"javascript:;\"><img class=\"mui-media-object mui-pull-left\" src=\"http://101.201.196.202:82/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body mui-pull-left\">" + data[i].Products.Names + "<h4 class=\"font-red\">￥" + data[i].Products.Price2 + "<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Products.Price1 + "</span></p></h4><p>属性：" + data[i].ProAttrName.replace("/\,/g", "&nbsp;") + "</p><p id=\"Quantity\">数量：" + data[i].Quantity + "</p>";
 						if (data[i].Business_ID != null) {
 							shopcar += "<p>商家：" + data[i].Business.Names + "</p></div></a></div></div></li>";
 						} else {
 							shopcar += "</div></a></div></div></li>"
 						}
 					}
-					//						<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥</span></p>
 					$("#order").html(shopcar);
 				}
 			})
 			mui('#order').on('change', 'input', function() {
 				var value = this.checked ? "true" : "false";
-				if (value == "true") {
-					alert(this.parentElement.parentElement.getElementsByClassName("zhonghuaxian").innerText);
-					$(".left_jiage").html("<strong>共计：<span class=\"font-red mx_jiage\">￥"+"</span></strong><p>本次消费可获得积分：</p>");
-					
-				} else {
-					$(".left_jiage").html("<strong>共计：<span class=\"font-red mx_jiage\">￥"+"</span></strong><p>本次消费可获得积分：</p>");
-				}
+				var productid = this.parentElement.parentElement.parentElement.getAttribute("id");
+				//				var Quantity = this.parentElement.parentElement.("#Quantity").innerHTML;
+				var sum = parseInt(document.getElementById("mx_jiage").innerHTML.replace("￥", ""));
+				mui.ajax('http://101.201.196.202:82/ShoppingCart/shopcartbyid', {
+					data: {
+						id: productid,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (value == "true") {
+							sum = sum + data.Products.Price2 * data.Quantity;
+							$("#mx_jiage").html("￥" + sum);
+							$("#jifeng").html(sum);
+						} else {
+							sum = sum - data.Products.Price2 * data.Quantity;
+							$("#mx_jiage").html("￥" + sum);
+							$("#jifeng").html(sum);
+						}
+					}
+				})
+			});
+			mui('#order').on('tap', '.mui-btn-red', function(e) {
+				var productid=this.getAttribute('id');
+				mui.ajax('http://101.201.196.202:82/ShoppingCart/Delete', {
+					data: {
+						id: productid,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode="200") {
+							plus.ui.toast(data.message);
+							var wobj = plus.webview.currentWebview();
+											wobj.reload()
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
 			});
 			document.getElementById('zhifu').addEventListener('tap', function() {
 				//打开关于页面

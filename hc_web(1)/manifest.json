@@ -263,7 +263,10 @@
 					"css/mui.poppicker.css",
 					"js/city.data.js",
 					null,
-					"js/pages/index/index.js"
+					"js/pages/index/index.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/update.js"
 				],
 				"refer": [
 					"shopping/shop_index.html",
@@ -632,7 +635,8 @@
 					"css/style.css",
 					"fonts/iconfont.ttf",
 					"css/cross-down.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/mui.js"
 				],
 				"refer": [
 					"shopping/shop_jiesuan.html"
@@ -875,7 +879,6 @@
 				"css/mui.dtpicker.css",
 				"image/index_21.gif",
 				"css/mui.picker.all.css",
-				"js/update.js",
 				"image/baoxiu_02.gif",
 				"js/mui.imageViewer.js",
 				"images/weixin.png",
