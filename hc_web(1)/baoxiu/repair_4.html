@@ -13,7 +13,8 @@
 		<link href="../css/mui.imageviewer.css" rel="stylesheet" />
 		<link href="../css/mui.poppicker.css" rel="stylesheet" />
 		<link href="../css/mui.picker.css" rel="stylesheet" />
-		<script src="../js/mui.city.data.js"></script>
+		<!--<script src="../js/mui.city.data.js"></script>-->
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 		</script>
@@ -22,43 +23,7 @@
 
 	<body>
 
-		<!-- 侧滑导航根容器 -->
-
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
-
-			<!-- 菜单容器 -->
-			<aside id="offCanvasSide" class="mui-off-canvas-left">
-				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<!-- 菜单具体展示内容 -->
-
-						<h3><span class=" icon-homefill mui-icon" href="###">
-							<a href="###">主页 ></a>
-							<!--<button id="offCanvasHide" type="button">关闭</button>-->
-						
-						</h3>
-						<ul class="left_btn">
-							<li id="offCanvasHide"><a href="http://www.baidu.com" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
-							<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
-							<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
-							<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
-							<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
-							<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
-							<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
-							<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
-							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
-							<li><a href="###"><span class=" icon-iconfontjifen36 mui-icon" href="###"></span>金融理财></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-
-						</ul>
-
-					</div>
-				</div>
-			</aside>
-			<!-- 左侧菜单结束 -->
-
 			<!-- 主页面容器 -->
 
 			<div class="mui-inner-wrap   repair2_container">
@@ -73,67 +38,32 @@
 				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
 					<div class="mui-scroll">
 						<div class="repair3_table">
-							<p class="black"><span class="mui-icon mui-icon-paperclip yellow-font" >订单号：</span>10020051111</p>
+							<p class="black"><span class="mui-icon mui-icon-paperclip yellow-font">订单号：</span><span id="ordid"></span></p>
 							<!--此处为当前进度图像-->
 							<div class="repair_loadbar bar_1">
-								<div class="bar ">
-									<img src="../image/b1.jpg" />
-									
+								<div class="bar">
+
 								</div>
-								
-							</div>
-							<div class="repair_loadbar bar_2">
-								<div class="bar ">
-									<img src="../image/b2.jpg" />
-									
-								</div>
-								
-							</div>
-							<div class="repair_loadbar bar_3">
-								<div class="bar ">
-									<img src="../image/b3.jpg" />
-									
-								</div>
-								
-							</div>
-							<div class="repair_loadbar bar_4">
-								<div class="bar ">
-									<img src="../image/b4.jpg" />
-									
-								</div>
-								
 							</div>
 							<!--此处为当前进度图像结束-->
 							<p class="shuomin">订单确认过程大约需要15分钟</h4>
-							
-						</div>	
-							
-						
-						<!-- 主界面具体展示内容 -->
-						<div class="repair3_table">
-							<p class="black">姓名：李晨源</p>
-							<p class="black">地址：晋中市榆次区汇通新城5#-2-1804</p>
-							<p class="black">联系方式：15035667535</p>
-							<p class="black">维修设备：空调</p>
-							<p class="black">设备故障：漏电 不制冷</p>
-							<p class="black">维修人员：廖师傅（工号：08002）</p>
-							<p class="black">预约时间：今天  17：00-18：00</p>
-
 
 						</div>
 
-						
-						
+						<!-- 主界面具体展示内容 -->
+						<div class="repair3_table" id="ordBasicInfo">
+
+						</div>
 
 						<div class="repair3_main">
 							<p>本次维修需支付</p>
-							<h1>￥126</h1>
+							<h1>¥</h1>
 							<p class="yellow-font">本次交易可获得100积分</p>
-							
+
 							<button class="repair1_sc">
 								立即支付
 							</button>
-							
+
 						</div>
 
 						<!-- 侧滑后右侧变黑-->
@@ -147,7 +77,60 @@
 		</div>
 		<script src="../js/app.js"></script>
 		<script src="../js/myapp.js"></script>
-
 	</body>
+	<script>
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			var roId = self.roId;
+			//			alert(roId);
+			mui.ajax("http://101.200.232.167:81/RepairOrder/QueryOrderById", {
+				data: {
+					roId: roId
+				},
+				dataType: "json",
+				type: "post",
+				timeout: 10000,
+				success: function(data) {
+					document.getElementById("ordid").innerText = data.ro_num; //订单号
+//					alert(data.ro_status); 
+					//0确定中,1已派单,2维修中,3已完成
+					if (data.ro_status == 0) {
+						$(".bar").html("<img src=\"../image/b1.jpg\" />")
+					} else if (data.ro_status == 1) {
+						$(".bar").html("<img src=\"../image/b2.jpg\" />")
+					} else if (data.ro_status == 2) {
+						$(".bar").html("<img src=\"../image/b3.jpg\" />")
+					} else if (data.ro_status == 3) {
+						$(".bar").html("<img src=\"../image/b4.jpg\" />")
+					} else {
+						$(".bar").html("<img src=\"../image/b1.jpg\" />")
+					}
+					//var ReserveTime=jsonShortDateFormat(data.ro_reserveTime);//转换后jsonShortDateFormat
+					//alert("转换前 ro_reserveTime=" + data.ro_reserveTime + "， 转换后jsonShortDateFormat=" + jsonShortDateFormat(data.ro_reserveTime));
+					//var nowDate= jsonShortDateFormat("/Date(" + Date.now() + ")/");//转换后Date.now()
+					//alert(nowDate);
+					//alert("转换前 Date.now()=" + Date.now() + "， 转换后Date.now()=" + jsonShortDateFormat("/Date(" + Date.now() + ")/"));
+					var basicInfo = "<p class=\"black\">姓名：" + data.ro_uname + "</p><p class=\"black\">地址：" + data.ro_community + "" + data.ro_address + "</p><p class=\"black\">联系方式：" + data.ro_phone + "</p><p class=\"black\">维修设备：" + data.RepaCategory.rc_name + "</p>" +
+						"<p class=\"black\">设备故障：" + data.RepaLabelDesc.rld_liNames + "</p><p class=\"black\">维修人员：" + data.RepaMan.rm_name + "（工号：" + data.RepaMan.rm_jobNum + "）</p><p class=\"black\">预约时间：今天  " + data.ro_resTimeDesc + "</p>"
+					$("#ordBasicInfo").html(basicInfo);
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理；
+					console.log(type);
+				}
+			})
+		});
+
+		function jsonShortDateFormat(jsonDate) { //json日期格式转换为正常格式
+			try { //出自http://www.cnblogs.com/ahjesus 尊重作者辛苦劳动成果,转载请注明出处,谢谢!
+				var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+				var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+				var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+				return date.getFullYear() + "-" + month + "-" + day;
+			} catch (ex) { //出自http://www.cnblogs.com/ahjesus 尊重作者辛苦劳动成果,转载请注明出处,谢谢!
+				return "";
+			}
+		}
+	</script>
 
 </html>

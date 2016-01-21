@@ -129,7 +129,7 @@
 				</header>
 
 				<!--主界面区域-->
-				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop" >
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop">
 					<div class="mui-scroll">
 						<ul id="order" class="mui-table-view">
 							<!--这是一条订单-->
@@ -237,7 +237,7 @@
 				})
 			});
 			mui('#order').on('tap', '.mui-btn-red', function(e) {
-				var productid=this.getAttribute('id');
+				var productid = this.getAttribute('id');
 				mui.ajax('http://101.201.196.202:82/ShoppingCart/Delete', {
 					data: {
 						id: productid,
@@ -246,10 +246,10 @@
 					type: 'Post', //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
-						if (data.statusCode="200") {
+						if (data.statusCode = "200") {
 							plus.ui.toast(data.message);
 							var wobj = plus.webview.currentWebview();
-											wobj.reload()
+							wobj.reload()
 						} else {
 							plus.ui.toast(data.message);
 						}
@@ -257,11 +257,21 @@
 				})
 			});
 			document.getElementById('zhifu').addEventListener('tap', function() {
-				//打开关于页面
-				mui.openWindow({
-					url: 'shop_jiesuan.html',
-					id: 'shop_jiesuan'
-				});
+				var isornot = document.getElementsByClassName("shop-radio");
+				var value = new Array();
+				for (var i = 0; i < isornot.length; i++) {
+					value.push(isornot[i].checked);
+				}
+				
+				if (value.indexOf(true)>=0) {
+//					var productid = isornot[i].parentElement.parentElement.parentElement.getAttribute("id");
+					mui.openWindow({
+						url: 'shop_jiesuan.html',
+						id: 'shop_jiesuan'
+					});
+				} else {
+					plus.ui.toast("请选择结算的订单……");
+				}
 			});
 		</script>
 

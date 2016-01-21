@@ -3,96 +3,245 @@
 
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!--<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />-->
 		<title></title>
-		<script src="../js/mui.min.js"></script>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link href="../css/mui.css" rel="stylesheet" />
+		<script src="../js/mui.min.js"></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link href="../css/style.css" rel="stylesheet" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-views,
+			.mui-view,
+			.mui-pages,
+			.mui-page,
+			.mui-page-content {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #efeff4;
+			}
+			
+			.mui-pages {
+				top: 46px;
+				height: auto;
+			}
+			
+			.mui-scroll-wrapper,
+			.mui-scroll {
+				background-color: #efeff4;
+			}
+			
+			.mui-page.mui-transitioning {
+				-webkit-transition: -webkit-transform 300ms ease;
+				transition: transform 300ms ease;
+			}
+			
+			.mui-page-left {
+				-webkit-transform: translate3d(0, 0, 0);
+				transform: translate3d(0, 0, 0);
+			}
+			
+			.mui-ios .mui-page-left {
+				-webkit-transform: translate3d(-20%, 0, 0);
+				transform: translate3d(-20%, 0, 0);
+			}
+			
+			.mui-navbar {
+				position: fixed;
+				right: 0;
+				left: 0;
+				z-index: 10;
+				height: 44px;
+				background-color: #f7f7f8;
+			}
+			
+			.mui-navbar .mui-bar {
+				position: absolute;
+				background: transparent;
+				text-align: center;
+			}
+			
+			.mui-android .mui-navbar-inner.mui-navbar-left {
+				opacity: 0;
+			}
+			
+			.mui-ios .mui-navbar-left .mui-left,
+			.mui-ios .mui-navbar-left .mui-center,
+			.mui-ios .mui-navbar-left .mui-right {
+				opacity: 0;
+			}
+			
+			.mui-navbar .mui-btn-nav {
+				-webkit-transition: none;
+				transition: none;
+				-webkit-transition-duration: .0s;
+				transition-duration: .0s;
+			}
+			
+			.mui-navbar .mui-bar .mui-title {
+				display: inline-block;
+				width: auto;
+			}
+			
+			.mui-page-shadow {
+				position: absolute;
+				right: 100%;
+				top: 0;
+				width: 16px;
+				height: 100%;
+				z-index: -1;
+				content: '';
+			}
+			
+			.mui-page-shadow {
+				background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+				background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+			}
+			
+			.mui-navbar-inner.mui-transitioning,
+			.mui-navbar-inner .mui-transitioning {
+				-webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+				transition: opacity 300ms ease, transform 300ms ease;
+			}
+			
+			.mui-page {
+				display: none;
+			}
+			
+			.mui-pages .mui-page {
+				display: block;
+			}
+			
+			.mui-page .mui-table-view:first-child {
+				margin-top: 15px;
+			}
+			
+			.mui-page .mui-table-view:last-child {
+				margin-bottom: 30px;
+			}
+			
+			.mui-table-view {
+				margin-top: 20px;
+			}
+			
+			.mui-table-view span.mui-pull-right {
+				color: #999;
+			}
+			
+			.mui-table-view-divider {
+				background-color: #efeff4;
+				font-size: 14px;
+			}
+			
+			.mui-table-view-divider:before,
+			.mui-table-view-divider:after {
+				height: 0;
+			}
+			
+			.head {
+				height: 40px;
+			}
+			
+			#head {
+				line-height: 40px;
+			}
+			
+			.head-img {
+				width: 40px;
+				height: 40px;
+			}
+			
+			#head-img1 {
+				position: absolute;
+				bottom: 10px;
+				right: 40px;
+				width: 40px;
+				height: 40px;
+			}
+			
+			.update {
+				font-style: normal;
+				color: #999999;
+				margin-right: -25px;
+				font-size: 15px
+			}
+			
+			.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			
+			.mui-ios .mui-navbar .mui-bar .mui-title {
+				position: static;
+			}
+		</style>
 		<link href="../css/iconfont.css" rel="stylesheet" />
 		<link href="../css/mui.imageviewer.css" rel="stylesheet" />
 		<link href="../css/mui.poppicker.css" rel="stylesheet" />
 		<link href="../css/mui.picker.css" rel="stylesheet" />
-		<script src="../js/mui.city.data.js"></script>
-		<script type="text/javascript" charset="utf-8">
-			mui.init();
-		</script>
-
+		<script src="../js/jquery-1.9.1.min.js"></script>
 	</head>
 
 	<body>
-
-		<!-- 侧滑导航根容器 -->
-
-		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
-
-			<!-- 菜单容器 -->
-			<aside id="offCanvasSide" class="mui-off-canvas-left">
-				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<!-- 菜单具体展示内容 -->
-
-						<h3><span class=" icon-homefill mui-icon" href="###">
-							<a href="###">主页 ></a>
-							<!--<button id="offCanvasHide" type="button">关闭</button>-->
-						
-						</h3>
-						<ul class="left_btn">
-							<li id="offCanvasHide"><a href="http://www.baidu.com" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
-							<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
-							<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
-							<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
-							<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
-							<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
-							<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
-							<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
-							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
-							<li><a href="###"><span class=" icon-iconfontjifen36 mui-icon" href="###"></span>金融理财></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-
-						</ul>
-
-					</div>
+		<!--页面主结构开始-->
+		<div id="app" class="mui-views">
+			<div class="mui-view">
+				<div class="mui-navbar">
 				</div>
-			</aside>
-			<!-- 左侧菜单结束 -->
-
+				<div class="mui-pages">
+				</div>
+			</div>
+		</div>
+		//自定义给标签赋值
+		<input type="hidden" id="mid">
+		<input type="hidden" id="orldId">
+		<input type="hidden" id="ocId">
+		<input type="hidden" id="osId">
+<input type="hidden" id="getDate">
+		<div id="set" class="mui-page">
 			<!-- 主页面容器 -->
+			<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>
+				</button>
 
-			<div class="mui-inner-wrap   repair2_container">
-
-				<!-- 主页面标题 -->
-
-				<header class="mui-bar mui-bar-nav">
-					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-					<h1 class="mui-title">确认订单信息</h1>
-				</header>
-				<!--主界面区域-->
-				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+				<h1 class="mui-center mui-title">确认订单信息</h1>
+			</div>
+			<!--主界面区域-->
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
 					<div class="mui-scroll">
 						<div class="repair3_table">
-							<h4><span class="yellow-font sm_txt">报修类型：</span>空调</h4>
-							<h4><span class="yellow-font sm_txt">故障描述：</span>漏电 不制冷</h4>
-
-							<p><span class="icon-sponsorfill mui-icon yellow-font"></span> 维修价格预计在<span class="yellow-font">￥120-￥280</span>之间，具体费用以师傅上门后确定</p>
-
+							<h4><span class="yellow-font sm_txt">报修类型：</span><a id="sname"></a></h4>
+							<h4><span class="yellow-font sm_txt">故障描述：</span><a id="lbname"></a></h4>
+							<p><span class="icon-sponsorfill mui-icon yellow-font"></span> 维修价格预计在<span class="yellow-font" id="priceRange"></span>之间，具体费用以师傅上门后确定</p>
 						</div>
-						<!-- 主界面具体展示内容 -->
 						<div class="repair3_table">
 							<div id="bt" class="repair_bar blue">确认地址信息 </div>
 
-							<input type="text" class="mui-input-speech sm_input" placeholder="李晨源" />
-							<input type="text" class="mui-input-speech sm_input" placeholder="汇通新城" />
+							<input type="text" class="sm_input" placeholder="姓名" id="yourName" />
+							<input type="text" class="sm_input" placeholder="小区" id="communityName" />
 							<div class="mui-input-row">
-								<input type="text" class="mui-input-speech mui-input-clear" placeholder="详细地址" />
+								<input type="text" class="mui-input-speech mui-input-clear" placeholder="详细地址" id="address" />
 
 							</div>
 							<div class="mui-input-row">
-								<input type="text" class="mui-input-speech mui-input-clear" placeholder="15035667535" />
+								<input type="text" class="mui-input-speech mui-input-clear" placeholder="手机号" id="mp" />
 							</div>
-
 						</div>
 
 						<!--选择时间-->
@@ -105,68 +254,85 @@
 							</button>
 						</div>
 						<!--按钮区域结束-->
-						<div class="repair3_table blue">
-							<div id="shifu" class="sf_img">
-								<img src="../image/sf_03.gif" />
-								<h4 style="text-align: center; color: #FFFFFF;">选择：廖师傅</h4>
+						<div class="mui-table-view mui-table-view-chevron repair3_table blue">
+							<div id="shifu" class="mui-table-view-cell mui-media sf_img">
+								<a class="mui-navigate-right" href="#account">
+									<img src="" />
+									<h4 style="text-align: center; color: #FFFFFF;">选择师傅</h4>
+								</a>
 							</div>
-
 						</div>
 
 						<div id="repair_4" class="repair2_main">
 							<button class="repair1_sc">
 								确认并提交
 							</button>
-							
 						</div>
-
-						<!-- 侧滑后右侧变黑-->
-						<div class="mui-off-canvas-backdrop"></div>
-					</div>
-					<div class="footer-left">
-						<i id='msg-image' class="mui-icon mui-icon-camera" style="font-size: 28px;"></i>
+						<div class="footer-left">
+							<i id='msg-image' class="mui-icon mui-icon-camera" style="font-size: 28px;"></i>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<script src="../js/app.js"></script>
-		<script src="../js/myapp.js"></script>
-		<script>
-			document.getElementById('repair_4').addEventListener('tap', function() {
-				//打开关于页面
-				mui.openWindow({
-					url: 'repair_4.html',
-					id: 'repair_4'
-				});
-			});
-			document.getElementById('shifu').addEventListener('tap', function() {
-				//打开关于页面
-				mui.openWindow({
-					url: 'shifu.html',
-					id: 'shifu'
-				});
-			});
-		</script>
+		<!--单页面结束-->
+		<div id="account" class="mui-page">
+			<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>报修师傅
+				</button>
+				<h1 class="mui-center mui-title" id="cname"></h1>
+			</div>
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<ul class="mui-table-view mui-grid-view mui-grid-9 shifu">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
 		<script>
 			(function($, doc) {
-				$.init();
+				//$.init();
 				$.ready(function() {
 					var userPicker = new $.PopPicker();
 					userPicker.setData([{
-						value: 'ywj',
-						text: '9:00-11:00'
+						value: 'today1',
+						text: '今天 9:00-11:00'
 					}, {
-						value: 'aaa',
-						text: '14:30-17:30'
+						value: 'today2',
+						text: '今天 14:30-17:30'
 					}, {
-						value: 'lj',
-						text: '19:00-21:00'
-					}, ]);
+						value: 'today3',
+						text: '今天 19:00-21:00'
+					}, {
+						value: 'mingtian1',
+						text: '明天 9:00-11:00'
+					}, {
+						value: 'mingtian2',
+						text: '明天 14:30-17:30'
+					}, {
+						value: 'mingtian3',
+						text: '明天 19:00-21:00'
+					}, {
+						value: 'houtian1',
+						text: '后天 9:00-11:00'
+					}, {
+						value: 'houtian2',
+						text: '后天 14:30-17:30'
+					}, {
+						value: 'houtian3',
+						text: '后天 19:00-21:00'
+					}]);
 					var showUserPickerButton = doc.getElementById('showUserPicker');
 					var userResult = doc.getElementById('userResult');
 					showUserPickerButton.addEventListener('tap', function(event) {
 						userPicker.show(function(items) {
 							userResult.innerText = "预约时间:" + (items[0] || {}).text;
+							document.getElementById("getDate").value=( items[0] || {}).value;
+							
+//							alert((items[0] || {}).value);
 							//返回 false 可以阻止选择框的关闭
 							//return false;
 						});
@@ -174,8 +340,139 @@
 				});
 			})(mui, document);
 		</script>
-		<script src="../js/mui.picker.js"></script>
-		<script src="../js/mui.poppicker.js"></script>
 	</body>
+	<script src="../js/mui.view.js"></script>
+	<script>
+		//		mui.init();
+		//初始化单页view
+		var viewApi = mui('#app').view({
+			defaultPage: '#set'
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		var cid;
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			var cid = self.cid;
+			var rld_id = self.rld_id;
+			var sname = self.sname;
+			//var cateName = self.cateName;
+			//var chestr = self.chestr;
+			document.getElementById("orldId").value = rld_id;
+			document.getElementById("ocId").value = cid;
+			document.getElementById("sname").innerText = sname;
+			mui.getJSON('http://101.200.232.167:81/RepaLabelDesc/GetLableDescById?ldid=' + rld_id, {},
+				function(data) {
+					document.getElementById("lbname").innerText = data.rld_liNames;
+					document.getElementById("osId").value = data.rld_csId_;
+					var price2 = parseInt(data.rld_estimatedCost) + 50;
+					document.getElementById("priceRange").innerText = "¥" + data.rld_estimatedCost + "-¥" + price2;
+				});
+			//获得事件参数
+			mui.ajax('http://101.200.232.167:81/RepaMan/Index?cid=' + cid, {
+				//data: {
+				//username: 'username',
+				//password: 'password'
+				//},
+				dataType: 'json', //服务器返回json格式数据
+				type: 'GET', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+					var sf = "";
+					for (var i = 0; i < data.length; i++) {
+						var rc_name = data[i].RepaCategory.rc_name;
+						document.getElementById("cname").innerText = data[i].RepaCategory.rc_name;
+						sf += "<li class=\"mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4\" id=\"" + data[i].rm_id + "\"><img src=\"http://101.200.232.167:81/Images/RepaManImg/" + data[i].rm_headPortrait + "\" ><a class=\"black\" href=\"#\">" + data[i].rm_name + "</a><p>工号：" + data[i].rm_jobNum + "</p><p class=\"black\">评分</p><p>" +
+							"<span class=\"mui-icon mui-icon-star-filled\"></span><span class=\"mui-icon mui-icon-star-filled\"></span><span class=\"mui-icon mui-icon-star-filled\"></span><span class=\"mui-icon mui-icon-star-filled\"></span><span class=\"mui-icon mui-icon-star-filled\"></span></p></li>";
+					}
+					$(".shifu").html(sf);
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理
+					console.log(type)
+				}
+			});
+		});
+		mui(".shifu").on("tap", ".mui-table-view-cell", function() {
+			var mid = this.getAttribute("id");
+			document.getElementById("mid").value = mid;
+			mui.getJSON('http://101.200.232.167:81/RepaMan/GetDataByMid?mid=' + mid, {},
+				function(data) {
+					var imgHtml = "<a class=\"mui-navigate-right\" href=\"#account\"><img src=\"http://101.200.232.167:81/Images/RepaManImg/" + data.rm_headPortrait + "\" /><h4 style=\"text-align: center; color: #FFFFFF;\">" + data.rm_name + "</h4></a>";
+					$("#shifu").html(imgHtml);
+				})
+		});
+		//提交订单事件
+		mui(".mui-page-content").on("tap", "#repair_4", function() {
+			var orldId = document.getElementById("orldId").value;
+			var ocId = document.getElementById("ocId").value;
+			var osId = document.getElementById("osId").value;
+			var ouname = document.getElementById("yourName").value;
+			var ocomm = document.getElementById("communityName").value;
+			var oaddress = document.getElementById("address").value;
+			var omp = document.getElementById("mp").value;
+			var omid = document.getElementById("mid").value;
+			var odateTime = document.getElementById('userResult').innerText.substr(5);
+			var getDate= document.getElementById("getDate").value;
+			//添加订单
+			mui.ajax("http://101.200.232.167:81/RepaLabelDesc/Update", {
+				data: {
+					orldId: orldId,
+					ocId: ocId,
+					osId: osId,
+					ouname: ouname,
+					ocomm: ocomm,
+					oaddress: oaddress,
+					omp: omp,
+					omid: omid,
+					odateTime: odateTime,
+					getDate:getDate
+				},
+				dataType: "json",
+				type: "get",
+				success: function(data) {
+					if (data.statusCode == "200") {
+						mui.openWindow({
+							url: "repair_over.html",
+							extras: {
+								roId: data.data1
+							}
+						})
+					} else {
+						console.log();
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理
+					console.log(type)
+				}
+			})
+		});
+		var view = viewApi.view;
+		(function($) {
+			//处理view的后退与webview后退
+			var oldBack = $.back;
+			$.back = function() {
+				if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+					viewApi.back();
+				} else { //执行webview后退
+					oldBack();
+				}
+			};
+			//监听页面切换事件方案1,通过view元素监听所有页面切换事件，目前提供pageBeforeShow|pageShow|pageBeforeBack|pageBack四种事件(before事件为动画开始前触发)
+			//第一个参数为事件名称，第二个参数为事件回调，其中e.detail.page为当前页面的html对象
+			view.addEventListener('pageBeforeShow', function(e) {
+				//				console.log(e.detail.page.id + ' beforeShow');
+			});
+			view.addEventListener('pageShow', function(e) {
+				//				console.log(e.detail.page.id + ' show');
+			});
+			view.addEventListener('pageBeforeBack', function(e) {
+				//				console.log(e.detail.page.id + ' beforeBack');
+			});
+			view.addEventListener('pageBack', function(e) {
+				//				console.log(e.detail.page.id + ' back');
+			});
+		})(mui);
+	</script>
 
 </html>
