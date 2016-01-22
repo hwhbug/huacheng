@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/cross-down.css" rel="stylesheet" />
+		<script src="../js/jquery-1.9.1.min.js" type="text/javascript"></script>
+		<style>
+			.left_jiage {
+				float: left;
+				padding: 10px 0;
+				margin-top: 6px;
+			}
+			html{
+				background: #FFFFFF;
+			}
+			.zhifu {
+				width: 30%;
+				float: right;
+				background: #CF2D28;
+				color: #FFFFFF;
+				border: none;
+				margin-top: 25px;
+			}
+			
+			.footer {
+				padding: 0 10px;
+				border-top: 1px solid #EEE;
+			}
+			.mui-slider-right{
+				position: relative; 
+			}
+			.mui-slider-right .mui-btn {
+			
+				position:relative;
+				top:0px;
+			}
+			.huise {
+				position: relative !important; 
+			}
+			.mui-table-view-cell:after {
+				display: none;
+			}
+			p{
+				margin-bottom: 0;
+				line-height: 1.5em;
+			}
+			.jiesuan li{
+				border-bottom: 1px solid #EEEEEE;
+				padding: 10px 0;
+				`
+			}
+			.mui-table-view-cell{
+				font-size: 16px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+
+		<!-- 侧滑导航根容器 -->
+
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">更换地址</h1>
+		</header>
+
+		<!--主界面区域-->
+		<div class="repair3_table mui-content jiesuan">
+			<div class="dizhi" style="line-height: 30px; color:#666666;">
+				<p class="black">收货人：李晨源 <span class="mui-pull-right" ：>联系电话：15035667535</span></p>
+				<p>收货地址：山西省 晋中市 榆次区</p>
+				<p>山西省晋中市榆次区中都北路军安小区对面易魔方数字设计中心</p>
+				<p class="txt_right font-blue">修改信息</p>
+			</div>
+			<button id="addbtn" class="mui-btn-primary mui-btn" style="width: 30%; margin: 10px 30%;">添加新地址</button>
+		</div>
+		
+
+		<script src="../js/mui.min.js"></script>
+		<script>
+		
+			mui('.mui-scroll-wrapper').scroll();
+			document.getElementById('addbtn').addEventListener('tap', function() {
+				//打开关于页面
+				mui.openWindow({
+					url: 'shop_tianjiadizhi.html',
+					id: 'shop_tianjiadizhi'
+				});
+			});
+		</script>
+
+	</body>
+
+</html>

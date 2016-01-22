@@ -16,9 +16,11 @@
 				padding: 10px 0;
 				margin-top: 6px;
 			}
-			html{
+			
+			html {
 				background: #FFFFFF;
 			}
+			
 			.zhifu {
 				width: 30%;
 				float: right;
@@ -32,33 +34,38 @@
 				padding: 0 10px;
 				border-top: 1px solid #EEE;
 			}
-			.mui-slider-right{
-				position: relative; 
-			}
-			.mui-slider-right .mui-btn {
 			
-				position:relative;
-				top:0px;
+			.mui-slider-right {
+				position: relative;
 			}
+			
+			.mui-slider-right .mui-btn {
+				position: relative;
+				top: 0px;
+			}
+			
 			.huise {
-				position: relative !important; 
+				position: relative !important;
 			}
+			
 			.mui-table-view-cell:after {
 				display: none;
 			}
-			p{
+			
+			p {
 				margin-bottom: 0;
 				line-height: 1.5em;
 			}
-			.jiesuan li{
+			
+			.jiesuan li {
 				border-bottom: 1px solid #EEEEEE;
 				padding: 10px 0;
 				`
 			}
-			.mui-table-view-cell{
+			
+			.mui-table-view-cell {
 				font-size: 16px;
 			}
-			
 		</style>
 	</head>
 
@@ -73,10 +80,10 @@
 
 		<!--主界面区域-->
 		<div class="repair3_table mui-content jiesuan">
-			<ul>
-				<li>
+			<ul id="myorders">
+				<!--<li>
 					<p>蓝月亮洗衣液x1<span class="font-red mui-pull-right">￥50.00</span></p>
-				</li>
+				</li>-->
 			</ul>
 
 		</div>
@@ -86,6 +93,7 @@
 				<p class="black">收货人：李晨源 <span class="mui-pull-right" ：>联系电话：15035667535</span></p>
 				<p>收货地址：山西省 晋中市 榆次区</p>
 				<p>山西省晋中市榆次区中都北路军安小区对面易魔方数字设计中心 </p>
+				<p class="center font-blue" id="address">更换地址</p>
 			</div>
 			<p class="black">支付方式</p>
 			<ul class="mui-table-view mui-table-view-radio">
@@ -104,8 +112,8 @@
 			<div class="clear"></div>
 			<div class="left_jiage">
 
-				<strong>共计：<span class="font-red mx_jiage">￥210</span></strong>
-				<p>本次消费可获得积分：1000</p>
+				<strong>共计：<span id="mx_jiage" class="font-red mx_jiage">￥</span></strong>
+				<p id="jifeng">本次消费可获得积分：</p>
 			</div>
 			<button class="zhifu">
 				去结算
@@ -114,9 +122,37 @@
 
 		<script src="../js/mui.min.js"></script>
 		<script>
-		
 			mui('.mui-scroll-wrapper').scroll();
-			
+			window.addEventListener('newsId', function(event) {
+				//获得事件参数
+				var cuxiao_id = event.detail.id;
+				mui.ajax('http://101.201.196.202:82/MyOrders/index', {
+					data: {
+						"ids":cuxiao_id.toString()
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var myorders = "";
+						var totalprice = 0;
+						for (var i = 0; i < data.length; i++) {
+							myorders += "<li><p>" + data[i].OrdersName + "<span class=\"font-red mui-pull-right\">￥" + data[i].TotalPrice + "</span></p></li>";
+							totalprice += data[i].TotalPrice;
+						}
+						$("#myorders").html(myorders);
+						$("#mx_jiage").html("￥" + totalprice);
+						$("#jifeng").html("本次消费可获得积分：" + totalprice);
+					}
+				})
+			})
+			document.getElementById('address').addEventListener('tap', function() {
+				//打开关于页面
+				mui.openWindow({
+					url: 'shop_dizhi.html',
+					id: 'shop_dizhi'
+				});
+			});
 		</script>
 
 	</body>

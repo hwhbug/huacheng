@@ -213,12 +213,12 @@
 			})
 			mui('#order').on('change', 'input', function() {
 				var value = this.checked ? "true" : "false";
-				var productid = this.parentElement.parentElement.parentElement.getAttribute("id");
+				var shopcartid = this.parentElement.parentElement.parentElement.getAttribute("id");
 				//				var Quantity = this.parentElement.parentElement.("#Quantity").innerHTML;
 				var sum = parseInt(document.getElementById("mx_jiage").innerHTML.replace("￥", ""));
 				mui.ajax('http://101.201.196.202:82/ShoppingCart/shopcartbyid', {
 					data: {
-						id: productid,
+						id: shopcartid,
 					},
 					dataType: 'json', //服务器返回json格式数据
 					type: 'Post', //HTTP请求类型,
@@ -237,10 +237,10 @@
 				})
 			});
 			mui('#order').on('tap', '.mui-btn-red', function(e) {
-				var productid = this.getAttribute('id');
+				var shopcartid = this.getAttribute('id');
 				mui.ajax('http://101.201.196.202:82/ShoppingCart/Delete', {
 					data: {
-						id: productid,
+						id: shopcartid,
 					},
 					dataType: 'json', //服务器返回json格式数据
 					type: 'Post', //HTTP请求类型,
@@ -256,19 +256,57 @@
 					}
 				})
 			});
+			mui.init({
+				preloadPages: [{
+					id: 'shop_jiesuan',
+					url: 'shop_jiesuan.html'
+				}]
+			});
 			document.getElementById('zhifu').addEventListener('tap', function() {
 				var isornot = document.getElementsByClassName("shop-radio");
 				var value = new Array();
+				var shopcartids = new Array();
 				for (var i = 0; i < isornot.length; i++) {
 					value.push(isornot[i].checked);
+					if (isornot[i].checked) {
+						shopcartids.push(isornot[i].parentElement.parentElement.parentElement.getAttribute("id"));
+					}
 				}
-				
-				if (value.indexOf(true)>=0) {
-//					var productid = isornot[i].parentElement.parentElement.parentElement.getAttribute("id");
-					mui.openWindow({
-						url: 'shop_jiesuan.html',
-						id: 'shop_jiesuan'
-					});
+				var detailPage = null;
+				if (value.indexOf(true) >= 0) {
+					mui.ajax('http://101.201.196.202:82/Product/Purchase_do', {
+						data: {
+							"shopcartids": shopcartids.toString()
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'Post', //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							if (data.statusCode == "200") {
+								//**************************将选中的id传到下一个页面*******************************
+								var id = shopcartids.toString();
+								//获得详情页面
+								if (!detailPage) {
+									detailPage = plus.webview.getWebviewById('shop_jiesuan');
+								}
+								//触发详情页面的newsId事件
+								mui.fire(detailPage, 'newsId', {
+									id: id
+								});
+								//打开详情页面          
+								mui.openWindow({
+									url: 'shop_jiesuan.html',
+									id: 'shop_jiesuan'
+								});
+//								mui.openWindow({
+//									url: 'shop_jiesuan.html',
+//									id: 'shop_jiesuan'
+//								});
+							} else {
+								plus.ui.toast(data.message);
+							}
+						}
+					})
 				} else {
 					plus.ui.toast("请选择结算的订单……");
 				}

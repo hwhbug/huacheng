@@ -476,7 +476,8 @@
 					"css/iconfont.css",
 					"css/mui.min.css",
 					"fonts/iconfont.ttf",
-					"css/mui.imageviewer.css"
+					"css/mui.imageviewer.css",
+					"js/mui.view.js"
 				],
 				"refer": [
 					"baoxiu/repair_4.html"
@@ -505,7 +506,12 @@
 					"css/mui.css",
 					"css/iconfont.css",
 					"css/mui.min.css",
-					"fonts/iconfont.ttf"
+					"fonts/iconfont.ttf",
+					"js/exif.js",
+					"js/mui.picker.min.js",
+					"js/canvasResize.js",
+					"js/binaryajax.js",
+					"js/jquery-1.9.1.min.js"
 				],
 				"refer": [
 					"baoxiu/repair_3.html"
@@ -806,17 +812,24 @@
 					"css/style.css",
 					"fonts/iconfont.ttf",
 					"js/mui.js",
-					"css/mui.css"
+					"css/mui.css",
+					"js/jquery-1.9.1.min.js"
 				],
 				"refer": [
 					"user/user_fuwu.html",
-					"user/user_dingdan.html"
+					"user/user_dingdan.html",
+					"shopping/shop_car.html"
 				],
 				"priority": 0
 			},
 			"user/user_fuwu.html": {
 				"resources": [
-					"image/sf_03_03.gif"
+					"image/sf_03_03.gif",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/mui.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -830,6 +843,35 @@
 					"css/mui.min.css",
 					"css/style.css",
 					"css/cross-down.css"
+				],
+				"refer": [
+					"shopping/shop_dizhi.html"
+				],
+				"priority": 0
+			},
+			"shopping/shop_dizhi.html": {
+				"resources": [
+					"js/mui.min.js",
+					"js/jquery-1.9.1.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"css/cross-down.css"
+				],
+				"refer": [
+					"shopping/shop_tianjiadizhi.html"
+				],
+				"priority": 0
+			},
+			"user/user_dingdan.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/mui.js",
+					"js/jquery-1.9.1.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -868,7 +910,6 @@
 				"js/mui.dtpicker.js",
 				"js/mui.previewimage.js",
 				"README.md",
-				"js/mui.view.js",
 				"js/service.js",
 				"css/mui.listpicker.css",
 				"image/zfb.png",

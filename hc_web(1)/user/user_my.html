@@ -10,6 +10,7 @@
 		<link href="../css/iconfont.css" rel="stylesheet" />
 		<link href="../css/mui.css" rel="stylesheet" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="application/javascript" src="../js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 		</script>
@@ -23,7 +24,7 @@
 			
 			p {
 				color: #FFFFFF;
-				margin-bottom:0;
+				margin-bottom: 0;
 			}
 			
 			.icon-fenxiang:before {
@@ -38,10 +39,10 @@
 			ul {
 				border: none !important;
 			}
-			.btn_user li{
+			
+			.btn_user li {
 				border-bottom: 1px solid #C0C0C0;
 			}
-			
 		</style>
 	</head>
 
@@ -59,52 +60,52 @@
 					<div class="myuser">
 						<div class="left sm_shop_img"><img src="../image/30-023131_451.jpg"></div>
 						<div class="right">
-							<p>尊敬的：<span class="">李先生</span> 欢迎回来！</p>
-							<p>手机：150****7535</p>
+							<p>尊敬的：<span id="uname"></span> 欢迎回来！</p>
+							<p id="tel">手机：</p>
 							<p>社区慧生活已为您服务 <span class="font-yellow mx_jiage">22</span> 次</p>
-							<p>积分：1500</p>
+							<p id="jifeng">积分：</p>
 						</div>
 					</div>
 					<!--主功能按钮-->
 					<ul class="mui-table-view mui-grid-view mui-grid-9 btn_nav">
-						<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 yellow">
+						<li id="shoppingcart" class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 yellow">
 							<span class="font-bai">购物车</span>
 						</li>
 						<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 red">
 							<span class="font-bai">每日签到</span>
 						</li>
 						<li id="user_dingdan" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-							<a href="#">
+							<a>
 								<span class="mui-icon icon-wd1"></span>
 								<div class="mui-media-body">订单管理</div>
 							</a>
 						</li>
 						<li id="user_fuwu" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-							<a href="#">
+							<a>
 								<span class="mui-icon icon-wd2"></span>
 								<div class="mui-media-body">我的服务</div>
 							</a>
 						</li>
 						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-							<a id="repair" href="#">
+							<a id="repair">
 								<span class="mui-icon icon-wd3"></span>
 								<div class="mui-media-body">物业账单</div>
 							</a>
 						</li>
 						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-							<a id="repair" href="#">
+							<a id="repair">
 								<span class="mui-icon icon-wd4"></span>
 								<div class="mui-media-body">我的发布</div>
 							</a>
 						</li>
 						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-							<a id="repair" href="#">
+							<a id="repair">
 								<span class="mui-icon icon-fenxiang"></span>
 								<div class="mui-media-body">分享信息</div>
 							</a>
 						</li>
 						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-							<a id="repair" href="#">
+							<a id="repair">
 								<span class="mui-icon icon-wd6"></span>
 								<div class="mui-media-body">消息管理</div>
 							</a>
@@ -153,7 +154,7 @@
 
 		<script>
 			mui('.mui-scroll-wrapper').scroll();
-			mui('.mui-scroll-wrapper').scroll();
+			//******************************我的订单点击事件******************************
 			document.getElementById('user_dingdan').addEventListener('tap', function() {
 				//打开关于页面
 				mui.openWindow({
@@ -168,23 +169,56 @@
 					id: 'user_fuwu'
 				});
 			});
+			//******************************注销账户点击事件****************************
 			document.getElementById('loginout').addEventListener('tap', function() {
 				//打开关于页面
 				mui.ajax('http://101.201.196.202:82/home/Logout', {
-								data: {},
-								dataType: 'json', //服务器返回json格式数据
-								type: 'Post', //HTTP请求类型,
-								timeout: 10000, //超时时间设置为10秒；
-								success: function(data) {
-									if (data.statusCode == 200) {
-										plus.ui.toast(data.message);
-											var wobj = plus.webview.getWebviewById(plus.runtime.appid);
-											wobj.reload()
-											mui.back();
-									} 
-								}
-							})
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode == 200) {
+							plus.ui.toast(data.message);
+							var wobj = plus.webview.getWebviewById(plus.runtime.appid);
+							wobj.reload()
+							mui.back();
+						}
+					}
+				})
 			});
+			//**************************购物车点击事件*****************************
+			document.getElementById('shoppingcart').addEventListener('tap', function() {
+				//打开关于页面
+				mui.ajax('http://101.201.196.202:82/product/whetherlogin', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode == 200) {
+							mui.openWindow({
+								url: '../shopping/shop_car.html',
+								id: 'shop_car'
+							});
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
+			});
+			mui.ajax('http://101.201.196.202:82/home/userinfo', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						$("#uname").html(data.name.substring(0, 1) + "先生");
+						$("#tel").html("手机：" + data.mp.substring(0, 3) + "****" + data.mp.substring(7, 11));
+						$("#jifeng").html("积分：" + data.nCredit);
+					}
+				})
+				//							<p>社区慧生活已为您服务 <span class="font-yellow mx_jiage">22</span> 次</p>
 		</script>
 
 	</body>
