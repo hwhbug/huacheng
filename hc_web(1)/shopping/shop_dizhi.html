@@ -16,9 +16,11 @@
 				padding: 10px 0;
 				margin-top: 6px;
 			}
-			html{
+			
+			html {
 				background: #FFFFFF;
 			}
+			
 			.zhifu {
 				width: 30%;
 				float: right;
@@ -32,33 +34,90 @@
 				padding: 0 10px;
 				border-top: 1px solid #EEE;
 			}
-			.mui-slider-right{
-				position: relative; 
-			}
-			.mui-slider-right .mui-btn {
 			
-				position:relative;
-				top:0px;
+			.mui-slider-right {
+				position: relative;
 			}
+			
+			.mui-slider-right .mui-btn {
+				position: relative;
+				top: 0px;
+			}
+			
 			.huise {
-				position: relative !important; 
+				position: relative !important;
 			}
+			
 			.mui-table-view-cell:after {
 				display: none;
 			}
-			p{
+			
+			p {
 				margin-bottom: 0;
 				line-height: 1.5em;
 			}
-			.jiesuan li{
+			
+			.jiesuan li {
 				border-bottom: 1px solid #EEEEEE;
 				padding: 10px 0;
 				`
 			}
-			.mui-table-view-cell{
+			
+			.mui-table-view-cell {
 				font-size: 16px;
 			}
 			
+			.mui-popover .mui-popover-arrow {
+				top: 0;
+			}
+			
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-input-row label {
+				width: 70px;
+				font-size: 16px;
+				padding: 10px;
+				color: #F79C0C;
+			}
+			
+			input {
+				margin-top: 8px !important;
+			}
+			
+			.mui-input-row {
+				border-bottom: 1px solid #EEEEEE;
+			}
+			
+			.mui-popover .mui-scroll-wrapper {
+				padding: 10px;
+			}
+			
+			.mui-input-row {
+				background: #FFFFFF;
+			}
+			
+			#bottomPopover {
+				left: 0 !important;
+			}
 		</style>
 	</head>
 
@@ -72,27 +131,123 @@
 		</header>
 
 		<!--主界面区域-->
-		<div class="repair3_table mui-content jiesuan">
-			<div class="dizhi" style="line-height: 30px; color:#666666;">
-				<p class="black">收货人：李晨源 <span class="mui-pull-right" ：>联系电话：15035667535</span></p>
-				<p>收货地址：山西省 晋中市 榆次区</p>
-				<p>山西省晋中市榆次区中都北路军安小区对面易魔方数字设计中心</p>
-				<p class="txt_right font-blue">修改信息</p>
-			</div>
-			<button id="addbtn" class="mui-btn-primary mui-btn" style="width: 30%; margin: 10px 30%;">添加新地址</button>
+		<div id="DeliveryAddress" class="repair3_table mui-content jiesuan">
+			<!--<div class="dizhi" style="line-height: 30px; color:#666666;">
+				<p id="userinfo" class="black">收货人：李晨源 <span class="mui-pull-right" ：>联系电话：15035667535</span></p>
+				<p id="default_address">收货地址：山西省 晋中市 榆次区</p>
+				<p class="mui-pull-right font-red" style="margin-left: 10px;">删除 </p>
+				<p class="mui-pull-right font-blue"> 修改信息</p>
+				<div style="clear: both;"></div>
+			</div>-->
 		</div>
-		
-
+		<a href="#bottomPopover" class="mui-btn-primary mui-btn" style="width: 30%; margin: 10px 30%;">添加新地址</a>
+		<!--弹出属性菜单-->
+		<div id="bottomPopover" class="mui-popover mui-popover-bottom">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="mui-input-row">
+						<label>姓名：</label>
+						<input id="uname" placeholder="收货人姓名">
+					</div>
+					<div class="mui-input-row">
+						<label>电话：</label>
+						<input id="tel" placeholder="收货人手机号，方便联系收货">
+					</div>
+					<textarea id="adderss" class="mui-input-clear question" placeholder="填写常用地址"></textarea>
+					<a id="addressbtn" href="#bottomPopover" class="mui-btn-primary mui-btn mui-pull-right" style="width:15%; margin: 5px 20px">确定</a>
+				</div>
+			</div>
+		</div>
+		<!--弹出属性菜单-->
 		<script src="../js/mui.min.js"></script>
+		<script type="application/javascript" src="../js/jquery-1.9.1.min.js"></script>
 		<script>
-		
 			mui('.mui-scroll-wrapper').scroll();
-			document.getElementById('addbtn').addEventListener('tap', function() {
-				//打开关于页面
-				mui.openWindow({
-					url: 'shop_tianjiadizhi.html',
-					id: 'shop_tianjiadizhi'
-				});
+			mui.ajax('http://101.201.196.202:82/DeliveryAddress/index', {
+				data: {},
+				dataType: 'json', //服务器返回json格式数据
+				type: 'Post', //HTTP请求类型,
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+					var str = "";
+					for (var i = 0; i < data.length; i++) {
+						str += "<div id=\"" + data[i].ID + "\" class=\"dizhi\" style=\"line-height: 30px; color:#666666;\"><p class=\"black\">收货人：" + data[i].ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data[i].ConsigneePhone + "</span></p><p>收货地址：" + data[i].Address + "</p><p class=\"mui-pull-right font-red\" style=\"margin-left: 10px;\">删除 </p><p class=\"mui-pull-right font-blue\"> 修改信息</p>	<div style=\"clear: both;\"></div></div>";
+					}
+					$("#DeliveryAddress").html(str);
+				}
+			})
+			var addressbtn = document.getElementById('addressbtn');
+			var uname = document.getElementById('uname');
+			var tel = document.getElementById('tel');
+			var adderss = document.getElementById('adderss');
+			addressbtn.addEventListener('tap', function(event) {
+				if (uname.value=="") {
+					plus.ui.toast("收货人姓名不能为空");
+					return;
+				} 
+				if (tel.value=="") {
+					plus.ui.toast("收货人电话不能为空");
+					return;
+				} 
+				if (adderss.value=="") {
+					plus.ui.toast("收货地址不能为空");
+					return;
+				} 
+				//****************************用户提交成功返回*********************************
+				mui.ajax('http://101.201.196.202:82/DeliveryAddress/Creates', {
+					data: {
+						"ConsigneeName": uname.value,
+						"ConsigneePhone": tel.value,
+						"Address": adderss.value,
+						"isDefault":"1"
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode == 200) {
+							plus.ui.toast(data.message);
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
+			});
+			mui('#DeliveryAddress').on('tap', '.font-red', function(e) {
+				var DeliveryAddressid = this.getAttribute('id');
+				mui.ajax('http://101.201.196.202:82/DeliveryAddress/Delete', {
+					data: {
+						id: DeliveryAddressid,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode = "200") {
+							plus.ui.toast(data.message);
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
+			});
+			mui('#DeliveryAddress').on('tap', '.font-blue', function(e) {
+				var DeliveryAddressid = this.getAttribute('id');
+				mui.ajax('http://101.201.196.202:82/DeliveryAddress/Create', {
+					data: {
+						id: DeliveryAddressid,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode = "200") {
+							plus.ui.toast(data.message);
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
 			});
 		</script>
 
