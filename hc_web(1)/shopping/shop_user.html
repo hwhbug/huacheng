@@ -141,6 +141,24 @@
 							$("#productlist").html(str);
 						}
 					})
+				mui('#productlist').on('tap', 'li', function(e) {
+				var productid = this.getAttribute('id');
+				
+				//获得详情页面
+				if (!detailPage) {
+					detailPage = plus.webview.getWebviewById('shop_acter');
+				}
+				//触发详情页面的newsId事件
+				mui.fire(detailPage, 'productsId', {
+					productid: productid,
+					businessid:shanghu_id
+				});
+				//打开详情页面          
+				mui.openWindow({
+					url: 'shop_acter.html',
+					id: 'shop_acter'
+				});
+			});
 				
 			})
 			mui.init({
@@ -150,23 +168,7 @@
 				}]
 			});
 			var detailPage=null;
-			mui('#productlist').on('tap', 'li', function(e) {
-				var productid = this.getAttribute('id');
-				
-				//获得详情页面
-				if (!detailPage) {
-					detailPage = plus.webview.getWebviewById('shop_acter');
-				}
-				//触发详情页面的newsId事件
-				mui.fire(detailPage, 'productsId', {
-					productid: productid
-				});
-				//打开详情页面          
-				mui.openWindow({
-					url: 'shop_acter.html',
-					id: 'shop_acter'
-				});
-			});
+			
 		</script>
 
 	</body>

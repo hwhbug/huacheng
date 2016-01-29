@@ -126,43 +126,45 @@
 		<script src="../js/mui.min.js"></script>
 		<script>
 			mui('.mui-scroll-wrapper').scroll();
+			var orderids="";
 			window.addEventListener('newsId', function(event) {
-				//获得事件参数
-				var cuxiao_id = event.detail.id;
-				mui.ajax('http://101.201.196.202:82/MyOrders/index', {
-					data: {
-						"ids": cuxiao_id.toString()
-					},
+					//获得事件参数
+					var cuxiao_id = event.detail.id;
+					mui.ajax('http://101.201.196.202:82/MyOrders/index', {
+						data: {
+							"ids": cuxiao_id.toString(),
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'Post', //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var myorders = "";
+							var totalprice = 0;
+							for (var i = 0; i < data.length; i++) {
+								myorders += "<li id=\"" + data[i].ID + "\"><p>" + data[i].OrdersName + "<span class=\"font-red mui-pull-right\">￥" + data[i].TotalPrice + "</span></p></li>";
+								totalprice += data[i].TotalPrice;
+								orderids+=data[i].ID+",";
+							}
+							
+							$("#myorders").html(myorders);
+							$("#mx_jiage").html("￥" + totalprice);
+							$("#jifeng").html("本次消费可获得积分：" + totalprice);
+						}
+					})
+				})
+				//*****************************获取默认收货地址**********************************
+			mui.ajax('http://101.201.196.202:82/DeliveryAddress/Default', {
+					data: {},
 					dataType: 'json', //服务器返回json格式数据
 					type: 'Post', //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
-						var myorders = "";
-						var totalprice = 0;
-						for (var i = 0; i < data.length; i++) {
-							myorders += "<li><p>" + data[i].OrdersName + "<span class=\"font-red mui-pull-right\">￥" + data[i].TotalPrice + "</span></p></li>";
-							totalprice += data[i].TotalPrice;
+						if (data.ConsigneeName != null) {
+							$(".dizhi").html("<p id=\"" + data.ID + "\" class=\"black\">收货人：" + data.ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data.ConsigneePhone + "</span></p><p id=\"default_address\">地址：" + data.Address + "</p>");
 						}
-						$("#myorders").html(myorders);
-						$("#mx_jiage").html("￥" + totalprice);
-						$("#jifeng").html("本次消费可获得积分：" + totalprice);
 					}
 				})
-			})
-			//*****************************获取默认收货地址**********************************
-			mui.ajax('http://101.201.196.202:82/DeliveryAddress/Default', {
-				data: {},
-				dataType: 'json', //服务器返回json格式数据
-				type: 'Post', //HTTP请求类型,
-				timeout: 10000, //超时时间设置为10秒；
-				success: function(data) {
-					if(data.ConsigneeName!=null){
-						$(".dizhi").html("<p id=\"userinfo\" class=\"black\">收货人："+data.ConsigneeName+" <span class=\"mui-pull-right\" ：>联系电话："+data.ConsigneePhone+"</span></p><p id=\"default_address\">地址："+data.Address+"</p>");
-					}
-					
-				}
-			})
-			//**************************收货地址管理*****************************
+				//**************************收货地址管理*****************************
 			document.getElementById('address').addEventListener('tap', function() {
 				//打开关于页面
 				mui.openWindow({
@@ -170,29 +172,71 @@
 					id: 'shop_dizhi'
 				});
 			});
-			
 			//*****************************以下为调用支付宝开始支付操作****************************
 			var channels = null;
 			// 监听plusready事件  
 			document.addEventListener("plusready", function() {
 				// 扩展API加载完毕，现在可以正常调用扩展API
 				plus.payment.getChannels(function(s) {
-					channels = s;
+					for (var i in s) {
+						var channel = s[i];
+						if (channel.id === 'alipay') {
+							channels = channel;
+						}
+					}
 				}, function(e) {
 					alert("获取支付通道列表失败：" + e.message);
 				});
 			}, false);
-			document.getElementById("zhifu").addEventListener("tap",function(){
-				
+			document.getElementById("zhifu").addEventListener("tap", function() {
 				// 必须从业务服务器获取支付信息
-				var statement = "...";
-				plus.payment.request(channels, statement, function() {
-					alert("支付操作成功！");
-				}, function(e) {
-					alert("支付失败：" + e.message);
-				});
+				var statement = "";
+				mui.ajax('http://101.201.196.202:82/Alipay/GetPayInfo', {
+					data: {
+						orderid: orderids
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						statement = data;
+						plus.payment.request(channels, statement, function() {
+							alert("支付操作成功！");
+						}, function(e) {
+							if(e.message.indexOf("62000")>=0){
+								plus.ui.toast("请先安装支付宝插件！");
+							}
+							if(e.message.indexOf("62001")>=0){
+								plus.ui.toast("您已取消操作");
+							}
+							if(e.message.indexOf("62002")>=0){
+								plus.ui.toast("此设备不支持支付");
+							}
+							if(e.message.indexOf("62003")>=0){
+								plus.ui.toast("数据格式错误");
+							}
+							if(e.message.indexOf("62004")>=0){
+								plus.ui.toast("支付账号状态错误");
+							}
+							if(e.message.indexOf("62005")>=0){
+								plus.ui.toast("订单信息错误");
+							}
+							if(e.message.indexOf("62006")>=0){
+								plus.ui.toast("支付操作内部错误");
+							}
+							if(e.message.indexOf("62007")>=0){
+								plus.ui.toast("支付服务器错误");
+							}
+							if(e.message.indexOf("62008")>=0){
+								plus.ui.toast("网络问题引起的错误");
+							}
+							if(e.message.indexOf("62009")>=0){
+								plus.ui.toast("其它未定义的错误");
+							}
+						});
+					}
+				})
 			})
-			
 		</script>
 
 	</body>

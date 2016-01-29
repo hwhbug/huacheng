@@ -163,6 +163,7 @@
 		<script type="application/javascript" src="../js/jquery-1.9.1.min.js"></script>
 		<script>
 			mui('.mui-scroll-wrapper').scroll();
+			
 			mui.ajax('http://101.201.196.202:82/DeliveryAddress/index', {
 				data: {},
 				dataType: 'json', //服务器返回json格式数据
@@ -181,25 +182,25 @@
 			var tel = document.getElementById('tel');
 			var adderss = document.getElementById('adderss');
 			addressbtn.addEventListener('tap', function(event) {
-				if (uname.value=="") {
+				if (uname.value == "") {
 					plus.ui.toast("收货人姓名不能为空");
 					return;
-				} 
-				if (tel.value=="") {
+				}
+				if (tel.value == "") {
 					plus.ui.toast("收货人电话不能为空");
 					return;
-				} 
-				if (adderss.value=="") {
+				}
+				if (adderss.value == "") {
 					plus.ui.toast("收货地址不能为空");
 					return;
-				} 
+				}
 				//****************************用户提交成功返回*********************************
 				mui.ajax('http://101.201.196.202:82/DeliveryAddress/Creates', {
 					data: {
 						"ConsigneeName": uname.value,
 						"ConsigneePhone": tel.value,
 						"Address": adderss.value,
-						"isDefault":"1"
+						"isDefault": "1"
 					},
 					dataType: 'json', //服务器返回json格式数据
 					type: 'Post', //HTTP请求类型,
@@ -207,6 +208,7 @@
 					success: function(data) {
 						if (data.statusCode == 200) {
 							plus.ui.toast(data.message);
+							
 						} else {
 							plus.ui.toast(data.message);
 						}
@@ -214,7 +216,7 @@
 				})
 			});
 			mui('#DeliveryAddress').on('tap', '.font-red', function(e) {
-				var DeliveryAddressid = this.getAttribute('id');
+				var DeliveryAddressid = this.parentElement.getAttribute('id');
 				mui.ajax('http://101.201.196.202:82/DeliveryAddress/Delete', {
 					data: {
 						id: DeliveryAddressid,
@@ -225,29 +227,36 @@
 					success: function(data) {
 						if (data.statusCode = "200") {
 							plus.ui.toast(data.message);
+							
 						} else {
 							plus.ui.toast(data.message);
 						}
 					}
 				})
 			});
-			mui('#DeliveryAddress').on('tap', '.font-blue', function(e) {
+			//			mui('#DeliveryAddress').on('tap', '.font-blue', function(e) {
+			//				var DeliveryAddressid = this.parentElement.getAttribute('id');
+			//				mui.ajax('http://101.201.196.202:82/DeliveryAddress/Create', {
+			//					data: {
+			//						id: DeliveryAddressid,
+			//					},
+			//					dataType: 'json', //服务器返回json格式数据
+			//					type: 'Post', //HTTP请求类型,
+			//					timeout: 10000, //超时时间设置为10秒；
+			//					success: function(data) {
+			//						if (data.statusCode = "200") {
+			//							plus.ui.toast(data.message);
+			//						} else {
+			//							plus.ui.toast(data.message);
+			//						}
+			//					}
+			//				})
+			//			});
+			mui('#DeliveryAddress').on('tap', '.dizhi', function(e) {
 				var DeliveryAddressid = this.getAttribute('id');
-				mui.ajax('http://101.201.196.202:82/DeliveryAddress/Create', {
-					data: {
-						id: DeliveryAddressid,
-					},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'Post', //HTTP请求类型,
-					timeout: 10000, //超时时间设置为10秒；
-					success: function(data) {
-						if (data.statusCode = "200") {
-							plus.ui.toast(data.message);
-						} else {
-							plus.ui.toast(data.message);
-						}
-					}
-				})
+				
+				         
+				
 			});
 		</script>
 

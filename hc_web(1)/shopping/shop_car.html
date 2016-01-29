@@ -203,7 +203,7 @@
 					for (var i = 0; i < data.length; i++) {
 						shopcar += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除订单</a></div><div class=\"mui-slider-handle\"><div class=\"left mui-checkbox\"><input class=\"shop-radio\" name=\"radio\" value=\"shop-1\" type=\"checkbox\"></div><div class=\"right\"><a href=\"javascript:;\"><img class=\"mui-media-object mui-pull-left\" src=\"http://101.201.196.202:82/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body mui-pull-left\">" + data[i].Products.Names + "<h4 class=\"font-red\">￥" + data[i].Products.Price2 + "<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Products.Price1 + "</span></p></h4><p>属性：" + data[i].ProAttrName.replace("/\,/g", "&nbsp;") + "</p><p id=\"Quantity\">数量：" + data[i].Quantity + "</p>";
 						if (data[i].Business_ID != null) {
-							shopcar += "<p>商家：" + data[i].Business.Names + "</p></div></a></div></div></li>";
+							shopcar += "<p>商家：" + data[i].Business + "</p></div></a></div></div></li>";
 						} else {
 							shopcar += "</div></a></div></div></li>"
 						}

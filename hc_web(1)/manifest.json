@@ -123,7 +123,7 @@
 		"distribute": {
 			"plugins": {
 				"payment": {
-					"alipay": {"description":"阿里支付","scheme":"huoshenghuo"}
+					"alipay": {"description":"阿里支付","scheme":"huishenghuo"}
 				},
 				"maps": {
 					"baidu": {
@@ -393,7 +393,8 @@
 					"css/cross-down.css",
 					"image/cp2.jpg",
 					"image/cp1.jpg",
-					"image/cp3.jpg"
+					"image/cp3.jpg",
+					"js/app.js"
 				],
 				"refer": [
 					"shopping/shop_car.html"
@@ -534,10 +535,12 @@
 					"css/mui.min.css",
 					"fonts/iconfont.ttf",
 					"css/cross-down.css",
-					null
+					null,
+					"js/app.js"
 				],
 				"refer": [
-					"shopping/shop_list.html"
+					"shopping/shop_list.html",
+					"shopping/shop_car.html"
 				],
 				"priority": 0
 			},

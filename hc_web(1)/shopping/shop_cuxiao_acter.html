@@ -176,6 +176,7 @@
 				mui.ajax('http://101.201.196.202:82/product/whetherlogin', {
 					data: {},
 					dataType: 'json', //服务器返回json格式数据
+					async: false,
 					type: 'Post', //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
@@ -197,17 +198,7 @@
 			mui('body').on('hidden', '.mui-popover', function(e) {
 				//console.log('hidden', e.detail.id);//detail为当前popover元素
 			});
-			//			$(".tanchu_shuxing .mui-btn").click(function() {
-			//				//				var i = $(this).parent("div").index();
-			//				if ($(this).hasClass("active")) {
-			//					$(this).removeClass("active")
-			//				} else {
-			//					$(this).siblings(".mui-btn").removeClass("active");
-			//					$(this).addClass("active");
-			//				}
-			//				$('.shuxing_text').html($(".tanchu_shuxing .active").text() + $(".tanchu_shuxing .active .shuxing_block").text());
-			//			});
-			///////////////////**********************************以下为获取数据**********************************************
+			//**********************************以下为获取数据**********************************************
 			window.addEventListener('productsId', function(event) {
 				//获得事件参数
 				var cuxiao_id = event.detail.cuxiao_id;
@@ -230,6 +221,7 @@
 							id: cuxiao_id,
 						},
 						dataType: 'json', //服务器返回json格式数据
+						async: false,
 						type: 'GET', //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
@@ -251,6 +243,7 @@
 									productid: data.ID
 								},
 								dataType: 'json', //服务器返回json格式数据
+								async: false,
 								type: 'GET', //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(data1) {
@@ -268,6 +261,7 @@
 									producttypeid: data.ProductsType_ID,
 								},
 								dataType: 'json', //服务器返回json格式数据
+								async: false,
 								type: 'GET', //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(data2) {
@@ -327,7 +321,6 @@
 							return;
 						}
 					}
-					
 					//****************************用户提交成功返回*********************************
 					mui.ajax('http://101.201.196.202:82/product/AddCart', {
 						data: {
@@ -339,6 +332,7 @@
 								//								"Business_ID":""
 						},
 						dataType: 'json', //服务器返回json格式数据
+						async: false,
 						type: 'Post', //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
