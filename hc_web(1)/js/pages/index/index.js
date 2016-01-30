@@ -61,30 +61,7 @@ document.getElementById('offCanvasShow').addEventListener('tap', function() {
 document.getElementById('offCanvasHide').addEventListener('tap', function() {
 	offCanvasWrapper.offCanvas('close');
 });
-//一下是三级联动JS
-(function($, doc) {
-	$.init();
-	$.ready(function() {
-		//-----------------------------------------
-		//级联示例
-		//-----------------------------------------
-		//					//级联示例
-		var cityPicker3 = new $.PopPicker({
-			layer: 3
-		});
-		cityPicker3.setData(cityData3);
-		var showCityPickerButton = doc.getElementById('showCityPicker3');
-		var cityResult3 = doc.getElementById('cityResult3');
-		showCityPickerButton.addEventListener('tap', function(event) {
-			cityPicker3.show(function(items) {
-				//							cityResult3.innerText = "你选择:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
-				cityResult3.innerText = (items[2] || {}).text;
-				//返回 false 可以阻止选择框的关闭
-				//return false;
-			});
-		}, false);
-	});
-})(mui, document);
+
 //*********************退出应用*****************************
 var first = null;
 mui.back = function() {

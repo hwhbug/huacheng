@@ -13,9 +13,10 @@
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 		</script>
+		<script src="../js/jquery-1.9.1.min.js" type="application/javascript"></script>
 		<link href="../css/cross-down.css" rel="stylesheet" />
 		<style>
-			.list_shop li{
+			.list_shop li {
 				height: 300px;
 			}
 		</style>
@@ -70,69 +71,59 @@
 					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 					<h1 class="mui-title">周边商户</h1>
 					<span id="icon-menu" class="mui-icon mui-icon-bars mui-pull-right font-blue"></span>
-					
+
 				</header>
 				<!-- 主界面具下拉 -->
-						<div id="menu-wrapper" class="menu-wrapper hidden">
-							<div id="menu" class="menu">
-								<ul class="mui-table-view mui-table-view-inverted">
-								<li id="menu-btn" class="mui-table-view-cell">
-										<a href="javascript:;">周边美食</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="javascript:;">大型超市</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="javascript:;">服装商场</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="javascript:;">居家用品</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="javascript:;">日杂五金</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="javascript:;">家具市场</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="javascript:;">家电中心</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="javascript:;">数码科技</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-							<div id="menu-backdrop" class="menu-backdrop"></div>
-						<!-- 主界面具下拉结束 -->	
+				<div id="menu-wrapper" class="menu-wrapper hidden">
+					<div id="menu" class="menu">
+						<ul class="mui-table-view mui-table-view-inverted">
+							<li id="menu-btn" class="mui-table-view-cell">
+								<a href="javascript:;">周边美食</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="javascript:;">大型超市</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="javascript:;">服装商场</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="javascript:;">居家用品</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="javascript:;">日杂五金</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="javascript:;">家具市场</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="javascript:;">家电中心</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="javascript:;">数码科技</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div id="menu-backdrop" class="menu-backdrop"></div>
+				<!-- 主界面具下拉结束 -->
 				<!--主界面区域-->
 				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop">
 					<div class="mui-scroll">
 
-					
-					
 						<!--banner-->
-						<div class="mui-slider">
+						<!--<div class="mui-slider">
 							<div class="mui-slider-group">
 
 								<div class="mui-slider-item">
-									<img src="../image/gg1.jpg"/>
-								</div>
-
-								<div class="mui-slider-item">
-									<img src="../image/gg2.jpg"/>
-								</div>
-
-								<div class="mui-slider-item">
-									<img src="../image/gg3.jpg"/>
+									<img src="../image/gg1.jpg" />
 								</div>
 							</div>
-						</div>
+						</div>-->
 						<!--banner区域结束-->
 						<!--按钮区域-->
 
-						<div id="container">						
-							<!--周边新开列表-->	
+						<div id="container">
+							<!--周边新开列表-->
 							<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop">
 								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
 									<img src="../image/shop-1.jpg" />
@@ -184,7 +175,7 @@
 								</li>
 							</ul>
 							<!--周边新开列表结束-->
-							
+
 						</div>
 
 						<!-- 侧滑后右侧变黑-->
@@ -193,7 +184,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<script>
 			mui('.mui-scroll-wrapper').scroll();
 			var menuWrapper = document.getElementById("menu-wrapper");
@@ -201,11 +192,10 @@
 			var menuWrapperClassList = menuWrapper.classList;
 			var backdrop = document.getElementById("menu-backdrop");
 			var info = document.getElementById("info");
-			
 			backdrop.addEventListener('tap', toggleMenu);
 			document.getElementById("menu-btn").addEventListener('tap', toggleMenu);
-			document.getElementById("icon-menu").addEventListener('tap',toggleMenu)
-			//下沉菜单中的点击事件
+			document.getElementById("icon-menu").addEventListener('tap', toggleMenu)
+				//下沉菜单中的点击事件
 			mui('#menu').on('tap', 'a', function() {
 				toggleMenu();
 				//info.innerHTML = '你已选择：'+this.innerHTML;
@@ -216,7 +206,6 @@
 				if (busying) {
 					return;
 				}
-	
 				busying = true;
 				if (menuWrapperClassList.contains('mui-active')) {
 					document.body.classList.remove('menu-open');
@@ -236,9 +225,25 @@
 					busying = false;
 				}, 500);
 			}
-			
+				//********************************获取顶部广告位图片列表******************************
+			mui.ajax('http://101.201.196.202:82/business/Busadverts', {
+				data: {
+					type:"1"
+				},
+				dataType: 'json', //服务器返回json格式数据
+				async: false,
+				type: 'GET', //HTTP请求类型,
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+					var str = "";
+					for (var i = 0; i < data.length; i++) {
+						str += "<div class=\"mui-slider-item\"><img src=\"http://101.201.196.202:82/Images/BusAdvertsImg/" + data[i].iamge + "\" /></div>";
+					}
+					$(".mui-slider-group").html(str);
+				}
+			})
 		</script>
-		
+
 	</body>
 
 </html>

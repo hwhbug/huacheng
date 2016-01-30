@@ -195,43 +195,63 @@
 			// 扩展API加载完毕，现在可以正常调用扩展API
 			function onPlusReady() {
 				// 使用百度地图地位模块获取位置信息
-				var weidu=null;
-				var jingdu=null;
-				plus.geolocation.getCurrentPosition(function(p) {
-					weidu = p.coords.latitude;
-					jingdu = p.coords.longitude;
-					console.log(p.coords.latitude + "," + p.coords.longitude + ",");
-					var map = new plus.maps.Map("map");
-					//隐藏地图控件
-					//					map.hide();
-				}, function(e) {
-					alert("Geolocation error: " + e.message);
-				}, {
-					provider: 'baidu'
-				});
+				var weidu = null;
+				var jingdu = null;
+				var map = new plus.maps.Map("map");
+				map.hide();
 				// 将检索到结果作为标点添加到地图中
 				var searchObj = new plus.maps.Search(map);
 				searchObj.onPoiSearchComplete = function(state, result) {
-					
-					console.log("onPoiSearchComplete: " + state + " , " + result.currentNumber);
-					if (state == 0) {
-						if (result.currentNumber <= 0) {
-							alert("没有检索到结果");
+						console.log("onPoiSearchComplete: " + state + " , " + result.currentNumber);
+						if (state == 0) {
+							if (result.currentNumber <= 0) {
+								alert("没有检索到结果");
+							}
+							for (var i = 0; i < result.currentNumber; i++) {
+								var pos = result.getPosition(i);
+								console.log(pos.name);
+//								var marker = new plus.maps.Marker(pos.point);
+//								marker.setLabel(pos.name);
+//								map.addOverlay(marker)
+							}
+						} else {
+							alert("检索失败");
 						}
-						for (var i = 0; i < result.currentNumber; i++) {
-							var pos = result.getPosition(i);
-							console.log(pos.name);
-//							var marker = new plus.maps.Marker(pos.point);
-//							marker.setLabel(pos.name);
-//							map.addOverlay(marker)
-						}
-					} else {
-						alert("检索失败");
 					}
-				}
-				var pt = new plus.maps.Point(112.754, 37.699); // 天安门坐标
-				searchObj.poiSearchNearBy("小区", pt, 1000,2);
+					//地图获取当前位置
+				map.getUserLocation(function(state, point) {
+					if (0 == state) {
+						//						var pt = new plus.maps.Point(112.754, 37.699);
+						alert(point)
+						var posObj = new plus.maps.Position(point);
+						alert(posObj.address)
+						searchObj.poiSearchNearBy("小区", point, 1000, 0);
+						map.setCenter(point);
+						map.setZoom(15)
+					} else {
+						alert("获取当前位置失败，请检查网络");
+					}
+				});
 			}
+			//以下是三级联动JS
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					//-----------------------------------------
+					//					//级联示例
+					var cityPicker3 = new $.PopPicker({
+						layer: 1
+					});
+					cityPicker3.setData(cityData3);
+					var showCityPickerButton = doc.getElementById('showCityPicker3');
+					var cityResult3 = doc.getElementById('cityResult3');
+					showCityPickerButton.addEventListener('tap', function(event) {
+						cityPicker3.show(function(items) {
+							cityResult3.innerText = (items[2] || {}).text;
+						});
+					}, false);
+				});
+			})(mui, document);
 		</script>
 	</body>
 

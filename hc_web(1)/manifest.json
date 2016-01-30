@@ -701,7 +701,8 @@
 					"fonts/iconfont.ttf",
 					"js/mui.js",
 					"css/cross-down.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/jquery-1.9.1.min.js"
 				],
 				"refer": [],
 				"priority": 0
