@@ -110,8 +110,8 @@
 							<!--按钮区域结束-->
 							<!--周边新开列表-->
 							<div class="shop_bar red">周边新开</div>
-							<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop">
-								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+							<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Aroundbusiness">
+								<!--<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
 									<img src="../image/shop-1.jpg" />
 									<a class="font-red" href="#">肯德基田森店</a>
 									<p class="black">主营：快餐、饮品、外卖</p>
@@ -122,7 +122,7 @@
 									<a class="font-red" href="#">肯德基田森店</a>
 									<p class="black">主营：快餐、饮品、外卖</p>
 									<p class="black">地址：榆次区汇通路天森超市下</p>
-								</li>
+								</li>-->
 							</ul>
 							<!--周边新开列表结束-->
 							<!--热门促销列表-->
@@ -140,6 +140,9 @@
 
 							<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Panicbuy">
 							</ul>
+							<!--*******************************隐藏的百度地图控件*************************-->
+							<div id="map"></div>
+							<!--*******************************隐藏的百度地图控件*************************-->
 						</div>
 
 						<!-- 侧滑后右侧变黑-->
@@ -217,7 +220,7 @@
 					success: function(data) {
 						var str = "";
 						for (var i = 0; i < data.length; i++) {
-								str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://101.201.196.202:82/Images/ProductImg/" + data[i].Image1 + "\" /><a class=\"font-green\" href=\"#\">" + data[i].Names + "</a><p class=\"black\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Price1 + "</span></p><p class=\"black\">抢购价：<span class=\"sm_jiage\">￥" + data[i].Price2 + "</span></p><p class=\"red font-bai\">距结束：<span class=\" settime\" style=\" font-family:arial; padding: 5px 10px;\" endtime=\"" + data[i].EndTime + "\"></span></p><p>销量：" + data[i].Quantity + "件</p></li>";
+							str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://101.201.196.202:82/Images/ProductImg/" + data[i].Image1 + "\" /><a class=\"font-green\" href=\"#\">" + data[i].Names + "</a><p class=\"black\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Price1 + "</span></p><p class=\"black\">抢购价：<span class=\"sm_jiage\">￥" + data[i].Price2 + "</span></p><p class=\"red font-bai\">距结束：<span class=\" settime\" style=\" font-family:arial; padding: 5px 10px;\" endtime=\"" + data[i].EndTime + "\"></span></p><p>销量：" + data[i].Quantity + "件</p></li>";
 						}
 						$("#Panicbuy").html(str);
 					}
@@ -354,6 +357,56 @@
 				});
 				setTimeout("updateEndTime()", 1000);
 			}
+			//****************************************定位，同时获取附近商户******************************************
+			// 扩展API加载完毕后调用onPlusReady回调函数 
+			//			document.addEventListener("plusready", onPlusReady, false);
+			//			// 扩展API加载完毕，现在可以正常调用扩展API
+			//			function onPlusReady() {
+			//				// 使用百度地图地位模块获取位置信息
+			//				var weidu = null;
+			//				var jingdu = null;
+			////				alert(plus.storage.getItem("Locate"));
+			//				var map = new plus.maps.Map("map");
+			//				map.hide();
+			//				// 将检索到结果作为标点添加到地图中
+			//				var searchObj = new plus.maps.Search(map);
+			//				//地图获取当前位置
+			//				map.getUserLocation(function(state, point) {
+			//					if (0 == state) {
+			//						//根据坐标获取地理位置信息
+			//						plus.maps.Map.reverseGeocode(point, {}, function(event) {
+			//							var address = event.address; // 转换后的地理位置
+			//							console.log(address.substring(address.indexOf("区") - 2, address.indexOf("区")))
+			//
+			//						}, function(e) {
+			//							alert("Failed:" + JSON.stringify(e));
+			//						});
+			//						searchObj.poiSearchNearBy("小区", point, 1000, 0);
+			//						map.setCenter(point);
+			//						map.setZoom(15)
+			//					} else {
+			//						alert("获取当前位置失败，请检查网络");
+			//					}
+			//				});
+			//			}
+			//***********************************获取周边商户的商品数据********************************
+			mui.ajax('http://101.201.196.202:82/Business/Index', {
+				data: {
+					isdisplay: "1",
+					Formulate: "1"
+				},
+				dataType: 'json', //服务器返回json格式数据
+				async: false,
+				type: 'GET', //HTTP请求类型,
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+					var str = "";
+					for (var i = 0; i < data.length; i++) {
+						str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://101.201.196.202:82/Images/BusinessImg/" + data[i].topimage3 + "\" /><a class=\"font-red\" href=\"#\">" + data[i].Admin_User.name + "</a><p class=\"black\">主营：" + data[i].ProductsType.Names + "</p><p class=\"black\">地址：" + data[i].Admin_User.Address + "</p></li>";
+					}
+					$("#Aroundbusiness").html(str);
+				}
+			})
 		</script>
 	</body>
 

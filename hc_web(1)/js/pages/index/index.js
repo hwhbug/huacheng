@@ -23,9 +23,9 @@ mui.ajax('http://101.201.196.202:82/home/login_cache', {
 	type: 'GET', //HTTP请求类型,
 	timeout: 10000, //超时时间设置为10秒；
 	success: function(data) {
-			if (data.name != null && data.name != "") {
-				$(".login").html("<p>" + data.name + "</p>")
-			}
+		if (data.name != null && data.name != "") {
+			$(".login").html("<p>" + data.name + "</p>")
+		}
 
 	}
 })

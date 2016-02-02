@@ -805,7 +805,8 @@
 				"refer": [
 					"user/user_fuwu.html",
 					"user/user_dingdan.html",
-					"shopping/shop_car.html"
+					"shopping/shop_car.html",
+					"index.html"
 				],
 				"priority": 0
 			},

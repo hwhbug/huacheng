@@ -111,20 +111,20 @@
 					<div class="mui-scroll">
 
 						<!--banner-->
-						<!--<div class="mui-slider">
+						<div class="mui-slider">
 							<div class="mui-slider-group">
 
-								<div class="mui-slider-item">
+								<!--<div class="mui-slider-item">
 									<img src="../image/gg1.jpg" />
-								</div>
+								</div>-->
 							</div>
-						</div>-->
+						</div>
 						<!--banner区域结束-->
 						<!--按钮区域-->
 
 						<div id="container">
 							<!--周边新开列表-->
-							<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop">
+							<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Aroundbusiness">
 								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
 									<img src="../image/shop-1.jpg" />
 									<a class="font-red" href="#">肯德基田森店</a>
@@ -133,46 +133,7 @@
 									<p>距我：800m</p>
 
 								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-									<img src="../image/shop-2.jpg" />
-									<a class="font-red" href="#">肯德基田森店</a>
-									<p class="black">主营：快餐、饮品、外卖</p>
-									<p class="black">地址：榆次区汇通路天森超市下</p>
-									<p>距我：1.2km</p>
-
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-									<img src="../image/shop-2.jpg" />
-									<a class="font-red" href="#">肯德基田森店</a>
-									<p class="black">主营：快餐、饮品、外卖</p>
-									<p class="black">地址：榆次区汇通路天森超市下</p>
-									<p>距我：1.2km</p>
-
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-									<img src="../image/shop-2.jpg" />
-									<a class="font-red" href="#">肯德基田森店</a>
-									<p class="black">主营：快餐、饮品、外卖</p>
-									<p class="black">地址：榆次区汇通路天森超市下</p>
-									<p>距我：1.2km</p>
-
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-									<img src="../image/shop-2.jpg" />
-									<a class="font-red" href="#">肯德基田森店</a>
-									<p class="black">主营：快餐、饮品、外卖</p>
-									<p class="black">地址：榆次区汇通路天森超市下</p>
-									<p>距我：1.2km</p>
-
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-									<img src="../image/shop-2.jpg" />
-									<a class="font-red" href="#">肯德基田森店</a>
-									<p class="black">主营：快餐、饮品、外卖</p>
-									<p class="black">地址：榆次区汇通路天森超市下</p>
-									<p>距我：1.2km</p>
-
-								</li>
+								
 							</ul>
 							<!--周边新开列表结束-->
 
@@ -242,6 +203,24 @@
 					$(".mui-slider-group").html(str);
 				}
 			})
+			//***********************************获取周边商户的商品数据********************************
+			mui.ajax('http://101.201.196.202:82/Business/Index', {
+					data: {
+						isdisplay: "1",
+						Formulate: "1"
+					},
+					dataType: 'json', //服务器返回json格式数据
+					async: false,
+					type: 'GET', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var str = "";
+						for (var i = 0; i < data.length; i++) {
+							str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://101.201.196.202:82/Images/BusinessImg/" + data[i].topimage3 + "\" /><a class=\"font-red\" href=\"#\">" + data[i].Admin_User.name + "</a><p class=\"black\">主营：" + data[i].ProductsType.Names + "</p><p class=\"black\">地址：" + data[i].Admin_User.Address + "</p></li>";
+						}
+						$("#Aroundbusiness").html(str);
+					}
+				})
 		</script>
 
 	</body>

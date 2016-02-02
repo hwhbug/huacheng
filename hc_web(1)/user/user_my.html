@@ -153,6 +153,13 @@
 		</div>
 
 		<script>
+			mui.init({
+				preloadPages: [{
+					id: 'index',
+					url: 'index.html'
+				}]
+			});
+			var detailPage = null;
 			mui('.mui-scroll-wrapper').scroll();
 			//******************************我的订单点击事件******************************
 			document.getElementById('user_dingdan').addEventListener('tap', function() {
@@ -180,9 +187,28 @@
 					success: function(data) {
 						if (data.statusCode == 200) {
 							plus.ui.toast(data.message);
-							var wobj = plus.webview.getWebviewById(plus.runtime.appid);
-							wobj.reload()
-							mui.back();
+							plus.storage.removeItem("account");
+							plus.storage.removeItem("password");
+							plus.storage.removeItem("radio");
+							///*************************************关闭需要刷新的页面，调用自定义方法重新打开******************************
+							var wobj = plus.webview.getWebviewById('index');
+							if (wobj != null) {
+								wobj.close()
+							}
+							//获得详情页面
+							if (!detailPage) {
+								detailPage = plus.webview.getWebviewById('index');
+							}
+							//触发详情页面的newsId事件
+							mui.fire(detailPage, 'newsId', {});
+//							plus.webview.close(plus.webview.currentWebview());
+							mui.openWindow({
+								url: '../index.html',
+								id: '../index'
+							});
+							
+							//							wobj.reload()
+							//							mui.back();
 						}
 					}
 				})
