@@ -113,7 +113,6 @@
 						<!--banner-->
 						<div class="mui-slider">
 							<div class="mui-slider-group">
-
 								<!--<div class="mui-slider-item">
 									<img src="../image/gg1.jpg" />
 								</div>-->
@@ -125,15 +124,7 @@
 						<div id="container">
 							<!--周边新开列表-->
 							<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Aroundbusiness">
-								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-									<img src="../image/shop-1.jpg" />
-									<a class="font-red" href="#">肯德基田森店</a>
-									<p class="black">主营：快餐、饮品、外卖</p>
-									<p class="black">地址：榆次区汇通路天森超市下顺城街</p>
-									<p>距我：800m</p>
 
-								</li>
-								
 							</ul>
 							<!--周边新开列表结束-->
 
@@ -143,6 +134,7 @@
 					</div>
 					<div class="mui-off-canvas-backdrop"></div>
 				</div>
+				<div id="map" style="height: 500px;"></div>
 			</div>
 		</div>
 
@@ -186,26 +178,32 @@
 					busying = false;
 				}, 500);
 			}
-				//********************************获取顶部广告位图片列表******************************
+			//********************************获取顶部广告位图片列表******************************
 			mui.ajax('http://101.201.196.202:82/business/Busadverts', {
-				data: {
-					type:"1"
-				},
-				dataType: 'json', //服务器返回json格式数据
-				async: false,
-				type: 'GET', //HTTP请求类型,
-				timeout: 10000, //超时时间设置为10秒；
-				success: function(data) {
-					var str = "";
-					for (var i = 0; i < data.length; i++) {
-						str += "<div class=\"mui-slider-item\"><img src=\"http://101.201.196.202:82/Images/BusAdvertsImg/" + data[i].iamge + "\" /></div>";
-					}
-					$(".mui-slider-group").html(str);
-				}
-			})
-			//***********************************获取周边商户的商品数据********************************
-			mui.ajax('http://101.201.196.202:82/Business/Index', {
 					data: {
+						type: "1"
+					},
+					dataType: 'json', //服务器返回json格式数据
+					async: false,
+					type: 'GET', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var str = "";
+						for (var i = 0; i < data.length; i++) {
+							str += "<div class=\"mui-slider-item\"><img src=\"http://101.201.196.202:82/Images/BusAdvertsImg/" + data[i].iamge + "\" /></div>";
+						}
+						$(".mui-slider-group").html(str);
+					}
+				})
+				//***********************************获取周边商户的商品数据********************************
+				//			// 扩展API加载完毕后调用onPlusReady回调函数 
+			document.addEventListener("plusready", onPlusReady, false);
+			// 扩展API加载完毕，现在可以正常调用扩展API
+			function onPlusReady() {
+				mui.ajax('http://101.201.196.202:82/Business/businesslist', {
+					data: {
+						latitude: eval("(" + plus.storage.getItem("Communitycoord") + ")").latitude,
+						longitude: eval("(" + plus.storage.getItem("Communitycoord") + ")").longitude,
 						isdisplay: "1",
 						Formulate: "1"
 					},
@@ -216,11 +214,37 @@
 					success: function(data) {
 						var str = "";
 						for (var i = 0; i < data.length; i++) {
-							str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://101.201.196.202:82/Images/BusinessImg/" + data[i].topimage3 + "\" /><a class=\"font-red\" href=\"#\">" + data[i].Admin_User.name + "</a><p class=\"black\">主营：" + data[i].ProductsType.Names + "</p><p class=\"black\">地址：" + data[i].Admin_User.Address + "</p></li>";
+							str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://101.201.196.202:82/Images/BusinessImg/" + data[i].topimage3 + "\" /><a class=\"font-red\" href=\"#\">" + data[i].Admin_User.name + "    距此：" + data[i].distance + "米</a><p class=\"black\">主营：" + data[i].ProductsType.Names + "</p><p class=\"black\">地址：" + data[i].Admin_User.Address + "</p></li>";
 						}
 						$("#Aroundbusiness").html(str);
 					}
 				})
+			}
+			//*****************周边商户店铺详情页面*************************
+			mui.init({
+				preloadPages: [{
+					url: 'shop_user.html',
+					id: 'shop_user'
+				}]
+			});
+			var shanghu_detailPage = null;
+			//添加列表项的点击事件
+			mui('#Aroundbusiness').on('tap', 'li', function(e) {
+				var shanghu_id = this.getAttribute('id');
+				//获得详情页面
+				if (!shanghu_detailPage) {
+					shanghu_detailPage = plus.webview.getWebviewById('shop_user');
+				}
+				//触发详情页面的newsId事件
+				mui.fire(shanghu_detailPage, 'business', {
+					shanghu_id: shanghu_id
+				});
+				//打开详情页面          
+				mui.openWindow({
+					url: 'shop_user.html',
+					id: 'shop_user'
+				});
+			});
 		</script>
 
 	</body>

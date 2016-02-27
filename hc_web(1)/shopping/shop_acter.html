@@ -264,7 +264,7 @@
 				$('.choise').empty();
 				$('.Quantity').empty();
 				//根据id向服务器请求新闻详情
-				mui.ajax('http://101.201.196.202:82/product/Panicbuy_Detail', {
+				mui.ajax('http://101.201.196.202:82/product/Businessproduct_Detail', {
 						data: {
 							id: productid,
 						},
@@ -273,22 +273,36 @@
 						type: 'GET', //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
+//							alert(data.Products.ProductsType_ID)
 							var str = "";
 							//alert(cuxiao_id)
-							$(".mui-title").html(data.Names);
-							$(".left .pro_name").html(data.Names);
-							$(".left .font-red.mx_jiage").html("￥" + data.Price1);
-							$(".left .zhonghuaxian").html("￥" + data.Price2);
-							$(".shop_main").html(data.Description);
-							$(".right .pro_name").html(data.Names);
-							$(".right .font-red.mx_jiage").html("￥" + data.Price1);
-							$(".right .zhonghuaxian").html("￥" + data.Price2);
-							$('.Quantity').html(data.Quantity);
-							$(".sm_shop_img").html("<img src=\"http://101.201.196.202:82/Images/ProductImg/" + data.Brand.brand_logo + " \"/>");
+							$(".mui-title").html(data.Products.Names);
+							$(".left .pro_name").html(data.Products.Names);
+							$(".left .font-red.mx_jiage").html("￥" + data.Price);
+							$(".left .zhonghuaxian").html("￥" + data.Price);
+							$(".shop_main").html(data.Products.Description);
+							$(".right .pro_name").html(data.Products.Names);
+							$(".right .font-red.mx_jiage").html("￥" + data.Price);
+							$(".right .zhonghuaxian").html("￥" + data.Price);
+							$('.Quantity').html(data.Products.Quantity);
+							//获取产品的品牌信息
+							mui.ajax('http://101.201.196.202:82/product/getbrandbyid', {
+								data: {
+									id: data.Products.Brand_ID,
+								},
+								dataType: 'json', //服务器返回json格式数据
+								async: false,
+								type: 'GET', //HTTP请求类型,
+								timeout: 10000, //超时时间设置为10秒；
+								success: function(databrand) {
+									$(".sm_shop_img").html("<img src=\"http://101.201.196.202:82/Images/ProductImg/" + databrand.brand_logo + " \"/>");
+								}
+							});
+//							
 							//获取产品的相册列表
 							mui.ajax('http://101.201.196.202:82/product/Panicbuy', {
 								data: {
-									productid: data.ID,
+									productid: data.Products.ID,
 								},
 								dataType: 'json', //服务器返回json格式数据
 								async: false,
@@ -306,7 +320,7 @@
 							//						//获取属性列表
 							mui.ajax('http://101.201.196.202:82/product/Panicbuy_Purchase', {
 								data: {
-									producttypeid: data.ProductsType_ID,
+									producttypeid: data.Products.ProductsType_ID,
 								},
 								dataType: 'json', //服务器返回json格式数据
 								async: false,
@@ -318,7 +332,7 @@
 									var ProductAttribute = "";
 									var post_attr = "";
 									mui.getJSON('http://101.201.196.202:82/product/Customers_Detail', {
-											productid: data.ID,
+											productid: data.Products.ID,
 										},
 										function(data3) {
 											for (var i = 0; i < data2.length; i++) {

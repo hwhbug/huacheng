@@ -437,7 +437,10 @@
 					"image/baoxiu_03.gif",
 					"fonts/iconfont.ttf",
 					"js/mui.js",
-					"image/baoxiu_07.gif"
+					"image/baoxiu_07.gif",
+					"js/mui.picker.js",
+					"js/jquery-1.9.1.min.js",
+					"js/mui.poppicker.js"
 				],
 				"refer": [
 					"baoxiu/repair_2.html"
@@ -639,7 +642,9 @@
 				"resources": [
 					"css/app.css",
 					"js/mui.min.js",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/jquery-1.9.1.min.js"
 				],
 				"refer": [],
 				"priority": 0
