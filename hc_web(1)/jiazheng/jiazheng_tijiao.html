@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<style>
+			.mui-btn,
+			button,
+			input[type=button],
+			input[type=reset],
+			input[type=submit] {
+				position: initial !important;
+			}
+			
+			.font-jiazheng .mui-icon {
+				float: left;
+				padding: 13px 8px;
+			}
+			
+			.font-jiazheng .mui-icon:before {
+				color: #FFFFFF;
+			}
+			
+			.btn_login {
+				margin-top: 10px;
+			}
+			
+			.smm_txt {
+				font-size: 12px !important;
+				margin: 0;
+				padding: 0 5px 10px 5px;
+				text-align: center !important;
+			}
+			
+			body {
+				background: #FFFFFF !important;
+			}
+		</style>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-icon">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">订单状态</h1>
+		</header>
+
+		<div class="mui-content jiazheng">
+			<div class="repair3_table">
+				<!--<p class="black"><span class="mui-icon mui-icon-paperclip yellow-font">订单号：</span>10020051111</p>-->
+				<div class="jiazheng-zhuangtai" id="ayiCnt">
+					<!--<div class="touxiang"><img src="../image/baomu1.jpg" /></div>
+					<div class="touxiang2">
+						<p class="black">姓名：张爱玲</p>
+						<p>山西|45岁</p>
+						<p>薪资：<strong class="font-yellow">3000元/月</strong></p>
+						<p class="black">服务级别：初级月嫂</p>
+					</div>
+					<div style="clear: both;"></div>-->
+
+				</div>
+				<div class="qr_dizhi">
+					<!--<div id="bt" class="repair_bar red">确认地址信息 </div>
+					<input type="text" class="mui-input-speech sm_input" placeholder="李晨源" />
+					<input type="text" class="mui-input-speech sm_input" placeholder="汇通新城" />
+					<div class="mui-input-row">
+						<input type="text" class="mui-input-speech mui-input-clear" placeholder="详细地址" />
+					</div>
+					<div class="mui-input-row">
+						<input type="text" class="mui-input-speech mui-input-clear" placeholder="15035667535" />
+					</div>-->
+				</div>
+				<div class="jiazheng-zhuangtai">
+					<div class="xuanze-jiazheng">
+						<div class="mui-pull-left font-jiazheng"><span class="mui-icon icon-gongzuojingyan"></span>服务时长：</div>
+						<button style="border:none; border-bottom: 1px solid #DDDDDD;" id='showUserPicker' class="mui-btn mui-btn-block adress mui-pull-left alert-jiazheng " type='button'>
+							<div id='userResult' class="ui-alert">选择雇佣时长</div>
+						</button>
+					</div>
+					<textarea class="mui-input-clear question" placeholder="补充您的其他要求"></textarea>
+				</div>
+				<p class="red_txt center sm_txt">预约金：¥200元</p>
+				<p class="red_txt center">总价：¥6000元</p>
+				<p class="shuomin smm_txt"><span class="mui-icon mui-icon-help"></span> 订单提交后，您拥有2天的服务试用期,服务不满意的话我们会为您免费更换人员或全额退款</p>
+				<button id='zhifu' class="mui-btn mui-btn-block mui-btn-primary btn_login">立即支付</button>
+			</div>
+		</div>
+
+	</body>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			var fid = self.fid;
+			var ayiName = self.ayiName;
+			var area1 = self.area1;
+			var age = self.age;
+			var salary = self.salary;
+			var serverLvl = self.serverLvl;
+			var ayiImg = self.ayiImg;
+			//			alert("id=" + fid);
+			var tijiaoCnt = "<div class=\"touxiang\"><img src=\"" + ayiImg + "\" /></div><div class=\"touxiang2\"><p class=\"black\">姓名：" + ayiName + "</p>" +
+				"<p>" + area1 + "|" + age + "岁</p><p>薪资：<strong class=\"font-yellow\">" + salary + "元/月</strong></p><p class=\"black\">服务级别：" + serverLvl + "</p></div>" +
+				"<div style=\"clear: both;\"></div>";
+			$("#ayiCnt").html(tijiaoCnt);
+			var accountID = self.accountID;
+//			alert(accountID);
+
+
+			mui.ajax('http://101.200.232.167:81/home/userinfo', {
+				data: {
+					uid: accountID
+				},
+				dataType: 'json', //服务器返回json格式数据
+				async: false,
+				type: 'GET', //HTTP请求类型,
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+//					alert("name=" + data.name);
+//					alert("diqu=" + data.Community.CommunityName);
+					var dizhi = "<div id=\"bt\" class=\"repair_bar red\">确认地址信息 </div><input type=\"text\" class=\"mui-input-speech sm_input\" placeholder=\""+data.name+"\"  />" +
+						"<input type=\"text\" class=\"mui-input-speech sm_input\" placeholder=\""+data.Community.CommunityName+"\" />" +
+						"<div class=\"mui-input-row\"><input type=\"text\" class=\"mui-input-speech mui-input-clear\" placeholder=\""+data.Community.Description+"\" /></div>" +
+						"<div class=\"mui-input-row\"><input type=\"text\" class=\"mui-input-speech mui-input-clear\" placeholder=\""+data.mp+"\" /></div>";
+					$(".qr_dizhi").html(dizhi);
+				}
+			});
+			//				document.getElementById('zhifu').addEventListener('tap', function() {
+			//					//打开关于页面
+			//					mui.openWindow({
+			//						url: 'jiazheng_over.html',
+			//						id: 'jiazheng_over'
+			//					});
+			//				});
+		});
+		(function($, doc) {
+			$.init();
+			$.ready(function() {
+				var userPicker = new $.PopPicker();
+				userPicker.setData([{
+					value: 'ywj',
+					text: '一个月'
+				}, {
+					value: 'aaa',
+					text: '二个月'
+				}, {
+					value: 'lj',
+					text: '三个月'
+				}, ]);
+				var showUserPickerButton = doc.getElementById('showUserPicker');
+				var userResult = doc.getElementById('userResult');
+				showUserPickerButton.addEventListener('tap', function(event) {
+					userPicker.show(function(items) {
+						userResult.innerText = (items[0] || {}).text;
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					});
+				}, false);
+			});
+		})(mui, document);
+	</script>
+</html>

@@ -218,7 +218,7 @@
 					$(this).removeClass("active")
 				} else {
 					$(this).siblings(".mui-btn").removeClass("active");
-					$(this).addClass("active");
+					$(this).addClass("active");;
 				}
 				$('.shuxing_text').html($(".tanchu_shuxing .active").text() + $(".tanchu_shuxing .active .shuxing_block").text());
 			});
@@ -226,6 +226,7 @@
 			window.addEventListener('productsId', function(event) {
 				//获得事件参数
 				var productid = event.detail.productid;
+				console.log(productid)
 				var businessid = event.detail.businessid;
 				//******************************如果商户id不为空，获取商户的名称***********************************
 				if (businessid != "" && businessid != null) {
@@ -298,7 +299,6 @@
 									$(".sm_shop_img").html("<img src=\"http://101.201.196.202:82/Images/ProductImg/" + databrand.brand_logo + " \"/>");
 								}
 							});
-//							
 							//获取产品的相册列表
 							mui.ajax('http://101.201.196.202:82/product/Panicbuy', {
 								data: {

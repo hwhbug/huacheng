@@ -89,14 +89,7 @@
 		</div>
 		<!-- FOOTER区域-->
 		<nav class="mui-bar mui-bar-tab footer">
-			<div class="dizhi" style="line-height: 30px; color:#666666;">
-				<!--<p id="userinfo" class="black">
-					收货人：李晨源 <span class="mui-pull-right" ：>联系电话：15035667535</span>
-				</p>
-				<p id="default_address"></p>
-				<p>山西省晋中市榆次区中都北路军安小区对面易魔方数字设计中心 </p>
-				-->
-			</div>
+			<div id="dizhi" class="dizhi" style="line-height: 30px; color:#666666;"></div>
 			<p class="center font-blue" id="address">更换地址</p>
 			<p class="black">支付方式</p>
 			<ul class="mui-table-view mui-table-view-radio">
@@ -188,7 +181,13 @@
 					alert("获取支付通道列表失败：" + e.message);
 				});
 			}, false);
+			var dizhi = document.getElementById('dizhi');
 			document.getElementById("zhifu").addEventListener("tap", function() {
+				if (dizhi.innerHTML.length == 0) {
+					plus.ui.toast("请先添加收货地址……");
+					return;
+				}
+				
 				// 必须从业务服务器获取支付信息
 				var statement = "";
 				mui.ajax('http://101.201.196.202:82/Alipay/GetPayInfo', {

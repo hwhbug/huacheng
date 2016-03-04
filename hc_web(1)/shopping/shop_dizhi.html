@@ -148,6 +148,7 @@
 					<div class="mui-input-row">
 						<label>姓名：</label>
 						<input id="uname" placeholder="收货人姓名">
+						<input id="ID" type="hidden">
 					</div>
 					<div class="mui-input-row">
 						<label>电话：</label>
@@ -163,7 +164,6 @@
 		<script type="application/javascript" src="../js/jquery-1.9.1.min.js"></script>
 		<script>
 			mui('.mui-scroll-wrapper').scroll();
-			
 			mui.ajax('http://101.201.196.202:82/DeliveryAddress/index', {
 				data: {},
 				dataType: 'json', //服务器返回json格式数据
@@ -172,7 +172,7 @@
 				success: function(data) {
 					var str = "";
 					for (var i = 0; i < data.length; i++) {
-						str += "<div id=\"" + data[i].ID + "\" class=\"dizhi\" style=\"line-height: 30px; color:#666666;\"><p class=\"black\">收货人：" + data[i].ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data[i].ConsigneePhone + "</span></p><p>收货地址：" + data[i].Address + "</p><p class=\"mui-pull-right font-red\" style=\"margin-left: 10px;\">删除 </p><p class=\"mui-pull-right font-blue\"> 修改信息</p>	<div style=\"clear: both;\"></div></div>";
+						str += "<div id=\"" + data[i].ID + "\" class=\"dizhi\" style=\"line-height: 30px; color:#666666;\"><p class=\"black\">收货人：" + data[i].ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data[i].ConsigneePhone + "</span></p><p>收货地址：" + data[i].Address + "</p><a class=\"mui-pull-right font-red\" style=\"margin-left: 10px;\">删除 </a><a href=\"#bottomPopover\" class=\"mui-pull-right font-blue\"> 修改信息</a><div style=\"clear: both;\"></div></div>";
 					}
 					$("#DeliveryAddress").html(str);
 				}
@@ -181,6 +181,7 @@
 			var uname = document.getElementById('uname');
 			var tel = document.getElementById('tel');
 			var adderss = document.getElementById('adderss');
+			var ID = document.getElementById('ID');
 			addressbtn.addEventListener('tap', function(event) {
 				if (uname.value == "") {
 					plus.ui.toast("收货人姓名不能为空");
@@ -194,13 +195,15 @@
 					plus.ui.toast("收货地址不能为空");
 					return;
 				}
-				//****************************用户提交成功返回*********************************
+				console.log("ConsigneeName=" + uname.value + "ConsigneePhone=" + tel.value + "Address=" + adderss.value + "ID=" + ID.value)
+					//****************************用户提交成功返回*********************************
 				mui.ajax('http://101.201.196.202:82/DeliveryAddress/Creates', {
 					data: {
 						"ConsigneeName": uname.value,
 						"ConsigneePhone": tel.value,
 						"Address": adderss.value,
-						"isDefault": "1"
+						"ID": ID.value,
+						"isDefault": "0"
 					},
 					dataType: 'json', //服务器返回json格式数据
 					type: 'Post', //HTTP请求类型,
@@ -208,7 +211,11 @@
 					success: function(data) {
 						if (data.statusCode == 200) {
 							plus.ui.toast(data.message);
-							
+							uname.value = "";
+							tel.value = "";
+							adderss.value = "";
+							var wobj = plus.webview.currentWebview();
+							wobj.reload();
 						} else {
 							plus.ui.toast(data.message);
 						}
@@ -227,37 +234,38 @@
 					success: function(data) {
 						if (data.statusCode = "200") {
 							plus.ui.toast(data.message);
-							
+							var wobj = plus.webview.currentWebview();
+							wobj.reload();
 						} else {
 							plus.ui.toast(data.message);
 						}
 					}
 				})
 			});
-			//			mui('#DeliveryAddress').on('tap', '.font-blue', function(e) {
-			//				var DeliveryAddressid = this.parentElement.getAttribute('id');
-			//				mui.ajax('http://101.201.196.202:82/DeliveryAddress/Create', {
-			//					data: {
-			//						id: DeliveryAddressid,
-			//					},
-			//					dataType: 'json', //服务器返回json格式数据
-			//					type: 'Post', //HTTP请求类型,
-			//					timeout: 10000, //超时时间设置为10秒；
-			//					success: function(data) {
-			//						if (data.statusCode = "200") {
-			//							plus.ui.toast(data.message);
-			//						} else {
-			//							plus.ui.toast(data.message);
-			//						}
-			//					}
-			//				})
-			//			});
-			mui('#DeliveryAddress').on('tap', '.dizhi', function(e) {
-				var DeliveryAddressid = this.getAttribute('id');
-				
-				         
-				
+			mui('#DeliveryAddress').on('tap', '.font-blue', function(e) {
+				var DeliveryAddressid = this.parentElement.getAttribute('id');
+				mui.ajax('http://101.201.196.202:82/DeliveryAddress/getdeliveryaddressbyid', {
+					data: {
+						id: DeliveryAddressid,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						ID.value = data.ID;
+						uname.value = data.ConsigneeName;
+						tel.value = data.ConsigneePhone;
+						adderss.value = data.Address;
+					}
+				})
 			});
+//			mui('#DeliveryAddress').on('tap', '.dizhi', function(e) {
+//				var DeliveryAddressid = this.getAttribute('id');
+//				var these = plus.webview.currentWebview();
+//				plus.webview.close(these);
+//				var wobj = plus.webview.getWebviewById("shop_jiesuan");
+//				wobj.reload();
+//			});
 		</script>
 
 	</body>

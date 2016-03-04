@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<style>
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+				padding: 5px;
+				background: #FFFFFF;
+			}
+			
+			.mui-content > .mui-table-view:first-child {
+				margin: 0;
+			}
+			
+			.icon-wujiaoxing {
+				width: 14px;
+				height: 22px;
+				font-size: 22px !important;
+				color: #EC971F;
+			}
+		</style>
+		<script src="../js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-icon">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">挑选阿姨</h1>
+		</header>
+		<input type="hidden" name="ayiName">
+		<input type="hidden" name="ayijProvince">
+		<input type="hidden" name="ayiAge">
+		<input type="hidden" name="ayiSalary">
+		<input type="hidden" name="ayiServerLvl">
+		<input type="hidden" name="ayiImg">
+
+		<div class="mui-content jiazheng">
+			<ul class="mui-table-view mui-grid-view mui-grid-9" id="ayiC">
+				<!--<li id="tijiao" class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+					<div class="touxiang"><img src="../image/baomu1.jpg" /></div>
+					<div class="touxiang2">
+						<p class="font-red"><span>张爱玲</span></p>
+						<p>山西|45岁</p>
+						<p>薪资/月：</p>
+						<p><span class="font-yellow">3000元</span></p>
+						<p><strong class="font-yellow mui-icon icon-zan"></strong>20</p>
+					</div>
+					<div style="clear: both;"></div>
+					<p class="pinjia">好评率：
+						<span class="mui-icon icon-wujiaoxing"></span>
+						<span class="mui-icon icon-wujiaoxing"></span>
+						<span class="mui-icon icon-wujiaoxing"></span>
+						<span class="mui-icon icon-wujiaoxing"></span>
+						<span class="mui-icon icon-wujiaoxing"></span>
+					</p>
+					<div class="biaoqian">经验丰富</div>
+					<div class="biaoqian">勤劳</div>
+					<div class="biaoqian">性格开朗</div>
+					<div class="biaoqian">能吃苦</div>
+				</li>-->
+			</ul>
+		</div>
+
+	</body>
+	<script>
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			var baomuFlag = self.baomuFlag;
+			//			alert("yesaoLvl="+yesaoLvl);
+			//			alert("baomuFlag="+baomuFlag);
+			if (baomuFlag == "1") {
+				var yuesaoLvl = self.yuesaoLvl;
+				var workExper = self.workExper;
+				var ageRange = self.ageRange;
+				var xueliRange = self.xueliRange;
+				var salaryRange = self.salaryRange
+				mui.ajax('http://101.200.232.167:81/JZYuesao/yueSaoIndex', {
+					data: {
+						serverLvl: yuesaoLvl,
+						workExper: workExper,
+						ageRange: ageRange,
+						xueli: xueliRange,
+						salaryRange: salaryRange
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'GET', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var ayiCnt = "";
+						//data-name=\""+data[i].ayiName+"\"
+						for (var i = 0; i < data.length; i++) {
+							ayiCnt += "<li id=\"" + data[i].yuesaoID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
+								"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+								"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
+								"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
+								"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+						}
+						$("#ayiC").html(ayiCnt);
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理
+						console.log(type)
+					}
+				});
+			} else if (baomuFlag == "2") {
+				var yuersaoLvl = self.yuersaoLvl;
+				var workExper = self.workExper;
+				var ageRange = self.ageRange;
+				var xueliRange = self.xueliRange;
+				var salaryRange = self.salaryRange;
+				var babyRange = self.babyRange;
+				mui.ajax('http://101.200.232.167:81/JZYuersao/yuerSaoIndex', {
+					data: {
+						serverLvl: yuersaoLvl,
+						workExper: workExper,
+						ageRange: ageRange,
+						xueli: xueliRange,
+						salaryRange: salaryRange,
+						babyAge: babyRange
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'GET', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var ayiCnt = "";
+						//data-name=\""+data[i].ayiName+"\"
+						for (var i = 0; i < data.length; i++) {
+							ayiCnt += "<li id=\"" + data[i].yuersaoID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
+								"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+								"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
+								"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
+								"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+						}
+						$("#ayiC").html(ayiCnt);
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理
+						console.log(type)
+					}
+				});
+			} else if (baomuFlag == "3") {
+				var peihuLvl = self.peihuLvl;
+				var workExper = self.workExper;
+				var ageRange = self.ageRange;
+				var xueliRange = self.xueliRange;
+				var salaryRange = self.salaryRange;
+				mui.ajax('http://101.200.232.167:81/JZpeihu/peiHuIndex', {
+					data: {
+						serverLvl: peihuLvl,
+						workExper: workExper,
+						ageRange: ageRange,
+						xueli: xueliRange,
+						salaryRange: salaryRange
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'GET', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var ayiCnt = "";
+						//data-name=\""+data[i].ayiName+"\"
+						for (var i = 0; i < data.length; i++) {
+							ayiCnt += "<li id=\"" + data[i].peihuID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
+								"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+								"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
+								"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
+								"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+						}
+						$("#ayiC").html(ayiCnt);
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理
+						console.log(type)
+					}
+				});
+			} else if (baomuFlag == "4") {
+				var baomuLvl = self.baomuLvl;
+				var workExper = self.workExper;
+				var ageRange = self.ageRange;
+				var xueliRange = self.xueliRange;
+				var salaryRange = self.salaryRange;
+				mui.ajax('http://101.200.232.167:81/JZZhujiabaomu/ZJBMIndex', {
+					data: {
+						serverLvl: baomuLvl,
+						workExper: workExper,
+						ageRange: ageRange,
+						xueli: xueliRange,
+						salaryRange: salaryRange
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'GET', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var ayiCnt = "";
+						for (var i = 0; i < data.length; i++) {
+							ayiCnt += "<li id=\"" + data[i].zjbaomuID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
+								"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+								"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
+								"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
+								"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+						}
+						$("#ayiC").html(ayiCnt);
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理
+						console.log(type)
+					}
+				});
+			}
+		})
+		mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
+				var fid = this.getAttribute("id");
+				var ayiName = this.getAttribute("data-ayiName");
+				var area1 = this.getAttribute("data-area");
+				var age = this.getAttribute("data-age");
+				var salary = this.getAttribute("data-salary");
+				var serverLvl = this.getAttribute("data-serverLvl");
+				var ayiImg = this.getAttribute("data-Img");
+				mui.ajax('http://101.200.232.167:81/home/login_cache', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					async: false,
+					type: 'GET', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+ 
+						if (data.nAccountID != null && data.nAccountID != "") {
+							var accountID = data.nAccountID;
+							mui.openWindow({
+								url: 'jiazheng_tijiao.html',
+								extras: {
+									fid: fid,
+									ayiName: ayiName,
+									area1: area1,
+									age: age,
+									salary: salary,
+									serverLvl: serverLvl,
+									ayiImg: ayiImg,
+									accountID: accountID
+								}
+								//设置show的autoShow为false，则B页面在其loaded事件发生后，不会自动显示；
+								//					,
+								//					show: {
+								//						autoShow: false
+								//					}
+							});
+						} else {
+							mui.openWindow({
+								url: '/login.html',
+								id: 'login'
+							});
+						}
+					}
+				})
+			})
+			//		document.getElementById('tijiao').addEventListener('tap', function() {
+			//			//打开关于页面
+			//			mui.openWindow({
+			//				url: 'jiazheng_tijiao.html',
+			//				id: 'jiazheng_tijiao'
+			//			});
+			//		});
+	</script>
+
+</html>

@@ -157,178 +157,189 @@
 								</div>
 							</li>-->
 							<!--这是一条订单结束-->
-							
-						</ul>
-						</div>
-						<div class="mui-off-canvas-backdrop"></div>
-						</div>
 
-						<!-- FOOTER区域-->
-						<nav class="mui-bar mui-bar-tab footer">
-							<div class="left_jiage">
-								<strong>共计：<span id="mx_jiage" class="font-red mx_jiage">￥0</span></strong>
-								<p>本次消费可获得积分：<span id="jifeng"></span></p>
-							</div>
-							<button id="zhifu" class="zhifu">
-								去结算
-							</button>
-						</nav>
-						</div>
+						</ul>
 					</div>
-					<script src="../js/mui.min.js"></script>
-					<script>
-						mui('.mui-scroll-wrapper').scroll();
-						mui('body').on('shown', '.mui-popover', function(e) {
-							//console.log('shown', e.detail.id);//detail为当前popover元素
-						});
-						mui('body').on('hidden', '.mui-popover', function(e) {
-							//console.log('hidden', e.detail.id);//detail为当前popover元素
-						});
-						$(".tanchu_shuxing .mui-btn").click(function() {
-							//				var i = $(this).parent("div").index();
-							if ($(this).hasClass("active")) {
-								$(this).removeClass("active")
-							} else {
-								$(this).siblings(".mui-btn").removeClass("active");
-								$(this).addClass("active");
-							}
-							$('.shuxing_text').html($(".tanchu_shuxing .active").text() + $(".tanchu_shuxing .active .shuxing_block").text());
-						});
-						mui.ajax('http://101.201.196.202:82/ShoppingCart/index', {
-							data: {},
-							async: false,
-							dataType: 'json', //服务器返回json格式数据
-							type: 'Post', //HTTP请求类型,
-							timeout: 10000, //超时时间设置为10秒；
-							success: function(data) {
-								var shopcar = "";
-								for (var i = 0; i < data.length; i++) { //
-									shopcar += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除订单</a></div><div class=\"mui-slider-handle\"><div class=\"left mui-checkbox\"><input class=\"shop-radio\" name=\"radio\" value=\"shop-1\" type=\"checkbox\"></div><div class=\"right\"><a href=\"javascript:;\"><img class=\"mui-media-object mui-pull-left\" src=\"http://101.201.196.202:82/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body mui-pull-left\">" + data[i].Products.Names + "<h4 class=\"font-red\">￥" + data[i].Products.Price2 + "<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Products.Price1 + "</span></p></h4><p>属性：" + data[i].ProAttrName.replace("/\,/g", "&nbsp;") + "</p><p id=\"Quantity\">数量：" + data[i].Quantity + "</p>";
-									if (data[i].Business_ID != null) {
-										mui.ajax('http://101.201.196.202:82/Business/Business_Detail', {
-											data: {
-												id: data[i].Business_ID,
-											},
-											async: false,
-											dataType: 'json', //服务器返回json格式数据
-											type: 'Post', //HTTP请求类型,
-											timeout: 10000, //超时时间设置为10秒；
-											success: function(businessdata) {
-												shopcar += "<p>商家：" + businessdata.Admin_User.name + "</p></div></a></div></div></li>";
-											}
-										})
-									} else {
-										shopcar += "</div></a></div></div></li>"
-									}
-								}
-								console.log(shopcar)
-								$("#order").html(shopcar);
-							}
-						})
-						mui('#order').on('change', 'input', function() {
-							var value = this.checked ? "true" : "false";
-							var shopcartid = this.parentElement.parentElement.parentElement.getAttribute("id");
-							//				var Quantity = this.parentElement.parentElement.("#Quantity").innerHTML;
-							var sum = parseInt(document.getElementById("mx_jiage").innerHTML.replace("￥", ""));
-							mui.ajax('http://101.201.196.202:82/ShoppingCart/shopcartbyid', {
+					<div class="mui-off-canvas-backdrop"></div>
+				</div>
+
+				<!-- FOOTER区域-->
+				<nav class="mui-bar mui-bar-tab footer">
+					<div class="left_jiage">
+						<strong>共计：<span id="mx_jiage" class="font-red mx_jiage">￥0</span></strong>
+						<p>本次消费可获得积分：<span id="jifeng"></span></p>
+					</div>
+					<button id="zhifu" class="zhifu">
+						去结算
+					</button>
+				</nav>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script>
+			mui('.mui-scroll-wrapper').scroll();
+			mui('body').on('shown', '.mui-popover', function(e) {
+				//console.log('shown', e.detail.id);//detail为当前popover元素
+			});
+			mui('body').on('hidden', '.mui-popover', function(e) {
+				//console.log('hidden', e.detail.id);//detail为当前popover元素
+			});
+			$(".tanchu_shuxing .mui-btn").click(function() {
+				//				var i = $(this).parent("div").index();
+				if ($(this).hasClass("active")) {
+					$(this).removeClass("active")
+				} else {
+					$(this).siblings(".mui-btn").removeClass("active");
+					$(this).addClass("active");
+				}
+				$('.shuxing_text').html($(".tanchu_shuxing .active").text() + $(".tanchu_shuxing .active .shuxing_block").text());
+			});
+			mui.ajax('http://101.201.196.202:82/ShoppingCart/index', {
+				data: {},
+				async: false,
+				dataType: 'json', //服务器返回json格式数据
+				type: 'Post', //HTTP请求类型,
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+					var shopcar = "";
+					for (var i = 0; i < data.length; i++) { //
+						if (data[i].Business_ID == null) {
+							shopcar += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除订单</a></div><div class=\"mui-slider-handle\"><div class=\"left mui-checkbox\"><input class=\"shop-radio\" name=\"radio\" value=\"shop-1\" type=\"checkbox\"></div><div class=\"right\"><a href=\"javascript:;\"><img class=\"mui-media-object mui-pull-left\" src=\"http://101.201.196.202:82/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body mui-pull-left\">" + data[i].Products.Names + "<h4 class=\"font-red\">￥" + data[i].Products.Price2 + "<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Products.Price1 + "</span></p></h4><p>属性：" + data[i].ProAttrName.replace("/\,/g", "&nbsp;") + "</p><p id=\"Quantity\">数量：" + data[i].Quantity + "</p>";
+						} else {
+							mui.ajax('http://101.201.196.202:82/ShoppingCart/getprorebusiness', {
 								data: {
-									id: shopcartid,
+									productid: data[i].Products_ID,
+									businessid: data[i].Business_ID,
 								},
 								async: false,
 								dataType: 'json', //服务器返回json格式数据
 								type: 'Post', //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
-								success: function(data) {
-									if (value == "true") {
-										sum = sum + data.Products.Price2 * data.Quantity;
-										$("#mx_jiage").html("￥" + sum);
-										$("#jifeng").html(sum);
-									} else {
-										sum = sum - data.Products.Price2 * data.Quantity;
-										$("#mx_jiage").html("￥" + sum);
-										$("#jifeng").html(sum);
-									}
+								success: function(prorebusiness_data) {
+									shopcar += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除订单</a></div><div class=\"mui-slider-handle\"><div class=\"left mui-checkbox\"><input class=\"shop-radio\" name=\"radio\" value=\"shop-1\" type=\"checkbox\"></div><div class=\"right\"><a href=\"javascript:;\"><img class=\"mui-media-object mui-pull-left\" src=\"http://101.201.196.202:82/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body mui-pull-left\">" + data[i].Products.Names + "<h4 class=\"font-red\">￥" + prorebusiness_data.Price + "</h4><p>属性：" + data[i].ProAttrName.replace("/\,/g", "&nbsp;") + "</p><p id=\"Quantity\">数量：" + data[i].Quantity + "</p>";
 								}
 							})
-						});
-						mui('#order').on('tap', '.mui-btn-red', function(e) {
-							var shopcartid = this.getAttribute('id');
-							mui.ajax('http://101.201.196.202:82/ShoppingCart/Delete', {
+						}
+						if (data[i].Business_ID != null) {
+							mui.ajax('http://101.201.196.202:82/Business/Business_Detail', {
 								data: {
-									id: shopcartid,
+									id: data[i].Business_ID,
 								},
 								async: false,
 								dataType: 'json', //服务器返回json格式数据
 								type: 'Post', //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
-								success: function(data) {
-									if (data.statusCode = "200") {
-										plus.ui.toast(data.message);
-										var wobj = plus.webview.currentWebview();
-										wobj.reload()
-									} else {
-										plus.ui.toast(data.message);
-									}
+								success: function(businessdata) {
+									shopcar += "<p>商家：" + businessdata.Admin_User.name + "</p></div></a></div></div></li>";
 								}
 							})
-						});
-						mui.init({
-							preloadPages: [{
-								id: 'shop_jiesuan',
-								url: 'shop_jiesuan.html'
-							}]
-						});
-						document.getElementById('zhifu').addEventListener('tap', function() {
-							var isornot = document.getElementsByClassName("shop-radio");
-							var value = new Array();
-							var shopcartids = new Array();
-							for (var i = 0; i < isornot.length; i++) {
-								value.push(isornot[i].checked);
-								if (isornot[i].checked) {
-									shopcartids.push(isornot[i].parentElement.parentElement.parentElement.getAttribute("id"));
+						} else {
+							shopcar += "</div></a></div></div></li>"
+						}
+					}
+					$("#order").html(shopcar);
+				}
+			})
+			mui('#order').on('change', 'input', function() {
+				var value = this.checked ? "true" : "false";
+				var shopcartid = this.parentElement.parentElement.parentElement.getAttribute("id");
+				//				var Quantity = this.parentElement.parentElement.("#Quantity").innerHTML;
+				var sum = parseInt(document.getElementById("mx_jiage").innerHTML.replace("￥", ""));
+				mui.ajax('http://101.201.196.202:82/ShoppingCart/shopcartbyid', {
+					data: {
+						id: shopcartid,
+					},
+					async: false,
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (value == "true") {
+							sum = sum + data.Products.Price2 * data.Quantity;
+							$("#mx_jiage").html("￥" + sum);
+							$("#jifeng").html(sum);
+						} else {
+							sum = sum - data.Products.Price2 * data.Quantity;
+							$("#mx_jiage").html("￥" + sum);
+							$("#jifeng").html(sum);
+						}
+					}
+				})
+			});
+			mui('#order').on('tap', '.mui-btn-red', function(e) {
+				var shopcartid = this.getAttribute('id');
+				mui.ajax('http://101.201.196.202:82/ShoppingCart/Delete', {
+					data: {
+						id: shopcartid,
+					},
+					async: false,
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode = "200") {
+							plus.ui.toast(data.message);
+							var wobj = plus.webview.currentWebview();
+							wobj.reload()
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
+			});
+			mui.init({
+				preloadPages: [{
+					id: 'shop_jiesuan',
+					url: 'shop_jiesuan.html'
+				}]
+			});
+			document.getElementById('zhifu').addEventListener('tap', function() {
+				var isornot = document.getElementsByClassName("shop-radio");
+				var value = new Array();
+				var shopcartids = new Array();
+				for (var i = 0; i < isornot.length; i++) {
+					value.push(isornot[i].checked);
+					if (isornot[i].checked) {
+						shopcartids.push(isornot[i].parentElement.parentElement.parentElement.getAttribute("id"));
+					}
+				}
+				var detailPage = null;
+				if (value.indexOf(true) >= 0) {
+					mui.ajax('http://101.201.196.202:82/Product/Purchase_do', {
+						data: {
+							"shopcartids": shopcartids.toString()
+						},
+						async: false,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'Post', //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							if (data.statusCode == "200") {
+								//**************************将选中的id传到下一个页面*******************************
+								var id = shopcartids.toString();
+								//获得详情页面
+								if (!detailPage) {
+									detailPage = plus.webview.getWebviewById('shop_jiesuan');
 								}
-							}
-							var detailPage = null;
-							if (value.indexOf(true) >= 0) {
-								mui.ajax('http://101.201.196.202:82/Product/Purchase_do', {
-									data: {
-										"shopcartids": shopcartids.toString()
-									},
-									async: false,
-									dataType: 'json', //服务器返回json格式数据
-									type: 'Post', //HTTP请求类型,
-									timeout: 10000, //超时时间设置为10秒；
-									success: function(data) {
-										if (data.statusCode == "200") {
-											//**************************将选中的id传到下一个页面*******************************
-											var id = shopcartids.toString();
-											//获得详情页面
-											if (!detailPage) {
-												detailPage = plus.webview.getWebviewById('shop_jiesuan');
-											}
-											//触发详情页面的newsId事件
-											mui.fire(detailPage, 'newsId', {
-												id: id
-											});
-											//打开详情页面          
-											mui.openWindow({
-												url: 'shop_jiesuan.html',
-												id: 'shop_jiesuan'
-											});
-											//								mui.openWindow({
-											//									url: 'shop_jiesuan.html',
-											//									id: 'shop_jiesuan'
-											//								});
-										} else {
-											plus.ui.toast(data.message);
-										}
-									}
-								})
+								//触发详情页面的newsId事件
+								mui.fire(detailPage, 'newsId', {
+									id: id
+								});
+								//打开详情页面          
+								mui.openWindow({
+									url: 'shop_jiesuan.html',
+									id: 'shop_jiesuan'
+								});
 							} else {
-								plus.ui.toast("请选择结算的订单……");
+								plus.ui.toast(data.message);
 							}
-						});
-					</script>
+						}
+					})
+				} else {
+					plus.ui.toast("请选择结算的订单……");
+				}
+			});
+		</script>
 
 	</body>
 

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			.repair_container li {
+				background: #FFFFFF;
+			}
+			.repair_container li p{
+				color: #000000;
+			}
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+				padding: 11px;
+				border-right:1px solid #EEEEEE;
+				border-bottom:1px solid #EEEEEE;
+			}
+			.guanggao .mui-table-view-cell{
+				border: none !important;
+				border: 2px solid #EEEEEE !important;
+				padding: 0 !important;	
+			}
+			input[type=search]{
+				background: #FFFFFF;
+				
+			}
+			.mui-btn-primary{
+				background:#F17E25;
+			}
+			.serch{
+				width: 18%;
+				height: 30px;
+				font: 16px/28px "微软雅黑";
+				padding: 0;
+				margin-top: 10px;;
+			}
+			p{
+				margin-bottom: 2px;
+			}
+			header .icon-shaixuan { 
+				padding:10px 10px 0 0 !important; 
+				margin: 0;
+				}
+			header .icon-shaixuan:before{
+				padding-right: 10px;
+			}	
+			.mui-off-canvas-left, .mui-off-canvas-right{
+				width: 50% !important;
+				background: #EEEEEE;
+			}
+			.max-font{
+				font-size: 18px;
+				margin-top: 5px;
+			}
+			
+		</style>
+
+	</head>
+
+	<body>
+
+	<!--侧滑菜单容器-->
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+			<!--菜单部分-->
+			<aside id="offCanvasSide" class="mui-off-canvas-right">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll" style="padding: 0 10px;">
+					
+							<!--<p style="margin: 10px 15px;">
+								<button id="offCanvasHide" type="button" class="mui-btn mui-btn-danger mui-btn-block" style="padding: 5px 20px;">关闭侧滑菜单</button>
+							</p>-->
+							<p style="margin: 5px 0;"><div class="shutiao"></div>车型选择</p>
+							<p class="max-font font-blue">A</p>
+							<ul class="chepai">
+								<li>阿斯顿·马丁</li>
+								<li>奥迪</li>
+							</ul>
+							<p class="max-font font-blue">B</p>
+							<ul class="chepai">
+								<li>别克</li>
+								<li>宾利</li>
+								<li>宝骏</li>
+								<li>宝马</li>
+								<li>保时捷</li>
+								<li>比亚迪</li>
+								<li>奔驰</li>
+								<li>本田</li>
+							</ul>
+							<p class="max-font font-blue">C</p>
+							<ul class="chepai">
+								<li>长安</li>
+								<li>昌河</li>
+								<li>长城</li>
+							</ul>
+							<p class="max-font font-blue">D</p>
+							<ul class="chepai">
+								<li>DS</li>
+								<li>大众</li>
+								<li>东风</li>
+							</ul>
+							<p class="max-font font-blue">F</p>
+							<ul class="chepai">
+								<li>菲亚特</li>
+								<li>丰田</li>
+								
+							</ul>
+							<p class="max-font font-blue">G</p>
+							<ul class="chepai">
+								<li>广汽吉奥</li>	
+							</ul>
+							<p class="max-font font-blue">H</p>
+							<ul class="chepai">
+								<li>哈弗</li>	
+								<li>悍马</li>	
+								<li>海马</li>	
+								<li>华泰</li>	
+								<li>哈飞</li>	
+							</ul>
+							<p class="max-font font-blue">J</p>
+							<ul class="chepai">
+								<li>吉利</li>	
+								<li>Jeep</li>	
+								<li>江铃</li>	
+									
+							</ul>
+							<p class="max-font font-blue">L</p>
+							<ul class="chepai">
+								<li>陆丰</li>	
+								<li>路虎</li>		
+							</ul>
+							<p class="max-font font-blue">M</p>
+							<ul class="chepai">
+								<li>马自达</li>	
+								<li>MG</li>		
+							</ul>
+							<p class="max-font font-blue">N</p>
+							<ul class="chepai">
+								<li>纳智捷</li>		
+							</ul>
+							<p class="max-font font-blue">X</p>
+							<ul class="chepai">
+								<li>雪佛兰</li>	
+								<li>现代</li>
+							</ul>
+							<p class="max-font font-blue">Y</p>
+							<ul class="chepai">
+								<li>野马</li>	
+								<li>一汽</li>
+							</ul>
+							<p class="max-font font-blue">Z</p>
+							<ul class="chepai">
+								<li>中华</li>	
+								<li>中兴</li>
+								<li>众泰</li>
+							</ul>
+					</div>
+				</div>
+			</aside>
+			<!-- 左侧菜单结束 -->
+
+			<!-- 主页面容器 -->
+
+			<div class="mui-inner-wrap   repair_container">
+
+				<!-- 主页面标题 -->
+
+				<header class="mui-bar mui-bar-nav">
+					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<h1 class="mui-title">二手车</h1>
+					<a id="offCanvasBtn" href="#offCanvasSide" class="icon-shaixuan mui-icon mui-pull-right"></a>
+				</header>
+				<!--主界面区域-->
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+
+						<!-- 主界面具体展示内容 -->
+
+						<!--按钮区域-->
+
+						<div id="container">
+						
+							<div class="ershou_serch">
+								<div class="mui-input-row mui-search">
+									<input id="search" type="search" class="mui-input-speech mui-input-clear" placeholder="带语音输入的搜索框">
+								</div>
+								<button class="mui-btn-primary serch mui-pull-right">搜索</button>
+							</div>
+							<div class="ershou_bar"><div class="shutiao"></div> 精选二手车</div>
+							<ul class="ershou_tuijian">
+								<li>
+									<div class="img"><img src="../image/che1.jpg" /></div>
+									<p class="max-font">别克君越2015 高配款</p>
+									<p>品牌：别克</p>
+									<p>公里数：1.2万</p>
+									
+									<p class="yellow-font">价格：¥220,000</p>
+								</li>
+								<li>
+									<div class="img"><img src="../image/che2.jpg">
+									<p class="max-font">比亚迪S6 2015运动版</p>
+									<p>品牌：比亚迪</p>
+									<p>公里数：3万</p>
+									<p class="yellow-font">价格：¥90,000</p>
+								</li>
+								<li>
+									<div class="img"><img src="../image/che3.jpg">
+									<p class="max-font">哈弗H6 2015运动版</p>
+									<p>品牌：哈弗</p>
+									<p>公里数：2.8万</p>
+									<p class="yellow-font">价格：¥110,000</p>
+								</li>
+							</ul>
+							</div>
+							
+
+						<!--按钮区域结束-->
+						<!-- 侧滑后右侧变黑-->
+
+					</div>
+				
+				</div>
+				<div class="mui-off-canvas-backdrop"></div>
+			</div>
+		</div>
+
+		<script>
+			mui('.mui-scroll-wrapper').scroll();
+			mui.init({
+				swipeBack: false,
+			});
+			 //侧滑容器父节点
+			var offCanvasWrapper = mui('#offCanvasWrapper');
+			 //主界面容器
+			var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+			 //菜单容器
+			var offCanvasSide = document.getElementById("offCanvasSide");
+			 //Android暂不支持整体移动动画
+			var moveTogether = false;
+			 //侧滑容器的class列表，增加.mui-slide-in即可实现菜单移动、主界面不动的效果；
+			var classList = offCanvasWrapper[0].classList;
+			 //变换侧滑动画移动效果；
+			mui('.mui-input-group').on('change', 'input', function() {
+				if (this.checked) {
+					offCanvasSide.classList.remove('mui-transitioning');
+					offCanvasSide.setAttribute('style', '');
+					classList.remove('mui-slide-in');
+					classList.remove('mui-scalable');
+					switch (this.value) {
+						case 'main-move':
+							if (moveTogether) {
+								//仅主内容滑动时，侧滑菜单在off-canvas-wrap内，和主界面并列
+								offCanvasWrapper[0].insertBefore(offCanvasSide, offCanvasWrapper[0].firstElementChild);
+								moveTogether = false;
+							}
+							break;
+						case 'main-move-scalable':
+							if (moveTogether) {
+								//仅主内容滑动时，侧滑菜单在off-canvas-wrap内，和主界面并列
+								offCanvasWrapper[0].insertBefore(offCanvasSide, offCanvasWrapper[0].firstElementChild);
+							}
+							classList.add('mui-scalable');
+							break;
+						case 'menu-move':
+							classList.add('mui-slide-in');
+							break;
+						case 'all-move':
+							moveTogether = true;
+							//整体滑动时，侧滑菜单在inner-wrap内
+							offCanvasInner.insertBefore(offCanvasSide, offCanvasInner.firstElementChild);
+							break;
+					}
+					offCanvasWrapper.offCanvas().refresh();
+				}
+			});
+		
+//			document.getElementById('offCanvasHide').addEventListener('tap', function() {
+//				offCanvasWrapper.offCanvas('close');
+//			});
+			 //主界面和侧滑菜单界面均支持区域滚动；
+			mui('#offCanvasSideScroll').scroll();
+			mui('#offCanvasContentScroll').scroll();
+			 //实现ios平台的侧滑关闭页面；
+			if (mui.os.plus && mui.os.ios) {
+				offCanvasWrapper[0].addEventListener('shown', function(e) { //菜单显示完成事件
+					plus.webview.currentWebview().setStyle({
+						'popGesture': 'none'
+					});
+				});
+				offCanvasWrapper[0].addEventListener('hidden', function(e) { //菜单关闭完成事件
+					plus.webview.currentWebview().setStyle({
+						'popGesture': 'close'
+					});
+				});
+			}
+		</script>
+		
+	</body>
+
+</html>

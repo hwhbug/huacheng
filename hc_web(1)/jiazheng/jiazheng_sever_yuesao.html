@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.mui-btn,
+			button,
+			input[type=button],
+			input[type=reset],
+			input[type=submit] {
+				position: initial !important;
+			}
+			
+			.font-jiazheng .mui-icon {
+				float: left;
+				padding: 13px 8px;
+			}
+			
+			.font-jiazheng .mui-icon:before {
+				color: #FFFFFF;
+			}
+		</style>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-icon">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">选择服务</h1>
+		</header>
+		<div class="mui-content ">
+			<form class="mui-input-group">
+				<div class="xuanze-jiazheng">
+					<div class="mui-pull-left font-jiazheng"><span class="mui-icon icon-baomu"></span>服务级别：</div>
+					<button style="border:none; border-bottom: 1px solid #DDDDDD;" id='showUserPicker' class="mui-btn mui-btn-block adress mui-pull-left alert-jiazheng " type='button'>
+						<div id='userResult1' class="ui-alert  ">选择月嫂级别</div>
+					</button>
+				</div>
+				<div class="xuanze-jiazheng">
+					<div class="mui-pull-left font-jiazheng"><span class="mui-icon icon-gongzuojingyan"></span>工作经验：</div>
+					<button style="border:none; border-bottom: 1px solid #DDDDDD;" id='showUserPicker2' class="mui-btn mui-btn-block adress mui-pull-left alert-jiazheng " type='button'>
+						<div id='userResult2' class="ui-alert  ">选择月嫂工作经验</div>
+					</button>
+				</div>
+				<div class="xuanze-jiazheng">
+					<div class="mui-pull-left font-jiazheng"><span class="mui-icon mui-icon-person"></span>年龄：</div>
+					<button style="border:none; border-bottom: 1px solid #DDDDDD;" id='showUserPicker3' class="mui-btn mui-btn-block adress mui-pull-left alert-jiazheng " type='button'>
+						<div id='userResult3' class="ui-alert">选择年龄范围</div>
+					</button>
+				</div>
+				<div class="xuanze-jiazheng">
+					<div class="mui-pull-left font-jiazheng"><span class="mui-icon icon-xueli"></span>学历：</div>
+					<button style="border:none; border-bottom: 1px solid #DDDDDD;" id='showUserPicker4' class="mui-btn mui-btn-block adress mui-pull-left alert-jiazheng " type='button'>
+						<div id='userResult4' class="ui-alert">选择学历要求</div>
+					</button>
+				</div>
+				<div class="xuanze-jiazheng">
+					<div class="mui-pull-left font-jiazheng"><span class="mui-icon icon-xinzi"></span>薪资范围：</div>
+					<button style="border:none; border-bottom: 1px solid #DDDDDD;" id='showUserPicker5' class="mui-btn mui-btn-block adress mui-pull-left alert-jiazheng " type='button'>
+						<div id='userResult5' class="ui-alert">选择价格区间</div>
+					</button>
+				</div>
+				<div class="jiazheng-biaoqian">
+					<p>服务标签:</p>
+					<div class="biaoqian">月子餐</div>
+					<div class="biaoqian">婴儿照料</div>
+					<div class="biaoqian">5次育婴经验</div>
+					<div class="biaoqian">拆洗被褥尿布</div>
+					<div class="biaoqian">用品消毒</div>
+					<div class="biaoqian">产后护理</div>
+					<div class="biaoqian">体形恢复指导</div>
+					<div class="biaoqian">营养配餐</div>
+					<div class="biaoqian">婴儿按摩</div>
+					<div class="biaoqian">心理辅导</div>
+					<div style="clear: both;"></div>
+
+				</div>
+			</form>
+			<br />
+			<button id="tiaozhuanayi" class="mui-btn mui-btn-block mui-btn-primary btn_login">挑选阿姨</button>
+		</div>
+		<script>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			//			document.getElementById('tiaozhuanayi').addEventListener('tap', function() {
+			//				//打开关于页面
+			//				mui.openWindow({
+			//					url: 'jiazheng_ayi.html',
+			//					id: 'tiaozhuanayi'
+			//				});
+			//			});
+			document.getElementById('tiaozhuanayi').addEventListener('tap', function() {
+				var yuesaoLvl = document.getElementById('userResult1').innerText;
+				var workExper = document.getElementById('userResult2').innerText;
+				var ageRange = document.getElementById('userResult3').innerText;
+				var xueliRange = document.getElementById('userResult4').innerText;
+				var salaryRange = document.getElementById('userResult5').innerText;
+				if (yuesaoLvl == "选择月嫂级别") {
+					yuesaoLvl = "";
+				}
+				if (workExper == "选择月嫂工作经验") {
+					workExper = "";
+				}
+				if (ageRange == "选择年龄范围") {
+					ageRange = "";
+				}
+				if (xueliRange == "选择学历要求") {
+					xueliRange = "";
+				}
+				if (salaryRange == "选择价格区间") {
+					salaryRange = "";
+				}
+				mui.openWindow({
+					url: 'jiazheng_ayi.html',
+					extras: {
+						yuesaoLvl: yuesaoLvl,
+						workExper: workExper,
+						ageRange: ageRange,
+						xueliRange: xueliRange,
+						salaryRange: salaryRange,
+						baomuFlag: "1" //月嫂
+					}
+					//设置show的autoShow为false，则B页面在其loaded事件发生后，不会自动显示；
+					//,
+					//show: {
+					//autoShow: false
+					//}
+				});
+			});
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'ywj',
+						text: '初级月嫂'
+					}, {
+						value: 'aaa',
+						text: '中级月嫂'
+					}, {
+						value: 'lj',
+						text: '高级月嫂'
+					}, {
+						value: 'lj',
+						text: '特级月嫂'
+					}, ]);
+					var showUserPickerButton = doc.getElementById('showUserPicker');
+					var userResult = doc.getElementById('userResult1');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							userResult.innerText = (items[0] || {}).text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+			})(mui, document);
+		</script>
+		<script>
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'ywj',
+						text: '1年-3年'
+					}, {
+						value: 'aaa',
+						text: '3年-5年'
+					}, {
+						value: 'lj',
+						text: '5年-10年'
+					}, {
+						value: 'lj',
+						text: '10年以上'
+					}, ]);
+					var showUserPickerButton = doc.getElementById('showUserPicker2');
+					var userResult = doc.getElementById('userResult2');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							userResult.innerText = (items[0] || {}).text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+			})(mui, document);
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'ywj',
+						text: '20岁-25岁'
+					}, {
+						value: 'aaa',
+						text: '25岁-30岁'
+					}, {
+						value: 'lj',
+						text: '30岁-40岁'
+					}, {
+						value: 'lj',
+						text: '40岁以上'
+					}, ]);
+					var showUserPickerButton = doc.getElementById('showUserPicker3');
+					var userResult = doc.getElementById('userResult3');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							userResult.innerText = (items[0] || {}).text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+			})(mui, document);
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'ywj',
+						text: '小学'
+					}, {
+						value: 'aaa',
+						text: '初中'
+					}, {
+						value: 'lj',
+						text: '高中'
+					}, {
+						value: 'lj',
+						text: '本科'
+					}, ]);
+					var showUserPickerButton = doc.getElementById('showUserPicker4');
+					var userResult = doc.getElementById('userResult4');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							userResult.innerText = (items[0] || {}).text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+			})(mui, document);
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'ywj',
+						text: '2000元-3000元'
+					}, {
+						value: 'aaa',
+						text: '3000元-4000元'
+					}, {
+						value: 'lj',
+						text: '4000元-5000元'
+					}, {
+						value: 'lj',
+						text: '5000元以上'
+					}, ]);
+					var showUserPickerButton = doc.getElementById('showUserPicker5');
+					var userResult = doc.getElementById('userResult5');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							userResult.innerText = (items[0] || {}).text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+			})(mui, document);
+		</script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+	</body>
+
+</html>

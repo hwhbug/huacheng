@@ -71,7 +71,7 @@
 						<li id="shoppingcart" class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 yellow">
 							<span class="font-bai">购物车</span>
 						</li>
-						<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 red">
+						<li id="sign" class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 red">
 							<span class="font-bai">每日签到</span>
 						</li>
 						<li id="user_dingdan" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
@@ -201,12 +201,11 @@
 							}
 							//触发详情页面的newsId事件
 							mui.fire(detailPage, 'newsId', {});
-//							plus.webview.close(plus.webview.currentWebview());
+							//							plus.webview.close(plus.webview.currentWebview());
 							mui.openWindow({
 								url: '../index.html',
 								id: '../index'
 							});
-							
 							//							wobj.reload()
 							//							mui.back();
 						}
@@ -245,6 +244,18 @@
 					}
 				})
 				//							<p>社区慧生活已为您服务 <span class="font-yellow mx_jiage">22</span> 次</p>
+			document.getElementById('sign').addEventListener('tap', function() {
+				//打开关于页面
+				mui.ajax('http://101.201.196.202:82/Account/sign', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'Post', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						plus.ui.toast(data.message);
+					}
+				})
+			});
 		</script>
 
 	</body>

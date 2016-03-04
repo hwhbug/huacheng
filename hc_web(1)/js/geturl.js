@@ -6,12 +6,12 @@ document.getElementById('login').addEventListener('tap', function() {
 		type: 'GET', //HTTP请求类型,
 		timeout: 10000, //超时时间设置为10秒；
 		success: function(data) {
-				if (data.name != null && data.name != "") { //打开关于页面
-					mui.openWindow({
-						url: 'user/user_my.html',
-						id: 'user/user_my'
-					});
-				} else {
+			if (data.name != null && data.name != "") { //打开关于页面
+				mui.openWindow({
+					url: 'user/user_my.html',
+					id: 'user/user_my'
+				});
+			} else {
 				mui.openWindow({
 					url: 'login.html',
 					id: 'login'
@@ -33,5 +33,19 @@ document.getElementById('shop').addEventListener('tap', function() {
 	mui.openWindow({
 		url: 'shopping/shop_index.html',
 		id: 'shop'
+	});
+});
+document.getElementById('jiazheng').addEventListener('tap', function() {
+	//打开家政页面
+	mui.openWindow({
+		url: 'jiazheng/jiazheng_index.html',
+		id: 'jiazheng'
+	});
+});
+document.getElementById('ershou').addEventListener('tap', function() {
+	//打开关于页面
+	mui.openWindow({
+		url: 'ershou/ershou_index.html',
+		id: 'ershou_index'
 	});
 });

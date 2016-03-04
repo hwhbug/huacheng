@@ -39,19 +39,17 @@
 							<!--<button id="offCanvasHide" type="button">关闭</button>-->
 						</h3>
 						<ul class="left_btn">
-							<li id="offCanvasHide"><a href="http://www.baidu.com" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
-							<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
-							<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
-							<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
-							<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
-							<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
-							<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
-							<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
-							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
-							<li><a href="###"><span class=" icon-iconfontjifen36 mui-icon" href="###"></span>金融理财></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+							<li id="offCanvasHide"><a href="###" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
+							<li><a href="###"><span class=" icon-coinyen mui-icon" ></span>物业缴费></a></li>
+							<li><a href="###"><span class=" icon-wrench mui-icon" ></span>家用报修></a></li>
+							<li><a href="###"><span class=" icon-xinshenger mui-icon" ></span>家政服务></a></li>
+							<li><a href="###"><span class=" icon-cartfill mui-icon" ></span>购物></a></li>
+							<li><a href="###"><span class=" icon-diancan mui-icon" ></span>订餐></a></li>
+							<li><a href="###"><span class=" icon-airplane  mui-icon" ></span>外出旅游></a></li>
+							<li><a href="###"><span class=" icon-usersecret mui-icon" ></span>居家养老></a></li>
+							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" ></span>二手交易></a></li>
+							<li><a href="###"><span class=" icon-iconfontjifen36 mui-icon" ></span>金融理财></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" ></span>个人账户></a></li>
 						</ul>
 					</div>
 				</div>
@@ -68,7 +66,7 @@
 					</button>
 					<button id="offCanvasShow" type="button" style="margin-bottom: 2px;"><img src="image/index_01.gif"></button>
 					<h1 class="mui-title"><button id='showCityPicker3' class="mui-btn mui-btn-block adress" type='button'>
-						<div id='cityResult3' class="ui-alert"> 选择小区 ˇ </div></button></h1>
+						<div id='cityResult3' class="ui-alert">   </div></button></h1>
 				</header>
 				<!--主界面区域-->
 				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper index_content">
@@ -111,7 +109,7 @@
 									</a>
 								</li>
 								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<a href="#">
+									<a id="jiazheng" href="#">
 										<span class="mui-icon icon-xinshenger"></span>
 										<div class="mui-media-body">家政在线</div>
 									</a>
@@ -152,7 +150,7 @@
 									</a>
 								</li>
 
-								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_10">
+								<li id="ershou" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_10">
 									<a href="#">
 										<span class="mui-icon icon-jilijiangjin"></span>
 										<div class="mui-media-body">二手交易</div>
@@ -193,103 +191,127 @@
 			//			// 扩展API加载完毕后调用onPlusReady回调函数 
 			document.addEventListener("plusready", onPlusReady, false);
 			// 扩展API加载完毕，现在可以正常调用扩展API
-			function onPlusReady() {
-				// 使用百度地图地位模块获取位置信息
-				var weidu = null;
-				var jingdu = null;
-				var map = new plus.maps.Map("map");
-				map.hide();
-				// 将检索到结果作为标点添加到地图中
-				var searchObj = new plus.maps.Search(map);
-//				console.log(plus.storage.getItem("Community"))
-				console.log(plus.storage.getItem("Communitycoord"));
-					//地图获取当前位置
-				map.getUserLocation(function(state, point) {
-					if (0 == state) {
-						if (plus.storage.getItem("Locate") != "") {
-							plus.storage.setItem("Locate", JSON.stringify(point));
-						}
-						//根据坐标获取地理位置信息
-						plus.maps.Map.reverseGeocode(point, {}, function(event) {
-							var address = event.address; // 转换后的地理位置
-							//console.log(address.substring(address.indexOf("区") - 2, address.indexOf("区")))
-							mui.ajax('http://101.201.196.202:82/info/getdis_id', {
-								data: {
-									dis_name: address.substring(address.indexOf("区") - 2, address.indexOf("区"))
-								},
-								async: false,
-								dataType: 'json', //服务器返回json格式数据
-								type: 'Post', //HTTP请求类型,
-								timeout: 10000, //超时时间设置为10秒；
-								success: function(Communitydata) {
-									if (Communitydata != "" && Communitydata != null) {
-										mui.ajax('http://101.201.196.202:82/info/Community_Load1', {
+						function onPlusReady() {
+							// 使用百度地图地位模块获取位置信息
+							var weidu = null;
+							var jingdu = null;
+							var map = new plus.maps.Map("map");
+							map.hide();
+							// 将检索到结果作为标点添加到地图中
+							var searchObj = new plus.maps.Search(map);
+							//				console.log(plus.storage.getItem("Community"))
+							console.log(plus.storage.getItem("Communitycoord"));
+							//地图获取当前位置
+							map.getUserLocation(function(state, point) {
+								if (0 == state) {
+									if (plus.storage.getItem("Locate") != "") {
+										plus.storage.setItem("Locate", JSON.stringify(point));
+									}
+									//根据坐标获取地理位置信息
+									plus.maps.Map.reverseGeocode(point, {}, function(event) {
+										var address = event.address; // 转换后的地理位置
+										//console.log(address.substring(address.indexOf("区") - 2, address.indexOf("区")))
+										mui.ajax('http://101.201.196.202:82/info/getdis_id', {
 											data: {
-												id: Communitydata.ID
+												dis_name: address.substring(address.indexOf("区") - 2, address.indexOf("区"))
 											},
 											async: false,
 											dataType: 'json', //服务器返回json格式数据
 											type: 'Post', //HTTP请求类型,
 											timeout: 10000, //超时时间设置为10秒；
 											success: function(Communitydata) {
-												//searchObj.onPoiSearchComplete = function(state, result) {
-												//console.log("onPoiSearchComplete: " + state + " , " + result.currentNumber);
-												(function($, doc) {
-													$.init();
-													$.ready(function() {
-														//-----------------------------------------
-														//					//级联示例
-														var cityPicker3 = new $.PopPicker();
-														cityPicker3.setData(eval(Communitydata));
-														var showCityPickerButton = doc.getElementById('showCityPicker3');
-														var cityResult3 = doc.getElementById('cityResult3');
-														if (plus.storage.getItem("Community") != "") {
-															cityResult3.innerText = plus.storage.getItem("Community");
-														} else {
-															cityResult3.innerText = ""
-														}
-														showCityPickerButton.addEventListener('tap', function(event) {
-															cityPicker3.show(function(items) {
-																cityResult3.innerText = (items[0] || {}).text;
-																plus.storage.setItem("Community", (items[0] || {}).text);
-																///**********************************获取用户选择小区的坐标*********************************
-																searchObj.onPoiSearchComplete = function(state, result) {
-																		if (state == 0) {
-																			if (result.currentNumber <= 0) {
-																				alert("没有检索到结果");
-																			}
-																			for (var i = 0; i < 1; i++) {
-																				var pos = result.getPosition(i);
-																				console.log(JSON.stringify(pos.point))
-																				plus.storage.setItem("Communitycoord", JSON.stringify(pos.point));
-																			}
-																		} else {
-																			alert("检索失败");
-																		}
+												if (Communitydata != "" && Communitydata != null) {
+													mui.ajax('http://101.201.196.202:82/info/Community_Load1', {
+														data: {
+															id: Communitydata.ID
+														},
+														async: false,
+														dataType: 'json', //服务器返回json格式数据
+														type: 'Post', //HTTP请求类型,
+														timeout: 10000, //超时时间设置为10秒；
+														success: function(Communitydata) {
+															//searchObj.onPoiSearchComplete = function(state, result) {
+															//console.log("onPoiSearchComplete: " + state + " , " + result.currentNumber);
+															(function($, doc) {
+																$.init();
+																$.ready(function() {
+																	//-----------------------------------------
+																	//					//级联示例
+																	var cityPicker3 = new $.PopPicker();
+																	cityPicker3.setData(eval(Communitydata));
+																	var showCityPickerButton = doc.getElementById('showCityPicker3');
+																	var cityResult3 = doc.getElementById('cityResult3');
+																	if (plus.storage.getItem("Community") != null) {
+																		cityResult3.innerText = plus.storage.getItem("Community");
+																	} else {
+																		cityResult3.innerText = "选择小区"
 																	}
-																	//searchObj.poiSearchInCity("", (items[0] || {}).text )   //城市检索
-																	//console.log(JSON.stringify(point))
-																searchObj.poiSearchNearBy((items[0] || {}).text, point, 10000); //周边检索
-															});
-														}, false);
-													});
-												})(mui, document);
-												//}
+																	//*************************************小区选择点击事件*************************************
+																	showCityPickerButton.addEventListener('tap', function(event) {
+																		cityPicker3.show(function(items) {
+																			cityResult3.innerText = (items[0] || {}).text;
+																			plus.storage.setItem("Community", (items[0] || {}).text);
+																			///**********************************获取用户选择小区的坐标*********************************
+																			searchObj.onPoiSearchComplete = function(state, result) {
+																					if (state == 0) {
+																						if (result.currentNumber <= 0) {
+																							alert("没有检索到结果");
+																						}
+																						for (var i = 0; i < 1; i++) {
+																							var pos = result.getPosition(i);
+																							console.log(JSON.stringify(pos.point))
+																							plus.storage.setItem("Communitycoord", JSON.stringify(pos.point));
+																						}
+																					} else {
+																						alert("检索失败");
+																					}
+																				}
+																				//searchObj.poiSearchInCity("", (items[0] || {}).text )   //城市检索
+																				//console.log(JSON.stringify(point))
+																			searchObj.poiSearchNearBy((items[0] || {}).text, point, 10000); //周边检索
+																		});
+																	}, false);
+																});
+															})(mui, document);
+															//}
+														}
+													})
+												}
 											}
 										})
-									}
+									}, function(e) {
+										alert("Failed:" + JSON.stringify(e));
+									});
+									//map.setCenter(point);
+									//map.setZoom(15)
+								} else {
+									alert("获取当前位置失败，请检查网络");
 								}
-							})
-						}, function(e) {
-							alert("Failed:" + JSON.stringify(e));
-						});
-						//map.setCenter(point);
-						//map.setZoom(15)
-					} else {
-						alert("获取当前位置失败，请检查网络");
-					}
-				});
-			}
+							});
+						}
+//			(function($, doc) {
+//				$.init();
+//				$.ready(function() {
+//					//-----------------------------------------
+//					//级联示例
+//					//-----------------------------------------
+//					//					//级联示例
+//					var cityPicker3 = new $.PopPicker({
+//						layer: 3
+//					});
+//					cityPicker3.setData(cityData3);
+//					var showCityPickerButton = doc.getElementById('showCityPicker3');
+//					var cityResult3 = doc.getElementById('cityResult3');
+//					showCityPickerButton.addEventListener('tap', function(event) {
+//						cityPicker3.show(function(items) {
+//							//							cityResult3.innerText = "你选择:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+//							cityResult3.innerText = (items[2] || {}).text;
+//							//返回 false 可以阻止选择框的关闭
+//							//return false;
+//						});
+//					}, false);
+//				});
+//			})(mui, document);
 			window.addEventListener('newsId', function(event) {
 					//获得事件参数
 					mui.ajax('http://101.201.196.202:82/home/login_cache', {

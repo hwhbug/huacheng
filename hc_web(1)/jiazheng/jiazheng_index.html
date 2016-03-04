@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			.repair_container li {
+				background: #FFFFFF;
+			}
+			.repair_container li p{
+				color: #000000;
+			}
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+				padding: 11px;
+				border-right:1px solid #EEEEEE;
+				border-bottom:1px solid #EEEEEE;
+			}
+			.guanggao .mui-table-view-cell{
+				border: none !important;
+				border: 2px solid #EEEEEE !important;
+				padding: 0 !important;
+				
+			}
+		</style>
+
+	</head> 
+
+	<body>
+
+		<!-- 侧滑导航根容器 -->
+
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+
+			<!-- 菜单容器 -->
+			<aside id="offCanvasSide" class="mui-off-canvas-left">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!-- 菜单具体展示内容 -->
+
+						<h3><span class=" icon-homefill mui-icon" href="###">
+							<a href="###">主页 ></a>
+							<!--<button id="offCanvasHide" type="button">关闭</button>-->
+						
+						</h3>
+						<ul class="left_btn">
+							<li id="offCanvasHide"><a href="http://www.baidu.com" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
+							<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
+							<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
+							<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
+							<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
+							<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
+							<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
+							<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
+							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
+							<li><a href="###"><span cilass=" icon-iconfontjifen36 mui-icon" href="###"></span>金融理财></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+
+						</ul>
+
+					</div>
+				</div>
+			</aside>
+			<!-- 左侧菜单结束 -->
+
+			<!-- 主页面容器 -->
+
+			<div class="mui-inner-wrap   repair_container">
+
+				<!-- 主页面标题 -->
+
+				<header class="mui-bar mui-bar-nav">
+					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<h1 class="mui-title">家政服务</h1>
+				</header>
+				<!--主界面区域-->
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+
+						<!-- 主界面具体展示内容 -->
+
+						<!--按钮区域-->
+
+						<div id="container">
+							<ul class="mui-table-view mui-grid-view mui-grid-9">
+								<li id="yuesao" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-yuesao"></span>
+									<p class="black">月嫂</p>
+								</li>
+								<li id="yuersao" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-yinger"></span>
+									<p class="black">育儿嫂</p>
+								</li>
+								<li id="baomu" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-baomu"></span>
+									<p class="black">住家保姆</p>
+								</li>
+								<!--<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-laoren"></span>
+									<p class="black">老人陪护</p>
+								</li>-->
+								<li id="peihu" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-lunyi"></span>
+									<p class="black">陪护</p>
+								</li>
+								<!--<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-zhongdianbaoji"></span>
+									<p class="black">钟点工</p>
+								</li>-->
+								<!--<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-zhongdiangong"></span>
+									<p class="black">临时保洁</p>
+								</li>-->
+
+							</ul>
+
+							<ul class="mui-table-view mui-grid-view mui-grid-9 guanggao">
+								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+									<img src="../image/jiaz_03.gif" />
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+									<img src="../image/jiaz_05.gif" />
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+									<img src="../image/jiaz_03.gif" />
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+									<img src="../image/jiaz_05.gif" />
+								</li>
+
+							</ul>
+							<div class="phone">
+								<img src="../image/baoxiu_19.gif" /> 紧急呼叫： <strong>400-800-8000</strong>
+							</div>
+							
+						</div>
+
+						<!--按钮区域结束-->
+						<!-- 侧滑后右侧变黑-->
+
+					</div>
+					<div class="mui-off-canvas-backdrop"></div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			mui('.mui-scroll-wrapper').scroll();
+			document.getElementById('yuesao').addEventListener('tap', function() {
+					//打开关于页面
+					mui.openWindow({
+						url: 'jiazheng_sever_yuesao.html',
+						id: 'jiazheng_sever_yuesao'
+					});
+				});
+			document.getElementById('yuersao').addEventListener('tap', function() {
+					//打开关于页面
+					mui.openWindow({
+						url: 'jiazheng_sever_yuersao.html',
+						id: 'jiazheng_sever_yuersao'
+					});
+				});
+			document.getElementById('baomu').addEventListener('tap', function() {
+					//打开关于页面
+					mui.openWindow({
+						url: 'jiazheng_sever_baomu.html',
+						id: 'jiazheng_sever_baomu'
+					});
+				});
+			document.getElementById('peihu').addEventListener('tap', function() {
+					//打开关于页面
+					mui.openWindow({
+						url: 'jiazheng_sever_peihu.html',
+						id: 'jiazheng_sever_peihu'
+					});
+				});	
+		</script>
+	</body>
+
+</html>
