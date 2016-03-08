@@ -60,7 +60,8 @@
 			"css/style.css",
 			"fonts/iconfont.ttf",
 			"css/cross-down.css",
-			"css/mui.css"
+			"css/mui.css",
+			"js/mui.view.js"
 		],
 		"refer": [
 			"shopping/shop_qianggou_acter.html",
@@ -84,7 +85,8 @@
 		],
 		"refer": [
 			"index.html",
-			"login2.html"
+			"login2.html",
+			"shenhezhong.html"
 		]
 	},
 	"login2.html": {
@@ -92,7 +94,8 @@
 			"js/mui.enterfocus.js"
 		],
 		"refer": [
-			"reg_shanghu.html"
+			"reg_shanghu.html",
+			"reg_geren.html"
 		]
 	},
 	"shopping/shop_tehui.html": {
@@ -106,9 +109,14 @@
 			"fonts/iconfont.ttf",
 			"js/mui.js",
 			"css/cross-down.css",
-			"css/mui.css"
+			"css/mui.css",
+			"js/mui.min.js",
+			"shopping/shop_refresh_pingpai.html"
 		],
-		"refer": []
+		"refer": [
+			"shopping/shop_brand_acter.html",
+			"shopping/shop_refresh_pingpai.html"
+		]
 	},
 	"shopping/shop_qianggou_acter.html": {
 		"resources": [
@@ -128,10 +136,12 @@
 			"fonts/iconfont.ttf",
 			"js/mui.js",
 			"css/cross-down.css",
-			"css/mui.css"
+			"css/mui.css",
+			"shopping/shop_refresh_qianggou.html"
 		],
 		"refer": [
-			"shopping/shop_qianggou_acter.html"
+			"shopping/shop_qianggou_acter.html",
+			"shopping/shop_refresh_qianggou.html"
 		]
 	},
 	"shopping/shop_cuxiao.html": {
@@ -231,7 +241,15 @@
 			"css/iconfont.css",
 			"css/mui.min.css",
 			"css/style.css",
-			"css/cross-down.css"
+			"css/cross-down.css",
+			"js/mui.view.js",
+			"js/feedback.js",
+			"js/feedback-page.js",
+			"libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+			"libs/easymob-webim-sdk/json2.js",
+			"libs/easymob-webim-sdk/jquery-1.11.1.js",
+			"libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+			"css/feedback-page.css"
 		],
 		"refer": [
 			"shopping/shop_dizhi.html"
@@ -252,7 +270,8 @@
 		"refer": [
 			"shopping/shop_car.html",
 			"user/user_dingdan.html",
-			"user/user_fuwu.html"
+			"user/user_fuwu.html",
+			"index.html"
 		]
 	},
 	"reg_shanghu.html": {
@@ -517,7 +536,65 @@
 			"js/mui.js",
 			"css/mui.css",
 			"image/che2.jpg",
-			"image/che3.jpg"
+			"image/che3.jpg",
+			"image/che1.jpg"
+		]
+	},
+	"reg_geren.html": {
+		"resources": [
+			"js/mui.js",
+			"js/pages/user/reg_geren.js",
+			"js/mui.picker.js",
+			"js/app.js",
+			"js/mui.poppicker.js",
+			"js/jquery-1.9.1.min.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"css/mui.poppicker.css",
+			"css/mui.picker.css",
+			"fonts/mui.ttf"
+		]
+	},
+	"shenhezhong.html": {
+		"resources": [
+			"js/mui.js",
+			"css/mui.imageviewer.css",
+			"css/feedback-page.css"
+		]
+	},
+	"shopping/shop_brand_acter.html": {
+		"refer": [
+			"shopping/shop_qianggou_acter.html"
+		]
+	},
+	"shopping/shop_refresh_pingpai.html": {
+		"resources": [
+			"js/mui.min.js",
+			"image/th1.jpg",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/iconfont.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"css/mui.css",
+			"js/jquery-1.9.1.min.js",
+			"css/cross-down.css"
+		]
+	},
+	"shopping/shop_refresh_qianggou.html": {
+		"refer": [
+			"shopping/shop_qianggou_acter.html"
+		],
+		"resources": [
+			"js/jquery-1.9.1.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/cross-down.css",
+			"css/mui.css"
 		]
 	}
 }

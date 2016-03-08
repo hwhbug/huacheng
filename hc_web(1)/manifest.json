@@ -281,7 +281,8 @@
 					"js/mui.js",
 					"css/cross-down.css",
 					"js/jquery-1.9.1.min.js",
-					null
+					null,
+					"js/mui.view.js"
 				],
 				"refer": [
 					"shopping/shop_cuxiao.html",
@@ -347,9 +348,13 @@
 					"js/mui.js",
 					"css/cross-down.css",
 					"image/md3.jpg",
-					"js/jquery-1.9.1.min.js"
+					"js/jquery-1.9.1.min.js",
+					"js/mui.min.js",
+					"shopping/shop_refresh_pingpai.html"
 				],
-				"refer": [],
+				"refer": [
+					"shopping/shop_brand_acter.html"
+				],
 				"priority": 0
 			},
 			"shopping/shop_qianggou.html": {
@@ -366,7 +371,8 @@
 					"css/mui.css",
 					"image/gg2.jpg",
 					"image/gdc.jpg",
-					"js/jquery-1.9.1.min.js"
+					"js/jquery-1.9.1.min.js",
+					"shopping/shop_refresh_qianggou.html"
 				],
 				"refer": [
 					"shopping/shop_qianggou_acter.html"
@@ -837,7 +843,15 @@
 					"css/iconfont.css",
 					"css/mui.min.css",
 					"css/style.css",
-					"css/cross-down.css"
+					"css/cross-down.css",
+					"js/mui.view.js",
+					"js/feedback.js",
+					"js/feedback-page.js",
+					"libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+					"libs/easymob-webim-sdk/json2.js",
+					"libs/easymob-webim-sdk/jquery-1.11.1.js",
+					"libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+					"css/feedback-page.css"
 				],
 				"refer": [
 					"shopping/shop_dizhi.html"
@@ -1048,9 +1062,50 @@
 					"js/mui.js",
 					"css/mui.css",
 					"image/che2.jpg",
-					"image/che3.jpg"
+					"image/che3.jpg",
+					"image/che1.jpg"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"shopping/shop_brand_acter.html": {
+				"resources": [],
+				"refer": [
+					"shopping/shop_qianggou_acter.html"
+				],
+				"priority": 0
+			},
+			"shopping/shop_refresh_pingpai.html": {
+				"resources": [
+					"js/mui.min.js",
+					"image/th1.jpg",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/iconfont.css",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"css/mui.css",
+					"js/jquery-1.9.1.min.js",
+					"css/cross-down.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"shopping/shop_refresh_qianggou.html": {
+				"resources": [
+					"js/jquery-1.9.1.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"js/mui.js",
+					"css/cross-down.css",
+					"css/mui.css"
+				],
+				"refer": [
+					"shopping/shop_qianggou_acter.html"
+				],
 				"priority": 0
 			}
 		},

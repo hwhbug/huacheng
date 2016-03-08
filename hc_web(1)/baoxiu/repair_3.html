@@ -211,7 +211,7 @@
 		<input type="hidden" id="orldId">
 		<input type="hidden" id="ocId">
 		<input type="hidden" id="osId">
-<input type="hidden" id="getDate">
+		<input type="hidden" id="getDate">
 		<div id="set" class="mui-page">
 			<!-- 主页面容器 -->
 			<div class="mui-navbar-inner mui-bar mui-bar-nav">
@@ -330,9 +330,8 @@
 					showUserPickerButton.addEventListener('tap', function(event) {
 						userPicker.show(function(items) {
 							userResult.innerText = "预约时间:" + (items[0] || {}).text;
-							document.getElementById("getDate").value=( items[0] || {}).value;
-							
-//							alert((items[0] || {}).value);
+							document.getElementById("getDate").value = (items[0] || {}).value;
+							//							alert((items[0] || {}).value);
 							//返回 false 可以阻止选择框的关闭
 							//return false;
 						});
@@ -412,7 +411,7 @@
 			var omp = document.getElementById("mp").value;
 			var omid = document.getElementById("mid").value;
 			var odateTime = document.getElementById('userResult').innerText.substr(5);
-			var getDate= document.getElementById("getDate").value;
+			var getDate = document.getElementById("getDate").value;
 			//添加订单
 			mui.ajax("http://101.200.232.167:81/RepaLabelDesc/Update", {
 				data: {
@@ -425,7 +424,7 @@
 					omp: omp,
 					omid: omid,
 					odateTime: odateTime,
-					getDate:getDate
+					getDate: getDate
 				},
 				dataType: "json",
 				type: "get",

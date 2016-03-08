@@ -135,8 +135,11 @@
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
 							var str = "";
-							for (var i = 0; i < data.length; i++) { //										
-								str += "<li  id=\""+data[i].ID+"\" class=\"mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4\"><img src=\"http://101.201.196.202:82/Images/ProductImg/"+data[i].Products.Image1+"\"/><a class=\"font-green\">"+"</a><p class=\"black\">原价：<span class=\"zhonghuaxian\">￥"+data[i].Price+"</span></p><p class=\"black\">促销价：<span class=\"font-red\">￥"+data[i].Price+"</span></p><p>销量："+data[i].Products.Quantity+"件</p></li>";
+							for (var i = 0; i < data.length; i++) { //
+								if (data[i].Products.isDisplay!=false) {
+									str += "<li  id=\""+data[i].ID+"\" class=\"mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4\"><img src=\"http://101.201.196.202:82/Images/ProductImg/"+data[i].Products.Image1+"\"/><a class=\"font-green\">"+"</a><p class=\"black\">原价：<span class=\"zhonghuaxian\">￥"+data[i].Price+"</span></p><p class=\"black\">促销价：<span class=\"font-red\">￥"+data[i].Price+"</span></p><p>销量："+data[i].Products.Quantity+"件</p></li>";
+								} 
+								
 							}
 							$("#productlist").html(str);
 						}

@@ -13,6 +13,13 @@ mui.ajax('http://101.201.196.202:82//product/Panicbuypage', {
 			str += "<li id=\"" + data[i].ID + "\" class=\'mui-table-view-cell mui-media\' ><a class=\'img_vertical\' href=\'javascript:;\'><img class=\'mui-media-object mui-pull-left\' src=\'http://101.201.196.202:82/Images/ProductImg/" + data[i].Image1 + "\'><div class=\'mui-media-body\'>" + data[i].Names + "<p class=\'mui-ellipsis sm_txt\'>" + " </p><p class=\'smm_txt zhonghuaxian\'>原价：￥" + data[i].Price1 + "</p><p class=\'red_txt\'>￥" + data[i].Price2 + "</p></div></a>"
 		}
 		$("#index-product").html(str);
+	},
+	error: function(xhr, type, errorThrown) {
+		//异常处理；
+		mui.plusReady(function() {
+			alert("系统内部错误，请稍后重试")
+			plus.runtime.quit();
+		});
 	}
 })
 
@@ -26,7 +33,6 @@ mui.ajax('http://101.201.196.202:82/home/login_cache', {
 		if (data.name != null && data.name != "") {
 			$(".login").html("<p>" + data.name + "</p>")
 		}
-
 	}
 })
 mui.init({
