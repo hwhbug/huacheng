@@ -472,7 +472,8 @@
 					"css/mui.min.css",
 					"fonts/iconfont.ttf",
 					"css/mui.imageviewer.css",
-					"js/mui.view.js"
+					"js/mui.view.js",
+					"js/jquery-1.9.1.min.js"
 				],
 				"refer": [
 					"baoxiu/repair_4.html"
@@ -715,7 +716,9 @@
 					"js/mui.js",
 					"css/cross-down.css",
 					"css/mui.css",
-					"js/jquery-1.9.1.min.js"
+					"js/jquery-1.9.1.min.js",
+					"shopping/shop_refresh_pingpai.html",
+					"shopping/shop_refresh_shop.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -1069,7 +1072,17 @@
 				"priority": 0
 			},
 			"shopping/shop_brand_acter.html": {
-				"resources": [],
+				"resources": [
+					"js/mui.js",
+					"js/jquery-1.9.1.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"css/cross-down.css",
+					"css/mui.css",
+					"fonts/mui.ttf",
+					"fonts/iconfont.ttf"
+				],
 				"refer": [
 					"shopping/shop_qianggou_acter.html"
 				],
@@ -1088,7 +1101,9 @@
 					"js/jquery-1.9.1.min.js",
 					"css/cross-down.css"
 				],
-				"refer": [],
+				"refer": [
+					"shopping/shop_brand_acter.html"
+				],
 				"priority": 0
 			},
 			"shopping/shop_refresh_qianggou.html": {
@@ -1106,6 +1121,21 @@
 				"refer": [
 					"shopping/shop_qianggou_acter.html"
 				],
+				"priority": 0
+			},
+			"shopping/shop_refresh_shop.html": {
+				"resources": [
+					"js/jquery-1.9.1.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"js/mui.js",
+					"css/cross-down.css",
+					"css/mui.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

@@ -24,106 +24,30 @@
 
 	<body>
 
-		<!-- 侧滑导航根容器 -->
+		<!-- 主页面容器 -->
 
-		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+		<div class="mui-inner-wrap">
 
-			<!-- 菜单容器 -->
-			<aside id="offCanvasSide" class="mui-off-canvas-left">
-				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<!-- 菜单具体展示内容 -->
+			<!-- 主页面标题 -->
 
-						<h3><span class=" icon-homefill mui-icon" href="###">
-							<a href="###">主页 ></a>
-							<!--<button id="offCanvasHide" type="button">关闭</button>-->
-						
-						</h3>
-						<ul class="left_btn mui-table-view mui-grid-view mui-grid-9">
-							<li><a href="http://www.baidu.com" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
-							<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
-							<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
-							<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
-							<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
-							<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
-							<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
-							<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
-							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
-							<li><a href="###"><span class=" icon-iconfontjifen36 mui-icon" href="###"></span>金融理财></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-
-						</ul>
-
-					</div>
-				</div>
-			</aside>
-			<!-- 左侧菜单结束 -->
-
-			<!-- 主页面容器 -->
-
-			<div class="mui-inner-wrap">
-
-				<!-- 主页面标题 -->
-
-				<header class="mui-bar mui-bar-nav">
-					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-					<h1 class="mui-title">限时抢购</h1>
-					<span id="icon-menu" class="mui-icon mui-icon-bars mui-pull-right font-blue"></span>
-
-				</header>
-				<!-- 主界面具下拉 -->
-				<div id="menu-wrapper" class="menu-wrapper hidden">
-					<div id="menu" class="menu">
-						<ul class="mui-table-view mui-table-view-inverted">
-							<li id="menu-btn" class="mui-table-view-cell">
-								<a href="javascript:;">周边美食</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">大型超市</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">服装商场</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">居家用品</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">日杂五金</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">家具市场</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">家电中心</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">数码科技</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div id="menu-backdrop" class="menu-backdrop"></div>
-				<!-- 主界面具下拉结束 -->
-				<!--主界面区域-->
-				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop">
-					<div class="mui-scroll">
-
-						<!--banner-->
-						<div class="mui-slider">
+			<header class="mui-bar mui-bar-nav">
+				<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title"></h1>
+			</header>
+			<!--主界面区域-->
+			<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop">
+				<div class="mui-scroll">
+					<!--<div class="mui-slider">
 							<div class="mui-slider-group">
 								<div class="mui-slider-item">
-									<!--<img src="../image/gg1.jpg" />-->
+									
 								</div>
 							</div>
-						</div>
-						<!--banner区域结束-->
-						<!--按钮区域-->
-						<div id="container">
-							<!--周边新开列表-->
-							<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Panicbuy">
-								<!--<li id="gdc" class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+						</div>-->
+					<!--按钮区域-->
+					<div id="container">
+						<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Panicbuy">
+							<!--<li id="gdc" class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
 									<img src="../image/gdc.jpg" />
 									<a class="font-green" href="#">蓝月亮天然洗衣液15L</a>
 									<p class="black">原价：<span class="zhonghuaxian">￥36.00</span></p>
@@ -131,116 +55,51 @@
 									<p class="red"><span class="font-bai" style=" font-family:arial; padding: 5px 10px;">距结束：06:25:12</span></p>
 									<p>销量：1150件</p>
 								</li>-->
-							</ul>
-							<!--周边新开列表结束-->
-						</div>
-						<!-- 侧滑后右侧变黑-->
+						</ul>
 					</div>
-					<div class="mui-off-canvas-backdrop"></div>
+					<!-- 侧滑后右侧变黑-->
 				</div>
 			</div>
 		</div>
 		<script>
-			mui('.mui-scroll-wrapper').scroll();
-			var menuWrapper = document.getElementById("menu-wrapper");
-			var menu = document.getElementById("menu");
-			var menuWrapperClassList = menuWrapper.classList;
-			var backdrop = document.getElementById("menu-backdrop");
-			var info = document.getElementById("info");
-			backdrop.addEventListener('tap', toggleMenu);
-			document.getElementById("menu-btn").addEventListener('tap', toggleMenu);
-			document.getElementById("icon-menu").addEventListener('tap', toggleMenu)
-				//下沉菜单中的点击事件
-			mui('#menu').on('tap', 'a', function() {
-				toggleMenu();
-				//info.innerHTML = '你已选择：'+this.innerHTML;
+			window.addEventListener('newsId', function(event) {
+				//获得事件参数
+				var id = event.detail.id;
+				//************************************每次加载页面要先清空原页面数据，防止出现页面闪屏的问题**************************
+				mui.ajax('http://101.201.196.202:82/business/getproducts_bybrand', {
+					data: {
+						pageindex: 1,
+						pagesize: 12,
+						brandid: id
+					},
+					dataType: 'json', //服务器返回json格式数据
+					async: false,
+					type: 'GET', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var str = "";
+						for (var i = 0; i < data.length; i++) { //										
+							str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://101.201.196.202:82/Images/ProductImg/" + data[i].Image1 + "\" /><a class=\"font-green\" href=\"#\">" + data[i].Names + "</a><p class=\"black\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Price2 + "</span></p><p class=\"black\">促销价：<span class=\"sm_jiage\">￥" + data[i].Price1 + "</span></p><p class=\"red font-bai\">距结束：<span class=\" settime\" style=\"font-family:arial;padding: 5px 10px;\" endtime=\"" + data[i].EndTime + "\"></span></p><p>销量：" + data[i].Quantity + "件</p></li>";
+						}
+						$("#Panicbuy").html(str);
+					}
+				})
+				mui.ajax('http://101.201.196.202:82/business/Brand_byid', {
+					data: {
+						id: id
+					},
+					dataType: 'json', //服务器返回json格式数据
+					async: false,
+					type: 'GET', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						
+						$(".mui-title").html(data.brand_name);
+					}
+				})
 			});
-			var busying = false;
+		</script>
 
-			function toggleMenu() {
-				if (busying) {
-					return;
-				}
-				busying = true;
-				if (menuWrapperClassList.contains('mui-active')) {
-					document.body.classList.remove('menu-open');
-					menuWrapper.className = 'menu-wrapper fade-out-up animated';
-					menu.className = 'menu bounce-out-up animated';
-					setTimeout(function() {
-						backdrop.style.opacity = 0;
-						menuWrapper.classList.add('hidden');
-					}, 500);
-				} else {
-					document.body.classList.add('menu-open');
-					menuWrapper.className = 'menu-wrapper fade-in-down animated mui-active';
-					menu.className = 'menu bounce-in-down animated';
-					backdrop.style.opacity = 1;
-				}
-				setTimeout(function() {
-					busying = false;
-				}, 500);
-			}
-		</script>
-		<script>
-			//***************************获取商场头部广告的列表数据**********************************
-			mui.ajax('http://101.201.196.202:82//product/ProductsAdverts', {
-				data: {
-					type: "抢购头部",
-				},
-				dataType: 'json', //服务器返回json格式数据
-				async: false,
-				type: 'GET', //HTTP请求类型,
-				timeout: 10000, //超时时间设置为10秒；
-				success: function(data) {
-					var str = "";
-					for (var i = 0; i < data.length; i++) { //										
-						str += "<div class=\"mui-slider-item\"><img src=\"http://101.201.196.202:82/Images/ProductsAdvertsImg/" + data[i].image + "\" /></div>";
-					}
-					$(".mui-slider-group").html(str);
-				}
-			})
-			mui.init({
-				preloadPages: [{
-					id: 'shop_qianggou_acter.html',
-					url: 'shop_qianggou_acter.html'
-				}]
-			});
-			var detailPage = null;
-			//添加列表项的点击事件
-			mui('.list_shop').on('tap', 'li', function(e) {
-				var id = this.getAttribute('id');
-				//获得详情页面
-				if (!detailPage) {
-					detailPage = plus.webview.getWebviewById('shop_qianggou_acter.html');
-				}
-				//触发详情页面的newsId事件
-				mui.fire(detailPage, 'newsId', {
-					id: id
-				});
-				//打开详情页面          
-				mui.openWindow({
-					url: 'shop_qianggou_acter.html',
-					id: 'shop_qianggou_acter.html'
-				});
-			});
-			mui.ajax('http://101.201.196.202:82//product/Panicbuypage', {
-				data: {
-					activity: "4",
-				},
-				dataType: 'json', //服务器返回json格式数据
-				async: false,
-				type: 'GET', //HTTP请求类型,
-				timeout: 10000, //超时时间设置为10秒；
-				success: function(data) {
-					var str = "";
-					for (var i = 0; i < data.length; i++) { //										
-						str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://101.201.196.202:82/Images/ProductImg/" + data[i].Image1 + "\" /><a class=\"font-green\" href=\"#\">" + data[i].Names + "</a><p class=\"black\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Price2 + "</span></p><p class=\"black\">促销价：<span class=\"sm_jiage\">￥" + data[i].Price1 + "</span></p><p class=\"red font-bai\">距结束：<span class=\" settime\" style=\"font-family:arial;padding: 5px 10px;\" endtime=\"" + data[i].EndTime + "\"></span></p><p>销量：" + data[i].Quantity + "件</p></li>";
-					}
-					$("#Panicbuy").append(str);
-				}
-			})
-		</script>
-		
 	</body>
 
 </html>

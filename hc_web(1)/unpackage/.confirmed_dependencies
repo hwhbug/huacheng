@@ -169,9 +169,14 @@
 			"fonts/iconfont.ttf",
 			"js/mui.js",
 			"css/cross-down.css",
-			"css/mui.css"
+			"css/mui.css",
+			"shopping/shop_refresh_pingpai.html",
+			"shopping/shop_refresh_shop.html"
 		],
-		"refer": []
+		"refer": [
+			"shopping/shop_refresh_pingpai.html",
+			"shopping/shop_refresh_shop.html"
+		]
 	},
 	"shopping/shop_nav.html": {
 		"resources": [
@@ -337,7 +342,8 @@
 			"js/jquery-1.9.1.min.js",
 			"css/iconfont.css",
 			"css/mui.min.css",
-			"fonts/iconfont.ttf"
+			"fonts/iconfont.ttf",
+			"images/iconfont-tianjia.png"
 		],
 		"refer": [
 			"baoxiu/repair_3.html"
@@ -347,7 +353,18 @@
 		"resources": [
 			"css/mui.poppicker.css",
 			"css/mui.picker.css",
-			"js/mui.view.js"
+			"js/mui.view.js",
+			"js/mui.picker.js",
+			"js/mui.poppicker.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"css/mui.css",
+			"js/mui.min.js",
+			"js/jquery-1.9.1.min.js",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"fonts/iconfont.ttf",
+			"css/mui.imageviewer.css"
 		]
 	},
 	"user/user_dingdan.html": {
@@ -565,6 +582,17 @@
 	"shopping/shop_brand_acter.html": {
 		"refer": [
 			"shopping/shop_qianggou_acter.html"
+		],
+		"resources": [
+			"js/mui.js",
+			"js/jquery-1.9.1.min.js",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"css/cross-down.css",
+			"css/mui.css",
+			"fonts/mui.ttf",
+			"fonts/iconfont.ttf"
 		]
 	},
 	"shopping/shop_refresh_pingpai.html": {
@@ -579,12 +607,28 @@
 			"css/mui.css",
 			"js/jquery-1.9.1.min.js",
 			"css/cross-down.css"
+		],
+		"refer": [
+			"shopping/shop_brand_acter.html"
 		]
 	},
 	"shopping/shop_refresh_qianggou.html": {
 		"refer": [
 			"shopping/shop_qianggou_acter.html"
 		],
+		"resources": [
+			"js/jquery-1.9.1.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/cross-down.css",
+			"css/mui.css"
+		]
+	},
+	"shopping/shop_refresh_shop.html": {
 		"resources": [
 			"js/jquery-1.9.1.min.js",
 			"fonts/mui.ttf",
