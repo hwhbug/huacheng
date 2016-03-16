@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			//			mui.init();
+		</script>
+		<style type="text/css">
+			.repair_container li {
+				background: #FFFFFF;
+			}
+			
+			.repair_container li p {
+				color: #000000;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+				padding: 11px;
+				border-right: 1px solid #EEEEEE;
+				border-bottom: 1px solid #EEEEEE;
+			}
+			
+			.guanggao .mui-table-view-cell {
+				border: none !important;
+				border: 2px solid #EEEEEE !important;
+				padding: 0 !important;
+			}
+			
+			.tubiao {
+				padding: 10% 3%;
+				border-bottom: 1px solid #D8D8D8;
+				border-right: 1px solid #D8D8D8;
+			}
+			
+			.tubiao {
+				width: 33.3%;
+			}
+			
+			.smm_txt {
+				font-size: 0.8em;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">法律援助</h1>
+		</header>
+		<div class="mui-content jiazheng">
+			<div class="mui-scroll repair3_table">
+
+				<div class="qr_dizhi">
+					<div class="repair_bar blue">确认您的联系方式 </div>
+
+					<input type="text" class="mui-input-speech sm_input" id="flName" placeholder="姓名" />
+					<input type="text" class="mui-input-speech sm_input" id="flArea" placeholder="地区" />
+					<div class="mui-input-row">
+						<input type="text" class="mui-input-clear" placeholder="联系电话" id="flContactPhone" />
+					</div>
+					<div class="repair_bar blue"><span id="cateName">民商事诉讼</span> - 需求简述： </div>
+					<textarea style="height: 300px; border-color: #CCCCCC !important; font-size: 1em;" class="mui-input-clear question" id="flDescription" placeholder="请简述您的法律需求"></textarea>
+				</div>
+
+				<button id='submits1' class="mui-btn mui-btn-block mui-btn-primary btn_login blue">立即提交</button>
+
+			</div>
+
+			<div class="mui-off-canvas-backdrop"></div>
+		</div>
+
+	</body>
+	<script>
+		//		var isphone = function(value) {
+		//			var regu2 = /1[3|4|5|8][0-9]\d{4,8}/;
+		//			var b2 = regu2.test(value);
+		//			var b = b2;
+		//			return b;
+		//		};
+		var isphone = function(value) {
+			var regu = /1[3|5|6|8][0-9]\d{8}/;
+			var t = regu.test(value);
+			//			var t1=t;
+			return t;
+		};
+		mui('.mui-scroll-wrapper').scroll();
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			var cateId = self.cateId;
+			var cateName = self.cateName;
+			var uid = self.uid;
+			var uname = self.uname;
+			$("#cateName").html(cateName);
+			document.getElementById('submits1').addEventListener('tap', function() {
+				var flName = document.getElementById("flName").value;
+				var flArea = document.getElementById("flArea").value;
+				var flConPhone = document.getElementById("flContactPhone").value;
+				var flDesc = document.getElementById("flDescription").value;
+				//				alert(flName + "," + flArea + "," + flConPhone + "," + flDesc+","+cateId+","+uid);
+				if (flName == "") {
+					mui.toast("请输入姓名");
+					return;
+				} else if (flArea == "") {
+					mui.toast("请输入地区");
+					return;
+				} else if (flConPhone == "") {
+					mui.toast("请输入手机号");
+					return;
+				} else if (!isphone(flConPhone)) {
+					mui.toast("不是完整的11位手机号或者正确的手机号前七位");
+					return;
+				} else if (flDesc == "") {
+					mui.toast("请输入需求简述");
+					return;
+				}
+				mui.ajax('http://101.200.232.167:81/LAContact/Creates', {
+					data: {
+						laConName: flName,
+						laConArea: flArea,
+						laConNumber: flConPhone,
+						laConDemandBrif: flDesc,
+						laCateId: cateId,
+						cuid: uid
+					},
+					dataType: "json",
+					type: "post",
+					timeout: 10000,
+					success: function(data1) {
+						if (data1.statusCode == "200") {
+							document.getElementById("flName").value = "";
+							document.getElementById("flArea").value = "";
+							document.getElementById("flContactPhone").value = "";
+							document.getElementById("flDescription").value = "";
+							$("#cateName").html("");
+							mui.openWindow({
+								url: 'falv_over.html',
+								extras: {
+									onum: data1.data,
+									uname: uname
+								}
+							});
+							
+						} else {
+							console.log();
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理
+						console.log(type)
+					}
+				})
+			});
+		})
+	</script>
+
+</html>

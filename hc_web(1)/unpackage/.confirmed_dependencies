@@ -28,7 +28,8 @@
 			"user/user_my.html",
 			"baoxiu/repair_1.html",
 			"jiazheng/jiazheng_index.html",
-			"ershou/ershou_index.html"
+			"ershou/ershou_index.html",
+			"falv/falv_index.html"
 		]
 	},
 	"shopping/shop_cuxiao_acter.html": {
@@ -86,7 +87,8 @@
 		"refer": [
 			"index.html",
 			"login2.html",
-			"shenhezhong.html"
+			"shenhezhong.html",
+			"forget_password.html"
 		]
 	},
 	"login2.html": {
@@ -639,6 +641,40 @@
 			"js/mui.js",
 			"css/cross-down.css",
 			"css/mui.css"
+		]
+	},
+	"forget_password.html": {
+		"resources": [
+			"js/app.js",
+			"js/pages/user/forget_password.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css"
+		],
+		"refer": [
+			"change_password.html"
+		]
+	},
+	"change_password.html": {
+		"resources": [
+			"js/jquery-1.9.1.min.js",
+			"js/pages/user/change_password.js"
+		]
+	},
+	"falv/falv_index.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/mui.js",
+			"js/jquery-1.9.1.min.js",
+			"css/iconfont.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"css/mui.css"
+		],
+		"refer": [
+			"login.html"
 		]
 	}
 }

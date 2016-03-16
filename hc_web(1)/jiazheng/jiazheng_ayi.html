@@ -74,8 +74,8 @@
 		mui.plusReady(function() {
 			var self = plus.webview.currentWebview();
 			var baomuFlag = self.baomuFlag;
-			//			alert("yesaoLvl="+yesaoLvl);
-			//			alert("baomuFlag="+baomuFlag);
+			//alert("yesaoLvl="+yesaoLvl);
+			//alert("baomuFlag="+baomuFlag);
 			if (baomuFlag == "1") {
 				var yuesaoLvl = self.yuesaoLvl;
 				var workExper = self.workExper;
@@ -95,15 +95,18 @@
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						var ayiCnt = "";
-						//data-name=\""+data[i].ayiName+"\"
-						for (var i = 0; i < data.length; i++) {
-							ayiCnt += "<li id=\"" + data[i].yuesaoID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
-								"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
-								"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
-								"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
-								"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+						if (data.length > 0) {
+							for (var i = 0; i < data.length; i++) {
+								ayiCnt += "<li id=\"" + data[i].yuesaoID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
+									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+									"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
+									"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
+									"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+							}
+							$("#ayiC").html(ayiCnt);
+						} else {
+							mui.toast("没有找到相关信息");
 						}
-						$("#ayiC").html(ayiCnt);
 					},
 					error: function(xhr, type, errorThrown) {
 						//异常处理
@@ -131,15 +134,18 @@
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						var ayiCnt = "";
-						//data-name=\""+data[i].ayiName+"\"
-						for (var i = 0; i < data.length; i++) {
-							ayiCnt += "<li id=\"" + data[i].yuersaoID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
-								"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
-								"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
-								"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
-								"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+						if (data.length > 0) {
+							for (var i = 0; i < data.length; i++) {
+								ayiCnt += "<li id=\"" + data[i].yuersaoID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
+									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+									"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
+									"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
+									"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+							}
+							$("#ayiC").html(ayiCnt);
+						} else {
+							mui.toast("没有找到相关信息");
 						}
-						$("#ayiC").html(ayiCnt);
 					},
 					error: function(xhr, type, errorThrown) {
 						//异常处理
@@ -165,15 +171,18 @@
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						var ayiCnt = "";
-						//data-name=\""+data[i].ayiName+"\"
-						for (var i = 0; i < data.length; i++) {
-							ayiCnt += "<li id=\"" + data[i].peihuID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
-								"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
-								"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
-								"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
-								"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+						if (data.length > 0) {
+							for (var i = 0; i < data.length; i++) {
+								ayiCnt += "<li id=\"" + data[i].peihuID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
+									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+									"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
+									"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
+									"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+							}
+							$("#ayiC").html(ayiCnt);
+						} else {
+							mui.toast("没有找到相关信息");
 						}
-						$("#ayiC").html(ayiCnt);
 					},
 					error: function(xhr, type, errorThrown) {
 						//异常处理
@@ -199,14 +208,18 @@
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						var ayiCnt = "";
-						for (var i = 0; i < data.length; i++) {
-							ayiCnt += "<li id=\"" + data[i].zjbaomuID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
-								"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
-								"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
-								"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
-								"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+						if (data.length > 0) {
+							for (var i = 0; i < data.length; i++) {
+								ayiCnt += "<li id=\"" + data[i].zjbaomuID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
+									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+									"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
+									"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
+									"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+							}
+							$("#ayiC").html(ayiCnt);
+						} else {
+							mui.toast("没有找到相关信息");
 						}
-						$("#ayiC").html(ayiCnt);
 					},
 					error: function(xhr, type, errorThrown) {
 						//异常处理
@@ -230,7 +243,6 @@
 					type: 'GET', //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
- 
 						if (data.nAccountID != null && data.nAccountID != "") {
 							var accountID = data.nAccountID;
 							mui.openWindow({

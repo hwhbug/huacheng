@@ -49,3 +49,11 @@ document.getElementById('ershou').addEventListener('tap', function() {
 		id: 'ershou_index'
 	});
 });
+//法律援助
+document.getElementById("falv").addEventListener("tap", function() {
+	mui.openWindow({
+		url: "falv/falv_index.html",
+		id: "falv"
+	})
+
+})

@@ -136,7 +136,7 @@
 										<div class="mui-media-body">订餐</div>
 									</a>
 								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+								<li id="falv" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
 									<a href="#">
 										<span class="mui-icon icon-falv"></span>
 										<div class="mui-media-body">法律援助</div>
@@ -230,7 +230,7 @@
 											dataType: 'json', //服务器返回json格式数据
 											type: 'Post', //HTTP请求类型,
 											timeout: 10000, //超时时间设置为10秒；
-											success: function(Communitydata) {
+											success: function(Communitydatanew) {
 												//searchObj.onPoiSearchComplete = function(state, result) {
 												//console.log("onPoiSearchComplete: " + state + " , " + result.currentNumber);
 												(function($, doc) {
@@ -239,44 +239,58 @@
 														//-----------------------------------------
 														//					//级联示例
 														var cityPicker3 = new $.PopPicker();
-														cityPicker3.setData(eval(Communitydata));
+														cityPicker3.setData(eval(Communitydatanew));
 														var showCityPickerButton = doc.getElementById('showCityPicker3');
 														var cityResult3 = doc.getElementById('cityResult3');
-														if (plus.storage.getItem("Community") != null) {
-															cityResult3.innerText = plus.storage.getItem("Community");
+														if (Communitydata == null) {
+															cityResult3.innerText = "暂未覆盖该区域"
 														} else {
-															cityResult3.innerText = "选择小区"
-														}
-														//*************************************小区选择点击事件*************************************
-														showCityPickerButton.addEventListener('tap', function(event) {
-															cityPicker3.show(function(items) {
-																cityResult3.innerText = (items[0] || {}).text;
-																plus.storage.setItem("Community", (items[0] || {}).text);
-																///**********************************获取用户选择小区的坐标*********************************
-																searchObj.onPoiSearchComplete = function(state, result) {
-																		if (state == 0) {
-																			if (result.currentNumber <= 0) {
-																				alert("没有检索到结果");
+															if (plus.storage.getItem("Community") != null) {
+																cityResult3.innerText = plus.storage.getItem("Community");
+															} else {
+																cityResult3.innerText = "选择小区"
+															}
+															//*************************************小区选择点击事件*************************************
+															showCityPickerButton.addEventListener('tap', function(event) {
+																cityPicker3.show(function(items) {
+																	cityResult3.innerText = (items[0] || {}).text;
+																	plus.storage.setItem("Community", (items[0] || {}).text);
+																	///**********************************获取用户选择小区的坐标*********************************
+																	searchObj.onPoiSearchComplete = function(state, result) {
+																			if (state == 0) {
+																				if (result.currentNumber <= 0) {
+																					alert("没有检索到结果");
+																				}
+																				for (var i = 0; i < 1; i++) {
+																					var pos = result.getPosition(i);
+																					console.log(JSON.stringify(pos.point))
+																					plus.storage.setItem("Communitycoord", JSON.stringify(pos.point));
+																				}
+																			} else {
+																				alert("检索失败");
 																			}
-																			for (var i = 0; i < 1; i++) {
-																				var pos = result.getPosition(i);
-																				console.log(JSON.stringify(pos.point))
-																				plus.storage.setItem("Communitycoord", JSON.stringify(pos.point));
-																			}
-																		} else {
-																			alert("检索失败");
 																		}
-																	}
-																	//searchObj.poiSearchInCity("", (items[0] || {}).text )   //城市检索
-																	//console.log(JSON.stringify(point))
-																searchObj.poiSearchNearBy((items[0] || {}).text, point, 10000); //周边检索
-															});
-														}, false);
+																		//searchObj.poiSearchInCity("", (items[0] || {}).text )   //城市检索
+																		//console.log(JSON.stringify(point))
+																	searchObj.poiSearchNearBy((items[0] || {}).text, point, 10000); //周边检索
+																});
+															}, false);
+														}
 													});
 												})(mui, document);
 												//}
 											}
 										})
+									} else {
+										(function($, doc) {
+											$.init();
+											$.ready(function() {
+												//-----------------------------------------
+												//					//级联示例
+												var cityResult3 = doc.getElementById('cityResult3');
+												cityResult3.innerText = "暂未覆盖该区域……";
+											});
+										})(mui, document);
 									}
 								}
 							})

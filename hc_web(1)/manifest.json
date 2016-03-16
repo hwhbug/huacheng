@@ -259,7 +259,8 @@
 					"shopping/shop_cuxiao_acter.html",
 					"user/user_my.html",
 					"jiazheng/jiazheng_index.html",
-					"ershou/ershou_index.html"
+					"ershou/ershou_index.html",
+					"falv/falv_index.html"
 				],
 				"priority": 0
 			},
@@ -640,7 +641,8 @@
 					"fonts/iconfont.ttf",
 					"css/cross-down.css",
 					"css/mui.css",
-					"js/mui.js"
+					"js/mui.js",
+					null
 				],
 				"refer": [
 					"shopping/shop_jiesuan.html"
@@ -883,7 +885,8 @@
 					"css/mui.min.css",
 					"css/style.css",
 					"js/mui.js",
-					"js/jquery-1.9.1.min.js"
+					"js/jquery-1.9.1.min.js",
+					null
 				],
 				"refer": [],
 				"priority": 0
@@ -1136,6 +1139,22 @@
 					"css/mui.css"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"falv/falv_index.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/mui.js",
+					"js/jquery-1.9.1.min.js",
+					"css/iconfont.css",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"css/mui.css"
+				],
+				"refer": [
+					"login.html"
+				],
 				"priority": 0
 			}
 		},

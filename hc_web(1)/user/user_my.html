@@ -232,7 +232,10 @@
 					}
 				})
 			});
-			mui.ajax('http://101.201.196.202:82/home/userinfo', {
+			refresh();
+
+			function refresh() {
+				mui.ajax('http://101.201.196.202:82/home/userinfo', {
 					data: {},
 					dataType: 'json', //服务器返回json格式数据
 					type: 'Post', //HTTP请求类型,
@@ -241,9 +244,11 @@
 						$("#uname").html(data.name.substring(0, 1) + "先生");
 						$("#tel").html("手机：" + data.mp.substring(0, 3) + "****" + data.mp.substring(7, 11));
 						$("#jifeng").html("积分：" + data.nCredit);
+						$(".font-yellow.mx_jiage").html(data.nVal);
 					}
 				})
-				//							<p>社区慧生活已为您服务 <span class="font-yellow mx_jiage">22</span> 次</p>
+			}
+			//							<p>社区慧生活已为您服务 <span class="font-yellow mx_jiage">22</span> 次</p>
 			document.getElementById('sign').addEventListener('tap', function() {
 				//打开关于页面
 				mui.ajax('http://101.201.196.202:82/Account/sign', {
@@ -252,6 +257,9 @@
 					type: 'Post', //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
+						if (data.statusCode == "200") {
+							refresh();
+						}
 						plus.ui.toast(data.message);
 					}
 				})

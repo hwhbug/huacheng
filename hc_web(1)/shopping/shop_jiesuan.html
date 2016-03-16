@@ -214,6 +214,43 @@
 			.mui-table-view-cell {
 				font-size: 16px;
 			}
+			
+			.neirong {
+				min-height: 200px;
+			}
+			
+			.footer {
+				border: none !important;
+				padding: 5px;
+				border-top: 1px solid #CCCCCC !important;
+				height: 80px !important;
+			}
+			
+			.mui-table-view {
+				margin-top: 0;
+			}
+			
+			.mui-input-row label {
+				width: auto;
+				padding: 10px 10px 15px 5px;
+			}
+			
+			.mui-input-row label~input {
+				width: 70%;
+				padding: 10px 0;
+			}
+			
+			#bottomPopover {
+				left: 0 !important;
+			}
+			
+			.dizhi {
+				padding: 5px !important;
+			}
+			
+			.dizhi a {
+				font-size: 16px !important;
+			}
 		</style>
 	</head>
 
@@ -242,7 +279,7 @@
 			<div class="mui-page-content">
 				<div class="mui-scroll-wrapper">
 					<div class="mui-scroll">
-						<ul id="myorders" class="mui-table-view mui-table-view-chevron">
+						<ul id="myorders" class="mui-table-view mui-table-view-chevron neirong">
 
 						</ul>
 						<!--<div class="repair3_table mui-content jiesuan">
@@ -250,22 +287,25 @@
 							</ul>
 						</div>-->
 						<!-- FOOTER区域-->
-						<nav class="mui-bar footer">
+						<nav class=" footer">
 							<div id="dizhisub" class="dizhisub" style="line-height: 30px; color:#666666;"></div>
-							<a href="#change_address" class="center font-blue">更换地址</a>
+
+							<a href="#change_address" class="font-blue" style="font-size: 16px; float: right;">选择地址</a>
 							<!--id="address"-->
-							<p class="black">支付方式</p>
+							<p class="black" style="margin-top: 25px;">支付方式</p>
 							<ul class="mui-table-view mui-table-view-radio">
-								<li class="mui-table-view-cell">
-									<a class="mui-navigate-right">
-						华晟一卡通
-					</a>
-								</li>
-								<li class="mui-table-view-cell mui-selected">
-									<a class="mui-navigate-right">
-						支付宝
-					</a>
-								</li>
+								<li class="mui-table-view-cell"><a class="mui-navigate-right">华晟一卡通</a></li>
+								<div style="display:none;" id="enter">
+									<div class="mui-input-row">
+										<label>账号</label>
+										<input id='yktaccount' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+									</div>
+									<div class="mui-input-row">
+										<label>密码</label>
+										<input id='yktpassword' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+									</div>
+								</div>
+								<li class="mui-table-view-cell mui-selected"><a class="mui-navigate-right">支付宝</a></li>
 							</ul>
 
 							<div class="clear"></div>
@@ -288,6 +328,7 @@
 				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
 					<span class="mui-icon mui-icon-left-nav"></span>结算中心
 				</button>
+
 				<h1 class="mui-center mui-title">更换地址</h1>
 			</div>
 
@@ -312,7 +353,7 @@
 
 		<div id="bottomPopover" class="mui-popover mui-popover-bottom">
 			<div class="mui-scroll-wrapper">
-				<div class="mui-scroll">
+				<div class="mui-scroll" style="padding: 5px;">
 					<div class="mui-input-row">
 						<label>姓名：</label>
 						<input id="uname" placeholder="收货人姓名">
@@ -331,10 +372,10 @@
 
 		<script src="../js/mui.view.js "></script>
 		<script>
+			mui('.mui-scroll-wrapper').scroll();
 			var viewApi = mui('#app').view({
 				defaultPage: '#setting'
 			});
-			mui('.mui-scroll-wrapper').scroll();
 			//********************************************************需要结算的订单数据代码*****************************************
 			var orderids = "";
 			window.addEventListener('newsId', function(event) {
@@ -353,7 +394,7 @@
 							for (var i = 0; i < data.length; i++) {
 								myorders += "<li id=\"" + data[i].ID + "\"><p>" + data[i].OrdersName + "<span class=\"font-red mui-pull-right\">￥" + data[i].TotalPrice + "</span></p></li>";
 								totalprice += data[i].TotalPrice;
-								orderids += data[i].ID + ",";
+								orderids += data[i].ID;
 							}
 							$("#myorders").html(myorders);
 							$("#mx_jiage").html("￥" + totalprice);
@@ -389,59 +430,121 @@
 					alert("获取支付通道列表失败：" + e.message);
 				});
 			}, false);
+			//一卡通账号密码
+			var yktaccount = document.getElementById('yktaccount');
+			var yktpassword = document.getElementById('yktpassword');
 			var dizhisub = document.getElementById('dizhisub');
+			var paymethod = document.querySelector('.mui-table-view-cell.mui-selected').innerText;
+			var list = document.querySelector('.mui-table-view.mui-table-view-radio');
+			//*************************************监听radio的选择事件******************************
+			list.addEventListener('selected', function(e) {
+				paymethod = e.detail.el.innerText;
+				//				console.log(paymethod);
+				if (paymethod.length > 4) {
+					$("#enter").show();
+				} else {
+					$("#enter").hide();
+				}
+			});
 			document.getElementById("zhifu").addEventListener("tap", function() {
 					if (dizhisub.innerHTML.length == 0) {
 						plus.ui.toast("请先添加收货地址……");
 						return;
 					}
-					// 必须从业务服务器获取支付信息
+					var deliveryaddress_id = $("#dizhisub p").attr("id");
+					//***********************************支付交易之前，将收货地址添加到数据库**********************************
+					mui.ajax('http://101.201.196.202:82/MyOrders/Myorder_DeliveryAddress', {
+							data: {
+								order_id: orderids,
+								deliveryaddress_id: deliveryaddress_id
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'Post', //HTTP请求类型,
+							timeout: 10000, //超时时间设置为10秒；
+							success: function(data) {
+								if (data.statusCode == "300") {
+									plus.ui.toast("系统内部错误，请联系管理员……");
+									return;
+								}
+							}
+						})
+						// 必须从业务服务器获取支付信息
 					var statement = "";
-					mui.ajax('http://101.201.196.202:82/Alipay/GetPayInfo', {
-						data: {
-							orderid: orderids
-						},
-						dataType: 'json', //服务器返回json格式数据
-						type: 'Post', //HTTP请求类型,
-						timeout: 10000, //超时时间设置为10秒；
-						success: function(data) {
-							statement = data;
-							plus.payment.request(channels, statement, function() {
-								alert("支付操作成功！");
-							}, function(e) {
-								if (e.message.indexOf("62000") >= 0) {
-									plus.ui.toast("请先安装支付宝插件！");
+					//******************************************选择支付宝支付************************************
+					if (paymethod.length == 4) {
+						mui.ajax('http://101.201.196.202:82/Alipay/GetPayInfo', {
+							data: {
+								orderid: orderids
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'Post', //HTTP请求类型,
+							timeout: 10000, //超时时间设置为10秒；
+							success: function(data) {
+								//								console.log(JSON.stringify(data))
+								statement = data;
+								plus.payment.request(channels, statement, function() {
+									plus.ui.toast("支付操作成功！");
+									//关闭当前页面
+									var ws = plus.webview.currentWebview();
+									plus.webview.close(ws);
+								}, function(e) {
+									if (e.message.indexOf("62000") >= 0) {
+										plus.ui.toast("请先安装支付宝插件！");
+									}
+									if (e.message.indexOf("62001") >= 0) {
+										plus.ui.toast("您已取消操作");
+									}
+									if (e.message.indexOf("62002") >= 0) {
+										plus.ui.toast("此设备不支持支付");
+									}
+									if (e.message.indexOf("62003") >= 0) {
+										plus.ui.toast("数据格式错误");
+									}
+									if (e.message.indexOf("62004") >= 0) {
+										plus.ui.toast("支付账号状态错误");
+									}
+									if (e.message.indexOf("62005") >= 0) {
+										plus.ui.toast("订单信息错误");
+									}
+									if (e.message.indexOf("62006") >= 0) {
+										plus.ui.toast("支付操作内部错误");
+									}
+									if (e.message.indexOf("62007") >= 0) {
+										plus.ui.toast("支付服务器错误");
+									}
+									if (e.message.indexOf("62008") >= 0) {
+										plus.ui.toast("网络问题引起的错误");
+									}
+									if (e.message.indexOf("62009") >= 0) {
+										plus.ui.toast("其它未定义的错误");
+									}
+								});
+							}
+						})
+					} else {
+						//*****************************************选择华城一卡通支付******************************************
+						mui.ajax('http://101.201.196.202:82/MerchandisePay/MerPay', {
+								data: {
+									orderid: orderids,
+									yktaccount:yktaccount.value,
+									yktpassword:yktpassword.value
+								},
+								dataType: 'json', //服务器返回json格式数据
+								type: 'Post', //HTTP请求类型,
+								timeout: 10000, //超时时间设置为10秒；
+								success: function(data) {
+									if (data.statusCode = "200") {
+										plus.ui.toast(data.message);
+										//关闭当前页面
+										var ws = plus.webview.currentWebview();
+										plus.webview.close(ws);
+									} else {
+										plus.ui.toast(data.message);
+									}
 								}
-								if (e.message.indexOf("62001") >= 0) {
-									plus.ui.toast("您已取消操作");
-								}
-								if (e.message.indexOf("62002") >= 0) {
-									plus.ui.toast("此设备不支持支付");
-								}
-								if (e.message.indexOf("62003") >= 0) {
-									plus.ui.toast("数据格式错误");
-								}
-								if (e.message.indexOf("62004") >= 0) {
-									plus.ui.toast("支付账号状态错误");
-								}
-								if (e.message.indexOf("62005") >= 0) {
-									plus.ui.toast("订单信息错误");
-								}
-								if (e.message.indexOf("62006") >= 0) {
-									plus.ui.toast("支付操作内部错误");
-								}
-								if (e.message.indexOf("62007") >= 0) {
-									plus.ui.toast("支付服务器错误");
-								}
-								if (e.message.indexOf("62008") >= 0) {
-									plus.ui.toast("网络问题引起的错误");
-								}
-								if (e.message.indexOf("62009") >= 0) {
-									plus.ui.toast("其它未定义的错误");
-								}
-							});
-						}
-					})
+							})
+//													console.log(yktaccount.value+"+++++"+yktpassword.value)
+					}
 				})
 				//********************************************************需要结算的数据代码结束*****************************************
 				////********************************************************更换地址的数据代码开始*****************************************
@@ -481,8 +584,7 @@
 					plus.ui.toast("收货地址不能为空");
 					return;
 				}
-//				console.log("ConsigneeName=" + uname.value + "ConsigneePhone=" + tel.value + "Address=" + adderss.value + "ID=" + ID.value)
-					//****************************用户提交成功返回*********************************
+				//****************************用户提交成功返回*********************************
 				mui.ajax('http://101.201.196.202:82/DeliveryAddress/Creates', {
 					data: {
 						"ConsigneeName": uname.value,
@@ -560,18 +662,10 @@
 				};
 				//监听页面切换事件方案1,通过view元素监听所有页面切换事件，目前提供pageBeforeShow|pageShow|pageBeforeBack|pageBack四种事件(before事件为动画开始前触发)
 				//第一个参数为事件名称，第二个参数为事件回调，其中e.detail.page为当前页面的html对象
-				view.addEventListener('pageBeforeShow', function(e) {
-					//				console.log(e.detail.page.id + ' beforeShow');
-				});
-				view.addEventListener('pageShow', function(e) {
-					//				console.log(e.detail.page.id + ' show');
-				});
-				view.addEventListener('pageBeforeBack', function(e) {
-					//				console.log(e.detail.page.id + ' beforeBack');
-				});
-				view.addEventListener('pageBack', function(e) {
-					//				console.log(e.detail.page.id + ' back');
-				});
+				view.addEventListener('pageBeforeShow', function(e) {});
+				view.addEventListener('pageShow', function(e) {});
+				view.addEventListener('pageBeforeBack', function(e) {});
+				view.addEventListener('pageBack', function(e) {});
 				//*************************************地址点击带回********************************
 				var dizhisub = doc.getElementById("dizhisub");
 				mui('#DeliveryAddress').on('tap', '.dizhilist', function(e) {
@@ -584,9 +678,13 @@
 						type: 'Post', //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
-							var dizhidata = "<p id=\"" + data.ID + "\" class=\"black\">收货人：" + data.ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data.ConsigneePhone + "</span></p><p id=\"default_address\">地址：" + data.Address + "</p>"
-							dizhisub.innerHTML=dizhidata;
-							viewApi.back();
+							if (data.ID != null) {
+								var dizhidata = "<p id=\"" + data.ID + "\" class=\"black\">收货人：" + data.ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data.ConsigneePhone + "</span></p><p id=\"default_address\">地址：" + data.Address + "</p>"
+								dizhisub.innerHTML = dizhidata;
+								viewApi.back();
+							} else {
+								plus.ui.toast(data);
+							}
 						}
 					})
 				});

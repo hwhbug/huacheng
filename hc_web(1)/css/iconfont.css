@@ -1,3 +1,4 @@
+
 @font-face {font-family: "iconfont";
   src: url('iconfont.eot'); /* IE9*/
   src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */;
@@ -33,7 +34,7 @@
 .icon-myfill:before { content: "\e611"; color:#d82f4e ;}
 .icon-sponsorfill:before { content: "\e612";color:#3ea8da;  }
 .icon-miaojiepromotion:before { content: "\e614";}
-.icon-shop:before { content: "\e613"; color: #d82f4e; }
+.icon-shop:before { content: "\e613"; color: #d82f4e; font-size: 1.01em; }
 .icon-iconfonttehuijingxuan:before { content: "\e616"; color: #EC971F; }
 .icon-iconfontqiang:before { content: "\e615"; color:#C13D91 ; }
 .icon-fenxiang:before { content: "\e608"; color: #AAAAAA; font-size:0.8em; }
@@ -61,7 +62,17 @@
 .icon-zan:before { content: "\e62b"; }
 .icon-che:before { content: "\e631"; font-size:0.85em; color:#007AFF}
 .icon-gongzuo:before { content: "\e62d";font-size:0.95em; color:#F17E25}
-.icon-iconfonthaofangtuo53:before { content: "\e62e"; color: #2BA04F; }
+.icon-iconfonthaofangtuo53:before { content: "\e62e"; color: #2BA04F; } 
 .icon-xiangqinjiaoyou:before { content: "\e630";font-size:0.85em; color:#CF2D28 ; }
 .icon-shaixuan:before { content: "\e62f"; color: #007AFF; font-size: 0.8em; padding-top:10px !important; }
 .icon-baoxianjingxuan:before { content: "\e632"; font-size: 1.1em;  color:#007AFF;;}
+
+.icon-hunyinjiashi:before { content: "\e637"; color:#D82F4E; }
+.icon-xingshifanzui:before { content: "\e638"; color: #007AFF;}
+.icon-falv1:before { content: "\e639";color: #007AFF;}
+.icon-shangbiaozhuce:before { content: "\e63a"; color: #007AFF;}
+.icon-zhishichanquan:before { content: "\e63b";color: #007AFF; }
+.icon-shangbiaozhuanrang:before { content: "\e636"; color:#D82F4E;}
+.icon-laodong:before { content: "\e633"; color:#1AA54B;}
+.icon-jiaotongshigu:before { content: "\e635"; color:#1AA54B;}
+.icon-xiezilou:before { content: "\e634"; color:#1AA54B;}
