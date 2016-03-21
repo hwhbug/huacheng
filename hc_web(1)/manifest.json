@@ -300,7 +300,9 @@
 					"user/user_my.html",
 					"jiazheng/jiazheng_index.html",
 					"ershou/ershou_index.html",
-					"falv/falv_index.html"
+					"falv/falv_index.html",
+					"gonggao/gonggao_liebiao.html",
+					"wuye/wuye_dingdan.html"
 				],
 				"priority": 0
 			},
@@ -870,7 +872,8 @@
 					"user/user_fuwu.html",
 					"user/user_dingdan.html",
 					"shopping/shop_car.html",
-					"index.html"
+					"index.html",
+					"user/user_xinxi.html"
 				],
 				"priority": 0
 			},
@@ -1281,6 +1284,66 @@
 				"refer": [
 					"falv/falv_over.html"
 				],
+				"priority": 0
+			},
+			"user/user_xinxi.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"css/mui.poppicker.css",
+					"js/mui.js",
+					"css/mui.picker.css",
+					"js/city.data-3.js",
+					"js/app.js",
+					"libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+					"js/mui.min.js",
+					"libs/easymob-webim-sdk/json2.js",
+					"libs/easymob-webim-sdk/jquery-1.11.1.js",
+					"libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+					"js/mui.picker.js",
+					"js/mui.poppicker.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"gonggao/gonggao_liebiao.html": {
+				"resources": [
+					"image/repair_23.gif",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/mui.js",
+					"css/iconfont.css",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"css/mui.css"
+				],
+				"refer": [
+					"gonggao/gonggao_detail.html"
+				],
+				"priority": 0
+			},
+			"gonggao/gonggao_detail.html": {
+				"resources": [
+					"image/gdd1.png",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/mui.js",
+					"css/mui.imageviewer.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"wuye/wuye_dingdan.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/mui.js",
+					"css/iconfont.css",
+					"css/style.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

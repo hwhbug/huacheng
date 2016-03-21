@@ -1,71 +1,71 @@
 mui.init({
 	swipeBack: true //启用右滑关闭功能
 });
-(function($, doc) {
-	$.init();
-	$.ready(function() {
-		//-----------------------------------------
-		//级联示例***********************级联数据生成数组在方法里面*****************************
-		//-----------------------------------------
-		var cityPicker3 = new $.PopPicker({
-			layer: 3
-		});
-		mui.ajax('http://101.201.196.202:82/info/Province_Load', {
-			data: {},
-			async: false,
-			dataType: 'json', //服务器返回json格式数据
-			type: 'Post', //HTTP请求类型,
-			timeout: 10000, //超时时间设置为10秒；
-			success: function(Provincesdata) {
-				cityPicker3.setData(eval(Provincesdata));
-			}
-		})
-		var showCityPickerButton = doc.getElementById('showCityPicker3');
-		var cityResult3 = doc.getElementById('cityResult3');
-		var T_ProvinceID = doc.getElementById('T_ProvinceID');
-		var T_CityID = doc.getElementById('T_CityID');
-		var T_DistrictID = doc.getElementById('T_DistrictID');
-		showCityPickerButton.addEventListener('tap', function(event) {
-			cityPicker3.show(function(items) {
-				cityResult3.innerText = "你选择:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
-				Community_Load((items[2] || {}).value)
-				T_ProvinceID.value = (items[0] || {}).value
-				T_CityID.value = (items[1] || {}).value
-				T_DistrictID.value = (items[2] || {}).value
-					//cityResult3.innerText = (items[2] || {}).text;
-					//返回 false 可以阻止选择框的关闭
-					//return false
-			});
-		}, false);
-		//-----------------------------------------
-		//获取小区
-		//-----------------------------------------
-		var Community_Load = function(dis_id) {
-			var userPicker = new $.PopPicker();
-			mui.ajax('http://101.201.196.202:82/info/Community_Load1', {
-				data: {
-					id: dis_id
-				},
-				async: false,
-				dataType: 'json', //服务器返回json格式数据
-				type: 'Post', //HTTP请求类型,
-				timeout: 10000, //超时时间设置为10秒；
-				success: function(Communitydata) {
-					userPicker.setData(eval(Communitydata));
-				}
-			})
-			var showUserPickerButton = doc.getElementById('showUserPicker');
-			var userResult = doc.getElementById('userResult');
-			var CommunityID = doc.getElementById('CommunityID');
-			showUserPickerButton.addEventListener('tap', function(event) {
-				userPicker.show(function(items) {
-					userResult.innerText = "你选择:" + (items[0] || {}).text;
-					CommunityID.value = (items[0] || {}).value;
-				});
-			}, false);
-		}
-	});
-})(mui, document);
+//(function($, doc) {
+//	$.init();
+//	$.ready(function() {
+//		//-----------------------------------------
+//		//级联示例***********************级联数据生成数组在方法里面*****************************
+//		//-----------------------------------------
+//		var cityPicker3 = new $.PopPicker({
+//			layer: 3
+//		});
+//		mui.ajax('http://101.201.196.202:82/info/Province_Load', {
+//			data: {},
+//			async: false,
+//			dataType: 'json', //服务器返回json格式数据
+//			type: 'Post', //HTTP请求类型,
+//			timeout: 10000, //超时时间设置为10秒；
+//			success: function(Provincesdata) {
+//				cityPicker3.setData(eval(Provincesdata));
+//			}
+//		})
+//		var showCityPickerButton = doc.getElementById('showCityPicker3');
+//		var cityResult3 = doc.getElementById('cityResult3');
+//		var T_ProvinceID = doc.getElementById('T_ProvinceID');
+//		var T_CityID = doc.getElementById('T_CityID');
+//		var T_DistrictID = doc.getElementById('T_DistrictID');
+//		showCityPickerButton.addEventListener('tap', function(event) {
+//			cityPicker3.show(function(items) {
+//				cityResult3.innerText = "你选择:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+//				Community_Load((items[2] || {}).value)
+//				T_ProvinceID.value = (items[0] || {}).value
+//				T_CityID.value = (items[1] || {}).value
+//				T_DistrictID.value = (items[2] || {}).value
+//					//cityResult3.innerText = (items[2] || {}).text;
+//					//返回 false 可以阻止选择框的关闭
+//					//return false
+//			});
+//		}, false);
+//		//-----------------------------------------
+//		//获取小区
+//		//-----------------------------------------
+//		var Community_Load = function(dis_id) {
+//			var userPicker = new $.PopPicker();
+//			mui.ajax('http://101.201.196.202:82/info/Community_Load1', {
+//				data: {
+//					id: dis_id
+//				},
+//				async: false,
+//				dataType: 'json', //服务器返回json格式数据
+//				type: 'Post', //HTTP请求类型,
+//				timeout: 10000, //超时时间设置为10秒；
+//				success: function(Communitydata) {
+//					userPicker.setData(eval(Communitydata));
+//				}
+//			})
+//			var showUserPickerButton = doc.getElementById('showUserPicker');
+//			var userResult = doc.getElementById('userResult');
+//			var CommunityID = doc.getElementById('CommunityID');
+//			showUserPickerButton.addEventListener('tap', function(event) {
+//				userPicker.show(function(items) {
+//					userResult.innerText = "你选择:" + (items[0] || {}).text;
+//					CommunityID.value = (items[0] || {}).value;
+//				});
+//			}, false);
+//		}
+//	});
+//})(mui, document);
 //***********************点击发送短信到手机获取验证码*********************************
 var test = {
 	node: null,
@@ -111,16 +111,16 @@ var ismypassword = function(value) {
 		var accountBox = doc.getElementById('account');
 		var passwordBox = doc.getElementById('password');
 		var passwordConfirmBox = doc.getElementById('password_confirm');
-		var emailBox = doc.getElementById('email');
-		var building = doc.getElementById('building');
-		var unit = doc.getElementById('unit');
-		var realname = doc.getElementById('realname');
-		var userResult = doc.getElementById('userResult');
-		var cityResult3 = doc.getElementById('cityResult3');
-		var T_ProvinceID = doc.getElementById('T_ProvinceID');
-		var T_CityID = doc.getElementById('T_CityID');
-		var T_DistrictID = doc.getElementById('T_DistrictID');
-		var CommunityID = doc.getElementById('CommunityID');
+//		var emailBox = doc.getElementById('email');
+//		var building = doc.getElementById('building');
+//		var unit = doc.getElementById('unit');
+//		var realname = doc.getElementById('realname');
+//		var userResult = doc.getElementById('userResult');
+//		var cityResult3 = doc.getElementById('cityResult3');
+//		var T_ProvinceID = doc.getElementById('T_ProvinceID');
+//		var T_CityID = doc.getElementById('T_CityID');
+//		var T_DistrictID = doc.getElementById('T_DistrictID');
+//		var CommunityID = doc.getElementById('CommunityID');
 		regButton.addEventListener('tap', function(event) {
 			var regInfo = {};
 			//*****************验证手机号**************************
@@ -165,49 +165,49 @@ var ismypassword = function(value) {
 				return;
 			}
 			//*********************验证常用地址输入********************
-			if (cityResult3.innerText.indexOf("你选择") != 0) {
-				plus.nativeUI.toast('请选择常用地区');
-				return;
-			}
-			//*********************验证小区输入********************
-			if (userResult.innerText.indexOf("你选择") != 0) {
-				plus.nativeUI.toast('请选择小区');
-				return;
-			}
-			//*********************验证楼号输入********************
-			if (building.value == "") {
-				plus.nativeUI.toast('楼号不能为空');
-				return;
-			}
-			if (building.value.indexOf("#") != 0) {
-				plus.nativeUI.toast('楼号格式不正确');
-				return;
-			}
-			//*********************验证单元号输入********************
-			if (unit.value == "") {
-				plus.nativeUI.toast('单元号不能为空');
-				return;
-			}
-			//*********************验证姓名输入********************
-			var realname_reg = /^[\u2E80-\u9FFF]+$/;
-			if (realname.value == "") {
-				plus.nativeUI.toast('姓名不能为空');
-				return;
-			}
-			if (!realname.value.match(realname_reg)) {
-				plus.nativeUI.toast('姓名只能为汉子');
-				return;
-			}
-			//*********************验证邮箱输入********************
-			var check_emailBox = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-			if (emailBox.value == "") {
-				plus.nativeUI.toast('邮箱不能为空');
-				return;
-			}
-			if (!emailBox.value.match(check_emailBox)) {
-				plus.ui.toast("请输入有效的邮箱地址");
-				return;
-			}
+//			if (cityResult3.innerText.indexOf("你选择") != 0) {
+//				plus.nativeUI.toast('请选择常用地区');
+//				return;
+//			}
+//			//*********************验证小区输入********************
+//			if (userResult.innerText.indexOf("你选择") != 0) {
+//				plus.nativeUI.toast('请选择小区');
+//				return;
+//			}
+//			//*********************验证楼号输入********************
+//			if (building.value == "") {
+//				plus.nativeUI.toast('楼号不能为空');
+//				return;
+//			}
+//			if (building.value.indexOf("#") != 0) {
+//				plus.nativeUI.toast('楼号格式不正确');
+//				return;
+//			}
+//			//*********************验证单元号输入********************
+//			if (unit.value == "") {
+//				plus.nativeUI.toast('单元号不能为空');
+//				return;
+//			}
+//			//*********************验证姓名输入********************
+//			var realname_reg = /^[\u2E80-\u9FFF]+$/;
+//			if (realname.value == "") {
+//				plus.nativeUI.toast('姓名不能为空');
+//				return;
+//			}
+//			if (!realname.value.match(realname_reg)) {
+//				plus.nativeUI.toast('姓名只能为汉子');
+//				return;
+//			}
+//			//*********************验证邮箱输入********************
+//			var check_emailBox = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+//			if (emailBox.value == "") {
+//				plus.nativeUI.toast('邮箱不能为空');
+//				return;
+//			}
+//			if (!emailBox.value.match(check_emailBox)) {
+//				plus.ui.toast("请输入有效的邮箱地址");
+//				return;
+//			}
 			//****************************用户提交成功返回*********************************
 			app.reg(regInfo, function(err) {
 				if (err) {
@@ -218,14 +218,14 @@ var ismypassword = function(value) {
 					data: {
 						"name": realname.value,
 						"pwd": passwordBox.value,
-						"email": emailBox.value,
-						"mp": accountBox.value,
-						"Floor_Name": building.value,
-						"UnitNumber_Name": unit.value,
-						"T_ProvinceID": T_ProvinceID.value,
-						"T_CityID": T_CityID.value,
-						"T_DistrictID": T_DistrictID.value,
-						"CommunityID": CommunityID.value,
+//						"email": emailBox.value,
+//						"mp": accountBox.value,
+//						"Floor_Name": building.value,
+//						"UnitNumber_Name": unit.value,
+//						"T_ProvinceID": T_ProvinceID.value,
+//						"T_CityID": T_CityID.value,
+//						"T_DistrictID": T_DistrictID.value,
+//						"CommunityID": CommunityID.value,
 						"yanzheng": yanzheng.value
 					},
 					dataType: 'json', //服务器返回json格式数据

@@ -20,7 +20,13 @@ document.getElementById('login').addEventListener('tap', function() {
 		}
 	})
 });
-
+document.getElementById('wuye').addEventListener('tap', function() {
+	//打开关于页面
+	mui.openWindow({
+		url: 'wuye/wuye_dingdan.html',
+		id: 'wuye/wuye_dingdan'
+	});
+});
 document.getElementById('repair').addEventListener('tap', function() {
 	//打开关于页面
 	mui.openWindow({
@@ -42,13 +48,13 @@ document.getElementById('jiazheng').addEventListener('tap', function() {
 		id: 'jiazheng'
 	});
 });
-//document.getElementById('ershou').addEventListener('tap', function() {
-//	//打开关于页面
-//	mui.openWindow({
-//		url: 'ershou/ershou_index.html',
-//		id: 'ershou_index'
-//	});
-//});
+document.getElementById('gonggao').addEventListener('tap', function() {
+	//打开关于页面
+	mui.openWindow({
+		url: 'gonggao/gonggao_liebiao.html',
+		id: 'gonggao/gonggao_liebiao'
+	});
+});
 //法律援助
 document.getElementById("falv").addEventListener("tap", function() {
 	mui.openWindow({

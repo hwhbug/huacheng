@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html class="ui-page-login feedback">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/mui.imageviewer.css" rel="stylesheet" />
+		<link rel="../stylesheet" type="text/css" href="css/feedback-page.css" />
+		<style>
+			.mui-content,html{
+			background: #FFFFFF;
+			}
+			p{
+				margin: 0 !important;
+				padding:5px 10px !important;
+				text-indent: 24px;
+				color: #000000;
+			}
+			.mx_jiage{
+				margin: 5px 0;
+			}
+			.mui-content img{
+				width: 100%;
+			}
+		</style>
+		<script src="../js/mui.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-icon">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">小区公告</h1>
+		</header>
+		<div class="mui-content">
+			
+			<p class="max-font center">这里放公告的标题字</p>
+			<p class="center">2016-05-08</p>
+			<img src="../image/gdd1.png" />
+			<p>如有疑问：请致电400-8500-1256 社区慧生活客户服务中心</p>
+		</div>
+		<script>
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			window.addEventListener('gonggao', function(event) {
+				//获得事件参数
+				var id = event.detail.id;
+			});
+		</script>
+	</body>
+
+</html>

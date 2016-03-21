@@ -57,7 +57,7 @@
 		<div class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<div id="container">
-					<div class="myuser">
+					<div class="myuser" id="perfect">
 						<div class="left sm_shop_img"><img src="../image/30-023131_451.jpg"></div>
 						<div class="right">
 							<p>尊敬的：<span id="uname"></span> 欢迎回来！</p>
@@ -169,6 +169,14 @@
 					id: 'user_dingdan'
 				});
 			});
+			document.getElementById('perfect').addEventListener('tap', function() {
+				//打开关于页面
+				mui.openWindow({
+					url: 'user_xinxi.html',
+					id: 'user_xinxi'
+				});
+			});
+			
 			document.getElementById('user_fuwu').addEventListener('tap', function() {
 				//打开关于页面
 				mui.openWindow({
