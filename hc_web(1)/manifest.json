@@ -110,6 +110,9 @@
 		},
 		"Payment": {
 			"description": "管理支付插件"
+		},
+		"Push": {
+		    "description": "消息推送"
 		}
 	},
 	"plus": {
@@ -122,8 +125,18 @@
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
 		"distribute": {
 			"plugins": {
+				"push": {
+					"igexin": {
+						"appid": "yxMVveK7dl6jhyzgNPnAB2",
+						"appkey": "ylb4XbsBAP9g4Jb5eYcqPA",
+						"appsecret": "HfUQK0iy7T9MejT7kH6Ss8"
+					}
+				},
 				"payment": {
-					"alipay": {"description":"阿里支付","scheme":"huishenghuo"}
+					"alipay": {
+						"description": "阿里支付",
+						"scheme": "huishenghuo"
+					}
 				},
 				"maps": {
 					"baidu": {
@@ -147,7 +160,33 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": ["<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
+				"permissions": [
+					"<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+					"<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+					"<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
+					"<uses-permission android:name=\"android.permission.GET_TASKS\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+					"<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+					"<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
+					"<uses-feature android:name=\"android.hardware.camera\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
+					"<uses-permission android:name=\"android.permission.CAMERA\"/>"
+				]
 			},
 			"orientation": [
 				"portrait-primary",
@@ -249,7 +288,8 @@
 					"js/pages/index/index.js",
 					"fonts/mui.ttf",
 					"css/mui.min.css",
-					"js/update.js"
+					"js/update.js",
+					"image/cp1.jpg"
 				],
 				"refer": [
 					"shopping/shop_index.html",
@@ -452,7 +492,8 @@
 					"js/mui.poppicker.js"
 				],
 				"refer": [
-					"baoxiu/repair_2.html"
+					"baoxiu/repair_2.html",
+					"login.html"
 				],
 				"priority": 0
 			},
@@ -474,10 +515,12 @@
 					"fonts/iconfont.ttf",
 					"css/mui.imageviewer.css",
 					"js/mui.view.js",
-					"js/jquery-1.9.1.min.js"
+					"js/jquery-1.9.1.min.js",
+					"js/baoxiu_repair3.js"
 				],
 				"refer": [
-					"baoxiu/repair_4.html"
+					"baoxiu/repair_4.html",
+					"baoxiu/repair_over.html"
 				],
 				"priority": 0
 			},
@@ -511,7 +554,8 @@
 					"js/jquery-1.9.1.min.js"
 				],
 				"refer": [
-					"baoxiu/repair_3.html"
+					"baoxiu/repair_3.html",
+					"user/user_paizhao.html"
 				],
 				"priority": 0
 			},
@@ -720,7 +764,8 @@
 					"css/mui.css",
 					"js/jquery-1.9.1.min.js",
 					"shopping/shop_refresh_pingpai.html",
-					"shopping/shop_refresh_shop.html"
+					"shopping/shop_refresh_shop.html",
+					null
 				],
 				"refer": [],
 				"priority": 0
@@ -818,7 +863,8 @@
 					"fonts/iconfont.ttf",
 					"js/mui.js",
 					"css/mui.css",
-					"js/jquery-1.9.1.min.js"
+					"js/jquery-1.9.1.min.js",
+					null
 				],
 				"refer": [
 					"user/user_fuwu.html",
@@ -835,7 +881,9 @@
 					"css/iconfont.css",
 					"css/mui.min.css",
 					"css/style.css",
-					"js/mui.js"
+					"js/mui.js",
+					"js/jquery-1.9.1.min.js",
+					null
 				],
 				"refer": [],
 				"priority": 0
@@ -988,9 +1036,18 @@
 			},
 			"jiazheng/jiazheng_ayi.html": {
 				"resources": [
-					"js/jquery-1.9.1.min.js"
+					"js/jquery-1.9.1.min.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"css/mui.css"
 				],
-				"refer": [],
+				"refer": [
+					"login.html"
+				],
 				"priority": 0
 			},
 			"ershou/ershou_index.html": {
@@ -1087,7 +1144,8 @@
 					"fonts/iconfont.ttf"
 				],
 				"refer": [
-					"shopping/shop_qianggou_acter.html"
+					"shopping/shop_qianggou_acter.html",
+					"shopping/shop_detail.html"
 				],
 				"priority": 0
 			},
@@ -1153,7 +1211,75 @@
 					"css/mui.css"
 				],
 				"refer": [
-					"login.html"
+					"login.html",
+					"falv/falv_tijiao.html"
+				],
+				"priority": 0
+			},
+			"baoxiu/repair_over.html": {
+				"resources": [
+					"js/app.js",
+					"js/myapp.js",
+					"js/city.data.js"
+				],
+				"refer": [
+					"baoxiu/repair_4.html"
+				],
+				"priority": 0
+			},
+			"shopping/shop_detail.html": {
+				"resources": [
+					"js/app.js",
+					"js/myapp.js",
+					"js/mui.min.js",
+					"js/jquery-1.9.1.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"css/cross-down.css",
+					"css/mui.css",
+					"js/mui.view.js"
+				],
+				"refer": [
+					"shopping/shop_list.html"
+				],
+				"priority": 0
+			},
+			"user/user_paizhao.html": {
+				"resources": [
+					"js/exif.js",
+					"js/canvasResize.js",
+					"js/binaryajax.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/mui.js",
+					"image/camer_bg.jpg",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"baoxiu/repair_3.html"
+				],
+				"priority": 0
+			},
+			"falv/falv_over.html": {
+				"resources": [
+					"js/app.js",
+					"js/myapp.js",
+					"js/mui.min.js",
+					"css/mui.poppicker.css",
+					"css/mui.imageviewer.css",
+					"css/mui.picker.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"falv/falv_tijiao.html": {
+				"resources": [],
+				"refer": [
+					"falv/falv_over.html"
 				],
 				"priority": 0
 			}

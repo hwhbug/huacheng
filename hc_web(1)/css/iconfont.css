@@ -66,7 +66,6 @@
 .icon-xiangqinjiaoyou:before { content: "\e630";font-size:0.85em; color:#CF2D28 ; }
 .icon-shaixuan:before { content: "\e62f"; color: #007AFF; font-size: 0.8em; padding-top:10px !important; }
 .icon-baoxianjingxuan:before { content: "\e632"; font-size: 1.1em;  color:#007AFF;;}
-
 .icon-hunyinjiashi:before { content: "\e637"; color:#D82F4E; }
 .icon-xingshifanzui:before { content: "\e638"; color: #007AFF;}
 .icon-falv1:before { content: "\e639";color: #007AFF;}
@@ -76,3 +75,9 @@
 .icon-laodong:before { content: "\e633"; color:#1AA54B;}
 .icon-jiaotongshigu:before { content: "\e635"; color:#1AA54B;}
 .icon-xiezilou:before { content: "\e634"; color:#1AA54B;}
+.icon-laonianhuodong:before { content: "\e63e";color:#1AA54B; }
+.icon-dianhua:before { content: "\e63c"; color:#D82F4E;}
+.icon-xianxiawangdian:before { content: "\e63d"; color:#007AFF;}
+.icon-woyaotousu:before { content: "\e640"; color:#3EA8DA; }
+.icon-gonggao:before { content: "\e63f";color:#3EA8DA; }
+.icon-laba:before { content: "\e641"; color:#3EA8DA; }

@@ -15,7 +15,7 @@
 		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
 		<script type="application/javascript" src="../js/mui.picker.min.js"></script>
 		<script type="text/javascript" charset="utf-8">
-			//mui.init();
+			//			mui.init();
 		</script>
 		<style>
 			body {
@@ -77,7 +77,6 @@
 
 	<body>
 		<!-- 侧滑导航根容器 -->
-
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
 			<!-- 主页面容器 -->
 			<div class="mui-inner-wrap   repair2_container">
@@ -88,9 +87,10 @@
 				</header>
 				<input type="hidden" id="cid">
 				<input type="hidden" id="csid">
-				<input type="hidden" id="rldId">
+
 				<input type="hidden" id="sname">
 				<input type="hidden" id="csname_">
+				<input type="hidden" id="clNames">
 				<input type="hidden" id="imgTexts">
 				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
 					<div class="mui-scroll">
@@ -107,347 +107,134 @@
 						<div class="repair2_nav2">
 							<ul class="mui-table-view mui-grid-view mui-grid-9" id="muiv3">
 							</ul>
-
 						</div>
 						<div class="repair_bar yellow">问题简述 ></div>
 						<div class="mui-input-row">
 							<input type="text" class="mui-input-speech mui-input-clear" placeholder="语音输入" />
 						</div>
-						<div id="bt" class="repair_bar yellow">上传照片 ></div>
-						<div class="mui-content">
-							<div class="showimg">
-
-							</div>
-							<div class="mui-input-row operate">
-								<img id="operate" src="../images/iconfont-tianjia.png" />
-							</div>
-						</div>
-						<!--<div id="d1" style="width: auto;height: 50px;">
-							<a class="mui-pull-right mui-icon mui-icon-upload" id="uploadImg1" onclick="imgupgrade()">上传图片</a>
-						</div>-->
 						<!--16.1.7 14:59 星期四 停止之前思考-->
 						<div class="repair2_main">
 							<input id="repair_3" class="repair1_sc" type="button" name="button" value="下一步" style="background-color: #eb2c2c;color: #FFFFFF;font: 16px/30px " 微软雅黑 ";"/>
-
 							<p class="shuomin"><span class="mui-icon mui-icon-help"></span> 报修提交后，我们会在15分钟内为您确认订单
 							</p>
 						</div>
-
 					</div>
-					<div class="mui-off-canvas-backdrop"></div> 
+					<div class="mui-off-canvas-backdrop"></div>
 				</div>
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="../js/binaryajax.js"></script>
-	<script type="text/javascript" src="../js/exif.js"></script>
-	<script type="text/javascript" src="../js/canvasResize.js"></script>
 	<script>
+		mui.init({
+			preloadPages: [{
+				id: "user_paizhao.html",
+				url: "/user/user_paizhao.html"
+			}]
+		});
+		var paizhaoPage = null;
 		mui('.mui-scroll-wrapper').scroll();
 		var rep003;
 		var cid;
 		var csid;
 		var csname1 = "";
 		// 全局数组对象，添加文件,用于压缩上传使用
-		mui.plusReady(function() {
-				var self = plus.webview.currentWebview();
-				var cid = self.cid;
-				var dataName = self.dataName;
-				//获得事件参数
-				cid = cid;
-				//给虚拟标签赋值
-				document.getElementById("cid").value = cid;
-				var dataName = dataName;
-				document.getElementById("mui-title").innerText = dataName;
-				mui.getJSON('http://101.200.232.167:81/Findback/CateSub_backByCid?cateId=' + cid, {},
-					function(data) {
-						var rep02;
-						//服务器返回响应，根据响应结果，分析是否登录成功；
-						for (var i = 0; i < data.length; i++) {
-							rep02 += "<li class=\"mui-table-view-cell mui-media mui-col-xs-4\" csname_=\"" + data[i].cs_name_ + "\" id=\"" + data[i].rc_id + "\" data-cs_id=\"" + data[i].cs_id_ + "\" ><a href=\"#\"><img class=\"mui-media-object\" src=\"http://101.200.232.167:81/Images/baoxiu/" + data[i].subImg_ + "\"><div class=\"mui-media-body\"  >" + data[i].cs_name_ + "</div></a></li>";
-						}
-						document.getElementById("cid").value = cid = document.getElementById("cid").value;
-						document.getElementById("csid").value = csid = data[0].cs_id_;
-						document.getElementById("sname").value = csname1 = data[0].cs_name_;
-						$("#muiv2").html(rep02);
-						mui.getJSON('http://101.200.232.167:81/Findback/CateLab_backByCidSid?cid=' + cid + '&sid=' + csid, {},
-							function(data1) {
-								var rep03 = "";
-								//服务器返回响应，根据响应结果，分析是否登录成功；
-								for (var j = 0; j < data1.length; j++) {
-									rep03 += "<li class=\"mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 mui-checkbox  \">" + data1[j].cl_name_ + "<input id=\"a" + j + "\" name=\"a\" alt=\""+data1[j].cl_name_+"\" value=\"" + data1[j].cl_id_ + "\"  type=\"checkbox\"></li>"
-								}
-								$("#muiv3").html(rep03);
-							});
-					});
-				//***点击事件点选内容
-				mui("#muiv2").on('tap', 'li', function() {
-					document.getElementById("sname").value = this.getAttribute("csname_");
+		window.addEventListener("repair1Id", function(event) {
+			var cid = event.detail.cid;
+			var dataName = event.detail.dataName;
+			var uid = event.detail.uid;
+			//获得事件参数
+			cid = cid;
+			//给虚拟标签赋值
+			document.getElementById("cid").value = cid;
+			var dataName = dataName;
+			document.getElementById("mui-title").innerText = dataName;
+			mui.getJSON('http://101.201.196.202:82/Findback/CateSub_backByCid?cateId=' + cid, {},
+				function(data) {
+					var rep02;
+					//服务器返回响应，根据响应结果，分析是否登录成功；
+					for (var i = 0; i < data.length; i++) {
+						rep02 += "<li class=\"mui-table-view-cell mui-media mui-col-xs-4\" csname_=\"" + data[i].cs_name_ + "\" id=\"" + data[i].rc_id + "\" data-cs_id=\"" + data[i].cs_id_ + "\" ><a href=\"#\"><img class=\"mui-media-object\" src=\"http://101.201.196.202:82/Images/baoxiu/" + data[i].subImg_ + "\"><div class=\"mui-media-body\"  >" + data[i].cs_name_ + "</div></a></li>";
+					}
 					document.getElementById("cid").value = cid = document.getElementById("cid").value;
-					document.getElementById("csid").value = csid = this.getAttribute("data-cs_id");
-					mui.getJSON('http://101.200.232.167:81/Findback/CateLab_backByCidSid?cid=' + cid + '&sid=' + csid, {},
+					document.getElementById("csid").value = csid = data[0].cs_id_;
+					document.getElementById("sname").value = csname1 = data[0].cs_name_;
+					$("#muiv2").html(rep02);
+					mui.getJSON('http://101.201.196.202:82/Findback/CateLab_backByCidSid?cid=' + cid + '&sid=' + csid, {},
 						function(data1) {
 							var rep03 = "";
 							//服务器返回响应，根据响应结果，分析是否登录成功；
 							for (var j = 0; j < data1.length; j++) {
-								rep03 += "<li class=\"mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 mui-checkbox \">" + data1[j].cl_name_ + "<input id=\"a" + j + "\" name=\"a\" alt=\""+data1[j].cl_name_+"\" value=\"" + data1[j].cl_id_ + "\"  type=\"checkbox\"></li>"
+								rep03 += "<li class=\"mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 mui-checkbox  \">" + data1[j].cl_name_ + "<input id=\"a" + j + "\" name=\"a\" alt=\"" + data1[j].cl_name_ + "\" value=\"" + data1[j].cl_id_ + "\"  type=\"checkbox\"></li>"
 							}
 							$("#muiv3").html(rep03);
 						});
 				});
-			})
-			//处理图片上传
-		mui(".mui-input-row").on("tap", "#operate", function(e) {
-			var a = [{
-				title: "拍照"
-			}, {
-				title: "从手机相册选择"
-			}];
-			plus.nativeUI.actionSheet({
-				title: "请选择操作",
-				cancel: "取消",
-				buttons: a
-			}, function(b) {
-				switch (b.index) {
-					case 0:
-						break;
-					case 1:
-						cameraimages();
-						break;
-					case 2:
-						galleryImgs();
-						break;
-					default:
-						break
-				}
-			})
-		});
-		var f1 = new Array();
-		var fileurl = new Array();
-		var file1 = new Array();
-		var filetype = new Array();
-		//上传单张图片
-		function galleryImg() {
-			//每次拍摄或选择图片前清空数组对象
-			f1.splice(0, f1.length);
-			document.getElementsByClassName("showimg")[0].innerHTML = null;
-			// 从相册中选择图片
-			mui.toast("从相册中选择一张图片");
-			//			$(".operate").hide();
-			plus.gallery.pick(function(path) {
-				showImg(path);
-			}, function(e) {
-				mui.toast("取消选择图片");
-			}, {
-				filter: "image",
-				multiple: false
-			});
-		}
-		//上传多张图片
-		function galleryImgs() {
-			//每次拍摄或选择图片前清空数组对象
-			f1.splice(0, f1.length);
-			document.getElementsByClassName("showimg")[0].innerHTML = null;
-			// 从相册中选择图片
-			plus.gallery.pick(function(e) {
-				//				if (e.files.length != 1) {
-				//					return false;
-				//				}
-				//				$(".operate").hide();
-				for (var i in e.files) {
-					showImg(e.files[i]);
-				}
-			}, function(e) {
-				mui.toast("取消选择图片");
-			}, {
-				filter: "image",
-				multiple: true
-			});
-		}
-		// 拍照添加文件
-		function cameraimages() {
-			//每次拍摄或选择图片前清空数组对象
-			f1.splice(0, f1.length);
-			document.getElementsByClassName("showimg")[0].innerHTML = null;
-			var cmr = plus.camera.getCamera();
-			cmr.captureImage(function(p) {
-				plus.io.resolveLocalFileSystemURL(p, function(entry) {
-					$(".operate").hide();
-					var localurl = entry.toLocalURL(); //把拍照的目录路径，变成本地url路径，例如file:///........之类的。
-					showImg(localurl);
-				});
-			}, function(e) {
-				mui.toast("很抱歉，获取失败 " + e);
-			});
-		}
-
-		function showImg(url) {
-			// 兼容以“file:”开头的情况
-			if (0 != url.toString().indexOf("file://")) {
-				url = "file://" + url;
-			}
-			var _div_ = document.getElementsByClassName("showimg")[0];
-			var _img_ = new Image();
-			_img_.src = url; // 传过来的图片路径在这里用。
-			_img_.onclick = function() {
-				plus.runtime.openFile(url);
-			};
-			_img_.onload = function() {
-				var tmph = _img_.height;
-				var tmpw = _img_.width;
-				var isHengTu = tmpw > tmph;
-				var max = Math.max(tmpw, tmph);
-				var min = Math.min(tmpw, tmph);
-				var bili = min / max;
-				if (max > 1200) {
-					max = 1200;
-					min = Math.floor(bili * max);
-				}
-				tmph = isHengTu ? min : max;
-				tmpw = isHengTu ? max : min;
-				_img_.style.border = "1px solid rgb(200,199,204)";
-				_img_.style.margin = "10px";
-				_img_.style.width = "80px";
-				_img_.style.height = "80px";
-				_img_.onload = null;
-				plus.io.resolveLocalFileSystemURL(url, function(entry) {
-						entry.file(function(file) {
-							console.log(file.size + '--' + file.name);
-							canvasResize(file, {
-								width: tmpw,
-								height: tmph,
-								crop: false,
-								quality: 50, //压缩质量
-								rotate: 0,
-								callback: function(data, width, height) {
-									f1.push(data);
-									fileurl.push(url);
-									file1.push(file.name);
-									filetype.push(file.type);
-									//										console.log(filetype);
-									_img_.src = data;
-									_div_.appendChild(_img_);
-									plus.nativeUI.closeWaiting();
-								}
-							});
-						});
-					},
-					function(e) {
-						plus.nativeUI.closeWaiting();
-						console.log(e.message);
+			//***点击事件点选内容
+			mui("#muiv2").on('tap', 'li', function() {
+				document.getElementById("sname").value = this.getAttribute("csname_");
+				document.getElementById("cid").value = cid = document.getElementById("cid").value;
+				document.getElementById("csid").value = csid = this.getAttribute("data-cs_id");
+				mui.getJSON('http://101.201.196.202:82/Findback/CateLab_backByCidSid?cid=' + cid + '&sid=' + csid, {},
+					function(data1) {
+						var rep03 = "";
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						for (var j = 0; j < data1.length; j++) {
+							rep03 += "<li class=\"mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 mui-checkbox \">" + data1[j].cl_name_ + "<input id=\"a" + j + "\" name=\"a\" alt=\"" + data1[j].cl_name_ + "\" value=\"" + data1[j].cl_id_ + "\"  type=\"checkbox\"></li>"
+						}
+						$("#muiv3").html(rep03);
 					});
-			};
-		};
-		//		// 扩展API加载完毕后调用onPlusReady回调函数
-		//		document.addEventListener("plusready", onPlusReady, false);
-		//		var r = null;
-		//		// 扩展API加载完毕，现在可以正常调用扩展API
-		//		function onPlusReady() {}
-		// 创建上传任务
-		mui("#d1").on('tap', 'a', function() {
-			if (file1 == "") {
-				alert("请先选择图片上传");
-				return false;
-			} else {
-				var task = plus.uploader.createUpload("http://101.200.232.167:81/RepaLabelDesc/UploadImgs", {
-					method: "post"
-				}, function(t, status) {
-					var val = eval("(" + t.responseText + ")");
-					if (t.statusCode = "200") {
-						document.getElementById("rldId").value = val.data;
-						document.getElementById("imgTexts").value = val.divid;
-					} else {
-						alert("o no");
+			});
+			document.getElementById('repair_3').addEventListener('tap', function() {
+				var sname = document.getElementById("sname").value;
+				var len = "";
+				var str = document.getElementsByName("a");
+				var objarray = str.length;
+				var chestr = "";
+				var clNames = "";
+				for (i = 0; i < objarray; i++) {
+					if (str[i].checked == true) {
+						chestr += str[i].value + ",";
+						clNames += str[i].alt + " ";
 					}
-					// 上传完成
-					if (t.responseText.indexOf(200) == 15) {
-						alert("文件上传成功");
-						document.getElementById("uploadImg1").innerText = "已上传";
-					} else {
-						alert("文件上传失败");
+				}
+				document.getElementById("clNames").value = clNames;
+				if (chestr == "") {
+					alert("请先选择一个对应问题～！");
+					return false;
+				} else {
+					cid = document.getElementById("cid").value;
+					csid = document.getElementById("csid").value;
+					var speech = $(".mui-input-speech").val();
+					var clNames1 = document.getElementById("clNames").value;
+					//清空选择项
+					//					for (i = 0; i < objarray; i++) {
+					//						if (str[i].checked == true) {
+					//							str[i].checked = false;
+					//						}
+					//					}
+					document.getElementById("cid").value = "";
+					document.getElementById("csid").value = "";
+					document.getElementById("sname").value = "";
+					document.getElementById("clNames").value = "";
+					$(".mui-input-speech").val("");
+					if (!paizhaoPage) {
+						paizhaoPage = plus.webview.getWebviewById("user_paizhao.html");
 					}
-				});
-				for (var i = 0; i < file1.length; i++) {
-					task.addFile(fileurl[i], {
-						key: file1[i],
-						name: file1[i]
-					});
-					console.log(filetype[i])
-					task.start();
-				}
-				console.log(task.totalSize);
-			}
-		});
-		$("#repair_3").click(function() {
-			var sname = document.getElementById("sname").value;
-			var len = "";
-			var str = document.getElementsByName("a");
-			var objarray = str.length;
-			var chestr = "";
-			var clNames="";
-			for (i = 0; i < objarray; i++) {
-				if (str[i].checked == true) {
-					chestr += str[i].value + ",";
-					clNames+= str[i].alt+" ";
-				}
-			}
-			if (chestr == "") {
-				alert("请先选择一个对应问题～！");
-			} else {
-//				if (document.getElementById("rldId").value == "") {
-//					alert("请先上传图片");
-//					return false;
-//				}
-				cid = document.getElementById("cid").value;
-				csid = document.getElementById("csid").value;
-				var speech = $(".mui-input-speech").val();
-				var rldId = document.getElementById("rldId").value;
-				var imgs = document.getElementById("imgTexts").value;
-//				
-				mui.ajax('http://101.200.232.167:81/RepaLabelDesc/Creates', {
-					data: {
+					mui.fire(paizhaoPage, 'repair2Id', {
 						cid: cid,
-						sid_: csid,
+						csid: csid,
 						lds_: chestr,
 						speech: speech,
-						rldId: rldId,
-						imgs: imgs,
-						cl_names:clNames
-							//						file1: file1,
-							//						filetype: filetype,
-							//						fileurl: fileurl
-					},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'post', //HTTP请求类型
-					timeout: 10000,
-					success: function(data) {
-						if (data.statusCode == "200") {
-							var rld_id = data.data1;
-							var cid = data.divid;
-							mui.openWindow({
-								url: 'repair_3.html',
-								extras: {
-									cid: cid,
-									rld_id: rld_id,
-									sname: sname
-								}
-								//设置show的autoShow为false，则B页面在其loaded事件发生后，不会自动显示；
-								//,
-								//show: {
-								//autoShow: false
-								//}
-							});
-						} else {
-							alert("抱歉,页面找不到了");
-						}
-					},
-					error: function(xhr, type, errorThrown) {
-						//异常处理
-						console.log(type)
-					}
-				}); //end
-			}
-		});
+						cl_names: clNames1,
+						sname: sname,
+						uid: uid
+					});
+					mui.openWindow({
+						id: 'user_paizhao.html'
+					});
+				}
+			});
+		})
 	</script>
 
 </html>

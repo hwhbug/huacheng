@@ -420,10 +420,12 @@
 			document.addEventListener("plusready", function() {
 				// 扩展API加载完毕，现在可以正常调用扩展API
 				plus.payment.getChannels(function(s) {
+					
 					for (var i in s) {
 						var channel = s[i];
 						if (channel.id === 'alipay') {
 							channels = channel;
+							
 						}
 					}
 				}, function(e) {
@@ -447,10 +449,6 @@
 				}
 			});
 			document.getElementById("zhifu").addEventListener("tap", function() {
-					if (dizhisub.innerHTML.length == 0) {
-						plus.ui.toast("请先添加收货地址……");
-						return;
-					}
 					var deliveryaddress_id = $("#dizhisub p").attr("id");
 					//***********************************支付交易之前，将收货地址添加到数据库**********************************
 					mui.ajax('http://101.201.196.202:82/MyOrders/Myorder_DeliveryAddress', {
@@ -472,6 +470,11 @@
 					var statement = "";
 					//******************************************选择支付宝支付************************************
 					if (paymethod.length == 4) {
+						plus.nativeUI.showWaiting( "支付宝启动中……" );
+						if (dizhisub.innerHTML.length == 0) {
+							plus.ui.toast("请先添加收货地址……");
+							return;
+						}
 						mui.ajax('http://101.201.196.202:82/Alipay/GetPayInfo', {
 							data: {
 								orderid: orderids
@@ -481,6 +484,9 @@
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data) {
 								//								console.log(JSON.stringify(data))
+								if (channels!=null) {
+									plus.nativeUI.closeWaiting("支付宝启动中……");
+								} 
 								statement = data;
 								plus.payment.request(channels, statement, function() {
 									plus.ui.toast("支付操作成功！");
@@ -522,18 +528,26 @@
 							}
 						})
 					} else {
+						if (yktaccount.value == "") {
+							plus.ui.toast("请添写账号");
+							return;
+						}
+						if (yktpassword.value == "") {
+							plus.ui.toast("请添写密码");
+							return;
+						}
 						//*****************************************选择华城一卡通支付******************************************
 						mui.ajax('http://101.201.196.202:82/MerchandisePay/MerPay', {
 								data: {
 									orderid: orderids,
-									yktaccount:yktaccount.value,
-									yktpassword:yktpassword.value
+									yktaccount: yktaccount.value,
+									yktpassword: yktpassword.value
 								},
 								dataType: 'json', //服务器返回json格式数据
 								type: 'Post', //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(data) {
-									if (data.statusCode = "200") {
+									if (data.statusCode == "200") {
 										plus.ui.toast(data.message);
 										//关闭当前页面
 										var ws = plus.webview.currentWebview();
@@ -543,7 +557,7 @@
 									}
 								}
 							})
-//													console.log(yktaccount.value+"+++++"+yktpassword.value)
+							//													console.log(yktaccount.value+"+++++"+yktpassword.value)
 					}
 				})
 				//********************************************************需要结算的数据代码结束*****************************************

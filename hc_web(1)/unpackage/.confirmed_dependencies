@@ -19,7 +19,9 @@
 			"fonts/iconfont.ttf",
 			"image/index_19.gif",
 			"css/mui.poppicker.css",
-			"js/city.data.js"
+			"js/city.data.js",
+			"image/cp1.jpg",
+			"image/bn_40.gif"
 		],
 		"refer": [
 			"shopping/shop_cuxiao_acter.html",
@@ -93,7 +95,15 @@
 	},
 	"login2.html": {
 		"resources": [
-			"js/mui.enterfocus.js"
+			"js/mui.enterfocus.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"css/mui.css"
 		],
 		"refer": [
 			"reg_shanghu.html",
@@ -326,7 +336,8 @@
 			"css/mui.css"
 		],
 		"refer": [
-			"baoxiu/repair_2.html"
+			"baoxiu/repair_2.html",
+			"login.html"
 		]
 	},
 	"baoxiu/repair_2.html": {
@@ -348,7 +359,8 @@
 			"images/iconfont-tianjia.png"
 		],
 		"refer": [
-			"baoxiu/repair_3.html"
+			"baoxiu/repair_3.html",
+			"user/user_paizhao.html"
 		]
 	},
 	"baoxiu/repair_3.html": {
@@ -366,7 +378,11 @@
 			"css/iconfont.css",
 			"css/mui.min.css",
 			"fonts/iconfont.ttf",
-			"css/mui.imageviewer.css"
+			"css/mui.imageviewer.css",
+			"js/baoxiu_repair3.js"
+		],
+		"refer": [
+			"baoxiu/repair_over.html"
 		]
 	},
 	"user/user_dingdan.html": {
@@ -392,7 +408,13 @@
 	},
 	"user/user_fuwu.html": {
 		"resources": [
-			"image/sf_03_03.gif"
+			"image/sf_03_03.gif",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/mui.js",
+			"js/jquery-1.9.1.min.js"
 		]
 	},
 	"jiazheng/jiazheng_index.html": {
@@ -484,7 +506,17 @@
 	},
 	"jiazheng/jiazheng_ayi.html": {
 		"resources": [
-			"js/jquery-1.9.1.min.js"
+			"js/jquery-1.9.1.min.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"css/mui.css"
+		],
+		"refer": [
+			"login.html"
 		]
 	},
 	"ershou/ershou_index.html": {
@@ -583,7 +615,8 @@
 	},
 	"shopping/shop_brand_acter.html": {
 		"refer": [
-			"shopping/shop_qianggou_acter.html"
+			"shopping/shop_qianggou_acter.html",
+			"shopping/shop_detail.html"
 		],
 		"resources": [
 			"js/mui.js",
@@ -674,7 +707,85 @@
 			"css/mui.css"
 		],
 		"refer": [
-			"login.html"
+			"login.html",
+			"falv/falv_tijiao.html"
+		]
+	},
+	"baoxiu/repair_over.html": {
+		"resources": [
+			"js/app.js",
+			"js/myapp.js",
+			"js/city.data.js"
+		],
+		"refer": [
+			"baoxiu/repair_4.html"
+		]
+	},
+	"shopping/shop_detail.html": {
+		"resources": [
+			"js/app.js",
+			"js/myapp.js",
+			"js/mui.min.js",
+			"js/jquery-1.9.1.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"css/cross-down.css",
+			"css/mui.css",
+			"js/mui.view.js"
+		],
+		"refer": [
+			"shopping/shop_list.html"
+		]
+	},
+	"user/user_paizhao.html": {
+		"resources": [
+			"js/exif.js",
+			"js/canvasResize.js",
+			"js/binaryajax.js",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/mui.js",
+			"image/camer_bg.jpg",
+			"fonts/mui.ttf"
+		],
+		"refer": [
+			"baoxiu/repair_3.html"
+		]
+	},
+	"baoxiu/repair_4.html": {
+		"resources": [
+			"image/b1.jpg"
+		]
+	},
+	"falv/falv_over.html": {
+		"resources": [
+			"js/app.js",
+			"js/myapp.js",
+			"js/mui.min.js",
+			"css/mui.poppicker.css",
+			"css/mui.imageviewer.css",
+			"css/mui.picker.css"
+		]
+	},
+	"falv/falv_tijiao.html": {
+		"refer": [
+			"falv/falv_over.html"
+		]
+	},
+	"shopping/shop_list.html": {
+		"resources": [
+			"js/mui.js",
+			"js/myapp.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"css/mui.css"
 		]
 	}
 }

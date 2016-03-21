@@ -42,13 +42,13 @@ document.getElementById('jiazheng').addEventListener('tap', function() {
 		id: 'jiazheng'
 	});
 });
-document.getElementById('ershou').addEventListener('tap', function() {
-	//打开关于页面
-	mui.openWindow({
-		url: 'ershou/ershou_index.html',
-		id: 'ershou_index'
-	});
-});
+//document.getElementById('ershou').addEventListener('tap', function() {
+//	//打开关于页面
+//	mui.openWindow({
+//		url: 'ershou/ershou_index.html',
+//		id: 'ershou_index'
+//	});
+//});
 //法律援助
 document.getElementById("falv").addEventListener("tap", function() {
 	mui.openWindow({

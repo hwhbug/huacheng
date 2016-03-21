@@ -268,7 +268,9 @@
 								确认并提交
 							</button>
 						</div>
-						
+						<div class="footer-left">
+							<i id='msg-image' class="mui-icon mui-icon-camera" style="font-size: 28px;"></i>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -283,14 +285,21 @@
 			</div>
 			<div class="mui-page-content">
 				<div class="mui-scroll-wrapper">
-					<ul class="mui-table-view mui-grid-view mui-grid-9 shifu">
+					<ul class="mui-table-view mui-grid-view mui-grid-9 mui-action-back shifu">
 					</ul>
 				</div>
 			</div>
 		</div>
+
 		<script src="../js/mui.picker.js"></script>
 		<script src="../js/mui.poppicker.js"></script>
 		<script>
+			mui.init({
+				preloadPages: [{
+					id: "repair_over.html",
+					url: "repair_over.html"
+				}]
+			});
 			(function($, doc) {
 				//$.init();
 				$.ready(function() {
@@ -339,25 +348,24 @@
 		</script>
 	</body>
 	<script src="../js/mui.view.js"></script>
+	<script src="../js/baoxiu_repair3.js"></script>
 	<script>
-		//		mui.init();
+		var overPage = null;
 		//初始化单页view
 		var viewApi = mui('#app').view({
 			defaultPage: '#set'
 		});
 		mui('.mui-scroll-wrapper').scroll();
 		var cid;
-		mui.plusReady(function() {
-			var self = plus.webview.currentWebview();
-			var cid = self.cid;
-			var rld_id = self.rld_id;
-			var sname = self.sname;
-			//var cateName = self.cateName;
-			//var chestr = self.chestr;
+		window.addEventListener("paizhaoId", function(event) {
+			var cid = event.detail.cid;
+			var rld_id = event.detail.rld_id;
+			var sname = event.detail.sname;
+			var uid = event.detail.uid;
 			document.getElementById("orldId").value = rld_id;
 			document.getElementById("ocId").value = cid;
 			document.getElementById("sname").innerText = sname;
-			mui.getJSON('http://101.200.232.167:81/RepaLabelDesc/GetLableDescById?ldid=' + rld_id, {},
+			mui.getJSON('http://101.201.196.202:82/RepaLabelDesc/GetLableDescById?ldid=' + rld_id, {},
 				function(data) {
 					document.getElementById("lbname").innerText = data.rld_liNames;
 					document.getElementById("osId").value = data.rld_csId_;
@@ -365,7 +373,7 @@
 					document.getElementById("priceRange").innerText = "¥" + data.rld_estimatedCost + "-¥" + price2;
 				});
 			//获得事件参数
-			mui.ajax('http://101.200.232.167:81/RepaMan/Index?cid=' + cid, {
+			mui.ajax('http://101.201.196.202:82/RepaMan/Index?cid=' + cid, {
 				//data: {
 				//username: 'username',
 				//password: 'password'
@@ -378,7 +386,7 @@
 					for (var i = 0; i < data.length; i++) {
 						var rc_name = data[i].RepaCategory.rc_name;
 						document.getElementById("cname").innerText = data[i].RepaCategory.rc_name;
-						sf += "<li class=\"mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4\" id=\"" + data[i].rm_id + "\"><img src=\"http://101.200.232.167:81/Images/RepaManImg/" + data[i].rm_headPortrait + "\" ><a class=\"black\" href=\"#\">" + data[i].rm_name + "</a><p>工号：" + data[i].rm_jobNum + "</p><p class=\"black\">评分</p><p>" +
+						sf += "<li class=\"mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4\" id=\"" + data[i].rm_id + "\"><img src=\"http://101.201.196.202:82/Images/RepaManImg/" + data[i].rm_headPortrait + "\" ><a class=\"black\" href=\"#\">" + data[i].rm_name + "</a><p>工号：" + data[i].rm_jobNum + "</p><p class=\"black\">评分</p><p>" +
 							"<span class=\"mui-icon mui-icon-star-filled\"></span><span class=\"mui-icon mui-icon-star-filled\"></span><span class=\"mui-icon mui-icon-star-filled\"></span><span class=\"mui-icon mui-icon-star-filled\"></span><span class=\"mui-icon mui-icon-star-filled\"></span></p></li>";
 					}
 					$(".shifu").html(sf);
@@ -388,61 +396,97 @@
 					console.log(type)
 				}
 			});
-		});
+			//提交订单事件
+			mui(".mui-page-content").on("tap", "#repair_4", function() {
+				var orldId = document.getElementById("orldId").value;
+				var ocId = document.getElementById("ocId").value;
+				var osId = document.getElementById("osId").value;
+				var ouname = document.getElementById("yourName").value;
+				var ocomm = document.getElementById("communityName").value;
+				var oaddress = document.getElementById("address").value;
+				var omp = document.getElementById("mp").value;
+				var omid = document.getElementById("mid").value;
+				var odateTime = document.getElementById('userResult').innerText.substr(5);
+				var getDate = document.getElementById("getDate").value;
+				var newTime = document.getElementById('userResult').innerText;
+				if (ouname == "") {
+					mui.toast("请输入姓名");
+					return;
+				} else if (ocomm == "") {
+					mui.toast("请输入小区");
+					return;
+				} else if (oaddress == "") {
+					mui.toast("请输入详细地址");
+					return;
+				} else if (omp == "") {
+					mui.toast("请输入手机号");
+					return;
+				} else if (!phoneReg(omp)) {
+					mui.toast("不是完整的11位手机号或者正确的手机号前7位");
+					return;
+				} else if (odateTime == "") {
+					return;
+				} else if (newTime == "预约服务时间") {
+					mui.toast("请选择预约服务时间");
+					return;
+				}
+				//添加订单
+				mui.ajax("http://101.201.196.202:82/RepaLabelDesc/Update", {
+					data: {
+						orldId: orldId,
+						ocId: ocId,
+						osId: osId,
+						ouname: ouname,
+						ocomm: ocomm,
+						oaddress: oaddress,
+						omp: omp,
+						omid: omid,
+						odateTime: odateTime,
+						getDate: getDate,
+						uid: uid
+					},
+					dataType: "json",
+					type: "get",
+					success: function(data) {
+						if (data.statusCode == "200") {
+							document.getElementById("sname").value = "";
+							document.getElementById("lbname").value = "";
+							document.getElementById("priceRange").innerText = "¥0";
+							document.getElementById("yourName").value = "";
+							document.getElementById("communityName").value = "";
+							document.getElementById("address").value = "";
+							document.getElementById("mp").value = "";
+							document.getElementById('userResult').innerText = "预约服务时间"
+							$("#shifu").html("<a class=\"mui-navigate-right\" href=\"#account\">" +
+								"<img src=\"\" /><h4 style=\"text-align: center; color: #FFFFFF;\">选择师傅</h4></a>");
+							if (!overPage) {
+								overPage = plus.webview.getWebviewById("repair_over.html");
+							}
+							mui.fire(overPage, "repair3Id", {
+								roId: data.data1
+							})
+							mui.openWindow({
+								id: "repair_over.html"
+							})
+						} else {
+							console.log();
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理
+						console.log(type)
+					}
+				})
+			});
+		})
 		mui(".shifu").on("tap", ".mui-table-view-cell", function() {
 			var mid = this.getAttribute("id");
 			document.getElementById("mid").value = mid;
-			mui.getJSON('http://101.200.232.167:81/RepaMan/GetDataByMid?mid=' + mid, {},
+			mui.getJSON('http://101.201.196.202:82/RepaMan/GetDataByMid?mid=' + mid, {},
 				function(data) {
-					var imgHtml = "<a class=\"mui-navigate-right\" href=\"#account\"><img src=\"http://101.200.232.167:81/Images/RepaManImg/" + data.rm_headPortrait + "\" /><h4 style=\"text-align: center; color: #FFFFFF;\">" + data.rm_name + "</h4></a>";
+					var imgHtml = "<a class=\"mui-navigate-right\" href=\"#account\"><img src=\"http://101.201.196.202:82/Images/RepaManImg/" + data.rm_headPortrait + "\" /><h4 style=\"text-align: center; color: #FFFFFF;\">" + data.rm_name + "</h4></a>";
 					$("#shifu").html(imgHtml);
 				})
-		});
-		//提交订单事件
-		mui(".mui-page-content").on("tap", "#repair_4", function() {
-			var orldId = document.getElementById("orldId").value;
-			var ocId = document.getElementById("ocId").value;
-			var osId = document.getElementById("osId").value;
-			var ouname = document.getElementById("yourName").value;
-			var ocomm = document.getElementById("communityName").value;
-			var oaddress = document.getElementById("address").value;
-			var omp = document.getElementById("mp").value;
-			var omid = document.getElementById("mid").value;
-			var odateTime = document.getElementById('userResult').innerText.substr(5);
-			var getDate = document.getElementById("getDate").value;
-			//添加订单
-			mui.ajax("http://101.200.232.167:81/RepaLabelDesc/Update", {
-				data: {
-					orldId: orldId,
-					ocId: ocId,
-					osId: osId,
-					ouname: ouname,
-					ocomm: ocomm,
-					oaddress: oaddress,
-					omp: omp,
-					omid: omid,
-					odateTime: odateTime,
-					getDate: getDate
-				},
-				dataType: "json",
-				type: "get",
-				success: function(data) {
-					if (data.statusCode == "200") {
-						mui.openWindow({
-							url: "repair_over.html",
-							extras: {
-								roId: data.data1
-							}
-						})
-					} else {
-						console.log();
-					}
-				},
-				error: function(xhr, type, errorThrown) {
-					//异常处理
-					console.log(type)
-				}
-			})
 		});
 		var view = viewApi.view;
 		(function($) {

@@ -9,6 +9,7 @@
 		<link href="../css/style.css" rel="stylesheet" />
 		<link href="../css/iconfont.css" rel="stylesheet" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script src="../js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 		</script>
@@ -116,9 +117,9 @@
 					<!--全部订单开始-->
 					<div>
 						<div id="item1" class="mui-control-content mui-active">
-							<ul class="mui-table-view">
+							<ul class="mui-table-view" id="servicelist">
 								<!--这是一条记录-->
-								<li class="mui-table-view-cell mui-media huise">
+								<!--<li class="mui-table-view-cell mui-media huise">
 									<div class="mui-slider-right mui-disabled">
 										<a class="mui-btn mui-btn-yellow">查看订单</a>
 										<a class="mui-btn mui-btn-red">删除记录</a>
@@ -135,21 +136,8 @@
 												</div>
 											
 									</div>
-								</li>
+								</li>-->
 								<!--这是一条记录结束-->
-								<!--这是一条记录-->
-							
-								<!--这是一条记录结束-->
-								<!--这是一条记录-->
-							
-								<!--这是一条记录结束-->
-								<!--这是一条记录-->
-								
-								<!--这是一条记录结束-->
-								<!--这是一条记录-->
-								
-								<!--这是一条记录结束-->
-								
 							</ul>
 						</div>
 						<div id="item2" class="mui-control-content">
@@ -187,6 +175,30 @@
 
 		<script>
 			mui('.mui-scroll-wrapper').scroll();
+			mui.ajax('http://101.201.196.202:82/Home/Mywarranty', {
+				data: {
+				//username: 'username',
+				//password: 'password'
+				},
+				dataType: 'json', //服务器返回json格式数据
+				type: 'GET', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+					var rep_order = "";
+					for (var i = 0; i < data.length; i++) {
+						if (data[i].RepaLabelDesc.upload_img1!=null) {
+							rep_order += "<li id=\""+data[i].ID+"\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://101.201.196.202:82/Images/baoxiu/desc/"+data[i].RepaLabelDesc.upload_img1+"\"><div class=\"mui-media-body\">"+data[i].RepaCategory.rc_name+"("+data[i].RepaCateSub_.cs_name_+")"+" <button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥"+"<p style=\"float: right;\"></h4><p>报修问题："+data[i].RepaLabelDesc.rld_liNames+"</p><p>维修师傅："+data[i].RepaMan.rm_name+"</p><p>上门时间："+data[i].ro_resTimeDesc+"</p></div></div></li>";
+						} else{
+							rep_order += "<li id=\""+data[i].ID+"\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://101.201.196.202:82/Images/baoxiu/"+data[i].RepaCategory.cateImg+"\"><div class=\"mui-media-body\">"+data[i].RepaCategory.rc_name+"("+data[i].RepaCateSub_.cs_name_+")"+" <button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥"+"<p style=\"float: right;\"></h4><p>报修问题："+data[i].RepaLabelDesc.rld_liNames+"</p><p>维修师傅："+data[i].RepaMan.rm_name+"</p><p>上门时间："+data[i].ro_resTimeDesc+"</p></div></div></li>";
+						}
+					}
+					$("#servicelist").append(rep_order);
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理
+					console.log(type)
+				}
+			});
 		</script>
 
 	</body>

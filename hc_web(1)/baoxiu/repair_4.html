@@ -67,9 +67,11 @@
 						</div>
 
 						<!-- 侧滑后右侧变黑-->
-						
+						<div class="mui-off-canvas-backdrop"></div>
 					</div>
-					
+					<div class="footer-left">
+						<i id='msg-image' class="mui-icon mui-icon-camera" style="font-size: 28px;"></i>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -79,18 +81,16 @@
 	<script>
 		mui.plusReady(function() {
 			var self = plus.webview.currentWebview();
-			var roId = self.roId;
-			//			alert(roId);
-			mui.ajax("http://101.200.232.167:81/RepairOrder/QueryOrderById", {
+			mui.ajax("http://101.201.196.202:82/RepairOrder/QueryOrderById", {
 				data: {
-					roId: roId
+					roId: self.roId
 				},
 				dataType: "json",
 				type: "post",
 				timeout: 10000,
 				success: function(data) {
 					document.getElementById("ordid").innerText = data.ro_num; //订单号
-//					alert(data.ro_status); 
+					//alert(data.ro_status); 
 					//0确定中,1已派单,2维修中,3已完成
 					if (data.ro_status == 0) {
 						$(".bar").html("<img src=\"../image/b1.jpg\" />")
@@ -117,8 +117,7 @@
 					console.log(type);
 				}
 			})
-		});
-
+		})
 		function jsonShortDateFormat(jsonDate) { //json日期格式转换为正常格式
 			try { //出自http://www.cnblogs.com/ahjesus 尊重作者辛苦劳动成果,转载请注明出处,谢谢!
 				var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));

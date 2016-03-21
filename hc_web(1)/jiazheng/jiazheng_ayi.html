@@ -82,7 +82,7 @@
 				var ageRange = self.ageRange;
 				var xueliRange = self.xueliRange;
 				var salaryRange = self.salaryRange
-				mui.ajax('http://101.200.232.167:81/JZYuesao/yueSaoIndex', {
+				mui.ajax('http://101.201.196.202:82/JZYuesao/yueSaoIndex', {
 					data: {
 						serverLvl: yuesaoLvl,
 						workExper: workExper,
@@ -97,8 +97,8 @@
 						var ayiCnt = "";
 						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
-								ayiCnt += "<li id=\"" + data[i].yuesaoID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
-									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+								ayiCnt += "<li id=\"" + data[i].yuesaoID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.201.196.202:82/Images/jiazheng/" + data[i].ayiImg + "\" " +
+									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.201.196.202:82/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
 									"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
 									"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
 									"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
@@ -120,7 +120,7 @@
 				var xueliRange = self.xueliRange;
 				var salaryRange = self.salaryRange;
 				var babyRange = self.babyRange;
-				mui.ajax('http://101.200.232.167:81/JZYuersao/yuerSaoIndex', {
+				mui.ajax('http://101.201.196.202:82/JZYuersao/yuerSaoIndex', {
 					data: {
 						serverLvl: yuersaoLvl,
 						workExper: workExper,
@@ -136,8 +136,8 @@
 						var ayiCnt = "";
 						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
-								ayiCnt += "<li id=\"" + data[i].yuersaoID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
-									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+								ayiCnt += "<li id=\"" + data[i].yuersaoID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.201.196.202:82/Images/jiazheng/" + data[i].ayiImg + "\" " +
+									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.201.196.202:82/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
 									"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
 									"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
 									"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
@@ -158,7 +158,7 @@
 				var ageRange = self.ageRange;
 				var xueliRange = self.xueliRange;
 				var salaryRange = self.salaryRange;
-				mui.ajax('http://101.200.232.167:81/JZpeihu/peiHuIndex', {
+				mui.ajax('http://101.201.196.202:82/JZpeihu/peiHuIndex', {
 					data: {
 						serverLvl: peihuLvl,
 						workExper: workExper,
@@ -173,8 +173,8 @@
 						var ayiCnt = "";
 						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
-								ayiCnt += "<li id=\"" + data[i].peihuID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
-									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+								ayiCnt += "<li id=\"" + data[i].peihuID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.201.196.202:82/Images/jiazheng/" + data[i].ayiImg + "\" " +
+									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.201.196.202:82/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
 									"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
 									"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
 									"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
@@ -195,7 +195,7 @@
 				var ageRange = self.ageRange;
 				var xueliRange = self.xueliRange;
 				var salaryRange = self.salaryRange;
-				mui.ajax('http://101.200.232.167:81/JZZhujiabaomu/ZJBMIndex', {
+				mui.ajax('http://101.201.196.202:82/JZZhujiabaomu/ZJBMIndex', {
 					data: {
 						serverLvl: baomuLvl,
 						workExper: workExper,
@@ -210,8 +210,8 @@
 						var ayiCnt = "";
 						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
-								ayiCnt += "<li id=\"" + data[i].zjbaomuID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" " +
-									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.200.232.167:81/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+								ayiCnt += "<li id=\"" + data[i].zjbaomuID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.201.196.202:82/Images/jiazheng/" + data[i].ayiImg + "\" " +
+									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.201.196.202:82/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
 									"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
 									"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
 									"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
@@ -236,7 +236,7 @@
 				var salary = this.getAttribute("data-salary");
 				var serverLvl = this.getAttribute("data-serverLvl");
 				var ayiImg = this.getAttribute("data-Img");
-				mui.ajax('http://101.200.232.167:81/home/login_cache', {
+				mui.ajax('http://101.201.196.202:82/home/login_cache', {
 					data: {},
 					dataType: 'json', //服务器返回json格式数据
 					async: false,

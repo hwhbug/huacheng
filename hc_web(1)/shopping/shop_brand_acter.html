@@ -84,6 +84,7 @@
 						$("#Panicbuy").html(str);
 					}
 				})
+				//获取品牌的名称并显示在页面头部
 				mui.ajax('http://101.201.196.202:82/business/Brand_byid', {
 					data: {
 						id: id
@@ -93,10 +94,33 @@
 					type: 'GET', //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
-						
 						$(".mui-title").html(data.brand_name);
 					}
 				})
+			});
+			mui.init({
+				preloadPages: [{
+					id: 'shop_detail.html',
+					url: 'shop_detail.html'
+				}]
+			});
+			var detailPage = null;
+			//添加列表项的点击事件
+			mui('#Panicbuy').on('tap', 'li', function(e) {
+				var id = this.getAttribute('id');
+				//获得详情页面
+				if (!detailPage) {
+					detailPage = plus.webview.getWebviewById('shop_detail.html');
+				}
+				//触发详情页面的newsId事件
+				mui.fire(detailPage, 'productsId', {
+					id: id
+				});
+				//打开详情页面          
+				mui.openWindow({
+					url: 'shop_detail.html',
+					id: 'shop_detail.html'
+				});
 			});
 		</script>
 

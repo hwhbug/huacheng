@@ -1009,3 +1009,52 @@ header .mui-title {
     margin-right: 100px !important;
 }
 
+
+.paizhao{
+	height: 220px;
+	background:url(../image/camer_bg.jpg) 50% 0;
+	
+}
+.paizhao .xiangji {
+	padding:10% 0 0 35%;
+}
+.paizhao .mui-icon-camera{
+	font-size: 6em;
+	color: #FFFFFF;
+}
+.zhaopin2 li{
+	width: 24.2%;
+	height: 85px;
+	background: #F0AD4E;
+	margin: 5px 1px;
+	float: left;	
+}
+.tubiao{
+	width: 25%;
+	float: left;
+	padding: 20px;
+	position: relative;
+}
+.mui-badge{
+	left: 68px !important;
+	top:17px !important;
+	background: #D82F4E !important;
+}
+.tubiao .mui-icon{
+	/*margin-left:30% !important;
+	margin-top: 10%;
+	margin-bottom: 20%;*/
+	margin:auto !important;
+	width: 100%;
+	text-align: center;
+	font-size: 30px;
+}
+.tubiao .mui-media-body{
+	width: 100%;
+	text-align: center;
+	color: #000000;
+	font-size: 12px !important;
+	font-family: "微软雅黑";
+	font-weight: normal;
+}
+

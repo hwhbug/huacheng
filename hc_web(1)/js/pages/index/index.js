@@ -1,27 +1,29 @@
-mui.ajax('http://101.201.196.202:82//product/Panicbuypage', {
-	data: {
-		activity: "2",
-		top: 4,
-	},
-	dataType: 'json', //服务器返回json格式数据
-	async: false,
-	type: 'GET', //HTTP请求类型,
-	timeout: 10000, //超时时间设置为10秒；
-	success: function(data) {
-		var str = "";
-		for (var i = 0; i < data.length; i++) {
-			str += "<li id=\"" + data[i].ID + "\" class=\'mui-table-view-cell mui-media\' ><a class=\'img_vertical\' href=\'javascript:;\'><img class=\'mui-media-object mui-pull-left\' src=\'http://101.201.196.202:82/Images/ProductImg/" + data[i].Image1 + "\'><div class=\'mui-media-body\'>" + data[i].Names + "<p class=\'mui-ellipsis sm_txt\'>" + " </p><p class=\'smm_txt zhonghuaxian\'>原价：￥" + data[i].Price1 + "</p><p class=\'red_txt\'>￥" + data[i].Price2 + "</p></div></a>"
-		}
-		$("#index-product").html(str);
-	},
-	error: function(xhr, type, errorThrown) {
-		//异常处理；
-		mui.plusReady(function() {
-			alert("系统内部错误，请稍后重试")
-			plus.runtime.quit();
-		});
-	}
-})
+mui('.mui-scroll-wrapper').scroll();
+var url="101.201.196.202:82";
+//mui.ajax('http://'+url+'/product/Panicbuypage', {
+//	data: {
+//		activity: "2",
+//		top: 4,
+//	},
+//	dataType: 'json', //服务器返回json格式数据
+//	async: false,
+//	type: 'GET', //HTTP请求类型,
+//	timeout: 10000, //超时时间设置为10秒；
+//	success: function(data) {
+//		var str = "";
+//		for (var i = 0; i < data.length; i++) {
+//			str += "<li id=\"" + data[i].ID + "\" class=\'mui-table-view-cell mui-media\' ><a class=\'img_vertical\' href=\'javascript:;\'><img class=\'mui-media-object mui-pull-left\' src=\'http://101.201.196.202:82/Images/ProductImg/" + data[i].Image1 + "\'><div class=\'mui-media-body\'>" + data[i].Names + "<p class=\'mui-ellipsis sm_txt\'>" + " </p><p class=\'smm_txt zhonghuaxian\'>原价：￥" + data[i].Price1 + "</p><p class=\'red_txt\'>￥" + data[i].Price2 + "</p></div></a>"
+//		}
+//		$("#index-product").html(str);
+//	},
+//	error: function(xhr, type, errorThrown) {
+//		//异常处理；
+//		mui.plusReady(function() {
+//			alert("系统内部错误，请稍后重试")
+//			plus.runtime.quit();
+//		});
+//	}
+//})
 
 mui.ajax('http://101.201.196.202:82/home/login_cache', {
 	data: {},
@@ -60,13 +62,13 @@ mui('#index-product').on('tap', 'li', function(e) {
 	});
 });
 //主界面‘显示侧滑菜单’按钮的点击事件.
-document.getElementById('offCanvasShow').addEventListener('tap', function() {
-	offCanvasWrapper.offCanvas('show');
-});
-//菜单界面，‘关闭侧滑菜单’按钮的点击事件
-document.getElementById('offCanvasHide').addEventListener('tap', function() {
-	offCanvasWrapper.offCanvas('close');
-});
+//document.getElementById('offCanvasShow').addEventListener('tap', function() {
+//	offCanvasWrapper.offCanvas('show');
+//});
+////菜单界面，‘关闭侧滑菜单’按钮的点击事件
+//document.getElementById('offCanvasHide').addEventListener('tap', function() {
+//	offCanvasWrapper.offCanvas('close');
+//});
 
 //*********************退出应用*****************************
 var first = null;

@@ -21,347 +21,355 @@
 		<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
 		<style>
 			.mui-media-body {
-				font-size: 14px !important;
+				font-size: 12px !important;
+			}
+			
+			.mui-bar .mui-title {
+				overflow: inherit;
+			}
+			
+			#showCityPicker3,
+			.ui-alert {
+				width: 90px !important;
+				margin: auto;
+			}
+			
+			header .mui-title {
+				margin-left: 30% !important;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+				padding: 12px 15px !important;
+			}
+			
+			.ban1,
+			.ban2,
+			.ban3,
+			.ban4,
+			.ban5 {
+				height: 120px;
+				overflow: hidden;
+			}
+			
+			.ban1 {
+				width: 45%;
+				float: left;
+				background: url(image/bn_40.gif) center no-repeat;
+			}
+			
+			.ban3 {
+				width: 100%;
+				height: 150px;
+				background: url(image/cp1.jpg) center no-repeat;
+			}
+			
+			.ban2 {
+				width: 55%;
+				float: left;
+				background: url(image/cp1.jpg) center no-repeat;
+			}
+			
+			.footer_banner {
+				padding: 1px;
+			}
+			
+			.footer_banner img {
+				width: 100%;
+			}
+			
+			.shutiao {
+				background: #CF2D28;
+				margin-left: 10px;
 			}
 		</style>
 	</head>
 
 	<body>
-		<!-- 侧滑导航根容器 -->
-		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
-			<!-- 菜单容器 -->
-			<aside id="offCanvasSide" class="mui-off-canvas-left">
-				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<!-- 菜单具体展示内容 -->
-						<h3><span class=" icon-homefill mui-icon" href="###">
-							<a href="###">主页 ></a>
-							<!--<button id="offCanvasHide" type="button">关闭</button>-->
-						</h3>
-						<ul class="left_btn">
-							<li id="offCanvasHide"><a href="###" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
-							<li><a href="###"><span class=" icon-coinyen mui-icon" ></span>物业缴费></a></li>
-							<li><a href="###"><span class=" icon-wrench mui-icon" ></span>家用报修></a></li>
-							<li><a href="###"><span class=" icon-xinshenger mui-icon" ></span>家政服务></a></li>
-							<li><a href="###"><span class=" icon-cartfill mui-icon" ></span>购物></a></li>
-							<li><a href="###"><span class=" icon-diancan mui-icon" ></span>订餐></a></li>
-							<li><a href="###"><span class=" icon-airplane  mui-icon" ></span>外出旅游></a></li>
-							<li><a href="###"><span class=" icon-usersecret mui-icon" ></span>居家养老></a></li>
-							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" ></span>二手交易></a></li>
-							<li><a href="###"><span class=" icon-iconfontjifen36 mui-icon" ></span>金融理财></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" ></span>个人账户></a></li>
-						</ul>
-					</div>
-				</div>
-			</aside>
-			<!-- 左侧菜单结束 -->
+		<div class="content">
 
-			<!-- 主页面容器 -->
+			<!-- 主页面标题 -->
 
-			<div class="mui-inner-wrap">
-				<!-- 主页面标题 -->
-				<header class="mui-bar mui-bar-nav">
-					<button id="login" class="login mui-icon icon-myfill">
-						<p>登录</p>
-					</button>
-					<button id="offCanvasShow" type="button" style="margin-bottom: 2px;"><img src="image/index_01.gif"></button>
-					<h1 class="mui-title"><button id='showCityPicker3' class="mui-btn mui-btn-block adress" type='button'>
-						<div id='cityResult3' class="ui-alert">   </div></button></h1>
-				</header>
-				<!--主界面区域-->
-				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper index_content">
-					<div class="mui-scroll">
+			<header class="mui-bar mui-bar-nav">
+				<button id="login" class="login mui-icon icon-myfill">
+					<p>登录</p>
+				</button>
+				<button type="button" style="margin-bottom: 2px; background: #FFFFFF;"><img src="image/index_01.gif"></button>
+				<h1 class="mui-title"><button id='showCityPicker3' class="mui-btn mui-btn-block adress" type='button'>
+					<div id='cityResult3' class="ui-alert">  </div>
+				</button>
+				</h1>
+			</header>
+			<!--主界面区域-->
+			<div class="mui-content mui-scroll-wrapper index_content">
+				<div class="mui-scroll">
 
-						<!-- 主界面具体展示内容 -->
-						<!--banner-->
-						<div class="mui-slider">
-							<div class="mui-slider-group">
+					<!-- 主界面具体展示内容 -->
+					<!--banner-->
+					<div class="mui-slider">
+						<div class="mui-slider-group">
 
-								<div class="mui-slider-item">
-									<img src="image/index_01_03.gif">
-								</div>
+							<div class="mui-slider-item">
+								<img src="image/index_01_03.gif">
+							</div>
 
-								<div class="mui-slider-item">
-									<img src="image/index_01_03.gif">
-								</div>
+							<div class="mui-slider-item">
+								<img src="image/index_01_03.gif">
+							</div>
 
-								<div class="mui-slider-item">
-									<img src="image/index_01_03.gif">
-								</div>
+							<div class="mui-slider-item">
+								<img src="image/index_01_03.gif">
 							</div>
 						</div>
-						<!--banner区域结束-->
-						<!--按钮区域-->
+					</div>
+					<!--banner区域结束-->
+					<!--按钮区域-->
 
-						<div id="container">
-							<ul class="mui-table-view mui-grid-view mui-grid-9 btn_nav">
+					<div id="container">
+						<ul class="mui-table-view mui-grid-view mui-grid-9 btn_nav">
 
-								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<a href="#">
-										<span class="mui-icon icon-sponsorfill"></span>
-										<div class="mui-media-body">物业缴费</div>
-									</a>
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<a id="repair" href="#">
-										<span class="mui-icon icon-wrench"></span>
-										<div class="mui-media-body">家用报修</div>
-									</a>
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<a id="jiazheng" href="#">
-										<span class="mui-icon icon-xinshenger"></span>
-										<div class="mui-media-body">家政在线</div>
-									</a>
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_8">
-									<a href="#">
-										<span class="mui-icon icon-airplane"></span>
-										<div class="mui-media-body">外出旅游</div>
-									</a>
-								</li>
-
-								<li id="shop" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_2">
-									<a href="#">
-										<span class="mui-icon icon-shoppingcart"></span>
-										<div class="mui-media-body">购物</div>
-									</a>
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 in_banner">
-									<img class="mui-media-object" src="image/index_19.gif">
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_1">
-									<a href="#">
-										<span class="mui-icon icon-diancan"></span>
-										<div class="mui-media-body">订餐</div>
-									</a>
-								</li>
-								<li id="falv" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<a href="#">
-										<span class="mui-icon icon-falv"></span>
-										<div class="mui-media-body">法律援助</div>
-									</a>
-								</li>
-
-								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_9">
-									<a href="#">
-										<span class="mui-icon icon-usersecret"></span>
-										<div class="mui-media-body">居家养老</div>
-									</a>
-								</li>
-
-								<li id="ershou" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_10">
-									<a href="#">
-										<span class="mui-icon icon-jilijiangjin"></span>
-										<div class="mui-media-body">二手交易</div>
-									</a>
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 in_11">
-									<a href="#">
-										<span class="mui-icon icon-jiankang"></span>
-										<div class="mui-media-body">健康管理</div>
-									</a>
-								</li>
-
-							</ul>
-						</div>
-
-						<!--style="height: 500px;"-->
-						<!--按钮区域结束-->
-						<div id="banner">
-							<img src="image/banner_37.gif" />
-
-						</div>
-						<div id="map" style="height: 500px;"></div>
-						<div id="main">
-							<ul class="mui-table-view" id="index-product">
-
-							</ul>
-						</div>
+							<li class="tubiao">
+								<a href="#">
+									<span class="mui-icon icon-sponsorfill"></span>
+									<div class="mui-media-body">物业缴费</div>
+								</a>
+							</li>
+							<li class="tubiao">
+								<a id="repair" href="#">
+									<span class="mui-icon icon-wrench"></span>
+									<div class="mui-media-body">保洁修理</div>
+								</a>
+							</li>
+							<li class="tubiao">
+								<a id="jiazheng" href="#">
+									<span class="mui-icon icon-xinshenger"></span>
+									<div class="mui-media-body">保姆在线</div>
+								</a>
+							</li>
+							<li id="shop" class="tubiao">
+								<a href="#">
+									<span class="mui-icon icon-shop"></span>
+									<div class="mui-media-body">周边购物</div>
+								</a>
+							</li>
+							<li id="falv" class="tubiao">
+								<a href="#">
+									<span class="mui-icon icon-falv"></span>
+									<div class="mui-media-body">法律援助</div>
+								</a>
+							</li>
+							<li class="tubiao">
+								<a href="#">
+									<span class="mui-icon icon-usersecret"></span>
+									<div class="mui-media-body">居家养老</div>
+								</a>
+							</li>
+							<li class="tubiao">
+								<a href="#">
+									<span class="mui-icon icon-woyaotousu"></span>
+									<div class="mui-media-body">投诉专区</div>
+								</a>
+							</li>
+							<li class="tubiao">
+								<a href="#">
+									<span class="mui-icon icon-gonggao"></span>
+									<div class="mui-media-body">小区公告</div>
+								</a>
+							</li>
+						</ul>
 
 						<!-- 侧滑后右侧变黑-->
+						<div class="footer_banner ">
+							<p>
+								<div class="shutiao"></div>特惠组合</p>
+							<div class="ban1"></div>
+							<div class="ban2"></div>
+							<div class="ban3"></div>
+							<div class="ban2"></div>
+							<div class="ban1"></div>
+
+						</div>
 						<div class="mui-off-canvas-backdrop"></div>
+						<div id="map" style="height: 500px;"></div>
 					</div>
+
 				</div>
-			</div>
-		</div>
-		<script src="js/myapp.js"></script>
-		<script src="js/geturl.js"></script>
-		<script src="js/pages/index/index.js"></script>
-		<script>
-			//			// 扩展API加载完毕后调用onPlusReady回调函数 
-			document.addEventListener("plusready", onPlusReady, false);
-			// 扩展API加载完毕，现在可以正常调用扩展API
-			function onPlusReady() {
-				// 使用百度地图地位模块获取位置信息
-				var weidu = null;
-				var jingdu = null;
-				var map = new plus.maps.Map("map");
-				map.hide();
-				// 将检索到结果作为标点添加到地图中
-				var searchObj = new plus.maps.Search(map);
-				//				console.log(plus.storage.getItem("Community"))
-				console.log(plus.storage.getItem("Communitycoord"));
-				//地图获取当前位置
-				map.getUserLocation(function(state, point) {
-					if (0 == state) {
-						if (plus.storage.getItem("Locate") != "") {
-							plus.storage.setItem("Locate", JSON.stringify(point));
-						}
-						//根据坐标获取地理位置信息
-						plus.maps.Map.reverseGeocode(point, {}, function(event) {
-							var address = event.address; // 转换后的地理位置
-							//console.log(address.substring(address.indexOf("区") - 2, address.indexOf("区")))
-							mui.ajax('http://101.201.196.202:82/info/getdis_id', {
-								data: {
-									dis_name: address.substring(address.indexOf("区") - 2, address.indexOf("区"))
-								},
-								async: false,
-								dataType: 'json', //服务器返回json格式数据
-								type: 'Post', //HTTP请求类型,
-								timeout: 10000, //超时时间设置为10秒；
-								success: function(Communitydata) {
-									if (Communitydata != "" && Communitydata != null) {
-										mui.ajax('http://101.201.196.202:82/info/Community_Load1', {
-											data: {
-												id: Communitydata.ID
-											},
-											async: false,
-											dataType: 'json', //服务器返回json格式数据
-											type: 'Post', //HTTP请求类型,
-											timeout: 10000, //超时时间设置为10秒；
-											success: function(Communitydatanew) {
-												//searchObj.onPoiSearchComplete = function(state, result) {
-												//console.log("onPoiSearchComplete: " + state + " , " + result.currentNumber);
+
+				<script src="js/geturl.js"></script>
+				<script src="js/pages/index/index.js"></script>
+				<script>
+					//			// 扩展API加载完毕后调用onPlusReady回调函数 
+					document.addEventListener("plusready", onPlusReady, false);
+					// 扩展API加载完毕，现在可以正常调用扩展API
+					function onPlusReady() {
+						// 使用百度地图地位模块获取位置信息
+						var weidu = null;
+						var jingdu = null;
+						var map = new plus.maps.Map("map");
+						map.hide();
+						// 将检索到结果作为标点添加到地图中
+						var searchObj = new plus.maps.Search(map);
+						//				console.log(plus.storage.getItem("Community"))
+						console.log(plus.storage.getItem("Communitycoord"));
+						//地图获取当前位置
+						map.getUserLocation(function(state, point) {
+							if (0 == state) {
+								if (plus.storage.getItem("Locate") != "") {
+									plus.storage.setItem("Locate", JSON.stringify(point));
+								}
+								//根据坐标获取地理位置信息
+								plus.maps.Map.reverseGeocode(point, {}, function(event) {
+									var address = event.address; // 转换后的地理位置
+									//console.log(address.substring(address.indexOf("区") - 2, address.indexOf("区")))
+									mui.ajax('http://101.201.196.202:82/info/getdis_id', {
+										data: {
+											dis_name: address.substring(address.indexOf("区") - 2, address.indexOf("区"))
+										},
+										async: false,
+										dataType: 'json', //服务器返回json格式数据
+										type: 'Post', //HTTP请求类型,
+										timeout: 10000, //超时时间设置为10秒；
+										success: function(Communitydata) {
+											if (Communitydata != "" && Communitydata != null) {
+												mui.ajax('http://101.201.196.202:82/info/Community_Load1', {
+													data: {
+														id: Communitydata.ID
+													},
+													async: false,
+													dataType: 'json', //服务器返回json格式数据
+													type: 'Post', //HTTP请求类型,
+													timeout: 10000, //超时时间设置为10秒；
+													success: function(Communitydatanew) {
+														//searchObj.onPoiSearchComplete = function(state, result) {
+														//console.log("onPoiSearchComplete: " + state + " , " + result.currentNumber);
+														(function($, doc) {
+															$.init();
+															$.ready(function() {
+																//-----------------------------------------
+																//					//级联示例
+																var cityPicker3 = new $.PopPicker();
+																cityPicker3.setData(eval(Communitydatanew));
+																var showCityPickerButton = doc.getElementById('showCityPicker3');
+																var cityResult3 = doc.getElementById('cityResult3');
+																if (Communitydata == null) {
+																	cityResult3.innerText = "暂未覆盖该区域"
+																} else {
+																	if (plus.storage.getItem("Community") != null) {
+																		cityResult3.innerText = plus.storage.getItem("Community");
+																	} else {
+																		cityResult3.innerText = "选择小区"
+																	}
+																	//*************************************小区选择点击事件*************************************
+																	showCityPickerButton.addEventListener('tap', function(event) {
+																		cityPicker3.show(function(items) {
+																			cityResult3.innerText = (items[0] || {}).text;
+																			plus.storage.setItem("Community", (items[0] || {}).text);
+																			///**********************************获取用户选择小区的坐标*********************************
+																			searchObj.onPoiSearchComplete = function(state, result) {
+																					if (state == 0) {
+																						if (result.currentNumber <= 0) {
+																							alert("没有检索到结果");
+																						}
+																						for (var i = 0; i < 1; i++) {
+																							var pos = result.getPosition(i);
+																							console.log(JSON.stringify(pos.point))
+																							plus.storage.setItem("Communitycoord", JSON.stringify(pos.point));
+																						}
+																					} else {
+																						alert("检索失败");
+																					}
+																				}
+																				//searchObj.poiSearchInCity("", (items[0] || {}).text )   //城市检索
+																				//console.log(JSON.stringify(point))
+																			searchObj.poiSearchNearBy((items[0] || {}).text, point, 10000); //周边检索
+																		});
+																	}, false);
+																}
+															});
+														})(mui, document);
+														//}
+													}
+												})
+											} else {
 												(function($, doc) {
 													$.init();
 													$.ready(function() {
 														//-----------------------------------------
 														//					//级联示例
-														var cityPicker3 = new $.PopPicker();
-														cityPicker3.setData(eval(Communitydatanew));
-														var showCityPickerButton = doc.getElementById('showCityPicker3');
 														var cityResult3 = doc.getElementById('cityResult3');
-														if (Communitydata == null) {
-															cityResult3.innerText = "暂未覆盖该区域"
-														} else {
-															if (plus.storage.getItem("Community") != null) {
-																cityResult3.innerText = plus.storage.getItem("Community");
-															} else {
-																cityResult3.innerText = "选择小区"
-															}
-															//*************************************小区选择点击事件*************************************
-															showCityPickerButton.addEventListener('tap', function(event) {
-																cityPicker3.show(function(items) {
-																	cityResult3.innerText = (items[0] || {}).text;
-																	plus.storage.setItem("Community", (items[0] || {}).text);
-																	///**********************************获取用户选择小区的坐标*********************************
-																	searchObj.onPoiSearchComplete = function(state, result) {
-																			if (state == 0) {
-																				if (result.currentNumber <= 0) {
-																					alert("没有检索到结果");
-																				}
-																				for (var i = 0; i < 1; i++) {
-																					var pos = result.getPosition(i);
-																					console.log(JSON.stringify(pos.point))
-																					plus.storage.setItem("Communitycoord", JSON.stringify(pos.point));
-																				}
-																			} else {
-																				alert("检索失败");
-																			}
-																		}
-																		//searchObj.poiSearchInCity("", (items[0] || {}).text )   //城市检索
-																		//console.log(JSON.stringify(point))
-																	searchObj.poiSearchNearBy((items[0] || {}).text, point, 10000); //周边检索
-																});
-															}, false);
-														}
+														cityResult3.innerText = "暂未覆盖该区域……";
 													});
 												})(mui, document);
-												//}
 											}
-										})
-									} else {
-										(function($, doc) {
-											$.init();
-											$.ready(function() {
-												//-----------------------------------------
-												//					//级联示例
-												var cityResult3 = doc.getElementById('cityResult3');
-												cityResult3.innerText = "暂未覆盖该区域……";
-											});
-										})(mui, document);
+										}
+									})
+								}, function(e) {
+									alert("Failed:" + JSON.stringify(e));
+								});
+								//map.setCenter(point);
+								//map.setZoom(15)
+							} else {
+								alert("获取当前位置失败，请检查网络");
+							}
+						});
+					}
+					//			(function($, doc) {
+					//				$.init();
+					//				$.ready(function() {
+					//					//-----------------------------------------
+					//					//级联示例
+					//					//-----------------------------------------
+					//					//					//级联示例
+					//					var cityPicker3 = new $.PopPicker({
+					//						layer: 3
+					//					});
+					//					cityPicker3.setData(cityData3);
+					//					var showCityPickerButton = doc.getElementById('showCityPicker3');
+					//					var cityResult3 = doc.getElementById('cityResult3');
+					//					showCityPickerButton.addEventListener('tap', function(event) {
+					//						cityPicker3.show(function(items) {
+					//							//							cityResult3.innerText = "你选择:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+					//							cityResult3.innerText = (items[2] || {}).text;
+					//							//返回 false 可以阻止选择框的关闭
+					//							//return false;
+					//						});
+					//					}, false);
+					//				});
+					//			})(mui, document);
+					window.addEventListener('newsId', function(event) {
+							//获得事件参数
+							mui.ajax('http://101.201.196.202:82/home/login_cache', {
+								data: {},
+								dataType: 'json', //服务器返回json格式数据
+								async: false,
+								type: 'GET', //HTTP请求类型,
+								timeout: 10000, //超时时间设置为10秒；
+								success: function(data) {
+									if (data.name != null && data.name != "") {
+										$(".login").html("<p>" + data.name + "</p>")
 									}
 								}
 							})
-						}, function(e) {
-							alert("Failed:" + JSON.stringify(e));
-						});
-						//map.setCenter(point);
-						//map.setZoom(15)
-					} else {
-						alert("获取当前位置失败，请检查网络");
-					}
-				});
-			}
-			//			(function($, doc) {
-			//				$.init();
-			//				$.ready(function() {
-			//					//-----------------------------------------
-			//					//级联示例
-			//					//-----------------------------------------
-			//					//					//级联示例
-			//					var cityPicker3 = new $.PopPicker({
-			//						layer: 3
-			//					});
-			//					cityPicker3.setData(cityData3);
-			//					var showCityPickerButton = doc.getElementById('showCityPicker3');
-			//					var cityResult3 = doc.getElementById('cityResult3');
-			//					showCityPickerButton.addEventListener('tap', function(event) {
-			//						cityPicker3.show(function(items) {
-			//							//							cityResult3.innerText = "你选择:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
-			//							cityResult3.innerText = (items[2] || {}).text;
-			//							//返回 false 可以阻止选择框的关闭
-			//							//return false;
-			//						});
-			//					}, false);
-			//				});
-			//			})(mui, document);
-			window.addEventListener('newsId', function(event) {
-					//获得事件参数
-					mui.ajax('http://101.201.196.202:82/home/login_cache', {
-						data: {},
-						dataType: 'json', //服务器返回json格式数据
-						async: false,
-						type: 'GET', //HTTP请求类型,
-						timeout: 10000, //超时时间设置为10秒；
-						success: function(data) {
-							if (data.name != null && data.name != "") {
-								$(".login").html("<p>" + data.name + "</p>")
-							}
-						}
-					})
-				})
-				//													if (state == 0) {
-				//														if (result.currentNumber <= 0) {
-				//															alert("没有检索到结果");
-				//														}
-				//														for (var i = 0; i < result.currentNumber; i++) {
-				//															var pos = result.getPosition(i);
-				//															//															if (eval(Communitydata).contains(pos.name)) {
-				//															//																alert(pos.name)
-				//															//															} 
-				//															console.log(JSON.stringify(pos))
-				//															console.log(pos.name+"   "+pos.point.getLat()+"   "+pos.point.getLng());
-				//															console.log();
-				//															//								var marker = new plus.maps.Marker(pos.point);
-				//															//								marker.setLabel(pos.name);
-				//															//								map.addOverlay(marker)
-				//														}
-				//													} else {
-				//														alert("检索失败");
-				//													}
-		</script>
+						})
+						//													if (state == 0) {
+						//														if (result.currentNumber <= 0) {
+						//															alert("没有检索到结果");
+						//														}
+						//														for (var i = 0; i < result.currentNumber; i++) {
+						//															var pos = result.getPosition(i);
+						//															//															if (eval(Communitydata).contains(pos.name)) {
+						//															//																alert(pos.name)
+						//															//															} 
+						//															console.log(JSON.stringify(pos))
+						//															console.log(pos.name+"   "+pos.point.getLat()+"   "+pos.point.getLng());
+						//															console.log();
+						//															//								var marker = new plus.maps.Marker(pos.point);
+						//															//								marker.setLabel(pos.name);
+						//															//								map.addOverlay(marker)
+						//														}
+						//													} else {
+						//														alert("检索失败");
+						//													}
+				</script>
 	</body>
 
 </html>

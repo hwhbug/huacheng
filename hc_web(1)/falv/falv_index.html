@@ -100,7 +100,7 @@
 						</div>
 						<!-- 侧滑后右侧变黑-->
 						<div class="phone">
-							<img src="http://101.200.232.167:81/Images/baoxiu/repair_1/baoxiu_19.gif" />援助热线： <strong>400-800-8000</strong>
+							<img src="http://101.201.196.202:82/Images/baoxiu/repair_1/baoxiu_19.gif" />援助热线： <strong>400-800-8000</strong>
 						</div>
 					</div>
 					<div class="mui-off-canvas-backdrop"></div>
@@ -116,7 +116,7 @@
 </html>
 <script>
 
-	mui.ajax("http://101.200.232.167:81/LegalAidCate/laCateIndex", {
+	mui.ajax("http://101.201.196.202:82/LegalAidCate/laCateIndex", {
 		dataType: "json",
 		type: "GET",
 		timeout: 10000,
@@ -134,7 +134,7 @@
 	mui('.mui-table-view').on('tap', 'li', function() {
 		var cateId = this.getAttribute("id");
 		var cateName= this.getAttribute("data-name") ;
-		mui.ajax('http://101.200.232.167:81/home/login_cache', {
+		mui.ajax('http://101.201.196.202:82/home/login_cache', {
 //			data: {},
 			dataType: 'json', //服务器返回json格式数据
 			async: false,
