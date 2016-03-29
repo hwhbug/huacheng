@@ -1,14 +1,14 @@
-//						document.getElementById('reg_shanghu_tijiao').addEventListener('tap', function() {
+//						document.getElementById("reg_shanghu_tijiao").addEventListener("tap", function() {
 //							//打开关于页面
 //							mui.openWindow({
-//								url: 'reg_shanghu_tijiao.html',
-//								id: 'reg_shanghu_tijiao'
+//								url: "reg_shanghu_tijiao.html",
+//								id: "reg_shanghu_tijiao"
 //							});
 //						});
 mui.init({
 	preloadPages: [{
-		url: 'reg_shanghu_tijiao.html',
-		id: 'reg_shanghu_tijiao'
+		url: "reg_shanghu_tijiao.html",
+		id: "reg_shanghu_tijiao"
 	}]
 });
 //***********************密码由字母和数字组合********************
@@ -25,26 +25,26 @@ var ismypassword = function(value) {
 	$.init();
 	$.plusReady(function() {
 		var settings = app.getSettings();
-		var regButton = doc.getElementById('reg_shanghu_tijiao');
-		var btn = doc.getElementById('btn');
-		var yanzheng = doc.getElementById('yanzhengma');
-		var accountBox = doc.getElementById('account');
-		var passwordBox = doc.getElementById('password');
-		var passwordConfirmBox = doc.getElementById('password_confirm');
-		var emailBox = doc.getElementById('email');
-		var address = doc.getElementById('address');
-		var Businessname = doc.getElementById('Businessname');
-		var userResult = doc.getElementById('userResult');
-		var cityResult3 = doc.getElementById('cityResult3');
-		var T_ProvinceID = doc.getElementById('T_ProvinceID');
-		var T_CityID = doc.getElementById('T_CityID');
-		var T_DistrictID = doc.getElementById('T_DistrictID');
-		var product_type = doc.getElementById('product_type');
-		var latitude = doc.getElementById('latitude');
-		var longitude = doc.getElementById('longitude');
-		var altitude = doc.getElementById('altitude');
+		var regButton = doc.getElementById("reg_shanghu_tijiao");
+		var btn = doc.getElementById("btn");
+		var yanzheng = doc.getElementById("yanzhengma");
+		var accountBox = doc.getElementById("account");
+		var passwordBox = doc.getElementById("password");
+		var passwordConfirmBox = doc.getElementById("password_confirm");
+		var emailBox = doc.getElementById("email");
+		var address = doc.getElementById("address");
+		var Businessname = doc.getElementById("Businessname");
+		var userResult = doc.getElementById("userResult");
+		var cityResult3 = doc.getElementById("cityResult3");
+		var T_ProvinceID = doc.getElementById("T_ProvinceID");
+		var T_CityID = doc.getElementById("T_CityID");
+		var T_DistrictID = doc.getElementById("T_DistrictID");
+		var product_type = doc.getElementById("product_type");
+		var latitude = doc.getElementById("latitude");
+		var longitude = doc.getElementById("longitude");
+		var altitude = doc.getElementById("altitude");
 		var reg_shanghu_tijiao = null;
-		regButton.addEventListener('tap', function(event) {
+		regButton.addEventListener("tap", function(event) {
 			var regInfo = {};
 			//*****************验证手机号**************************
 			var check_phone_number = /^1[3458]\d{9}$/;
@@ -62,35 +62,35 @@ var ismypassword = function(value) {
 			}
 			//*********************验证验证码输入********************
 			if (yanzheng.value == "") {
-				plus.nativeUI.toast('验证码不能为空');
+				plus.nativeUI.toast("验证码不能为空");
 				return;
 			}
 			if (yanzheng.value.length != 6) {
-				plus.nativeUI.toast('验证码不合法');
+				plus.nativeUI.toast("验证码不合法");
 				return;
 			}
 			//*********************验证密码输入********************
 			var passwordConfirm = passwordConfirmBox.value;
 			if (passwordBox.value == "") {
-				plus.nativeUI.toast('密码不能为空');
+				plus.nativeUI.toast("密码不能为空");
 				return;
 			}
 			if (passwordBox.value.length < 6) {
-				plus.nativeUI.toast('密码需要至少六位字符');
+				plus.nativeUI.toast("密码需要至少六位字符");
 				return;
 			}
 			if (!ismypassword(passwordBox.value)) {
-				plus.nativeUI.toast('密码需要字母和数字组合');
+				plus.nativeUI.toast("密码需要字母和数字组合");
 				return;
 			}
 			if (passwordConfirm != passwordBox.value) {
-				plus.nativeUI.toast('密码两次输入不一致');
+				plus.nativeUI.toast("密码两次输入不一致");
 				return;
 			}
 			//*********************验证邮箱输入********************
 			var check_emailBox = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 			if (emailBox.value == "") {
-				plus.nativeUI.toast('邮箱不能为空');
+				plus.nativeUI.toast("邮箱不能为空");
 				return;
 			}
 			if (!emailBox.value.match(check_emailBox)) {
@@ -100,26 +100,26 @@ var ismypassword = function(value) {
 			//*********************验证姓名输入********************
 			var realname_reg = /^[\u2E80-\u9FFF]+$/;
 			if (Businessname.value == "") {
-				plus.nativeUI.toast('名称不能为空');
+				plus.nativeUI.toast("名称不能为空");
 				return;
 			}
 			if (!Businessname.value.match(realname_reg)) {
-				plus.nativeUI.toast('名称只能为汉子');
+				plus.nativeUI.toast("名称只能为汉子");
 				return;
 			}
 			//*********************验证常用地址输入********************
 			if (cityResult3.innerText.indexOf("你选择") != 0) {
-				plus.nativeUI.toast('请选择地区');
+				plus.nativeUI.toast("请选择地区");
 				return;
 			}
 			//*********************验证地址输入********************
 			if (address.value == "") {
-				plus.nativeUI.toast('请输入具体地址');
+				plus.nativeUI.toast("请输入具体地址");
 				return;
 			}
 			//*********************验证小区输入********************
 			if (userResult.innerText.indexOf("你选择") != 0) {
-				plus.nativeUI.toast('请选择经营范围');
+				plus.nativeUI.toast("请选择经营范围");
 				return;
 			}
 			//****************************用户提交成功返回*********************************
@@ -128,7 +128,7 @@ var ismypassword = function(value) {
 					plus.nativeUI.toast(err);
 					return;
 				}
-				mui.ajax('http://101.201.196.202:82/home/sh_Register_on', {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/home/sh_Register_on", {
 					data: {
 						"name": Businessname.value,
 						"pwd": passwordBox.value,
@@ -144,8 +144,8 @@ var ismypassword = function(value) {
 						"altitude": altitude.value,
 						"yanzheng": yanzheng.value
 					},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'Post', //HTTP请求类型,
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						if (data.statusCode == 200) {
@@ -155,16 +155,16 @@ var ismypassword = function(value) {
 							var account = accountBox.value;
 							//获得详情页面
 							if (!reg_shanghu_tijiao) {
-								reg_shanghu_tijiao = plus.webview.getWebviewById('reg_shanghu_tijiao');
+								reg_shanghu_tijiao = plus.webview.getWebviewById("reg_shanghu_tijiao");
 							}
 							//触发详情页面的newsId事件
-							mui.fire(reg_shanghu_tijiao, 'adminmp', {
+							mui.fire(reg_shanghu_tijiao, "adminmp", {
 								id: account
 							});
 							//打开详情页面  
 							mui.openWindow({
-								url: 'reg_shanghu_tijiao.html',
-								id: 'reg_shanghu_tijiao'
+								url: "reg_shanghu_tijiao.html",
+								id: "reg_shanghu_tijiao"
 							});
 						} else {
 							plus.ui.toast(data.message);
@@ -173,7 +173,7 @@ var ismypassword = function(value) {
 				})
 			});
 		});
-		btn.addEventListener('tap', function(event) {
+		btn.addEventListener("tap", function(event) {
 			var name = {};
 			//*****************验证手机号**************************
 			var check_phone_number = /^1[3458]\d{9}$/;
@@ -195,12 +195,12 @@ var ismypassword = function(value) {
 					plus.nativeUI.toast(err);
 					return;
 				}
-				mui.ajax('http://101.201.196.202:82/home/fs_codebound', {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/home/fs_codebound", {
 					data: {
 						"phone_zh": accountBox.value
 					},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'Post', //HTTP请求类型,
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						console.log(data.statusCode)
@@ -229,22 +229,22 @@ mui.init({
 		var cityPicker3 = new $.PopPicker({
 			layer: 3
 		});
-		mui.ajax('http://101.201.196.202:82/info/Province_Load', {
+		mui.ajax("http://" + plus.storage.getItem("url") + "/info/Province_Load", {
 			data: {},
 			async: false,
-			dataType: 'json', //服务器返回json格式数据
-			type: 'Post', //HTTP请求类型,
+			dataType: "json", //服务器返回json格式数据
+			type: "Post", //HTTP请求类型,
 			timeout: 10000, //超时时间设置为10秒；
 			success: function(Provincesdata) {
 				cityPicker3.setData(eval(Provincesdata));
 			}
 		})
-		var showCityPickerButton = doc.getElementById('showCityPicker3');
-		var cityResult3 = doc.getElementById('cityResult3');
-		var T_ProvinceID = doc.getElementById('T_ProvinceID');
-		var T_CityID = doc.getElementById('T_CityID');
-		var T_DistrictID = doc.getElementById('T_DistrictID');
-		showCityPickerButton.addEventListener('tap', function(event) {
+		var showCityPickerButton = doc.getElementById("showCityPicker3");
+		var cityResult3 = doc.getElementById("cityResult3");
+		var T_ProvinceID = doc.getElementById("T_ProvinceID");
+		var T_CityID = doc.getElementById("T_CityID");
+		var T_DistrictID = doc.getElementById("T_DistrictID");
+		showCityPickerButton.addEventListener("tap", function(event) {
 			cityPicker3.show(function(items) {
 				cityResult3.innerText = "你选择:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
 				T_ProvinceID.value = (items[0] || {}).value
@@ -256,20 +256,20 @@ mui.init({
 		//获取小区
 		//-----------------------------------------
 		var userPicker = new $.PopPicker();
-		mui.ajax('http://101.201.196.202:82/info/product_type', {
+		mui.ajax("http://" + plus.storage.getItem("url") + "/info/product_type", {
 			data: {},
 			async: false,
-			dataType: 'json', //服务器返回json格式数据
-			type: 'Post', //HTTP请求类型,
+			dataType: "json", //服务器返回json格式数据
+			type: "Post", //HTTP请求类型,
 			timeout: 10000, //超时时间设置为10秒；
 			success: function(Communitydata) {
 				userPicker.setData(eval(Communitydata));
 			}
 		})
-		var showUserPickerButton = doc.getElementById('showUserPicker');
-		var userResult = doc.getElementById('userResult');
-		var product_type = doc.getElementById('product_type');
-		showUserPickerButton.addEventListener('tap', function(event) {
+		var showUserPickerButton = doc.getElementById("showUserPicker");
+		var userResult = doc.getElementById("userResult");
+		var product_type = doc.getElementById("product_type");
+		showUserPickerButton.addEventListener("tap", function(event) {
 			userPicker.show(function(items) {
 				userResult.innerText = "你选择:" + (items[0] || {}).text;
 				product_type.value = (items[0] || {}).value;
@@ -314,6 +314,6 @@ function onPlusReady() {
 	}, function(e) {
 		alert("Geolocation error: " + e.message);
 	}, {
-		provider: 'baidu'
+		provider: "baidu"
 	});
 }

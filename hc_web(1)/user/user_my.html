@@ -155,42 +155,41 @@
 		<script>
 			mui.init({
 				preloadPages: [{
-					id: 'index',
-					url: 'index.html'
+					id: "index",
+					url: "index.html"
 				}]
 			});
 			var detailPage = null;
-			mui('.mui-scroll-wrapper').scroll();
+			mui(".mui-scroll-wrapper").scroll();
 			//******************************我的订单点击事件******************************
-			document.getElementById('user_dingdan').addEventListener('tap', function() {
+			document.getElementById("user_dingdan").addEventListener("tap", function() {
 				//打开关于页面
 				mui.openWindow({
-					url: 'user_dingdan.html',
-					id: 'user_dingdan'
+					url: "user_dingdan.html",
+					id: "user_dingdan"
 				});
 			});
-			document.getElementById('perfect').addEventListener('tap', function() {
+			document.getElementById("perfect").addEventListener("tap", function() {
 				//打开关于页面
 				mui.openWindow({
-					url: 'user_xinxi.html',
-					id: 'user_xinxi'
+					url: "user_xinxi.html",
+					id: "user_xinxi"
 				});
 			});
-			
-			document.getElementById('user_fuwu').addEventListener('tap', function() {
+			document.getElementById("user_fuwu").addEventListener("tap", function() {
 				//打开关于页面
 				mui.openWindow({
-					url: 'user_fuwu.html',
-					id: 'user_fuwu'
+					url: "user_fuwu.html",
+					id: "user_fuwu"
 				});
 			});
 			//******************************注销账户点击事件****************************
-			document.getElementById('loginout').addEventListener('tap', function() {
+			document.getElementById("loginout").addEventListener("tap", function() {
 				//打开关于页面
-				mui.ajax('http://101.201.196.202:82/home/Logout', {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/home/Logout", {
 					data: {},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'Post', //HTTP请求类型,
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						if (data.statusCode == 200) {
@@ -199,20 +198,20 @@
 							plus.storage.removeItem("password");
 							plus.storage.removeItem("radio");
 							///*************************************关闭需要刷新的页面，调用自定义方法重新打开******************************
-							var wobj = plus.webview.getWebviewById('index');
+							var wobj = plus.webview.getWebviewById("index");
 							if (wobj != null) {
 								wobj.close()
 							}
 							//获得详情页面
 							if (!detailPage) {
-								detailPage = plus.webview.getWebviewById('index');
+								detailPage = plus.webview.getWebviewById("index");
 							}
 							//触发详情页面的newsId事件
-							mui.fire(detailPage, 'newsId', {});
+							mui.fire(detailPage, "newsId", {});
 							//							plus.webview.close(plus.webview.currentWebview());
 							mui.openWindow({
-								url: '../index.html',
-								id: '../index'
+								url: "../index.html",
+								id: "../index"
 							});
 							//							wobj.reload()
 							//							mui.back();
@@ -221,18 +220,18 @@
 				})
 			});
 			//**************************购物车点击事件*****************************
-			document.getElementById('shoppingcart').addEventListener('tap', function() {
+			document.getElementById("shoppingcart").addEventListener("tap", function() {
 				//打开关于页面
-				mui.ajax('http://101.201.196.202:82/product/whetherlogin', {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/product/whetherlogin", {
 					data: {},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'Post', //HTTP请求类型,
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						if (data.statusCode == 200) {
 							mui.openWindow({
-								url: '../shopping/shop_car.html',
-								id: 'shop_car'
+								url: "../shopping/shop_car.html",
+								id: "shop_car"
 							});
 						} else {
 							plus.ui.toast(data.message);
@@ -243,26 +242,28 @@
 			refresh();
 
 			function refresh() {
-				mui.ajax('http://101.201.196.202:82/home/userinfo', {
-					data: {},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'Post', //HTTP请求类型,
-					timeout: 10000, //超时时间设置为10秒；
-					success: function(data) {
-						$("#uname").html(data.name.substring(0, 1) + "先生");
-						$("#tel").html("手机：" + data.mp.substring(0, 3) + "****" + data.mp.substring(7, 11));
-						$("#jifeng").html("积分：" + data.nCredit);
-						$(".font-yellow.mx_jiage").html(data.nVal);
-					}
+				mui.plusReady(function() {
+					mui.ajax("http://" + plus.storage.getItem("url") + "/home/userinfo", {
+						data: {},
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							$("#uname").html(data.name.substring(0, 1) + "先生");
+							$("#tel").html("手机：" + data.mp.substring(0, 3) + "****" + data.mp.substring(7, 11));
+							$("#jifeng").html("积分：" + data.nCredit);
+							$(".font-yellow.mx_jiage").html(data.nVal);
+						}
+					})
 				})
 			}
 			//							<p>社区慧生活已为您服务 <span class="font-yellow mx_jiage">22</span> 次</p>
-			document.getElementById('sign').addEventListener('tap', function() {
+			document.getElementById("sign").addEventListener("tap", function() {
 				//打开关于页面
-				mui.ajax('http://101.201.196.202:82/Account/sign', {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/Account/sign", {
 					data: {},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'Post', //HTTP请求类型,
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						if (data.statusCode == "200") {

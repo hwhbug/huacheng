@@ -130,7 +130,7 @@
 						</div>
 						<div class="repair3_table" style="line-height: 30px; color:#666666;">
 							<a>数量 :</a>
-							<div class="mui-numbox mui-pull-right" data-numbox-min='1' data-numbox-max='20'>
+							<div class="mui-numbox mui-pull-right" data-numbox-min="1" data-numbox-max="20">
 								<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
 								<input id="buynumber" style="margin-top:0 !important;" class="mui-numbox-input" type="number" value="1" />
 								<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
@@ -176,7 +176,6 @@
 
 		</div>
 		<!--弹出属性菜单-->
-
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/myapp.js"></script>
 		<script src="../js/app.js"></script>
@@ -185,19 +184,19 @@
 		</script>
 		<script>
 			//*************************************结算************************************
-			document.getElementById('shop_car').addEventListener('tap', function() {
+			document.getElementById("shop_car").addEventListener("tap", function() {
 				//打开关于页面
-				mui.ajax('http://101.201.196.202:82/product/whetherlogin', {
+				mui.ajax("http://"+plus.storage.getItem("url")+"/product/whetherlogin", {
 					data: {},
-					dataType: 'json', //服务器返回json格式数据
+					dataType: "json", //服务器返回json格式数据
 					async: false,
-					type: 'Post', //HTTP请求类型,
+					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						if (data.statusCode == 200) {
 							mui.openWindow({
-								url: 'shop_car.html',
-								id: 'shop_car'
+								url: "shop_car.html",
+								id: "shop_car"
 							});
 						} else {
 							plus.ui.toast(data.message);
@@ -205,12 +204,12 @@
 					}
 				})
 			});
-			mui('.mui-scroll-wrapper').scroll();
-			mui('body').on('shown', '.mui-popover', function(e) {
-				//console.log('shown', e.detail.id);//detail为当前popover元素
+			mui(".mui-scroll-wrapper").scroll();
+			mui("body").on("shown", ".mui-popover", function(e) {
+				//console.log("shown", e.detail.id);//detail为当前popover元素
 			});
-			mui('body').on('hidden', '.mui-popover', function(e) {
-				//console.log('hidden', e.detail.id);//detail为当前popover元素
+			mui("body").on("hidden", ".mui-popover", function(e) {
+				//console.log("hidden", e.detail.id);//detail为当前popover元素
 			});
 			$(".tanchu_shuxing .mui-btn").click(function() {
 				//				var i = $(this).parent("div").index();
@@ -220,34 +219,34 @@
 					$(this).siblings(".mui-btn").removeClass("active");
 					$(this).addClass("active");;
 				}
-				$('.shuxing_text').html($(".tanchu_shuxing .active").text() + $(".tanchu_shuxing .active .shuxing_block").text());
+				$(".shuxing_text").html($(".tanchu_shuxing .active").text() + $(".tanchu_shuxing .active .shuxing_block").text());
 			});
 			//**********************************以下为获取数据**********************************************
-			window.addEventListener('productsId', function(event) {
+			window.addEventListener("productsId", function(event) {
 				//获得事件参数
 				var productid = event.detail.productid;
 				console.log(productid)
 				var businessid = event.detail.businessid;
 				//******************************如果商户id不为空，获取商户的名称***********************************
 				if (businessid != "" && businessid != null) {
-					mui.ajax('http://101.201.196.202:82/Business/Business_Detail', {
+					mui.ajax("http://"+plus.storage.getItem("url")+"/Business/Business_Detail", {
 						data: {
 							id: businessid,
 						},
-						dataType: 'json', //服务器返回json格式数据
+						dataType: "json", //服务器返回json格式数据
 						async: false,
-						type: 'GET', //HTTP请求类型,
+						type: "GET", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
 							$("#shanghu").html(data.Admin_User.name);
 						}
 					})
 				} else {
-					document.getElementById('shop_list').addEventListener('tap', function() {
+					document.getElementById("shop_list").addEventListener("tap", function() {
 						//打开关于页面
 						mui.openWindow({
-							url: 'shop_list.html',
-							id: 'shop_list'
+							url: "shop_list.html",
+							id: "shop_list"
 						});
 					});
 				}
@@ -262,16 +261,16 @@
 				$(".right .zhonghuaxian").empty();
 				$(".sm_shop_img").empty();
 				$(".tanchu_shuxing").empty();
-				$('.choise').empty();
-				$('.Quantity').empty();
+				$(".choise").empty();
+				$(".Quantity").empty();
 				//根据id向服务器请求新闻详情
-				mui.ajax('http://101.201.196.202:82/product/Businessproduct_Detail', {
+				mui.ajax("http://"+plus.storage.getItem("url")+"/product/Businessproduct_Detail", {
 						data: {
 							id: productid,
 						},
-						dataType: 'json', //服务器返回json格式数据
+						dataType: "json", //服务器返回json格式数据
 						async: false,
-						type: 'GET', //HTTP请求类型,
+						type: "GET", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
 //							alert(data.Products.ProductsType_ID)
@@ -285,53 +284,53 @@
 							$(".right .pro_name").html(data.Products.Names);
 							$(".right .font-red.mx_jiage").html("￥" + data.Price);
 							$(".right .zhonghuaxian").html("￥" + data.Price);
-							$('.Quantity').html(data.Products.Quantity);
+							$(".Quantity").html(data.Products.Quantity);
 							//获取产品的品牌信息
-							mui.ajax('http://101.201.196.202:82/product/getbrandbyid', {
+							mui.ajax("http://"+plus.storage.getItem("url")+"/product/getbrandbyid", {
 								data: {
 									id: data.Products.Brand_ID,
 								},
-								dataType: 'json', //服务器返回json格式数据
+								dataType: "json", //服务器返回json格式数据
 								async: false,
-								type: 'GET', //HTTP请求类型,
+								type: "GET", //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(databrand) {
-									$(".sm_shop_img").html("<img src=\"http://101.201.196.202:82/Images/ProductImg/" + databrand.brand_logo + " \"/>");
+									$(".sm_shop_img").html("<img src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + databrand.brand_logo + " \"/>");
 								}
 							});
 							//获取产品的相册列表
-							mui.ajax('http://101.201.196.202:82/product/Panicbuy', {
+							mui.ajax("http://"+plus.storage.getItem("url")+"/product/Panicbuy", {
 								data: {
 									productid: data.Products.ID,
 								},
-								dataType: 'json', //服务器返回json格式数据
+								dataType: "json", //服务器返回json格式数据
 								async: false,
-								type: 'GET', //HTTP请求类型,
+								type: "GET", //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(data1) {
 									var gallery = "";
 									//服务器返回响应，根据响应结果，分析是否登录成功；
 									for (var j = 0; j < data1.length; j++) {
-										gallery += "<div class=\"mui-slider-item\"><img src=\"http://101.201.196.202:82/Images/ProductImg/" + data1[j].Names + "\" /></div>";
+										gallery += "<div class=\"mui-slider-item\"><img src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data1[j].Names + "\" /></div>";
 									}
 									$(".mui-slider-group").html(gallery);
 								}
 							});
 							//						//获取属性列表
-							mui.ajax('http://101.201.196.202:82/product/Panicbuy_Purchase', {
+							mui.ajax("http://"+plus.storage.getItem("url")+"/product/Panicbuy_Purchase", {
 								data: {
 									producttypeid: data.Products.ProductsType_ID,
 								},
-								dataType: 'json', //服务器返回json格式数据
+								dataType: "json", //服务器返回json格式数据
 								async: false,
-								type: 'GET', //HTTP请求类型,
+								type: "GET", //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(data2) {
 									//服务器返回响应，根据响应结果，分析是否登录成功；
 									//获取所属产品的属性列表
 									var ProductAttribute = "";
 									var post_attr = "";
-									mui.getJSON('http://101.201.196.202:82/product/Customers_Detail', {
+									mui.getJSON("http://"+plus.storage.getItem("url")+"/product/Customers_Detail", {
 											productid: data.Products.ID,
 										},
 										function(data3) {
@@ -355,8 +354,8 @@
 													$(this).siblings(".mui-btn").removeClass("active");
 													$(this).addClass("active");
 												}
-												$('.choise').html($(".tanchu_shuxing .active").text());
-												$('#choise_productattrname').html($(".tanchu_shuxing .active").text());
+												$(".choise").html($(".tanchu_shuxing .active").text());
+												$("#choise_productattrname").html($(".tanchu_shuxing .active").text());
 											});
 											//*****************************此为选中提交js************************
 										});
@@ -366,15 +365,15 @@
 					})
 					//*************************************加入购物车*****************************
 				var settings = app.getSettings();
-				var add_shop_car = document.getElementById('add_shop_car');
-				var choise_productattrname = document.getElementById('choise_productattrname');
-				var buynumber = document.getElementById('buynumber');
-				var productattr = document.getElementById('productattr');
-				var shanghu=document.getElementById('shanghu');
+				var add_shop_car = document.getElementById("add_shop_car");
+				var choise_productattrname = document.getElementById("choise_productattrname");
+				var buynumber = document.getElementById("buynumber");
+				var productattr = document.getElementById("productattr");
+				var shanghu=document.getElementById("shanghu");
 				//正则表达式判断空格出现的次数
 				var re = new RegExp("&nbsp;", "g");
 				var reattr = new RegExp(",", "g");
-				add_shop_car.addEventListener('tap', function(event) {
+				add_shop_car.addEventListener("tap", function(event) {
 					if (choise_productattrname.innerHTML.replace(/\&nbsp;/g, ",") == "") {
 						plus.ui.toast("请完善信息");
 						return;
@@ -389,7 +388,7 @@
 						return;
 					} 
 					//****************************用户提交成功返回*********************************
-					mui.ajax('http://101.201.196.202:82/product/AddCart', {
+					mui.ajax("http://"+plus.storage.getItem("url")+"/product/AddCart", {
 						data: {
 							"ProAttrType": productattr.innerHTML,
 							"Quantity": buynumber.value,
@@ -398,9 +397,9 @@
 							"ShoppingCartType": "1",
 							"Business_ID": businessid
 						},
-						dataType: 'json', //服务器返回json格式数据
+						dataType: "json", //服务器返回json格式数据
 						async: false,
-						type: 'Post', //HTTP请求类型,
+						type: "Post", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
 							if (data.statusCode == 200) {

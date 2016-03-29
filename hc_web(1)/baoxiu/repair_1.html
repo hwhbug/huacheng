@@ -63,10 +63,7 @@
 				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
 					<div class="mui-scroll">
 						<div class="mui-slider">
-							<div class="mui-slider-group">
-								<div class="mui-slider-item">
-									<img src="http://101.201.196.202:82/Images/baoxiu/repair_1/banner_37.gif" />
-								</div>
+							<div class="mui-slider-group mui-slider-loop" id="topAD">
 							</div>
 						</div>
 						<div id="container">
@@ -75,7 +72,7 @@
 							</ul>
 
 							<div class="phone">
-								<img src="http://101.201.196.202:82/Images/baoxiu/repair_1/baoxiu_19.gif" /> 紧急呼叫： <strong>400-800-8000</strong>
+								<img src="../image/baoxiu_19.gif" /> 紧急呼叫： <strong>400-800-8000</strong>
 							</div>
 
 							<button class="repair1_sc">
@@ -99,6 +96,22 @@
 			var repair2Page = null;
 			//主界面‘显示侧滑菜单’按钮的点击事件
 			mui('.mui-scroll-wrapper').scroll();
+			mui.ajax("http://101.201.196.202:82/RepaAdvertisings/RapaADIndex", {
+				dataType: "json",
+				type: "get",
+				success: function(data) {
+					var repairAD = "";
+					for (var i = 0; i < data.length; i++) {
+						repairAD += "<div class=\"mui-slider-item\"><img src=\"http://101.201.196.202:82/Images/RepaAdvertisingsImg/" + data[i].RepaADImg + "\" /></div>"
+					}
+					$("#topAD").html(repairAD);
+					var gallery = mui('.mui-slider');
+					gallery.slider({
+						interval: 5000 //自动轮播周期，若为0则不自动播放，默认为0；
+					});
+				}
+			});
+			//获得slider插件对象
 			mui.ajax('http://101.201.196.202:82/RepaCategorySub/Index', {
 				//data: {
 				//username: 'username',

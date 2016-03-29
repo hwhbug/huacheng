@@ -62,36 +62,36 @@
 			</div>
 		</div>
 		<script>
-			window.addEventListener('newsId', function(event) {
+			window.addEventListener("newsId", function(event) {
 				//获得事件参数
 				var id = event.detail.id;
 				//************************************每次加载页面要先清空原页面数据，防止出现页面闪屏的问题**************************
-				mui.ajax('http://101.201.196.202:82/business/getproducts_bybrand', {
+				mui.ajax("http://"+plus.storage.getItem("url")+"/business/getproducts_bybrand", {
 					data: {
 						pageindex: 1,
 						pagesize: 12,
 						brandid: id
 					},
-					dataType: 'json', //服务器返回json格式数据
+					dataType: "json", //服务器返回json格式数据
 					async: false,
-					type: 'GET', //HTTP请求类型,
+					type: "GET", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						var str = "";
 						for (var i = 0; i < data.length; i++) { //										
-							str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://101.201.196.202:82/Images/ProductImg/" + data[i].Image1 + "\" /><a class=\"font-green\" href=\"#\">" + data[i].Names + "</a><p class=\"black\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Price2 + "</span></p><p class=\"black\">促销价：<span class=\"sm_jiage\">￥" + data[i].Price1 + "</span></p><p class=\"red font-bai\">距结束：<span class=\" settime\" style=\"font-family:arial;padding: 5px 10px;\" endtime=\"" + data[i].EndTime + "\"></span></p><p>销量：" + data[i].Quantity + "件</p></li>";
+							str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data[i].Image1 + "\" /><a class=\"font-green\" href=\"#\">" + data[i].Names + "</a><p class=\"black\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Price2 + "</span></p><p class=\"black\">促销价：<span class=\"sm_jiage\">￥" + data[i].Price1 + "</span></p><p class=\"red font-bai\">距结束：<span class=\" settime\" style=\"font-family:arial;padding: 5px 10px;\" endtime=\"" + data[i].EndTime + "\"></span></p><p>销量：" + data[i].Quantity + "件</p></li>";
 						}
 						$("#Panicbuy").html(str);
 					}
 				})
 				//获取品牌的名称并显示在页面头部
-				mui.ajax('http://101.201.196.202:82/business/Brand_byid', {
+				mui.ajax("http://"+plus.storage.getItem("url")+"/business/Brand_byid", {
 					data: {
 						id: id
 					},
-					dataType: 'json', //服务器返回json格式数据
+					dataType: "json", //服务器返回json格式数据
 					async: false,
-					type: 'GET', //HTTP请求类型,
+					type: "GET", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						$(".mui-title").html(data.brand_name);
@@ -100,26 +100,27 @@
 			});
 			mui.init({
 				preloadPages: [{
-					id: 'shop_detail.html',
-					url: 'shop_detail.html'
+					id: "shop_detail.html",
+					url: "shop_detail.html"
 				}]
 			});
 			var detailPage = null;
 			//添加列表项的点击事件
-			mui('#Panicbuy').on('tap', 'li', function(e) {
-				var id = this.getAttribute('id');
+			mui("#Panicbuy").on("tap", "li", function(e) {
+				var id = this.getAttribute("id");
+//				alert(id)
 				//获得详情页面
 				if (!detailPage) {
-					detailPage = plus.webview.getWebviewById('shop_detail.html');
+					detailPage = plus.webview.getWebviewById("shop_detail.html");
 				}
 				//触发详情页面的newsId事件
-				mui.fire(detailPage, 'productsId', {
+				mui.fire(detailPage, "productsId", {
 					id: id
 				});
 				//打开详情页面          
 				mui.openWindow({
-					url: 'shop_detail.html',
-					id: 'shop_detail.html'
+					url: "shop_detail.html",
+					id: "shop_detail.html"
 				});
 			});
 		</script>

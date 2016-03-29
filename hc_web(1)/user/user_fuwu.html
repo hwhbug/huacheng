@@ -174,22 +174,23 @@
 		</div>
 
 		<script>
-			mui('.mui-scroll-wrapper').scroll();
-			mui.ajax('http://101.201.196.202:82/Home/Mywarranty', {
+			mui(".mui-scroll-wrapper").scroll();
+			mui.plusReady(function() {
+			mui.ajax("http://"+plus.storage.getItem("url")+"/Home/Mywarranty", {
 				data: {
-				//username: 'username',
-				//password: 'password'
+				//username: "username",
+				//password: "password"
 				},
-				dataType: 'json', //服务器返回json格式数据
-				type: 'GET', //HTTP请求类型
+				dataType: "json", //服务器返回json格式数据
+				type: "GET", //HTTP请求类型
 				timeout: 10000, //超时时间设置为10秒；
 				success: function(data) {
 					var rep_order = "";
 					for (var i = 0; i < data.length; i++) {
 						if (data[i].RepaLabelDesc.upload_img1!=null) {
-							rep_order += "<li id=\""+data[i].ID+"\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://101.201.196.202:82/Images/baoxiu/desc/"+data[i].RepaLabelDesc.upload_img1+"\"><div class=\"mui-media-body\">"+data[i].RepaCategory.rc_name+"("+data[i].RepaCateSub_.cs_name_+")"+" <button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥"+"<p style=\"float: right;\"></h4><p>报修问题："+data[i].RepaLabelDesc.rld_liNames+"</p><p>维修师傅："+data[i].RepaMan.rm_name+"</p><p>上门时间："+data[i].ro_resTimeDesc+"</p></div></div></li>";
+							rep_order += "<li id=\""+data[i].ID+"\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://"+plus.storage.getItem("url")+"/Images/baoxiu/desc/"+data[i].RepaLabelDesc.upload_img1+"\"><div class=\"mui-media-body\">"+data[i].RepaCategory.rc_name+"("+data[i].RepaCateSub_.cs_name_+")"+" <button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥"+"<p style=\"float: right;\"></h4><p>报修问题："+data[i].RepaLabelDesc.rld_liNames+"</p><p>维修师傅："+data[i].RepaMan.rm_name+"</p><p>上门时间："+data[i].ro_resTimeDesc+"</p></div></div></li>";
 						} else{
-							rep_order += "<li id=\""+data[i].ID+"\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://101.201.196.202:82/Images/baoxiu/"+data[i].RepaCategory.cateImg+"\"><div class=\"mui-media-body\">"+data[i].RepaCategory.rc_name+"("+data[i].RepaCateSub_.cs_name_+")"+" <button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥"+"<p style=\"float: right;\"></h4><p>报修问题："+data[i].RepaLabelDesc.rld_liNames+"</p><p>维修师傅："+data[i].RepaMan.rm_name+"</p><p>上门时间："+data[i].ro_resTimeDesc+"</p></div></div></li>";
+							rep_order += "<li id=\""+data[i].ID+"\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://"+plus.storage.getItem("url")+"/Images/baoxiu/"+data[i].RepaCategory.cateImg+"\"><div class=\"mui-media-body\">"+data[i].RepaCategory.rc_name+"("+data[i].RepaCateSub_.cs_name_+")"+" <button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥"+"<p style=\"float: right;\"></h4><p>报修问题："+data[i].RepaLabelDesc.rld_liNames+"</p><p>维修师傅："+data[i].RepaMan.rm_name+"</p><p>上门时间："+data[i].ro_resTimeDesc+"</p></div></div></li>";
 						}
 					}
 					$("#servicelist").append(rep_order);
@@ -199,6 +200,7 @@
 					console.log(type)
 				}
 			});
+			})
 		</script>
 
 	</body>

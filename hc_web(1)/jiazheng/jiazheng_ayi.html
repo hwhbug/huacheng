@@ -44,8 +44,8 @@
 
 		<div class="mui-content jiazheng">
 			<ul class="mui-table-view mui-grid-view mui-grid-9" id="ayiC">
-				<!--<li id="tijiao" class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-					<div class="touxiang"><img src="../image/baomu1.jpg" /></div>
+				<li id="tijiao" class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+					<!--<div class="touxiang"><img src="../image/baomu1.jpg" /></div>
 					<div class="touxiang2">
 						<p class="font-red"><span>张爱玲</span></p>
 						<p>山西|45岁</p>
@@ -64,8 +64,8 @@
 					<div class="biaoqian">经验丰富</div>
 					<div class="biaoqian">勤劳</div>
 					<div class="biaoqian">性格开朗</div>
-					<div class="biaoqian">能吃苦</div>
-				</li>-->
+					<div class="biaoqian">能吃苦</div>-->
+				</li>
 			</ul>
 		</div>
 
@@ -97,7 +97,7 @@
 						var ayiCnt = "";
 						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
-								ayiCnt += "<li id=\"" + data[i].yuesaoID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].j_province + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.201.196.202:82/Images/jiazheng/" + data[i].ayiImg + "\" " +
+								ayiCnt += "<li id=\"" + data[i].yuesaoID + "\" data-ayiName=\"" + data[i].ayiName + "\" data-area=\"" + data[i].T_Province.ProName + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"http://101.201.196.202:82/Images/jiazheng/" + data[i].ayiImg + "\" " +
 									"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://101.201.196.202:82/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
 									"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].ayiName + "</span></p><p>" + data[i].j_province + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
 									"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +

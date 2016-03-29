@@ -20,17 +20,20 @@
 		<style type="text/css">
 			.repair4_table .tijiao {
 				text-align: center;
-				font:20px/40px "微软雅黑";
+				font: 20px/40px "微软雅黑";
 				margin-top: 10px;
 				color: #333333;
 			}
-			body{
+			
+			body {
 				background: #FFFFFF !important;
 			}
-			p{
+			
+			p {
 				font-size: 0.8em;
 				text-align: center;
 			}
+			
 			.mui-content {
 				background: #FFFFFF;
 			}
@@ -71,14 +74,7 @@
 					</div>
 				</div>
 			</aside>
-			<!-- 左侧菜单结束 -->
-
-			<!-- 主页面容器 -->
-
 			<div class="mui-inner-wrap   repair2_container">
-
-				<!-- 主页面标题 -->
-
 				<header class="mui-bar mui-bar-nav">
 					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 					<h1 class="mui-title">订单完成</h1>
@@ -91,12 +87,12 @@
 							<p class="black">尊敬的 <span id="uname"></span> </p>
 							<p class="tijiao"><span class="mui-icon icon-tijiao"></span>您的订单已经提交成功</p>
 							<p class="font-yellow">请您保持电话畅通，方便服务人员与您取得联系！</p>
-							<p class="black"><span class="mui-icon mui-icon-paperclip yellow-font" >订单号：</span><span id="orderbefore"></span></p>
-						</div>      
+							<p class="black"><span class="mui-icon mui-icon-paperclip yellow-font">订单号：</span><span id="orderbefore"></span></p>
+						</div>
 						<div class="repair4_table">
 							<a class="sm_btn mui-pull-right" id="backIndex">返回</a>
 							<a class="sm_btn">查看状态</a>
-						</div>					
+						</div>
 						<!-- 主界面具体展示内容 -->
 						<!-- 侧滑后右侧变黑-->
 						<div class="mui-off-canvas-backdrop"></div>
@@ -106,23 +102,20 @@
 		</div>
 		<script src="../js/app.js"></script>
 		<script src="../js/myapp.js"></script>
-
 	</body>
 
 </html>
 <script>
-	mui.plusReady(function(){
-		var self= plus.webview.currentWebview();
-		var orderId= self.onum;
-		var uname= self.uname;
-		document.getElementById("uname").innerHTML=uname;
-		document.getElementById("orderbefore").innerHTML=orderId;
+	mui.plusReady(function() {
+		var self = plus.webview.currentWebview();
+		var orderId = self.onum;
+		var uname = self.uname;
+		document.getElementById("uname").innerHTML = uname;
+		document.getElementById("orderbefore").innerHTML = orderId;
 	});
-	document.getElementById("backIndex").addEventListener("tap",function(){
+	document.getElementById("backIndex").addEventListener("tap", function() {
 		mui.openWindow({
-			url:"/index.html"
+			url: "/index.html"
 		})
 	})
-	
-	
 </script>

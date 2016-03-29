@@ -107,14 +107,14 @@
 			<h1 class="mui-title">登录</h1>
 		</header>
 		<div class="mui-content">
-			<form id='login-form' class="mui-input-group">
+			<form id="login-form" class="mui-input-group">
 				<div class="mui-input-row">
 					<label>账号</label>
-					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+					<input id="account" type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
 				</div>
 				<div class="mui-input-row">
 					<label>密码</label>
-					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+					<input id="password" type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
 				</div>
 				<div class="clear"></div>
 				<div class="mui-card">
@@ -139,8 +139,8 @@
 				</ul>
 			</form>
 			<div class="mui-content-padded">
-				<button id='login' class="mui-btn mui-btn-block mui-btn-primary btn_login">登录</button>
-				<div class="link-area"><span class="mui-icon mui-icon-contact"></span><a id='login2'>账户注册</a> <span class="spliter">|</span> <span class="mui-icon mui-icon-locked"></span><a id='forgetPassword'>忘记密码</a>
+				<button id="login" class="mui-btn mui-btn-block mui-btn-primary btn_login">登录</button>
+				<div class="link-area"><span class="mui-icon mui-icon-contact"></span><a id="login2">账户注册</a> <span class="spliter">|</span> <span class="mui-icon mui-icon-locked"></span><a id="forgetPassword">忘记密码</a>
 				</div>
 			</div>
 			<div class="mui-content-padded oauth-area">
@@ -151,25 +151,28 @@
 		<script>
 			mui.init({
 				preloadPages: [{
-					id: 'index',
-					url: 'index.html'
+					id: "index",
+					url: "index.html"
+				}, {
+					id: "shenhezhong",
+					url: "shenhezhong.html"
 				}]
 			});
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
-			document.getElementById('login2').addEventListener('tap', function() {
+			document.getElementById("login2").addEventListener("tap", function() {
 				//打开关于页面
 				mui.openWindow({
-					url: 'login2.html',
-					id: 'login2'
+					url: "login2.html",
+					id: "login2"
 				});
 			});
-			document.getElementById('forgetPassword').addEventListener('tap', function() {
+			document.getElementById("forgetPassword").addEventListener("tap", function() {
 				//打开关于页面
 				mui.openWindow({
-					url: 'forget_password.html',
-					id: 'forgetPassword'
+					url: "forget_password.html",
+					id: "forgetPassword"
 				});
 			});
 			//***********************密码由字母和数字组合********************
@@ -186,13 +189,13 @@
 				$.init();
 				$.plusReady(function() {
 					var settings = app.getSettings();
-					var loginButton = doc.getElementById('login');
-					var accountBox = doc.getElementById('account');
-					var passwordBox = doc.getElementById('password');
-					var autoLogin = doc.getElementById('autoLogin');
-					var radio = doc.getElementById('radio1');
-					loginButton.addEventListener('tap', function(event) {
-						if (autoLogin.classList.contains('mui-active')) {
+					var loginButton = doc.getElementById("login");
+					var accountBox = doc.getElementById("account");
+					var passwordBox = doc.getElementById("password");
+					var autoLogin = doc.getElementById("autoLogin");
+					var radio = doc.getElementById("radio1");
+					loginButton.addEventListener("tap", function(event) {
+						if (autoLogin.classList.contains("mui-active")) {
 							//							plus.storage.setItem("autoLogin", "1");
 							plus.storage.setItem("account", accountBox.value);
 							plus.storage.setItem("password", passwordBox.value);
@@ -216,53 +219,61 @@
 						}
 						//*********************验证密码输入********************
 						if (passwordBox.value == "") {
-							plus.nativeUI.toast('密码不能为空');
+							plus.nativeUI.toast("密码不能为空");
 							return;
 						}
 						if (passwordBox.value.length < 6) {
-							plus.nativeUI.toast('密码需要至少六位字符');
+							plus.nativeUI.toast("密码需要至少六位字符");
 							return;
 						}
 						if (!ismypassword(passwordBox.value)) {
-							plus.nativeUI.toast('密码需要字母和数字组合');
+							plus.nativeUI.toast("密码需要字母和数字组合");
 							return;
 						}
 						//****************************用户提交成功返回*********************************
-						mui.ajax('http://101.201.196.202:82/home/Login_on', {
+						mui.ajax("http://"+plus.storage.getItem("url")+"/home/Login_on", {
 								data: {
 									"name": accountBox.value,
 									"pwd": passwordBox.value,
 									"radio": radio.checked
 								},
-								dataType: 'json', //服务器返回json格式数据
-								type: 'Post', //HTTP请求类型,
+								dataType: "json", //服务器返回json格式数据
+								type: "Post", //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(data) {
 									if (data.statusCode == 200) {
 										plus.ui.toast(data.message);
 										if (radio.checked) {
 											///*************************************关闭需要刷新的页面，调用自定义方法重新打开******************************
-											var wobj = plus.webview.getWebviewById('index');
+											var wobj = plus.webview.getWebviewById("index");
 											if (wobj != null) {
 												wobj.close()
 											}
 											//获得详情页面
 											if (!detailPage) {
-												detailPage = plus.webview.getWebviewById('index');
+												detailPage = plus.webview.getWebviewById("index");
 											}
 											//触发详情页面的newsId事件
-											mui.fire(detailPage, 'newsId', {});
+											mui.fire(detailPage, "newsId", {});
 											plus.webview.close(plus.webview.currentWebview());
 											mui.openWindow({
-												url: 'index.html',
-												id: 'index'
+												url: "index.html",
+												id: "index"
 											});
-											
 											//											mui.back();
 										} else {
+											plus.webview.close(plus.webview.currentWebview());
+											var businessId = accountBox.value;
+											if (!detailPage) {
+												detailPage = plus.webview.getWebviewById("shenhezhong");
+											}
+											//触发详情页面的newsId事件
+											mui.fire(detailPage, "businessId", {
+												businessId: businessId
+											});
 											mui.openWindow({
-												url: 'shenhezhong.html',
-												id: 'shenhezhong'
+												url: "shenhezhong.html",
+												id: "shenhezhong"
 											})
 										}
 									} else {

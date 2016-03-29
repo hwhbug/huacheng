@@ -101,7 +101,7 @@
 				width: 16px;
 				height: 100%;
 				z-index: -1;
-				content: '';
+				content: "";
 			}
 			
 			.mui-page-shadow {
@@ -298,11 +298,11 @@
 								<div style="display:none;" id="enter">
 									<div class="mui-input-row">
 										<label>账号</label>
-										<input id='yktaccount' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+										<input id="yktaccount" type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
 									</div>
 									<div class="mui-input-row">
 										<label>密码</label>
-										<input id='yktpassword' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+										<input id="yktpassword" type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
 									</div>
 								</div>
 								<li class="mui-table-view-cell mui-selected"><a class="mui-navigate-right">支付宝</a></li>
@@ -372,21 +372,21 @@
 
 		<script src="../js/mui.view.js "></script>
 		<script>
-			mui('.mui-scroll-wrapper').scroll();
-			var viewApi = mui('#app').view({
-				defaultPage: '#setting'
+			mui(".mui-scroll-wrapper").scroll();
+			var viewApi = mui("#app").view({
+				defaultPage: "#setting"
 			});
 			//********************************************************需要结算的订单数据代码*****************************************
 			var orderids = "";
-			window.addEventListener('newsId', function(event) {
+			window.addEventListener("newsId", function(event) {
 					//获得事件参数
 					var cuxiao_id = event.detail.id;
-					mui.ajax('http://101.201.196.202:82/MyOrders/index', {
+					mui.ajax("http://"+plus.storage.getItem("url")+"/MyOrders/index", {
 						data: {
 							"ids": cuxiao_id.toString(),
 						},
-						dataType: 'json', //服务器返回json格式数据
-						type: 'Post', //HTTP请求类型,
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
 							var myorders = "";
@@ -403,17 +403,18 @@
 					})
 				})
 				//*****************************获取默认收货地址**********************************
-			mui.ajax('http://101.201.196.202:82/DeliveryAddress/Default', {
+				mui.plusReady(function() {
+			mui.ajax("http://"+plus.storage.getItem("url")+"/DeliveryAddress/Default", {
 					data: {},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'Post', //HTTP请求类型,
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						if (data.ConsigneeName != null) {
 							$(".dizhisub").html("<p id=\"" + data.ID + "\" class=\"black\">收货人：" + data.ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data.ConsigneePhone + "</span></p><p id=\"default_address\">地址：" + data.Address + "</p>");
 						}
 					}
-				})
+				})})
 				//*****************************以下为调用支付宝开始支付操作****************************
 			var channels = null;
 			// 监听plusready事件  
@@ -423,7 +424,7 @@
 					
 					for (var i in s) {
 						var channel = s[i];
-						if (channel.id === 'alipay') {
+						if (channel.id === "alipay") {
 							channels = channel;
 							
 						}
@@ -433,13 +434,13 @@
 				});
 			}, false);
 			//一卡通账号密码
-			var yktaccount = document.getElementById('yktaccount');
-			var yktpassword = document.getElementById('yktpassword');
-			var dizhisub = document.getElementById('dizhisub');
-			var paymethod = document.querySelector('.mui-table-view-cell.mui-selected').innerText;
-			var list = document.querySelector('.mui-table-view.mui-table-view-radio');
+			var yktaccount = document.getElementById("yktaccount");
+			var yktpassword = document.getElementById("yktpassword");
+			var dizhisub = document.getElementById("dizhisub");
+			var paymethod = document.querySelector(".mui-table-view-cell.mui-selected").innerText;
+			var list = document.querySelector(".mui-table-view.mui-table-view-radio");
 			//*************************************监听radio的选择事件******************************
-			list.addEventListener('selected', function(e) {
+			list.addEventListener("selected", function(e) {
 				paymethod = e.detail.el.innerText;
 				//				console.log(paymethod);
 				if (paymethod.length > 4) {
@@ -451,13 +452,13 @@
 			document.getElementById("zhifu").addEventListener("tap", function() {
 					var deliveryaddress_id = $("#dizhisub p").attr("id");
 					//***********************************支付交易之前，将收货地址添加到数据库**********************************
-					mui.ajax('http://101.201.196.202:82/MyOrders/Myorder_DeliveryAddress', {
+					mui.ajax("http://"+plus.storage.getItem("url")+"/MyOrders/Myorder_DeliveryAddress", {
 							data: {
 								order_id: orderids,
 								deliveryaddress_id: deliveryaddress_id
 							},
-							dataType: 'json', //服务器返回json格式数据
-							type: 'Post', //HTTP请求类型,
+							dataType: "json", //服务器返回json格式数据
+							type: "Post", //HTTP请求类型,
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data) {
 								if (data.statusCode == "300") {
@@ -475,12 +476,12 @@
 							plus.ui.toast("请先添加收货地址……");
 							return;
 						}
-						mui.ajax('http://101.201.196.202:82/Alipay/GetPayInfo', {
+						mui.ajax("http://"+plus.storage.getItem("url")+"/Alipay/GetPayInfo", {
 							data: {
 								orderid: orderids
 							},
-							dataType: 'json', //服务器返回json格式数据
-							type: 'Post', //HTTP请求类型,
+							dataType: "json", //服务器返回json格式数据
+							type: "Post", //HTTP请求类型,
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data) {
 								//								console.log(JSON.stringify(data))
@@ -537,14 +538,14 @@
 							return;
 						}
 						//*****************************************选择华城一卡通支付******************************************
-						mui.ajax('http://101.201.196.202:82/MerchandisePay/MerPay', {
+						mui.ajax("http://"+plus.storage.getItem("url")+"/MerchandisePay/MerPay", {
 								data: {
 									orderid: orderids,
 									yktaccount: yktaccount.value,
 									yktpassword: yktpassword.value
 								},
-								dataType: 'json', //服务器返回json格式数据
-								type: 'Post', //HTTP请求类型,
+								dataType: "json", //服务器返回json格式数据
+								type: "Post", //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(data) {
 									if (data.statusCode == "200") {
@@ -565,10 +566,11 @@
 			getaddress();
 
 			function getaddress() {
-				mui.ajax('http://101.201.196.202:82/DeliveryAddress/index', {
+				mui.plusReady(function() {
+				mui.ajax("http://"+plus.storage.getItem("url")+"/DeliveryAddress/index", {
 					data: {},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'Post', //HTTP请求类型,
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						var str = "";
@@ -577,15 +579,15 @@
 						}
 						$("#DeliveryAddress").html(str);
 					}
-				})
+				})})
 			}
 			//**********************************************添加、修改收货地址提交代码**************************************
-			var addressbtn = document.getElementById('addressbtn');
-			var uname = document.getElementById('uname');
-			var tel = document.getElementById('tel');
-			var adderss = document.getElementById('adderss');
-			var ID = document.getElementById('ID');
-			addressbtn.addEventListener('tap', function(event) {
+			var addressbtn = document.getElementById("addressbtn");
+			var uname = document.getElementById("uname");
+			var tel = document.getElementById("tel");
+			var adderss = document.getElementById("adderss");
+			var ID = document.getElementById("ID");
+			addressbtn.addEventListener("tap", function(event) {
 				if (uname.value == "") {
 					plus.ui.toast("收货人姓名不能为空");
 					return;
@@ -599,7 +601,7 @@
 					return;
 				}
 				//****************************用户提交成功返回*********************************
-				mui.ajax('http://101.201.196.202:82/DeliveryAddress/Creates', {
+				mui.ajax("http://"+plus.storage.getItem("url")+"/DeliveryAddress/Creates", {
 					data: {
 						"ConsigneeName": uname.value,
 						"ConsigneePhone": tel.value,
@@ -607,8 +609,8 @@
 						"ID": ID.value,
 						"isDefault": "0"
 					},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'Post', //HTTP请求类型,
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						if (data.statusCode == 200) {
@@ -624,14 +626,14 @@
 				})
 			});
 			////********************************************************删除地址信息*****************************************
-			mui('#DeliveryAddress').on('tap', '.font-red', function(e) {
-				var DeliveryAddressid = this.parentElement.childNodes[0].getAttribute('id');
-				mui.ajax('http://101.201.196.202:82/DeliveryAddress/Delete', {
+			mui("#DeliveryAddress").on("tap", ".font-red", function(e) {
+				var DeliveryAddressid = this.parentElement.childNodes[0].getAttribute("id");
+				mui.ajax("http://"+plus.storage.getItem("url")+"/DeliveryAddress/Delete", {
 					data: {
 						id: DeliveryAddressid,
 					},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'Post', //HTTP请求类型,
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						if (data.statusCode = "200") {
@@ -644,14 +646,14 @@
 				})
 			});
 			////********************************************************修改地址信息*****************************************
-			mui('#DeliveryAddress').on('tap', '.font-blue', function(e) {
-				var DeliveryAddressid = this.parentElement.childNodes[0].getAttribute('id');
-				mui.ajax('http://101.201.196.202:82/DeliveryAddress/getdeliveryaddressbyid', {
+			mui("#DeliveryAddress").on("tap", ".font-blue", function(e) {
+				var DeliveryAddressid = this.parentElement.childNodes[0].getAttribute("id");
+				mui.ajax("http://"+plus.storage.getItem("url")+"/DeliveryAddress/getdeliveryaddressbyid", {
 					data: {
 						id: DeliveryAddressid,
 					},
-					dataType: 'json', //服务器返回json格式数据
-					type: 'Post', //HTTP请求类型,
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						ID.value = data.ID;
@@ -676,20 +678,20 @@
 				};
 				//监听页面切换事件方案1,通过view元素监听所有页面切换事件，目前提供pageBeforeShow|pageShow|pageBeforeBack|pageBack四种事件(before事件为动画开始前触发)
 				//第一个参数为事件名称，第二个参数为事件回调，其中e.detail.page为当前页面的html对象
-				view.addEventListener('pageBeforeShow', function(e) {});
-				view.addEventListener('pageShow', function(e) {});
-				view.addEventListener('pageBeforeBack', function(e) {});
-				view.addEventListener('pageBack', function(e) {});
+				view.addEventListener("pageBeforeShow", function(e) {});
+				view.addEventListener("pageShow", function(e) {});
+				view.addEventListener("pageBeforeBack", function(e) {});
+				view.addEventListener("pageBack", function(e) {});
 				//*************************************地址点击带回********************************
 				var dizhisub = doc.getElementById("dizhisub");
-				mui('#DeliveryAddress').on('tap', '.dizhilist', function(e) {
-					var DeliveryAddressid = this.getAttribute('id');
-					mui.ajax('http://101.201.196.202:82/DeliveryAddress/getdeliveryaddressbyid', {
+				mui("#DeliveryAddress").on("tap", ".dizhilist", function(e) {
+					var DeliveryAddressid = this.getAttribute("id");
+					mui.ajax("http://"+plus.storage.getItem("url")+"/DeliveryAddress/getdeliveryaddressbyid", {
 						data: {
 							id: DeliveryAddressid,
 						},
-						dataType: 'json', //服务器返回json格式数据
-						type: 'Post', //HTTP请求类型,
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
 							if (data.ID != null) {

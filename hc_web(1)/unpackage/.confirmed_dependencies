@@ -138,7 +138,9 @@
 			"js/myapp.js",
 			"js/mui.min.js"
 		],
-		"refer": []
+		"refer": [
+			"shopping/shop_car.html"
+		]
 	},
 	"shopping/shop_qianggou.html": {
 		"resources": [
@@ -336,7 +338,8 @@
 			"css/style.css",
 			"fonts/iconfont.ttf",
 			"js/mui.js",
-			"css/mui.css"
+			"css/mui.css",
+			"image/baoxiu_19.gif"
 		],
 		"refer": [
 			"baoxiu/repair_2.html",
@@ -454,6 +457,9 @@
 			"css/mui.picker.css",
 			"css/mui.css",
 			"js/city.data-3.js"
+		],
+		"refer": [
+			"jiazheng/jiazheng_ayi.html"
 		]
 	},
 	"jiazheng/jiazheng_sever_baomu.html": {
@@ -470,6 +476,9 @@
 			"css/mui.picker.css",
 			"css/mui.css",
 			"js/city.data-3.js"
+		],
+		"refer": [
+			"jiazheng/jiazheng_ayi.html"
 		]
 	},
 	"jiazheng/jiazheng_sever_peihu.html": {
@@ -486,6 +495,9 @@
 			"css/mui.picker.css",
 			"css/mui.css",
 			"js/city.data-3.js"
+		],
+		"refer": [
+			"jiazheng/jiazheng_ayi.html"
 		]
 	},
 	"jiazheng/jiazheng_sever_yuesao.html": {
@@ -519,7 +531,8 @@
 			"css/mui.css"
 		],
 		"refer": [
-			"login.html"
+			"login.html",
+			"jiazheng/jiazheng_tijiao.html"
 		]
 	},
 	"ershou/ershou_index.html": {
@@ -613,7 +626,11 @@
 		"resources": [
 			"js/mui.js",
 			"css/mui.imageviewer.css",
-			"css/feedback-page.css"
+			"css/feedback-page.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/jquery-1.9.1.min.js"
 		]
 	},
 	"shopping/shop_brand_acter.html": {
@@ -740,7 +757,8 @@
 			"js/mui.view.js"
 		],
 		"refer": [
-			"shopping/shop_list.html"
+			"shopping/shop_list.html",
+			"shopping/shop_car.html"
 		]
 	},
 	"user/user_paizhao.html": {

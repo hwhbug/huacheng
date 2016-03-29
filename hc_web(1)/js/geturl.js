@@ -6,7 +6,7 @@ document.getElementById('login').addEventListener('tap', function() {
 		type: 'GET', //HTTP请求类型,
 		timeout: 10000, //超时时间设置为10秒；
 		success: function(data) {
-			if (data.name != null && data.name != "") { //打开关于页面
+			if (data.uname != null && data.uname != "") { //打开关于页面
 				mui.openWindow({
 					url: 'user/user_my.html',
 					id: 'user/user_my'

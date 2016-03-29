@@ -93,7 +93,7 @@
 					var repair3page = null;
 					// 跳过发布
 					document.getElementById("jumpOver").addEventListener("tap", function() {
-						mui.ajax('http://101.201.196.202:82/RepaLabelDesc/Creates', {
+						mui.ajax("http://"+plus.storage.getItem("url")+"/RepaLabelDesc/Creates", {
 							data: {
 								cid: cid,
 								sid_: csid,
@@ -102,8 +102,8 @@
 								cl_names: cl_names,
 								uid: uid
 							},
-							dataType: 'json', //服务器返回json格式数据
-							type: 'post', //HTTP请求类型
+							dataType: "json", //服务器返回json格式数据
+							type: "post", //HTTP请求类型
 							timeout: 10000,
 							success: function(data) {
 								if (data.statusCode == "200") {
@@ -126,7 +126,7 @@
 										uid: uid
 									})
 									mui.openWindow({
-										id: 'repair_3.html'
+										id: "repair_3.html"
 									});
 								} else {
 									alert("抱歉,页面找不到了");
@@ -139,12 +139,12 @@
 						}); //end
 					});
 					//立即发布
-					mui("#release").on('tap', 'button', function() {
+					mui("#release").on("tap", "button", function() {
 						if (file1 == "") {
 							alert("请先选择图片上传");
 							return false;
 						} else {
-							var task = plus.uploader.createUpload("http://101.201.196.202:82/RepaLabelDesc/UploadImgs", {
+							var task = plus.uploader.createUpload("http://"+plus.storage.getItem("url")+"/RepaLabelDesc/UploadImgs", {
 								method: "post"
 							}, function(t, status) {
 								// 上传完成
@@ -160,7 +160,7 @@
 									document.getElementById("sname").value = "";
 									document.getElementById("uid").value = "";
 									//上传其它数据
-									mui.ajax('http://101.201.196.202:82/RepaLabelDesc/Creates', {
+									mui.ajax("http://"+plus.storage.getItem("url")+"/RepaLabelDesc/Creates", {
 										data: {
 											cid: cid,
 											sid_: csid,
@@ -171,8 +171,8 @@
 											cl_names: cl_names,
 											uid: uid
 										},
-										dataType: 'json', //服务器返回json格式数据
-										type: 'post', //HTTP请求类型
+										dataType: "json", //服务器返回json格式数据
+										type: "post", //HTTP请求类型
 										timeout: 10000,
 										success: function(data) {
 											alert(data.statusCode)
@@ -190,7 +190,7 @@
 													uid: uid
 												})
 												mui.openWindow({
-													id: 'repair_3.html'
+													id: "repair_3.html"
 												});
 											} else {
 												alert("抱歉,页面找不到了");
@@ -218,7 +218,7 @@
 					});
 				})
 				//处理图片上传
-			document.getElementById('paizhao').addEventListener('tap', function() {
+			document.getElementById("paizhao").addEventListener("tap", function() {
 				var a = [{
 					title: "拍照"
 				}, {
@@ -334,7 +334,7 @@
 					_img_.onload = null;
 					plus.io.resolveLocalFileSystemURL(url, function(entry) {
 							entry.file(function(file) {
-								console.log(file.size + '--' + file.name);
+								console.log(file.size + "--" + file.name);
 								canvasResize(file, {
 									width: tmpw,
 									height: tmph,

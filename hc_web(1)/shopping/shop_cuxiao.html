@@ -110,7 +110,7 @@
 						</ul>
 						<div class="nav_bar yellow">折扣精选</div>
 						<div class="sm_gg" id="zhekou">
-						<!--	<div class="sm_banner"><img src="../image/z1.jpg"></div>-->
+							<!--	<div class="sm_banner"><img src="../image/z1.jpg"></div>-->
 						</div>
 						<!--600*200-->
 					</div>
@@ -119,87 +119,89 @@
 			</div>
 		</div>
 		<script>
-			mui('.mui-scroll-wrapper').scroll();
+			mui(".mui-scroll-wrapper").scroll();
 			//***************************获取商场头部广告的列表数据**********************************
-			mui.ajax('http://101.201.196.202:82//product/ProductsAdverts', {
-				data: {
-					type: "促销头部",
-				},
-				dataType: 'json', //服务器返回json格式数据
-				async: false,
-				type: 'GET', //HTTP请求类型,
-				timeout: 10000, //超时时间设置为10秒；
-				success: function(data) {
-					var str = "";
-					for (var i = 0; i < data.length; i++) { //										
-						str += "<div class=\"mui-slider-item\"><img src=\"http://101.201.196.202:82/Images/ProductsAdvertsImg/" + data[i].image + "\" /></div>";
+			mui.plusReady(function() {
+				mui.ajax("http://" + plus.storage.getItem("url") + "//product/ProductsAdverts", {
+					data: {
+						type: "促销头部",
+					},
+					dataType: "json", //服务器返回json格式数据
+					async: false,
+					type: "GET", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var str = "";
+						for (var i = 0; i < data.length; i++) { //										
+							str += "<div class=\"mui-slider-item\"><img src=\"http://" + plus.storage.getItem("url") + "/Images/ProductsAdvertsImg/" + data[i].image + "\" /></div>";
+						}
+						$(".mui-slider-group").html(str);
 					}
-					$(".mui-slider-group").html(str);
-				}
+				})
+				mui.ajax("http://" + plus.storage.getItem("url") + "//product/Product_Purchase", {
+					data: {
+						top: 4,
+					},
+					dataType: "json", //服务器返回json格式数据
+					async: false,
+					type: "GET", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var str = "";
+						var str1 = "";
+						for (var i = 0; i < data.length; i++) {
+							if (data[i].Type == "热门促销") {
+								str += "<li id=\"" + data[i].Products_ID + "\"><img src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].Names + "\" /></li>";
+							}
+							if (data[i].Type == "折扣精选") {
+								str1 += "<div id=\"" + data[i].Products_ID + "\" class=\"sm_banner\"><img src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].Names + "\"></div>";
+							}
+						}
+						$("#cuxiao_tou").html(str);
+						$("#zhekou").html(str1);
+					}
+				})
 			})
-			mui.ajax('http://101.201.196.202:82//product/Product_Purchase', {
-											data: {
-												top:4,
-											},
-							dataType: 'json', //服务器返回json格式数据
-							async: false,
-							type: 'GET', //HTTP请求类型,
-							timeout: 10000, //超时时间设置为10秒；
-							success: function(data) {
-									var str="";
-									var str1="";
-									for (var i = 0; i < data.length; i++) {
-										if(data[i].Type=="热门促销"){
-										str+="<li id=\""+data[i].Products_ID+"\"><img src=\"http://101.201.196.202:82/Images/ProductImg/"+data[i].Names+"\" /></li>";
-										}
-										if(data[i].Type=="折扣精选"){
-										str1+="<div id=\""+data[i].Products_ID+"\" class=\"sm_banner\"><img src=\"http://101.201.196.202:82/Images/ProductImg/"+data[i].Names+"\"></div>";
-										}
-									}
-									$("#cuxiao_tou").html(str);
-									$("#zhekou").html(str1);
-								}
-							})
 			mui.init({
 				preloadPages: [{
-					id: 'shopping/shop_cuxiao_acter.html',
-					url: 'shopping/shop_cuxiao_acter.html'
+					id: "shopping/shop_cuxiao_acter.html",
+					url: "shopping/shop_cuxiao_acter.html"
 				}]
 			});
 			var cuxiao_detailPage = null;
 			//添加列表项的点击事件
 			//热门促销
-			mui('#cuxiao_tou').on('tap', 'li', function(e) {
-				var cuxiao_id = this.getAttribute('id');
+			mui("#cuxiao_tou").on("tap", "li", function(e) {
+				var cuxiao_id = this.getAttribute("id");
 				//获得详情页面
 				if (!cuxiao_detailPage) {
-					cuxiao_detailPage = plus.webview.getWebviewById('shopping/shop_cuxiao_acter.html');
+					cuxiao_detailPage = plus.webview.getWebviewById("shopping/shop_cuxiao_acter.html");
 				}
 				//触发详情页面的newsId事件
-				mui.fire(cuxiao_detailPage, 'productsId', {
+				mui.fire(cuxiao_detailPage, "productsId", {
 					cuxiao_id: cuxiao_id
 				});
 				//打开详情页面          
 				mui.openWindow({
-					url: 'shopping/shop_cuxiao_acter.html',
-					id: 'shopping/shop_cuxiao_acter.html'
+					url: "shopping/shop_cuxiao_acter.html",
+					id: "shopping/shop_cuxiao_acter.html"
 				});
 			});
 			//折扣精选
-			mui('#zhekou').on('tap', '.sm_banner', function(e) {
-				var cuxiao_id = this.getAttribute('id');
+			mui("#zhekou").on("tap", ".sm_banner", function(e) {
+				var cuxiao_id = this.getAttribute("id");
 				//获得详情页面
 				if (!cuxiao_detailPage) {
-					cuxiao_detailPage = plus.webview.getWebviewById('shopping/shop_cuxiao_acter.html');
+					cuxiao_detailPage = plus.webview.getWebviewById("shopping/shop_cuxiao_acter.html");
 				}
 				//触发详情页面的newsId事件
-				mui.fire(cuxiao_detailPage, 'productsId', {
+				mui.fire(cuxiao_detailPage, "productsId", {
 					cuxiao_id: cuxiao_id
 				});
 				//打开详情页面          
 				mui.openWindow({
-					url: 'shopping/shop_cuxiao_acter.html',
-					id: 'shopping/shop_cuxiao_acter.html'
+					url: "shopping/shop_cuxiao_acter.html",
+					id: "shopping/shop_cuxiao_acter.html"
 				});
 			});
 		</script>

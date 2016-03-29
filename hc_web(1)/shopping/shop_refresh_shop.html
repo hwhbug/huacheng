@@ -99,55 +99,57 @@
 
 		<script>
 			//********************************获取顶部广告位图片列表******************************
-			mui.ajax('http://101.201.196.202:82/business/Busadverts', {
+			mui.plusReady(function() {
+			mui.ajax("http://"+plus.storage.getItem("url")+"/business/Busadverts", {
 					data: {
 						type: "1"
 					},
-					dataType: 'json', //服务器返回json格式数据
+					dataType: "json", //服务器返回json格式数据
 					async: false,
-					type: 'GET', //HTTP请求类型,
+					type: "GET", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						var str = "";
 						for (var i = 0; i < data.length; i++) {
-							str += "<div class=\"mui-slider-item\"><img src=\"http://101.201.196.202:82/Images/BusAdvertsImg/" + data[i].iamge + "\" /></div>";
+							str += "<div class=\"mui-slider-item\"><img src=\"http://"+plus.storage.getItem("url")+"/Images/BusAdvertsImg/" + data[i].iamge + "\" /></div>";
 						}
 						$(".mui-slider-group").html(str);
 					}
 				})
+			})
 				//***********************************获取周边商户的商品数据********************************
 				//			// 扩展API加载完毕后调用onPlusReady回调函数 
 				//*****************周边商户店铺详情页面*************************
 			mui.init({
 				preloadPages: [{
-					url: 'shop_user.html',
-					id: 'shop_user'
+					url: "shop_user.html",
+					id: "shop_user"
 				}]
 			});
 			var shanghu_detailPage = null;
 			//添加列表项的点击事件
-			mui('#Aroundbusiness').on('tap', 'li', function(e) {
-				var shanghu_id = this.getAttribute('id');
+			mui("#Aroundbusiness").on("tap", "li", function(e) {
+				var shanghu_id = this.getAttribute("id");
 				//获得详情页面
 				if (!shanghu_detailPage) {
-					shanghu_detailPage = plus.webview.getWebviewById('shop_user');
+					shanghu_detailPage = plus.webview.getWebviewById("shop_user");
 				}
 				//触发详情页面的newsId事件
-				mui.fire(shanghu_detailPage, 'business', {
+				mui.fire(shanghu_detailPage, "business", {
 					shanghu_id: shanghu_id
 				});
 				//打开详情页面          
 				mui.openWindow({
-					url: 'shop_user.html',
-					id: 'shop_user'
+					url: "shop_user.html",
+					id: "shop_user"
 				});
 			});
 			//*******************************************上拉加载代码*******************************
 			mui.init({
 				pullRefresh: {
-					container: '#container',
+					container: "#container",
 					up: {
-						contentrefresh: '正在加载...',
+						contentrefresh: "正在加载...",
 						callback: pullupRefresh
 					}
 				}
@@ -161,7 +163,7 @@
 				//				document.addEventListener("plusready", onPlusReady, false);
 				// 扩展API加载完毕，现在可以正常调用扩展API
 				//				function onPlusReady() {
-				mui.ajax('http://101.201.196.202:82/Business/businesslist', {
+				mui.ajax("http://"+plus.storage.getItem("url")+"/Business/businesslist", {
 						data: {
 							latitude: eval("(" + plus.storage.getItem("Communitycoord") + ")").latitude,
 							longitude: eval("(" + plus.storage.getItem("Communitycoord") + ")").longitude,
@@ -170,18 +172,18 @@
 							pageindex: count,
 							pagesize: 4
 						},
-						dataType: 'json', //服务器返回json格式数据
+						dataType: "json", //服务器返回json格式数据
 						async: false,
-						type: 'GET', //HTTP请求类型,
+						type: "GET", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
 							var str = "";
 							for (var i = 0; i < data.length; i++) {
-								str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://101.201.196.202:82/Images/BusinessImg/" + data[i].topimage3 + "\" /><a class=\"font-red\" href=\"#\">" + data[i].Admin_User.name + "    距此：" + data[i].distance + "米</a><p class=\"black\">主营：" + data[i].ProductsType.Names + "</p><p class=\"black\">地址：" + data[i].Admin_User.Address + "</p></li>";
+								str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://"+plus.storage.getItem("url")+"/Images/BusinessImg/" + data[i].topimage3 + "\" /><a class=\"font-red\" href=\"#\">" + data[i].Admin_User.name + "    距此：" + data[i].distance + "米</a><p class=\"black\">主营：" + data[i].ProductsType.Names + "</p><p class=\"black\">地址：" + data[i].Admin_User.Address + "</p></li>";
 							}
 							//							$("#Aroundbusiness").html(str);
 							$("#Aroundbusiness").append(str);
-							mui('#container').pullRefresh().endPullupToRefresh((data.length == 0));
+							mui("#container").pullRefresh().endPullupToRefresh((data.length == 0));
 							//参数为true代表没有更多数据了。++count > 2
 						}
 					})
@@ -190,12 +192,12 @@
 			if (mui.os.plus) {
 				mui.plusReady(function() {
 					setTimeout(function() {
-						mui('#container').pullRefresh().pullupLoading();
+						mui("#container").pullRefresh().pullupLoading();
 					}, 1000);
 				});
 			} else {
 				mui.ready(function() {
-					mui('#container').pullRefresh().pullupLoading();
+					mui("#container").pullRefresh().pullupLoading();
 				});
 			}
 		</script>

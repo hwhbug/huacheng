@@ -850,7 +850,8 @@
 					"css/feedback-page.css",
 					"fonts/mui.ttf",
 					"css/mui.min.css",
-					"css/style.css"
+					"css/style.css",
+					"js/jquery-1.9.1.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -978,7 +979,9 @@
 					"css/mui.css",
 					"js/city.data-3.js"
 				],
-				"refer": [],
+				"refer": [
+					"jiazheng/jiazheng_ayi.html"
+				],
 				"priority": 0
 			},
 			"jiazheng/jiazheng_sever_baomu.html": {
@@ -996,7 +999,9 @@
 					"css/mui.css",
 					"js/city.data-3.js"
 				],
-				"refer": [],
+				"refer": [
+					"jiazheng/jiazheng_ayi.html"
+				],
 				"priority": 0
 			},
 			"jiazheng/jiazheng_sever_peihu.html": {
@@ -1014,7 +1019,9 @@
 					"css/mui.css",
 					"js/city.data-3.js"
 				],
-				"refer": [],
+				"refer": [
+					"jiazheng/jiazheng_ayi.html"
+				],
 				"priority": 0
 			},
 			"jiazheng/jiazheng_sever_yuesao.html": {
@@ -1049,7 +1056,8 @@
 					"css/mui.css"
 				],
 				"refer": [
-					"login.html"
+					"login.html",
+					"jiazheng/jiazheng_tijiao.html"
 				],
 				"priority": 0
 			},
@@ -1246,7 +1254,8 @@
 					"js/mui.view.js"
 				],
 				"refer": [
-					"shopping/shop_list.html"
+					"shopping/shop_list.html",
+					"shopping/shop_car.html"
 				],
 				"priority": 0
 			},
