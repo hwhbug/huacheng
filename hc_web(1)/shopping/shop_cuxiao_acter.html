@@ -176,7 +176,7 @@
 				mui.ajax("http://"+plus.storage.getItem("url")+"/product/whetherlogin", {
 					data: {},
 					dataType: "json", //服务器返回json格式数据
-					async: false,
+					async: true,
 					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
@@ -200,8 +200,10 @@
 			});
 			//**********************************以下为获取数据**********************************************
 			window.addEventListener("productsId", function(event) {
+				
 				//获得事件参数
 				var cuxiao_id = event.detail.cuxiao_id;
+				console.log(cuxiao_id)
 				//				页面加载时，清空数据层的缓存数据
 				$(".mui-title").empty();
 				$(".left .pro_name").empty();
@@ -221,7 +223,7 @@
 							id: cuxiao_id,
 						},
 						dataType: "json", //服务器返回json格式数据
-						async: false,
+						async: true,
 						type: "GET", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
@@ -231,7 +233,7 @@
 							$(".left .pro_name").html(data.Names);
 							$(".left .font-red.mx_jiage").html("￥" + data.Price2);
 							$(".left .zhonghuaxian").html("￥" + data.Price1);
-							$(".shop_main").html(data.Description);
+							$(".shop_main").html(data.Description.replace(/\/Images/g,"http://"+plus.storage.getItem("url")+"/Images"));
 							$(".right .pro_name").html(data.Names);
 							$(".right .font-red.mx_jiage").html("￥" + data.Price1);
 							$(".right .zhonghuaxian").html("￥" + data.Price2);
@@ -243,7 +245,7 @@
 									productid: data.ID
 								},
 								dataType: "json", //服务器返回json格式数据
-								async: false,
+								async: true,
 								type: "GET", //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(data1) {
@@ -261,7 +263,7 @@
 									producttypeid: data.ProductsType_ID,
 								},
 								dataType: "json", //服务器返回json格式数据
-								async: false,
+								async: true,
 								type: "GET", //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(data2) {
@@ -312,6 +314,7 @@
 				var re = new RegExp("&nbsp;", "g");
 				var reattr = new RegExp(",", "g");
 				add_shop_car.addEventListener("tap", function(event) {
+					console.log("a")
 					if (choise_productattrname.innerHTML.replace(/\&nbsp;/g, ",") == "") {
 						plus.ui.toast("请完善信息");
 						return;
@@ -321,6 +324,7 @@
 							return;
 						}
 					}	
+					console.log(cuxiao_id)
 					//****************************用户提交成功返回*********************************
 					mui.ajax("http://"+plus.storage.getItem("url")+"/product/AddCart", {
 						data: {
@@ -332,7 +336,7 @@
 								//								"Business_ID":""
 						},
 						dataType: "json", //服务器返回json格式数据
-						async: false,
+						async: true,
 						type: "Post", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {

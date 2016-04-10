@@ -68,7 +68,7 @@
 				color: #F17E25;
 			}
 		</style>
-		<script src="../js/mui.js"></script>
+		<!--<script src="../js/mui.js"></script>-->
 		<link href="../css/mui.poppicker.css" rel="stylesheet" />
 		<link href="../css/mui.picker.css" rel="stylesheet" />
 		<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
@@ -84,18 +84,15 @@
 
 				<div class="mui-input-row">
 					<label>姓名</label>
-					<input id="name" type="text" class="mui-input-clear mui-input" placeholder="李晨源">
+					<input id="realname" type="text" class="mui-input-clear mui-input" placeholder="李晨源">
 				</div>
-				<div class="mui-input-row">
+				<div id="sex" class="mui-input-row">
 					<label>性别</label>
-
 					<div class="mui-input-row mui-radio">
-
-						<input name="radio1" type="radio"> 男
+						<input name="radio1" type="radio" value="男"> 男
 					</div>
 					<div class="mui-input-row mui-radio">
-
-						<input name="radio1" type="radio" checked> 女
+						<input name="radio1" type="radio" value="女" checked> 女
 					</div>
 				</div>
 				<div class="mui-input-row">
@@ -112,45 +109,35 @@
 				</button>
 				<button style="border:none; border-bottom: 1px solid #DDDDDD;" id="showUserPicker" class="mui-btn mui-btn-block adress " type="button">
 					<div id="HouseResult" class="ui-alert">小区:
-					<input type="hidden" id="CommunityID" />
+					<input type="hidden" id="HouseID" />
 					</div>
 				</button>
 				<button style="border:none; border-bottom: 1px solid #DDDDDD;" id="showFloorPicker" class="mui-btn mui-btn-block adress " type="button">
-					<div id="FloorResult" class="ui-alert">楼号:</div>
+					<div id="FloorResult" class="ui-alert">楼号:
+					<input type="hidden" id="FloorID" />
+					</div>
 				</button>
 				<button style="border:none; border-bottom: 1px solid #DDDDDD;" id="showUnitPicker" class="mui-btn mui-btn-block adress " type="button">
-					<div id="UnitResult" class="ui-alert">单元:</div>
+					<div id="UnitResult" class="ui-alert">单元:
+					<input type="hidden" id="UnitID" />
+					</div>
 				</button>
 				<button style="border:none; border-bottom: 1px solid #DDDDDD;" id="showRoomPicker" class="mui-btn mui-btn-block adress " type="button">
-					<div id="RoomResult" class="ui-alert">门牌:</div>
+					<div id="RoomResult" class="ui-alert">门牌:
+					<input type="hidden" id="RoomID" />
+					</div>
 				</button>
-				<!--<div class="mui-input-row">
-					<label>楼号</label>
-					<input id="Floor" type="text" class="mui-input-clear mui-input" placeholder="输入格式：#5">
-				</div>
-				<div class="mui-input-row">
-					<label>单元</label>
-					<input id="Unit" type="text" class="mui-input-clear mui-input" placeholder="输入格式：2单元">
-				</div>
-				<div class="mui-input-row">
-					<label>门牌</label>
-					<input id="Door" type="text" class="mui-input-clear mui-input" placeholder="输入格式：1801">
-				</div>-->
-				<!--<div class="mui-input-row">
-					<label>账号</label>
-					<input id="account" type="text" class="mui-input-clear mui-input" placeholder="输入您物业绑定的手机号">
 
-				</div>-->
-				<p style="height: 30px; padding: 5px;">
-					<button id="btn" class="yanzhengma mui-pull-right" style="width:120px;">发送验证码</button>
+				<p id="btn_code" style="height: 30px; padding: 5px;">
+					<input type="button" class="yanzhengma mui-pull-right" style="width:120px;">发送验证码</input>
 				</p>
 				<div class="mui-input-row">
 					<label>验证</label>
-					<input id="password" type="text" class="mui-input-clear mui-input" placeholder="请输入您的验证码">
+					<input id="Codes" type="text" class="mui-input-clear mui-input" placeholder="请输入您的验证码">
 				</div>
 			</form>
 			<div class="mui-content-padded">
-				<button id="Perfect" class="mui-btn mui-btn-block mui-btn-primary btn_login">确认修改</button>
+				<button id="submission" class="mui-btn mui-btn-block mui-btn-primary btn_login">确认修改</button>
 			</div>
 			<div class="mui-contewnt-padded">
 				<p class="font-red center">注：此验证码为您在所属物业所预留的手机号</p>
@@ -159,90 +146,149 @@
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/app.js"></script>
-		<script src="../libs/easymob-webim-sdk/jquery-1.11.1.js"></script>
+		<!--<script src="../libs/easymob-webim-sdk/jquery-1.11.1.js"></script>
 		<script src="../libs/easymob-webim-sdk/strophe-custom-2.0.0.js"></script>
 		<script src="../libs/easymob-webim-sdk/json2.js"></script>
-		<script src="../libs/easymob-webim-sdk/easemob.im-1.0.5.js"></script>
+		<script src="../libs/easymob-webim-sdk/easemob.im-1.0.5.js"></script>-->
 		<script>
 			(function($, doc) {
 				$.init();
 				$.plusReady(function() {
 					var settings = app.getSettings();
-					var Perfect = doc.getElementById("Perfect");
-					var btn = doc.getElementById("btn");
-					var yanzheng = doc.getElementById("yanzhengma");
-					var accountBox = doc.getElementById("account");
-					var passwordBox = doc.getElementById("password");
-					var passwordConfirmBox = doc.getElementById("password_confirm");
-					var change_password = null;
-					Perfect.addEventListener("tap", function(event) {
+					var submission = doc.getElementById("submission");
+					var btn_code = doc.getElementById("btn_code");
+					var realname = doc.getElementById("realname");
+					var Age = doc.getElementById("Age");
+					var T_ProvinceID = doc.getElementById("T_ProvinceID");
+					var T_CityID = doc.getElementById("T_CityID");
+					var T_DistrictID = doc.getElementById("T_DistrictID");
+					var HouseID = doc.getElementById("HouseID");
+					var FloorID = doc.getElementById("FloorID");
+					var UnitID = doc.getElementById("UnitID");
+					var RoomID = doc.getElementById("RoomID");
+					var Codes = doc.getElementById("Codes");
+					var sexceshi = doc.getElementsByName('radio1');
+					var sex = "";
+					submission.addEventListener("tap", function(event) {
+						mui("#sex input").each(function() {
+							//若当前input为空，则alert提醒
+							console.log(this.toString());
+							if (this.checked) {
+								sex = this.value;
+							}
+							console.log(sex);
+						});
 						var regInfo = {};
 						//*****************验证手机号**************************
-						var check_phone_number = /^1[3458]\d{9}$/;
-						if (accountBox.value.length == 0) {
-							plus.ui.toast("手机号不能为空");
+						var realname_reg = /^[\u2E80-\u9FFF]+$/;
+						if (realname.value == "") {
+							plus.ui.toast("姓名不能为空");
 							return;
 						}
-						if (accountBox.value.length != 11) {
-							plus.ui.toast("请输入有效的手机号！");
+						if (!realname.value.match(realname_reg)) {
+							plus.nativeUI.toast("姓名只能为汉子");
 							return;
 						}
-						if (!accountBox.value.match(check_phone_number)) {
-							plus.ui.toast("请输入有效的手机号");
+						//*****************验证年龄**************************
+						if (Age.value == "") {
+							plus.ui.toast("年龄不能为空");
 							return;
 						}
-						//*********************验证验证码输入********************
-						if (yanzheng.value == "") {
-							plus.nativeUI.toast("验证码不能为空");
+						//*****************验证所在地区**************************
+						if (T_ProvinceID.value == "") {
+							plus.ui.toast("请选择所在地区");
 							return;
 						}
-						if (yanzheng.value.length != 8) {
-							plus.nativeUI.toast("验证码不合法");
+						//*********************验证楼号********************
+						if (HouseID.value == "") {
+							plus.nativeUI.toast("请选择小区");
+							return;
+						}
+						//*********************验证楼号********************
+						if (FloorID.value == "") {
+							plus.nativeUI.toast("请选择楼号");
+							return;
+						}
+						//*********************验证楼号********************
+						if (UnitID.value == "") {
+							plus.nativeUI.toast("请选择单元");
+							return;
+						}
+						//*********************验证楼号********************
+						if (RoomID.value == "") {
+							plus.nativeUI.toast("请选择门牌号");
 							return;
 						}
 						//*********************************验证密码输入*************************************
-						var passwordConfirm = passwordConfirmBox.value;
-						if (passwordBox.value == "") {
-							plus.nativeUI.toast("密码不能为空");
+						if (Codes.value == "") {
+							plus.nativeUI.toast("验证码不能为空");
 							return;
 						}
-						if (passwordBox.value.length < 6) {
-							plus.nativeUI.toast("密码需要至少六位字符");
+						if (Codes.value.length != 8) {
+							plus.nativeUI.toast("验证码不合法");
 							return;
 						}
-						if (!ismypassword(passwordBox.value)) {
-							plus.nativeUI.toast("密码需要字母和数字组合");
-							return;
-						}
-						if (passwordConfirm != passwordBox.value) {
-							plus.nativeUI.toast("密码两次输入不一致");
-							return;
-						}
+						console.log(T_ProvinceID.value+"&"+T_CityID.value+"&"+T_DistrictID.value+"&"+HouseID.value)
+						console.log(FloorID.value +"&"+ UnitID.value +"&"+ RoomID.value)
 						//****************************用户提交成功返回*********************************
 						app.reg(regInfo, function(err) {
 							if (err) {
 								plus.nativeUI.toast(err);
 								return;
 							}
-							mui.ajax("http://"+plus.storage.getItem("url")+"/ResetPass/ResetPass_do", {
+							mui.ajax("http://" + plus.storage.getItem("url") + "/Home/BindProperty", {
 								data: {
-									"pwd": passwordBox.value,
-									"mp": accountBox.value,
-									"yanzheng": yanzheng.value
+									"name": realname.value,
+									"sex": sex,
+									"Age": Age.value,
+									"T_ProvinceID": T_ProvinceID.value,
+									"T_CityID": T_CityID.value,
+									"T_DistrictID": T_DistrictID.value,
+									"CommunityID": HouseID.value,
+									"Floor_Name": FloorID.value,
+									"UnitNumber_Name": UnitID.value,
+									"DoorNo_Name": RoomID.value,
+									"codes": Codes.value
 								},
 								dataType: "json", //服务器返回json格式数据
 								type: "Post", //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(data) {
+									alert(data)
 									if (data.statusCode == 200) {
 										plus.ui.toast(data.message);
-										//							var ws=plus.webview.currentWebview();
-										//	plus.webview.close(ws);
 										mui.back();
-										//							mui.openWindow({
-										//								url: "login.html",
-										//								id: "login",
-										//							});
+									} else {
+										plus.ui.toast(data.message);
+									}
+								}
+							})
+						});
+					});
+					btn_code.addEventListener("tap", function(event) {
+						var name = {};
+						if (RoomID.value == "") {
+							plus.nativeUI.toast("请选择门牌号");
+							return;
+						}
+						console.log(RoomID.value)
+							//****************************用户获取验证码提交成功返回*********************************
+						app.yanzheng(name, function(err) {
+							if (err) {
+								plus.nativeUI.toast(err);
+								return;
+							}
+							mui.ajax("http://" + plus.storage.getItem("url") + "/home/fs_codebound_bind", {
+								data: {
+									"room_id": RoomID.value
+								},
+								dataType: "json", //服务器返回json格式数据
+								type: "Post", //HTTP请求类型,
+								timeout: 10000, //超时时间设置为10秒；
+								success: function(data) {
+									if (data.statusCode == "200") {
+										plus.ui.toast(data.message)
+											//										test.init(btn);
 									} else {
 										plus.ui.toast(data.message);
 									}
@@ -257,169 +303,156 @@
 			});
 			(function($, doc) {
 				$.init();
-				$.ready(function() {
-					var Community_id = "";
-					var Floor_id = "";
-					var Unit_id = "";
-					var Room_id = "";
-					var userPicker = new $.PopPicker();
-					//**************************************获取小区列表**********************************
-					mui.ajax("http://"+plus.storage.getItem("url")+"/info/Community_Load", {
-						data: {},
-						async: false,
-						dataType: "json", //服务器返回json格式数据
-						type: "Post", //HTTP请求类型,
-						timeout: 10000, //超时时间设置为10秒；
-						success: function(Community_data) {
-							console.log(eval(Community_data).length)
-							userPicker.setData(eval(Community_data));
-						}
-					})
-					var showUserPickerButton = doc.getElementById("showUserPicker");
-					var HouseResult = doc.getElementById("HouseResult");
-					showUserPickerButton.addEventListener("tap", function(event) {
-						userPicker.show(function(items) {
-							HouseResult.innerText = "你选择:" + (items[0] || {}).text;
-							Community_id = (items[0] || {}).value;
-							var FloorPicker = new $.PopPicker();
-							//*************************************根据小区ID获取建筑列表**********************
-							mui.ajax("http://"+plus.storage.getItem("url")+"/info/Floor_Load", {
-								data: {
-									Community_id: Community_id
-								},
-								async: false,
-								dataType: "json", //服务器返回json格式数据
-								type: "Post", //HTTP请求类型,
-								timeout: 10000, //超时时间设置为10秒；
-								success: function(Floor_data) {
-									FloorPicker.setData("");
-									console.log(eval(Floor_data).length)
-									FloorPicker.setData(eval(Floor_data));
-								}
-							})
-							var showFloorPickerButton = doc.getElementById("showFloorPicker");
-							var FloorResult = doc.getElementById("FloorResult");
-							showFloorPickerButton.addEventListener("tap", function(event) {
-								FloorPicker.show(function(items) {
-									FloorResult.innerText = "你选择:" + (items[0] || {}).text;
-									Floor_id = (items[0] || {}).value;
-									//************************************选择楼号后改变单元数据******************************
-									var UnitPicker = new $.PopPicker();
-									mui.ajax("http://"+plus.storage.getItem("url")+"/info/Unit_Load", {
-										data: {
-											Community_id: Community_id,
-											Floor_id: Floor_id
-										},
-										async: false,
-										dataType: "json", //服务器返回json格式数据
-										type: "Post", //HTTP请求类型,
-										timeout: 10000, //超时时间设置为10秒；
-										success: function(Unit_data) {
-											console.log(eval(Unit_data).length)
-											UnitPicker.setData(eval(Unit_data));
-										}
-									})
-									var showUnitPickerButton = doc.getElementById("showUnitPicker");
-									var UnitResult = doc.getElementById("UnitResult");
-									showUnitPickerButton.addEventListener("tap", function(event) {
-										UnitPicker.show(function(items) {
-											UnitResult.innerText = "你选择:" + (items[0] || {}).text;
-											Unit_id = (items[0] || {}).value;
-											var RoomPicker = new $.PopPicker();
-											mui.ajax("http://"+plus.storage.getItem("url")+"/info/Room_Load", {
-												data: {
-													Community_id: Community_id,
-													Floor_id: Floor_id,
-													Unit_id: Unit_id
-												},
-												async: false,
-												dataType: "json", //服务器返回json格式数据
-												type: "Post", //HTTP请求类型,
-												timeout: 10000, //超时时间设置为10秒；
-												success: function(Room_data) {
-													console.log(eval(Room_data).length)
-													RoomPicker.setData(eval(Room_data));
-												}
-											})
-											var showRoomPicker = doc.getElementById("showRoomPicker");
-											var RoomResult = doc.getElementById("RoomResult");
-											showRoomPicker.addEventListener("tap", function(event) {
-												RoomPicker.show(function(items) {
-													RoomResult.innerText = "你选择:" + (items[0] || {}).text;
-												});
-											}, false);
-										});
-									}, false);
-								});
-							}, false);
-						});
-					}, false);
-				});
+				$.plusReady(function() {
+					$.ready(function() {
+						var Community_id = "";
+						var Floor_id = "";
+						var Unit_id = "";
+						var Room_id = "";
+						var HouseID = doc.getElementById("HouseID");
+						var FloorID = doc.getElementById("FloorID");
+						var UnitID = doc.getElementById("UnitID");
+						var RoomID = doc.getElementById("RoomID");
+						var userPicker = new $.PopPicker();
+						//**************************************获取小区列表**********************************
+						console.log(plus.storage.getItem("url"))
+						mui.ajax("http://" + plus.storage.getItem("url") + "/info/Community_Load", {
+							data: {},
+							async: false,
+							dataType: "json", //服务器返回json格式数据
+							type: "Post", //HTTP请求类型,
+							timeout: 10000, //超时时间设置为10秒；
+							success: function(Community_data) {
+								console.log(eval(Community_data).length)
+								userPicker.setData(eval(Community_data));
+							}
+						})
+						var showUserPickerButton = doc.getElementById("showUserPicker");
+						var HouseResult = doc.getElementById("HouseResult");
+						showUserPickerButton.addEventListener("tap", function(event) {
+							userPicker.show(function(items) {
+								HouseResult.innerText = "你选择:" + (items[0] || {}).text;
+								//给隐藏的小区id赋值
+								HouseID.value = (items[0] || {}).value;
+								Community_id = (items[0] || {}).value;
+								var FloorPicker = new $.PopPicker();
+								//*************************************根据小区ID获取建筑列表**********************
+								mui.ajax("http://" + plus.storage.getItem("url") + "/info/Floor_Load", {
+									data: {
+										Community_id: Community_id
+									},
+									async: false,
+									dataType: "json", //服务器返回json格式数据
+									type: "Post", //HTTP请求类型,
+									timeout: 10000, //超时时间设置为10秒；
+									success: function(Floor_data) {
+										FloorPicker.setData("");
+										console.log(eval(Floor_data).length)
+										FloorPicker.setData(eval(Floor_data));
+									}
+								})
+								var showFloorPickerButton = doc.getElementById("showFloorPicker");
+								var FloorResult = doc.getElementById("FloorResult");
+								showFloorPickerButton.addEventListener("tap", function(event) {
+									FloorPicker.show(function(items) {
+										FloorResult.innerText = "你选择:" + (items[0] || {}).text;
+										FloorID.value = (items[0] || {}).value;
+										Floor_id = (items[0] || {}).value;
+										//************************************选择楼号后改变单元数据******************************
+										var UnitPicker = new $.PopPicker();
+										mui.ajax("http://" + plus.storage.getItem("url") + "/info/Unit_Load", {
+											data: {
+												Community_id: Community_id,
+												Floor_id: Floor_id
+											},
+											async: false,
+											dataType: "json", //服务器返回json格式数据
+											type: "Post", //HTTP请求类型,
+											timeout: 10000, //超时时间设置为10秒；
+											success: function(Unit_data) {
+												console.log(eval(Unit_data).length)
+												UnitPicker.setData(eval(Unit_data));
+											}
+										})
+										var showUnitPickerButton = doc.getElementById("showUnitPicker");
+										var UnitResult = doc.getElementById("UnitResult");
+										showUnitPickerButton.addEventListener("tap", function(event) {
+											UnitPicker.show(function(items) {
+												UnitResult.innerText = "你选择:" + (items[0] || {}).text;
+												UnitID.value = (items[0] || {}).value;
+												Unit_id = (items[0] || {}).value;
+												var RoomPicker = new $.PopPicker();
+												mui.ajax("http://" + plus.storage.getItem("url") + "/info/Room_Load", {
+													data: {
+														Community_id: Community_id,
+														Floor_id: Floor_id,
+														Unit_id: Unit_id
+													},
+													async: false,
+													dataType: "json", //服务器返回json格式数据
+													type: "Post", //HTTP请求类型,
+													timeout: 10000, //超时时间设置为10秒；
+													success: function(Room_data) {
+														console.log(eval(Room_data).length)
+														RoomPicker.setData(eval(Room_data));
+													}
+												})
+												var showRoomPicker = doc.getElementById("showRoomPicker");
+												var RoomResult = doc.getElementById("RoomResult");
+												showRoomPicker.addEventListener("tap", function(event) {
+													RoomPicker.show(function(items) {
+														RoomResult.innerText = "你选择:" + (items[0] || {}).text;
+														RoomID.value = (items[0] || {}).value;
+													});
+												}, false);
+											});
+										}, false);
+									});
+								}, false);
+							});
+						}, false);
+					});
+				})
 			})(mui, document);
 			(function($, doc) {
 				$.init();
-				$.ready(function() {
-					//-----------------------------------------
-					//级联示例***********************级联数据生成数组在方法里面*****************************
-					//-----------------------------------------
-					var cityPicker3 = new $.PopPicker({
-						layer: 3
-					});
-					mui.ajax("http://"+plus.storage.getItem("url")+"/info/Province_Load", {
-						data: {},
-						async: false,
-						dataType: "json", //服务器返回json格式数据
-						type: "Post", //HTTP请求类型,
-						timeout: 10000, //超时时间设置为10秒；
-						success: function(Provincesdata) {
-							cityPicker3.setData(eval(Provincesdata));
-						}
-					})
-					var showCityPickerButton = doc.getElementById("showCityPicker3");
-					var cityResult3 = doc.getElementById("cityResult3");
-					var T_ProvinceID = doc.getElementById("T_ProvinceID");
-					var T_CityID = doc.getElementById("T_CityID");
-					var T_DistrictID = doc.getElementById("T_DistrictID");
-					showCityPickerButton.addEventListener("tap", function(event) {
-						cityPicker3.show(function(items) {
-							cityResult3.innerText = "你选择:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
-//							Community_Load((items[2] || {}).value)
-							T_ProvinceID.value = (items[0] || {}).value
-							T_CityID.value = (items[1] || {}).value
-							T_DistrictID.value = (items[2] || {}).value
-								//cityResult3.innerText = (items[2] || {}).text;
-								//返回 false 可以阻止选择框的关闭
-								//return false
+				$.plusReady(function() {
+					$.ready(function() {
+						//-----------------------------------------
+						//级联示例***********************级联数据生成数组在方法里面*****************************
+						//-----------------------------------------
+						var cityPicker3 = new $.PopPicker({
+							layer: 3
 						});
-					}, false);
-					//-----------------------------------------
-					//获取小区
-					//-----------------------------------------
-//					var Community_Load = function(dis_id) {
-//						var userPicker = new $.PopPicker();
-//						mui.ajax("http://"+plus.storage.getItem("url")+"/info/Community_Load1", {
-//							data: {
-//								id: dis_id
-//							},
-//							async: false,
-//							dataType: "json", //服务器返回json格式数据
-//							type: "Post", //HTTP请求类型,
-//							timeout: 10000, //超时时间设置为10秒；
-//							success: function(Communitydata) {
-//								userPicker.setData(eval(Communitydata));
-//							}
-//						})
-//						var showUserPickerButton = doc.getElementById("showUserPicker");
-//						var userResult = doc.getElementById("userResult");
-//						var CommunityID = doc.getElementById("CommunityID");
-//						showUserPickerButton.addEventListener("tap", function(event) {
-//							userPicker.show(function(items) {
-//								userResult.innerText = "你选择:" + (items[0] || {}).text;
-//								CommunityID.value = (items[0] || {}).value;
-//							});
-//						}, false);
-//					}
-				});
+						mui.ajax("http://" + plus.storage.getItem("url") + "/info/Province_Load", {
+							data: {},
+							async: false,
+							dataType: "json", //服务器返回json格式数据
+							type: "Post", //HTTP请求类型,
+							timeout: 10000, //超时时间设置为10秒；
+							success: function(Provincesdata) {
+								cityPicker3.setData(eval(Provincesdata));
+							}
+						})
+						var showCityPickerButton = doc.getElementById("showCityPicker3");
+						var cityResult3 = doc.getElementById("cityResult3");
+						var T_ProvinceID = doc.getElementById("T_ProvinceID");
+						var T_CityID = doc.getElementById("T_CityID");
+						var T_DistrictID = doc.getElementById("T_DistrictID");
+						showCityPickerButton.addEventListener("tap", function(event) {
+							cityPicker3.show(function(items) {
+								cityResult3.innerText = "你选择:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+								//							Community_Load((items[2] || {}).value)
+								T_ProvinceID.value = (items[0] || {}).value
+								T_CityID.value = (items[1] || {}).value
+								T_DistrictID.value = (items[2] || {}).value
+									//cityResult3.innerText = (items[2] || {}).text;
+									//返回 false 可以阻止选择框的关闭
+									//return false
+							});
+						}, false);
+					});
+				})
 			})(mui, document);
 		</script>
 		<script src="../js/mui.picker.js"></script>

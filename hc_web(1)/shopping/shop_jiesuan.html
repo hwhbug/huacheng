@@ -363,6 +363,10 @@
 						<label>电话：</label>
 						<input id="tel" placeholder="收货人手机号，方便联系收货">
 					</div>
+					<div id="mySwitch" class="mui-input-row mui-switch mui-active right">
+						<label>设置默认：</label>
+						<div class="mui-switch-handle right"></div>
+					</div>
 					<textarea id="adderss" class="mui-input-clear question" placeholder="填写常用地址"></textarea>
 					<a id="addressbtn" href="#bottomPopover" class="mui-btn-primary mui-btn mui-pull-right" style="width:15%; margin: 5px 20px">确定</a>
 				</div>
@@ -381,7 +385,7 @@
 			window.addEventListener("newsId", function(event) {
 					//获得事件参数
 					var cuxiao_id = event.detail.id;
-					mui.ajax("http://"+plus.storage.getItem("url")+"/MyOrders/index", {
+					mui.ajax("http://" + plus.storage.getItem("url") + "/MyOrders/index", {
 						data: {
 							"ids": cuxiao_id.toString(),
 						},
@@ -394,7 +398,7 @@
 							for (var i = 0; i < data.length; i++) {
 								myorders += "<li id=\"" + data[i].ID + "\"><p>" + data[i].OrdersName + "<span class=\"font-red mui-pull-right\">￥" + data[i].TotalPrice + "</span></p></li>";
 								totalprice += data[i].TotalPrice;
-								orderids += data[i].ID;
+								orderids += data[i].ID+",";
 							}
 							$("#myorders").html(myorders);
 							$("#mx_jiage").html("￥" + totalprice);
@@ -403,30 +407,29 @@
 					})
 				})
 				//*****************************获取默认收货地址**********************************
-				mui.plusReady(function() {
-			mui.ajax("http://"+plus.storage.getItem("url")+"/DeliveryAddress/Default", {
-					data: {},
-					dataType: "json", //服务器返回json格式数据
-					type: "Post", //HTTP请求类型,
-					timeout: 10000, //超时时间设置为10秒；
-					success: function(data) {
-						if (data.ConsigneeName != null) {
-							$(".dizhisub").html("<p id=\"" + data.ID + "\" class=\"black\">收货人：" + data.ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data.ConsigneePhone + "</span></p><p id=\"default_address\">地址：" + data.Address + "</p>");
+			mui.plusReady(function() {
+					mui.ajax("http://" + plus.storage.getItem("url") + "/DeliveryAddress/Default", {
+						data: {},
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							if (data.ConsigneeName != null) {
+								$(".dizhisub").html("<p id=\"" + data.ID + "\" class=\"black\">收货人：" + data.ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data.ConsigneePhone + "</span></p><p id=\"default_address\">地址：" + data.Address + "</p>");
+							}
 						}
-					}
-				})})
+					})
+				})
 				//*****************************以下为调用支付宝开始支付操作****************************
 			var channels = null;
 			// 监听plusready事件  
 			document.addEventListener("plusready", function() {
 				// 扩展API加载完毕，现在可以正常调用扩展API
 				plus.payment.getChannels(function(s) {
-					
 					for (var i in s) {
 						var channel = s[i];
 						if (channel.id === "alipay") {
 							channels = channel;
-							
 						}
 					}
 				}, function(e) {
@@ -451,8 +454,10 @@
 			});
 			document.getElementById("zhifu").addEventListener("tap", function() {
 					var deliveryaddress_id = $("#dizhisub p").attr("id");
+					console.log(orderids)
+					console.log(deliveryaddress_id)
 					//***********************************支付交易之前，将收货地址添加到数据库**********************************
-					mui.ajax("http://"+plus.storage.getItem("url")+"/MyOrders/Myorder_DeliveryAddress", {
+					mui.ajax("http://" + plus.storage.getItem("url") + "/MyOrders/Myorder_DeliveryAddress", {
 							data: {
 								order_id: orderids,
 								deliveryaddress_id: deliveryaddress_id
@@ -471,12 +476,12 @@
 					var statement = "";
 					//******************************************选择支付宝支付************************************
 					if (paymethod.length == 4) {
-						plus.nativeUI.showWaiting( "支付宝启动中……" );
 						if (dizhisub.innerHTML.length == 0) {
 							plus.ui.toast("请先添加收货地址……");
 							return;
 						}
-						mui.ajax("http://"+plus.storage.getItem("url")+"/Alipay/GetPayInfo", {
+						console.log(plus.storage.getItem("url") )
+						mui.ajax("http://" + plus.storage.getItem("url") + "/Alipay/GetPayInfo", {
 							data: {
 								orderid: orderids
 							},
@@ -484,10 +489,11 @@
 							type: "Post", //HTTP请求类型,
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data) {
-								//								console.log(JSON.stringify(data))
-								if (channels!=null) {
+								alert(data)
+																console.log(JSON.stringify(data))
+								if (channels != null) {
 									plus.nativeUI.closeWaiting("支付宝启动中……");
-								} 
+								}
 								statement = data;
 								plus.payment.request(channels, statement, function() {
 									plus.ui.toast("支付操作成功！");
@@ -538,7 +544,7 @@
 							return;
 						}
 						//*****************************************选择华城一卡通支付******************************************
-						mui.ajax("http://"+plus.storage.getItem("url")+"/MerchandisePay/MerPay", {
+						mui.ajax("http://" + plus.storage.getItem("url") + "/MerchandisePay/MerPay", {
 								data: {
 									orderid: orderids,
 									yktaccount: yktaccount.value,
@@ -567,21 +573,28 @@
 
 			function getaddress() {
 				mui.plusReady(function() {
-				mui.ajax("http://"+plus.storage.getItem("url")+"/DeliveryAddress/index", {
-					data: {},
-					dataType: "json", //服务器返回json格式数据
-					type: "Post", //HTTP请求类型,
-					timeout: 10000, //超时时间设置为10秒；
-					success: function(data) {
-						var str = "";
-						for (var i = 0; i < data.length; i++) {
-							str += "<div  class=\"dizhi\" style=\"line-height: 30px; color:#666666;\"><div id=\"" + data[i].ID + "\" class=\"dizhilist\"><p class=\"black\">收货人：" + data[i].ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data[i].ConsigneePhone + "</span></p><p>收货地址：" + data[i].Address + "</p></div><a class=\"mui-pull-right font-red\" style=\"margin-left: 10px;\">删除 </a><a href=\"#bottomPopover\" class=\"mui-pull-right font-blue\"> 修改信息</a><div style=\"clear: both;\"></div></div>";
+					mui.ajax("http://" + plus.storage.getItem("url") + "/DeliveryAddress/index", {
+						data: {},
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var str = "";
+							for (var i = 0; i < data.length; i++) {
+								str += "<div  class=\"dizhi\" style=\"line-height: 30px; color:#666666;\"><div id=\"" + data[i].ID + "\" class=\"dizhilist\"><p class=\"black\">收货人：" + data[i].ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data[i].ConsigneePhone + "</span></p><p>收货地址：" + data[i].Address + "</p></div><a class=\"mui-pull-right font-red\" style=\"margin-left: 10px;\">删除 </a><a href=\"#bottomPopover\" class=\"mui-pull-right font-blue\"> 修改信息</a><div style=\"clear: both;\"></div></div>";
+							}
+							$("#DeliveryAddress").html(str);
 						}
-						$("#DeliveryAddress").html(str);
-					}
-				})})
+					})
+				})
 			}
 			//**********************************************添加、修改收货地址提交代码**************************************
+			var isActive = document.getElementById("mySwitch").classList.contains("mui-active");
+			if (isActive) {
+				console.log("打开状态");
+			} else {
+				console.log("关闭状态");
+			}
 			var addressbtn = document.getElementById("addressbtn");
 			var uname = document.getElementById("uname");
 			var tel = document.getElementById("tel");
@@ -601,7 +614,7 @@
 					return;
 				}
 				//****************************用户提交成功返回*********************************
-				mui.ajax("http://"+plus.storage.getItem("url")+"/DeliveryAddress/Creates", {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/DeliveryAddress/Creates", {
 					data: {
 						"ConsigneeName": uname.value,
 						"ConsigneePhone": tel.value,
@@ -628,7 +641,7 @@
 			////********************************************************删除地址信息*****************************************
 			mui("#DeliveryAddress").on("tap", ".font-red", function(e) {
 				var DeliveryAddressid = this.parentElement.childNodes[0].getAttribute("id");
-				mui.ajax("http://"+plus.storage.getItem("url")+"/DeliveryAddress/Delete", {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/DeliveryAddress/Delete", {
 					data: {
 						id: DeliveryAddressid,
 					},
@@ -648,7 +661,7 @@
 			////********************************************************修改地址信息*****************************************
 			mui("#DeliveryAddress").on("tap", ".font-blue", function(e) {
 				var DeliveryAddressid = this.parentElement.childNodes[0].getAttribute("id");
-				mui.ajax("http://"+plus.storage.getItem("url")+"/DeliveryAddress/getdeliveryaddressbyid", {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/DeliveryAddress/getdeliveryaddressbyid", {
 					data: {
 						id: DeliveryAddressid,
 					},
@@ -686,7 +699,7 @@
 				var dizhisub = doc.getElementById("dizhisub");
 				mui("#DeliveryAddress").on("tap", ".dizhilist", function(e) {
 					var DeliveryAddressid = this.getAttribute("id");
-					mui.ajax("http://"+plus.storage.getItem("url")+"/DeliveryAddress/getdeliveryaddressbyid", {
+					mui.ajax("http://" + plus.storage.getItem("url") + "/DeliveryAddress/getdeliveryaddressbyid", {
 						data: {
 							id: DeliveryAddressid,
 						},

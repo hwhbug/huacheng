@@ -5,14 +5,12 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
-		<script src="../js/mui.js"></script>
+		
 		<link href="../css/mui.css" rel="stylesheet" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link href="../css/style.css" rel="stylesheet" />
 		<link href="../css/iconfont.css" rel="stylesheet" />
-		<script type="text/javascript" charset="utf-8">
-			mui.init();
-		</script>
+		
 		<script src="../js/jquery-1.9.1.min.js" type="application/javascript"></script>
 		<link href="../css/cross-down.css" rel="stylesheet" />
 		<style>
@@ -24,99 +22,39 @@
 
 	<body>
 
-		<!-- 侧滑导航根容器 -->
-
-		<!--<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">-->
-
-		<!-- 菜单容器 -->
-		<aside id="offCanvasSide" class="mui-off-canvas-left">
-			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
-				<div class="mui-scroll">
-					<!-- 菜单具体展示内容 -->
-
-					<h3><span class=" icon-homefill mui-icon" href="###">
-							<a href="###">主页 ></a>
-							<!--<button id="offCanvasHide" type="button">关闭</button>-->
-						
-						</h3>
-					<ul class="left_btn mui-table-view mui-grid-view mui-grid-9">
-						<li><a href="http://www.baidu.com" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
-						<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
-						<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
-						<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
-						<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
-						<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
-						<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
-						<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
-						<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
-						<li><a href="###"><span class=" icon-iconfontjifen36 mui-icon" href="###"></span>金融理财></a></li>
-						<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-						<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-						<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-
-					</ul>
-
-				</div>
-			</div>
-		</aside>
-		<!-- 左侧菜单结束 -->
-
-		<!-- 主页面容器 -->
-
-		<div class="mui-inner-wrap">
-
-			<!--主界面区域-->
-			<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop">
-				<div class="mui-scroll">
-
-					<!--banner-->
-					<div class="mui-slider">
-						<div class="mui-slider-group">
-							<!--<div class="mui-slider-item">
-									<img src="../image/gg1.jpg" />
-								</div>-->
-						</div>
+		<div id="container" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="mui-slider">
+					<div class="mui-slider-group">
 					</div>
-					<!--banner区域结束-->
-					<!--按钮区域-->
-
-					<div id="container">
-						<!--周边新开列表-->
-						<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Aroundbusiness">
-
-						</ul>
-						<!--周边新开列表结束-->
-
-					</div>
-
-					<!-- 侧滑后右侧变黑-->
 				</div>
-				<div class="mui-off-canvas-backdrop"></div>
+				<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Aroundbusiness">
+				</ul>
 			</div>
-			<div id="map" style="height: 500px;"></div>
 		</div>
-		<!--</div>-->
 
+		<script src="../js/mui.js"></script>
 		<script>
+			
 			//********************************获取顶部广告位图片列表******************************
 			mui.plusReady(function() {
-			mui.ajax("http://"+plus.storage.getItem("url")+"/business/Busadverts", {
-					data: {
-						type: "1"
-					},
-					dataType: "json", //服务器返回json格式数据
-					async: false,
-					type: "GET", //HTTP请求类型,
-					timeout: 10000, //超时时间设置为10秒；
-					success: function(data) {
-						var str = "";
-						for (var i = 0; i < data.length; i++) {
-							str += "<div class=\"mui-slider-item\"><img src=\"http://"+plus.storage.getItem("url")+"/Images/BusAdvertsImg/" + data[i].iamge + "\" /></div>";
+					mui.ajax("http://" + plus.storage.getItem("url") + "/business/Busadverts", {
+						data: {
+							type: "1"
+						},
+						dataType: "json", //服务器返回json格式数据
+						async: true,
+						type: "GET", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var str = "";
+							for (var i = 0; i < data.length; i++) {
+								str += "<div class=\"mui-slider-item\"><img src=\"http://" + plus.storage.getItem("url") + "/Images/BusAdvertsImg/" + data[i].iamge + "\" /></div>";
+							}
+							$(".mui-slider-group").html(str);
 						}
-						$(".mui-slider-group").html(str);
-					}
+					})
 				})
-			})
 				//***********************************获取周边商户的商品数据********************************
 				//			// 扩展API加载完毕后调用onPlusReady回调函数 
 				//*****************周边商户店铺详情页面*************************
@@ -163,7 +101,7 @@
 				//				document.addEventListener("plusready", onPlusReady, false);
 				// 扩展API加载完毕，现在可以正常调用扩展API
 				//				function onPlusReady() {
-				mui.ajax("http://"+plus.storage.getItem("url")+"/Business/businesslist", {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/Business/businesslist", {
 						data: {
 							latitude: eval("(" + plus.storage.getItem("Communitycoord") + ")").latitude,
 							longitude: eval("(" + plus.storage.getItem("Communitycoord") + ")").longitude,
@@ -173,13 +111,13 @@
 							pagesize: 4
 						},
 						dataType: "json", //服务器返回json格式数据
-						async: false,
+						async: true,
 						type: "GET", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
 							var str = "";
 							for (var i = 0; i < data.length; i++) {
-								str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://"+plus.storage.getItem("url")+"/Images/BusinessImg/" + data[i].topimage3 + "\" /><a class=\"font-red\" href=\"#\">" + data[i].Admin_User.name + "    距此：" + data[i].distance + "米</a><p class=\"black\">主营：" + data[i].ProductsType.Names + "</p><p class=\"black\">地址：" + data[i].Admin_User.Address + "</p></li>";
+								str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://" + plus.storage.getItem("url") + "/Images/BusinessImg/" + data[i].topimage3 + "\" /><a class=\"font-red\" href=\"#\">" + data[i].Admin_User.name + "    距此：" + data[i].distance + "米</a><p class=\"black\">主营：" + data[i].ProductsType.Names + "</p><p class=\"black\">地址：" + data[i].Admin_User.Address + "</p></li>";
 							}
 							//							$("#Aroundbusiness").html(str);
 							$("#Aroundbusiness").append(str);

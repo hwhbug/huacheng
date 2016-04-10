@@ -62,7 +62,7 @@
 						<div class="right">
 							<p>尊敬的：<span id="uname"></span> 欢迎回来！</p>
 							<p id="tel">手机：</p>
-							<p>社区慧生活已为您服务 <span class="font-yellow mx_jiage">22</span> 次</p>
+							<p>社区慧生活已为您服务 <span class="font-yellow mx_jiage"></span> 次</p>
 							<p id="jifeng">积分：</p>
 						</div>
 					</div>
@@ -170,11 +170,26 @@
 				});
 			});
 			document.getElementById("perfect").addEventListener("tap", function() {
-				//打开关于页面
-				mui.openWindow({
-					url: "user_xinxi.html",
-					id: "user_xinxi"
-				});
+				mui.ajax("http://" + plus.storage.getItem("url") + "/home/login_cache", {
+					data: {},
+					dataType: "json", //服务器返回json格式数据
+					async: false,
+					type: "GET", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.uname != null && data.uname != "") {
+							mui.openWindow({
+								url: "user_xinxi.html",
+								id: "user_xinxi"
+							});
+						} else {
+							mui.openWindow({
+								url: "../login.html",
+								id: "../login.html"
+							});
+						}
+					}
+				})
 			});
 			document.getElementById("user_fuwu").addEventListener("tap", function() {
 				//打开关于页面

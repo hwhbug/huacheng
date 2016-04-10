@@ -191,7 +191,7 @@
 				mui.ajax("http://"+plus.storage.getItem("url")+"/product/whetherlogin", {
 					data: {},
 					dataType: "json", //服务器返回json格式数据
-					async: false,
+					async: true,
 					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
@@ -232,7 +232,7 @@
 						id: id,
 					},
 					dataType: "json", //服务器返回json格式数据
-					async: false,
+					async: true,
 					type: "GET", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
@@ -241,7 +241,7 @@
 						$(".left .pro_name").html(data.Names);
 						$(".left .font-red.mx_jiage").html("￥" + data.Price2);
 						$(".left .zhonghuaxian").html("￥" + data.Price1);
-						$(".shop_main").html(data.Description);
+						$(".shop_main").html(data.Description.replace(/\/Images/g,"http://"+plus.storage.getItem("url")+"/Images"));
 						$(".right .pro_name").html(data.Names);
 						$(".settime").attr("endtime", data.EndTime);
 						$(".right .font-red.mx_jiage").html("￥" + data.Price1);
@@ -254,7 +254,7 @@
 								productid: data.ID
 							},
 							dataType: "json", //服务器返回json格式数据
-							async: false,
+							async: true,
 							type: "GET", //HTTP请求类型,
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data1) {
@@ -271,7 +271,7 @@
 								producttypeid: data.ProductsType_ID,
 							},
 							dataType: "json", //服务器返回json格式数据
-							async: false,
+							async: true,
 							type: "GET", //HTTP请求类型,
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data2) {
@@ -340,7 +340,7 @@
 								//								"Business_ID":""
 						},
 						dataType: "json", //服务器返回json格式数据
-						async: false,
+						async: true,
 						type: "Post", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {

@@ -10,9 +10,9 @@
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link href="../css/style.css" rel="stylesheet" />
 		<link href="../css/iconfont.css" rel="stylesheet" />
-		<script type="text/javascript" charset="utf-8">
+		<!--<script type="text/javascript" charset="utf-8">
 			mui.init();
-		</script>
+		</script>-->
 		<script src="../js/jquery-1.9.1.min.js" type="application/javascript"></script>
 		<link href="../css/cross-down.css" rel="stylesheet" />
 		<style>
@@ -22,87 +22,18 @@
 		</style>
 	</head>
 
-<body>
+	<body>
 
 		<!-- 主页面标题 -->
 		<header class="mui-bar mui-bar-nav">
 			<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">周边商户</h1>
-			<span id="icon-menu" class="mui-icon mui-icon-bars mui-pull-right font-blue"></span>
 		</header>
-		<div id="menu-wrapper" class="menu-wrapper hidden">
-					<div id="menu" class="menu">
-						<ul class="mui-table-view mui-table-view-inverted">
-							<li id="menu-btn" class="mui-table-view-cell">
-								<a href="javascript:;">周边美食</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">大型超市</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">服装商场</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">居家用品</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">日杂五金</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">家具市场</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">家电中心</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a href="javascript:;">数码科技</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div id="menu-backdrop" class="menu-backdrop"></div>
-		<!--主界面区域-->
-		<div class="mui-content"></div>
-		<script>
-		mui('.mui-scroll-wrapper').scroll();
-			var menuWrapper = document.getElementById("menu-wrapper");
-			var menu = document.getElementById("menu");
-			var menuWrapperClassList = menuWrapper.classList;
-			var backdrop = document.getElementById("menu-backdrop");
-			var info = document.getElementById("info");
-			backdrop.addEventListener('tap', toggleMenu);
-			document.getElementById("menu-btn").addEventListener('tap', toggleMenu);
-			document.getElementById("icon-menu").addEventListener('tap', toggleMenu)
-				//下沉菜单中的点击事件
-			mui('#menu').on('tap', 'a', function() {
-				toggleMenu();
-				//info.innerHTML = '你已选择：'+this.innerHTML;
-			});
-			var busying = false;
-
-			function toggleMenu() {
-				if (busying) {
-					return;
-				}
-				busying = true;
-				if (menuWrapperClassList.contains('mui-active')) {
-					document.body.classList.remove('menu-open');
-					menuWrapper.className = 'menu-wrapper fade-out-up animated';
-					menu.className = 'menu bounce-out-up animated';
-					setTimeout(function() {
-						backdrop.style.opacity = 0;
-						menuWrapper.classList.add('hidden');
-					}, 500);
-				} else {
-					document.body.classList.add('menu-open');
-					menuWrapper.className = 'menu-wrapper fade-in-down animated mui-active';
-					menu.className = 'menu bounce-in-down animated';
-					backdrop.style.opacity = 1;
-				}
-				setTimeout(function() {
-					busying = false;
-				}, 500);
-			}
+	
+		<script type="text/javascript">
+		
+			mui('.mui-scroll-wrapper').scroll();
+			
 			//启用双击监听
 			mui.init({
 				gestureConfig: {
@@ -113,7 +44,7 @@
 					id: 'shop_refresh_shop.html',
 					styles: {
 						top: '45px',
-						bottom: '-500px',
+						bottom: '0px',
 					}
 				}]
 			});
@@ -122,7 +53,7 @@
 				if (contentWebview == null) {
 					contentWebview = plus.webview.currentWebview().children()[0];
 				}
-				contentWebview.evalJS("mui('#container').pullRefresh().scrollTo(0,0,100)");
+				contentWebview.evalJS("mui('#container').pullRefresh().scrollTo(0, 0,100)");
 			});
 		</script>
 

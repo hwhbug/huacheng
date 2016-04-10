@@ -1,72 +1,74 @@
 mui.init({
 	swipeBack: true //启用右滑关闭功能
 });
-(function($, doc) {
-	$.init();
-	$.ready(function() {
-		//-----------------------------------------
-		//级联示例***********************级联数据生成数组在方法里面*****************************
-		//-----------------------------------------
-		var cityPicker3 = new $.PopPicker({
-			layer: 3
-		});
-		mui.ajax("http://" + plus.storage.getItem("url") + "/info/Province_Load", {
-			data: {},
-			async: false,
-			dataType: "json", //服务器返回json格式数据
-			type: "Post", //HTTP请求类型,
-			timeout: 10000, //超时时间设置为10秒；
-			success: function(Provincesdata) {
-				cityPicker3.setData(eval(Provincesdata));
-			}
-		})
-		var showCityPickerButton = doc.getElementById("showCityPicker3");
-		var cityResult3 = doc.getElementById("cityResult3");
-		var T_ProvinceID = doc.getElementById("T_ProvinceID");
-		var T_CityID = doc.getElementById("T_CityID");
-		var T_DistrictID = doc.getElementById("T_DistrictID");
-		showCityPickerButton.addEventListener("tap", function(event) {
-			cityPicker3.show(function(items) {
-				cityResult3.innerText = "你选择:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
-				Community_Load((items[2] || {}).value)
-				T_ProvinceID.value = (items[0] || {}).value
-				T_CityID.value = (items[1] || {}).value
-				T_DistrictID.value = (items[2] || {}).value
-					//cityResult3.innerText = (items[2] || {}).text;
-					//返回 false 可以阻止选择框的关闭
-					//return false
-			});
-		}, false);
-		//-----------------------------------------
-		//获取小区
-		//-----------------------------------------
-		var Community_Load = function(dis_id) {
-			var userPicker = new $.PopPicker();
-			mui.ajax("http://" + plus.storage.getItem("url") + "/info/Community_Load1", {
-				data: {
-					id: dis_id
-				},
-				async: false,
-				dataType: "json", //服务器返回json格式数据
-				type: "Post", //HTTP请求类型,
-				timeout: 10000, //超时时间设置为10秒；
-				success: function(Communitydata) {
-					userPicker.setData(eval(Communitydata));
-				}
-			})
-			var showUserPickerButton = doc.getElementById("showUserPicker");
-			var userResult = doc.getElementById("userResult");
-			var CommunityID = doc.getElementById("CommunityID");
-			showUserPickerButton.addEventListener("tap", function(event) {
-				userPicker.show(function(items) {
-					userResult.innerText = "你选择:" + (items[0] || {}).text;
-					CommunityID.value = (items[0] || {}).value;
-				});
-			}, false);
-		}
-	});
-})(mui, document);
-//***********************点击发送短信到手机获取验证码*********************************
+//mui.plusReady(function() {
+//(function($, doc) {
+//	$.init();
+//	$.ready(function() {
+//		//-----------------------------------------
+//		//级联示例***********************级联数据生成数组在方法里面*****************************
+//		//-----------------------------------------
+//		var cityPicker3 = new $.PopPicker({
+//			layer: 3
+//		});
+//		mui.ajax("http://" + plus.storage.getItem("url") + "/info/Province_Load", {
+//			data: {},
+//			async: false,
+//			dataType: "json", //服务器返回json格式数据
+//			type: "Post", //HTTP请求类型,
+//			timeout: 10000, //超时时间设置为10秒；
+//			success: function(Provincesdata) {
+//				cityPicker3.setData(eval(Provincesdata));
+//			}
+//		})
+//		var showCityPickerButton = doc.getElementById("showCityPicker3");
+//		var cityResult3 = doc.getElementById("cityResult3");
+//		var T_ProvinceID = doc.getElementById("T_ProvinceID");
+//		var T_CityID = doc.getElementById("T_CityID");
+//		var T_DistrictID = doc.getElementById("T_DistrictID");
+//		showCityPickerButton.addEventListener("tap", function(event) {
+//			cityPicker3.show(function(items) {
+//				cityResult3.innerText = "你选择:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+//				Community_Load((items[2] || {}).value)
+//				T_ProvinceID.value = (items[0] || {}).value
+//				T_CityID.value = (items[1] || {}).value
+//				T_DistrictID.value = (items[2] || {}).value
+//					//cityResult3.innerText = (items[2] || {}).text;
+//					//返回 false 可以阻止选择框的关闭
+//					//return false
+//			});
+//		}, false);
+//		//-----------------------------------------
+//		//获取小区
+//		//-----------------------------------------
+//		var Community_Load = function(dis_id) {
+//			var userPicker = new $.PopPicker();
+//			mui.ajax("http://" + plus.storage.getItem("url") + "/info/Community_Load1", {
+//				data: {
+//					id: dis_id
+//				},
+//				async: false,
+//				dataType: "json", //服务器返回json格式数据
+//				type: "Post", //HTTP请求类型,
+//				timeout: 10000, //超时时间设置为10秒；
+//				success: function(Communitydata) {
+//					userPicker.setData(eval(Communitydata));
+//				}
+//			})
+//			var showUserPickerButton = doc.getElementById("showUserPicker");
+//			var userResult = doc.getElementById("userResult");
+//			var CommunityID = doc.getElementById("CommunityID");
+//			showUserPickerButton.addEventListener("tap", function(event) {
+//				userPicker.show(function(items) {
+//					userResult.innerText = "你选择:" + (items[0] || {}).text;
+//					CommunityID.value = (items[0] || {}).value;
+//				});
+//			}, false);
+//		}
+//	});
+//})(mui, document);
+//})
+////***********************点击发送短信到手机获取验证码*********************************
 var test = {
 	node: null,
 	count: 60,

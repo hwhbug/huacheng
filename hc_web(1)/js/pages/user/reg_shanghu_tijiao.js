@@ -4,8 +4,9 @@ mui.init({
 			window.addEventListener("adminmp", function(event) {
 				//获得事件参数
 				var id = event.detail.id;
+				console.log(id)
 				//将上一个页面的手机号码传入到这个页面以便提交使用
-				mui.ajax("http://" + plus.storage.getItem("url") + "/home/Admininfo", {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/home/Admininfo_sub", {
 					data: {
 						"adminmp": id
 					},
@@ -13,6 +14,7 @@ mui.init({
 					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
+						console.log(data)
 						var info = "<p>商户帐号：" + data.uname + "</p><p>商户名称：" + data.name + "</p><p>营业地址：" + data.Address + "</p><p>经营类型：" + data.ProductsType.Names + "</p>";
 						$("#admininfo").html(info);
 						document.getElementById("admin_mp").value = data.uname;

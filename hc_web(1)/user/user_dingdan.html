@@ -162,84 +162,39 @@
 
 			function download() {
 				mui.plusReady(function() {
-				mui.ajax("http://"+plus.storage.getItem("url")+"/MyOrders/Allorders", {
-					data: {},
-					dataType: "json", //服务器返回json格式数据
-					type: "Post", //HTTP请求类型,
-					timeout: 10000, //超时时间设置为10秒；
-					success: function(data) {
-						if (data != "登陆已过期，请重新登陆") {
-							var allorders = "";
-							var unpayorders = "";
-							var payedorders = "";
-							var unpay_num = 0;
-							for (var i = 0; i < data.length; i++) {
-								//********************************全部订单代码开始******************************
-								allorders += "<li  class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body\">" + data[i].OrdersName + "(数量：" + data[i].Quantity + ")";
-								//************************************************不同的支付状态标签不同**************************************
-								if (data[i].States == 1) {
-									allorders += "<button class=\"not mui-pull-right\">未完成</button>";
-								} else {
-									allorders += "<button class=\"yes mui-pull-right\">已完成</button>";
-								}
-								//**********************************************状态标签代码结束*********************************************
-								if (data[i].Business_ID != null) {
-									mui.ajax("http://"+plus.storage.getItem("url")+"/ShoppingCart/getprorebusiness", {
-										data: {
-											productid: data[i].Products_ID,
-											businessid: data[i].Business_ID,
-										},
-										async: false,
-										dataType: "json", //服务器返回json格式数据
-										type: "Post", //HTTP请求类型,
-										timeout: 10000, //超时时间设置为10秒；
-										success: function(prorebusiness_data) {
-											allorders += "<h4 class=\"font-red\">￥" + prorebusiness_data.Price + "</h4><p>属性：" + data[i].ProAttrName + "</p>";
-										}
-									})
-								} else {
-									allorders += "<h4 class=\"font-red\">￥" + data[i].Products.Price2 + "<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Products.Price1 + "</span></p></h4><p>属性：" + data[i].ProAttrName + "</p>";
-								}
-								//**************************************如果是商户显示商户信息***********************************
-								if (data[i].Business_ID != null) {
-									mui.ajax("http://"+plus.storage.getItem("url")+"/Business/Business_Detail", {
-										data: {
-											id: data[i].Business_ID,
-										},
-										async: false,
-										dataType: "json", //服务器返回json格式数据
-										type: "Post", //HTTP请求类型,
-										timeout: 10000, //超时时间设置为10秒；
-										success: function(businessdata) {
-											allorders += "<p>商家：" + businessdata.Admin_User.name + "</p>"
-										}
-									})
-								}
-								//**************************************商户信息代码结束******************************
-								allorders += "</div></div></li>";
-								//********************************全部订单代码结束******************************
-								//*********************************向已支付中添加******************************
-								if (data[i].States == 1) {
+					mui.ajax("http://" + plus.storage.getItem("url") + "/MyOrders/Allorders", {
+						data: {},
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							if (data != "登陆已过期，请重新登陆") {
+								var allorders = "";
+								var unpayorders = "";
+								var payedorders = "";
+								var unpay_num = 0;
+								for (var i = 0; i < data.length; i++) {
+									//********************************全部订单代码开始******************************
 									if (data[i].Business_ID != null) {
-										mui.ajax("http://"+plus.storage.getItem("url")+"/ShoppingCart/getprorebusiness", {
-											data: {
-												productid: data[i].Products_ID,
-												businessid: data[i].Business_ID,
-											},
-											async: false,
-											dataType: "json", //服务器返回json格式数据
-											type: "Post", //HTTP请求类型,
-											timeout: 10000, //超时时间设置为10秒；
-											success: function(prorebusiness_data) {
-												unpayorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body\">" + data[i].OrdersName + "(数量：" + data[i].Quantity + ")<button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥" + prorebusiness_data.Price + "</h4><p>属性：" + data[i].ProAttrName + "</p>";
-											}
-										})
+										allorders += "<li  class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].ProReBusiness.Image1 + "\"><div class=\"mui-media-body\">" + data[i].OrdersName + "(数量：" + data[i].Quantity + ")";
 									} else {
-										unpayorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body\">" + data[i].OrdersName + "(数量：" + data[i].Quantity + ")<button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥" + data[i].Products.Price2 + "<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Products.Price1 + "</span></p></h4><p>属性：" + data[i].ProAttrName + "</p>";
+										allorders += "<li  class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body\">" + data[i].OrdersName + "(数量：" + data[i].Quantity + ")";
+									}
+									//************************************************不同的支付状态标签不同**************************************
+									if (data[i].States == 1) {
+										allorders += "<button class=\"not mui-pull-right\">未完成</button>";
+									} else {
+										allorders += "<button class=\"yes mui-pull-right\">已完成</button>";
+									}
+									//**********************************************状态标签代码结束*********************************************
+									if (data[i].Business_ID != null) {
+										allorders += "<h4 class=\"font-red\">￥" + data[i].ProReBusiness.Price + "</h4><p>属性：" + data[i].ProAttrName + "</p>";
+									} else {
+										allorders += "<h4 class=\"font-red\">￥" + data[i].Products.Price2 + "<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Products.Price1 + "</span></p></h4><p>属性：" + data[i].ProAttrName + "</p>";
 									}
 									//**************************************如果是商户显示商户信息***********************************
 									if (data[i].Business_ID != null) {
-										mui.ajax("http://"+plus.storage.getItem("url")+"/Business/Business_Detail", {
+										mui.ajax("http://" + plus.storage.getItem("url") + "/Business/Business_Detail", {
 											data: {
 												id: data[i].Business_ID,
 											},
@@ -248,67 +203,80 @@
 											type: "Post", //HTTP请求类型,
 											timeout: 10000, //超时时间设置为10秒；
 											success: function(businessdata) {
-												unpayorders += "<p>商家：" + businessdata.Admin_User.name + "</p>";
+												allorders += "<p>商家：" + businessdata.Admin_User.name + "</p>"
 											}
 										})
 									}
 									//**************************************商户信息代码结束******************************
-									unpayorders += "</div></div></li>";
-									unpay_num += 1;
-								} else {
+									allorders += "</div></div></li>";
+									//********************************全部订单代码结束******************************
 									//*********************************向已支付中添加******************************
-									if (data[i].Business_ID != null) {
-										mui.ajax("http://"+plus.storage.getItem("url")+"/ShoppingCart/getprorebusiness", {
-											data: {
-												productid: data[i].Products_ID,
-												businessid: data[i].Business_ID,
-											},
-											async: false,
-											dataType: "json", //服务器返回json格式数据
-											type: "Post", //HTTP请求类型,
-											timeout: 10000, //超时时间设置为10秒；
-											success: function(prorebusiness_data) {
-												payedorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body\">" + data[i].OrdersName + "(数量：" + data[i].Quantity + ")<button class=\"yes mui-pull-right\">已完成</button><h4 class=\"font-red\">￥" + prorebusiness_data.Price + "</h4><p>属性：" + data[i].ProAttrName + "</p>";
-											}
-										})
+									if (data[i].States == 1) {
+										if (data[i].Business_ID != null) {
+											unpayorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].ProReBusiness.Image1 + "\"><div class=\"mui-media-body\">" + data[i].OrdersName + "(数量：" + data[i].Quantity + ")<button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥" + data[i].ProReBusiness.Price + "</h4><p>属性：" + data[i].ProAttrName + "</p>";
+										} else {
+											unpayorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body\">" + data[i].OrdersName + "(数量：" + data[i].Quantity + ")<button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥" + data[i].Products.Price2 + "<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Products.Price1 + "</span></p></h4><p>属性：" + data[i].ProAttrName + "</p>";
+										}
+										//**************************************如果是商户显示商户信息***********************************
+										if (data[i].Business_ID != null) {
+											mui.ajax("http://" + plus.storage.getItem("url") + "/Business/Business_Detail", {
+												data: {
+													id: data[i].Business_ID,
+												},
+												async: false,
+												dataType: "json", //服务器返回json格式数据
+												type: "Post", //HTTP请求类型,
+												timeout: 10000, //超时时间设置为10秒；
+												success: function(businessdata) {
+													unpayorders += "<p>商家：" + businessdata.Admin_User.name + "</p>";
+												}
+											})
+										}
+										//**************************************商户信息代码结束******************************
+										unpayorders += "</div></div></li>";
+										unpay_num += 1;
 									} else {
-										payedorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body\">" + data[i].OrdersName + "(数量：" + data[i].Quantity + ")<button class=\"yes mui-pull-right\">已完成</button><h4 class=\"font-red\">￥" + data[i].Products.Price2 + "<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Products.Price1 + "</span></p></h4><p>属性：" + data[i].ProAttrName + "</p>";
+										//*********************************向已支付中添加******************************
+										if (data[i].Business_ID != null) {
+											payedorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body\">" + data[i].OrdersName + "(数量：" + data[i].Quantity + ")<button class=\"yes mui-pull-right\">已完成</button><h4 class=\"font-red\">￥" + data[i].ProReBusiness.Price + "</h4><p>属性：" + data[i].ProAttrName + "</p>";
+										} else {
+											payedorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除记录</a></div><div class=\"mui-slider-handle\"><img class=\"mui-media-object mui-pull-left\" src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body\">" + data[i].OrdersName + "(数量：" + data[i].Quantity + ")<button class=\"yes mui-pull-right\">已完成</button><h4 class=\"font-red\">￥" + data[i].Products.Price2 + "<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Products.Price1 + "</span></p></h4><p>属性：" + data[i].ProAttrName + "</p>";
+										}
+										//**************************************如果是商户显示商户信息***********************************
+										if (data[i].Business_ID != null) {
+											mui.ajax("http://" + plus.storage.getItem("url") + "/Business/Business_Detail", {
+												data: {
+													id: data[i].Business_ID,
+												},
+												async: false,
+												dataType: "json", //服务器返回json格式数据
+												type: "Post", //HTTP请求类型,
+												timeout: 10000, //超时时间设置为10秒；
+												success: function(businessdata) {
+													payedorders += "<p>商家：" + businessdata.Admin_User.name + "</p>";
+												}
+											})
+										}
+										//**************************************商户信息代码结束******************************
+										payedorders += "</div></div></li>";
 									}
-									//**************************************如果是商户显示商户信息***********************************
-									if (data[i].Business_ID != null) {
-										mui.ajax("http://"+plus.storage.getItem("url")+"/Business/Business_Detail", {
-											data: {
-												id: data[i].Business_ID,
-											},
-											async: false,
-											dataType: "json", //服务器返回json格式数据
-											type: "Post", //HTTP请求类型,
-											timeout: 10000, //超时时间设置为10秒；
-											success: function(businessdata) {
-												payedorders += "<p>商家：" + businessdata.Admin_User.name + "</p>";
-											}
-										})
-									}
-									//**************************************商户信息代码结束******************************
-									payedorders += "</div></div></li>";
 								}
+								$("#allorders").html(allorders);
+								$("#unpay_orders").html(unpayorders);
+								$("#payed_orders").html(payedorders);
+								$("#orders_num").html("(" + data.length + ")");
+								$("#unpay_num").html("(" + unpay_num + ")");
+								$("#pay_num").html("(" + (data.length - unpay_num) + ")");
+							} else {
+								plus.ui.toast(data);
 							}
-							$("#allorders").html(allorders);
-							$("#unpay_orders").html(unpayorders);
-							$("#payed_orders").html(payedorders);
-							$("#orders_num").html("(" + data.length + ")");
-							$("#unpay_num").html("(" + unpay_num + ")");
-							$("#pay_num").html("(" + (data.length - unpay_num) + ")");
-						} else {
-							plus.ui.toast(data);
 						}
-					}
-				})
+					})
 				})
 			}
 			mui("#item1").on("tap", ".mui-btn-red", function(e) {
 				var orderid = this.getAttribute("id");
-				mui.ajax("http://"+plus.storage.getItem("url")+"/MyOrders/Delete", {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/MyOrders/Delete", {
 					data: {
 						id: orderid,
 					},
@@ -317,7 +285,7 @@
 					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
-//						alert(data.statusCode)
+						//						alert(data.statusCode)
 						if (data.statusCode = "200") {
 							plus.ui.toast(data.message);
 							download();

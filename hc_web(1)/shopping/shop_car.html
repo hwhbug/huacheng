@@ -132,6 +132,7 @@
 				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop">
 					<div class="mui-scroll">
 						<ul id="order" class="mui-table-view">
+
 							<!--这是一条订单-->
 							<!--<li class="mui-table-view-cell mui-media huise">
 								<div class="mui-slider-right mui-disabled">
@@ -198,49 +199,45 @@
 
 			function download() {
 				mui.plusReady(function() {
+					var ceshi = "";
 					mui.ajax("http://" + plus.storage.getItem("url") + "/ShoppingCart/index", {
 						data: {},
-						async: false,
+						async: true,
 						dataType: "json", //服务器返回json格式数据
 						type: "Post", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
 							var shopcar = "";
 							for (var i = 0; i < data.length; i++) { //
+								//								alert(data[i].ID)
 								if (data[i].Business_ID == null) {
 									shopcar += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除订单</a></div><div class=\"mui-slider-handle\"><div class=\"left mui-checkbox\"><input class=\"shop-radio\" name=\"radio\" value=\"shop-1\" type=\"checkbox\"></div><div class=\"right\"><a href=\"javascript:;\"><img class=\"mui-media-object mui-pull-left\" src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body mui-pull-left\">" + data[i].Products.Names + "<h4 class=\"font-red\">￥" + data[i].Products.Price2 + "<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Products.Price1 + "</span></p></h4><p>属性：" + data[i].ProAttrName.replace("/\,/g", "&nbsp;") + "</p><p id=\"Quantity\">数量：" + data[i].Quantity + "</p>";
 								} else {
-									mui.ajax("http://" + plus.storage.getItem("url") + "/ShoppingCart/getprorebusiness", {
-										data: {
-											productid: data[i].Products_ID,
-											businessid: data[i].Business_ID,
-										},
-										async: false,
-										dataType: "json", //服务器返回json格式数据
-										type: "Post", //HTTP请求类型,
-										timeout: 10000, //超时时间设置为10秒；
-										success: function(prorebusiness_data) {
-											shopcar += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除订单</a></div><div class=\"mui-slider-handle\"><div class=\"left mui-checkbox\"><input class=\"shop-radio\" name=\"radio\" value=\"shop-1\" type=\"checkbox\"></div><div class=\"right\"><a href=\"javascript:;\"><img class=\"mui-media-object mui-pull-left\" src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].Products.Image1 + "\"><div class=\"mui-media-body mui-pull-left\">" + data[i].Products.Names + "<h4 class=\"font-red\">￥" + prorebusiness_data.Price + "</h4><p>属性：" + data[i].ProAttrName.replace("/\,/g", "&nbsp;") + "</p><p id=\"Quantity\">数量：" + data[i].Quantity + "</p>";
-										}
-									})
+									shopcar += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-right mui-disabled\"><a class=\"mui-btn mui-btn-yellow\">查看订单</a><a id=\"" + data[i].ID + "\" class=\"mui-btn mui-btn-red\">删除订单</a></div><div class=\"mui-slider-handle\"><div class=\"left mui-checkbox\"><input class=\"shop-radio\" name=\"radio\" value=\"shop-1\" type=\"checkbox\"></div><div class=\"right\"><a href=\"javascript:;\"><img class=\"mui-media-object mui-pull-left\" src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].ProReBusiness.Image1 + "\"><div class=\"mui-media-body mui-pull-left\">" + data[i].ProReBusiness.Names;
+									console.log("?productid=" + data[i].ProReBusiness_ID + "&businessid=" + data[i].Business_ID)
+									shopcar += "<h4 class=\"font-red\">￥" + data[i].ProReBusiness.Price + "</h4>";
+									shopcar += "<p>属性：" + data[i].ProAttrName.replace("/\,/g", "&nbsp;") + "</p><p id=\"Quantity\">数量：" + data[i].Quantity + "</p>";
+									console.log(ceshi)
 								}
 								if (data[i].Business_ID != null) {
 									mui.ajax("http://" + plus.storage.getItem("url") + "/Business/Business_Detail", {
 										data: {
 											id: data[i].Business_ID,
 										},
-										async: false,
+										async: true,
 										dataType: "json", //服务器返回json格式数据
 										type: "Post", //HTTP请求类型,
 										timeout: 10000, //超时时间设置为10秒；
 										success: function(businessdata) {
-											shopcar += "<p>商家：" + businessdata.Admin_User.name + "</p></div></a></div></div></li>";
+											shopcar += "<p>商家：" + businessdata.Admin_User.name + "</p>";
 										}
 									})
+									shopcar += "</div></a></div></div></li>";
 								} else {
-									shopcar += "</div></a></div></div></li>"
+									shopcar += "</div></a></div></div></li>";
 								}
 							}
+							//							console.log(shopcar)
 							$("#order").html(shopcar);
 						}
 					})
@@ -255,17 +252,25 @@
 					data: {
 						id: shopcartid,
 					},
-					async: false,
+					async: true,
 					dataType: "json", //服务器返回json格式数据
 					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						if (value == "true") {
-							sum = sum + data.Products.Price2 * data.Quantity;
+							if (data.ShoppingCartType == "1") {
+								sum = sum + data.ProReBusiness.Price * data.Quantity;
+							} else {
+								sum = sum + data.Products.Price2 * data.Quantity;
+							}
 							$("#mx_jiage").html("￥" + sum);
 							$("#jifeng").html(sum);
 						} else {
-							sum = sum - data.Products.Price2 * data.Quantity;
+							if (data.ShoppingCartType == "1") {
+								sum = sum - data.ProReBusiness.Price * data.Quantity;
+							} else {
+								sum = sum - data.Products.Price2 * data.Quantity;
+							}
 							$("#mx_jiage").html("￥" + sum);
 							$("#jifeng").html(sum);
 						}
@@ -278,13 +283,15 @@
 					data: {
 						id: shopcartid,
 					},
-					async: false,
+					async: true,
 					dataType: "json", //服务器返回json格式数据
 					type: "Post", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						if (data.statusCode = "200") {
 							plus.ui.toast(data.message);
+							$("#mx_jiage").html("￥" + 0);
+							$("#jifeng").html(0);
 							download();
 						} else {
 							plus.ui.toast(data.message);
@@ -308,13 +315,14 @@
 						shopcartids.push(isornot[i].parentElement.parentElement.parentElement.getAttribute("id"));
 					}
 				}
+				console.log(shopcartids.toString())
 				var detailPage = null;
 				if (value.indexOf(true) >= 0) {
 					mui.ajax("http://" + plus.storage.getItem("url") + "/Product/Purchase_do", {
 						data: {
 							"shopcartids": shopcartids.toString()
 						},
-						async: false,
+						async: true,
 						dataType: "json", //服务器返回json格式数据
 						type: "Post", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；

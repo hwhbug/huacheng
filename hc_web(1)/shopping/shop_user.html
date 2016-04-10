@@ -98,11 +98,11 @@
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script>
-			mui('.mui-scroll-wrapper').scroll();
+			mui(".mui-scroll-wrapper").scroll();
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
-			window.addEventListener('business', function(event) {
+			window.addEventListener("business", function(event) {
 				var Destination="";
 				var Destination_des="";
 				//获得事件参数
@@ -113,24 +113,24 @@
 				$(".shop_main").empty();
 				//				页面加载时，清空数据层的缓存数据
 				//*********************************************获取商户的数据************************************
-				mui.ajax('http://101.201.196.202:82/Business/Business_Detail', {
+				mui.ajax("http://"+plus.storage.getItem("url")+"/Business/Business_Detail", {
 					data: {
 						id: shanghu_id,
 					},
-					dataType: 'json', //服务器返回json格式数据
-					async: false,
-					type: 'GET', //HTTP请求类型,
+					dataType: "json", //服务器返回json格式数据
+					async: true,
+					type: "GET", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						$(".left").html("<h2>" + data.Admin_User.name + "</h2><p class=\"black\">地址：" + data.Admin_User.Address + "</p><p>主营：" + data.ProductsType.Names + "</p>");
 						$(".mui-title").html(data.Admin_User.name);
-						$(".mui-slider").html("<img src=\"http://101.201.196.202:82/Images/BusinessImg/" + data.topimage3 + "\" />");
+						$(".mui-slider").html("<img src=\"http://"+plus.storage.getItem("url")+"/Images/BusinessImg/" + data.topimage3 + "\" />");
 						$(".shop_main").html(data.Description);
 						Destination="{\"longitude\":"+data.Admin_User.longitude+",\"latitude\":"+data.Admin_User.latitude+"}";
 						Destination_des=data.Admin_User.name;
 					}
 				})
-				document.getElementById('gothere').addEventListener('tap', function() {
+				document.getElementById("gothere").addEventListener("tap", function() {
 					console.log(Destination)
 					console.log(plus.storage.getItem("Locate"))
 					
@@ -145,47 +145,47 @@
 					}
 				});
 				//*****************************************商品列表***************************************
-				mui.ajax('http://101.201.196.202:82/Business/Business_Products', {
+				mui.ajax("http://"+plus.storage.getItem("url")+"/Business/Business_Products", {
 						data: {
 							id: shanghu_id,
 						},
-						dataType: 'json', //服务器返回json格式数据
-						async: false,
-						type: 'GET', //HTTP请求类型,
+						dataType: "json", //服务器返回json格式数据
+						async: true,
+						type: "GET", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
 							var str = "";
 							for (var i = 0; i < data.length; i++) { //
-								if (data[i].Products.isDisplay != false) {
-									str += "<li  id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4\"><img src=\"http://101.201.196.202:82/Images/ProductImg/" + data[i].Products.Image1 + "\"/><a class=\"font-green\">" + "</a><p class=\"black\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Price + "</span></p><p class=\"black\">促销价：<span class=\"font-red\">￥" + data[i].Price + "</span></p><p>销量：" + data[i].Products.Quantity + "件</p></li>";
+								if (data[i].isDisplay != false) {
+									str += "<li  id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4\"><img src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data[i].Image1 + "\"/><a class=\"font-green\">" + "</a><p class=\"black\">促销价：<span class=\"font-red\">￥" + data[i].Price + "</span></p><p>销量：" + data[i].Quantity + "件</p></li>";
 								}
 							}
 							$("#productlist").html(str);
 						}
 					})
 					//**************************************商品详情点击事件*********************************
-				mui('#productlist').on('tap', 'li', function(e) {
-					var productid = this.getAttribute('id');
+				mui("#productlist").on("tap", "li", function(e) {
+					var productid = this.getAttribute("id");
 					//获得详情页面
 					if (!detailPage) {
-						detailPage = plus.webview.getWebviewById('shop_acter');
+						detailPage = plus.webview.getWebviewById("shop_acter");
 					}
 					//触发详情页面的newsId事件
-					mui.fire(detailPage, 'productsId', {
+					mui.fire(detailPage, "productsId", {
 						productid: productid,
 						businessid: shanghu_id
 					});
 					//打开详情页面          
 					mui.openWindow({
-						url: 'shop_acter.html',
-						id: 'shop_acter'
+						url: "shop_acter.html",
+						id: "shop_acter"
 					});
 				});
 			})
 			mui.init({
 				preloadPages: [{
-					url: 'shop_acter.html',
-					id: 'shop_acter'
+					url: "shop_acter.html",
+					id: "shop_acter"
 				}]
 			});
 			var detailPage = null;

@@ -393,7 +393,8 @@
 					"image/md3.jpg",
 					"js/jquery-1.9.1.min.js",
 					"js/mui.min.js",
-					"shopping/shop_refresh_pingpai.html"
+					"shopping/shop_refresh_pingpai.html",
+					null
 				],
 				"refer": [
 					"shopping/shop_brand_acter.html"
@@ -415,7 +416,8 @@
 					"image/gg2.jpg",
 					"image/gdc.jpg",
 					"js/jquery-1.9.1.min.js",
-					"shopping/shop_refresh_qianggou.html"
+					"shopping/shop_refresh_qianggou.html",
+					null
 				],
 				"refer": [
 					"shopping/shop_qianggou_acter.html"
@@ -808,7 +810,8 @@
 					"css/style.css",
 					"fonts/iconfont.ttf",
 					"css/mui.css",
-					"js/app.js"
+					"js/app.js",
+					null
 				],
 				"refer": [
 					"shopping/shop_car.html"
@@ -1205,7 +1208,8 @@
 					"fonts/iconfont.ttf",
 					"js/mui.js",
 					"css/cross-down.css",
-					"css/mui.css"
+					"css/mui.css",
+					null
 				],
 				"refer": [],
 				"priority": 0
@@ -1311,7 +1315,8 @@
 					"libs/easymob-webim-sdk/jquery-1.11.1.js",
 					"libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
 					"js/mui.picker.js",
-					"js/mui.poppicker.js"
+					"js/mui.poppicker.js",
+					"user/user_xinxi.html"
 				],
 				"refer": [],
 				"priority": 0

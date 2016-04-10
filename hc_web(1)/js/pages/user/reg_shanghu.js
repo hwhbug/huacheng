@@ -45,6 +45,7 @@ var ismypassword = function(value) {
 		var altitude = doc.getElementById("altitude");
 		var reg_shanghu_tijiao = null;
 		regButton.addEventListener("tap", function(event) {
+			
 			var regInfo = {};
 			//*****************验证手机号**************************
 			var check_phone_number = /^1[3458]\d{9}$/;
@@ -65,7 +66,7 @@ var ismypassword = function(value) {
 				plus.nativeUI.toast("验证码不能为空");
 				return;
 			}
-			if (yanzheng.value.length != 6) {
+			if (yanzheng.value.length != 8) {
 				plus.nativeUI.toast("验证码不合法");
 				return;
 			}
@@ -128,6 +129,7 @@ var ismypassword = function(value) {
 					plus.nativeUI.toast(err);
 					return;
 				}
+				alert(product_type.value)
 				mui.ajax("http://" + plus.storage.getItem("url") + "/home/sh_Register_on", {
 					data: {
 						"name": Businessname.value,
@@ -153,6 +155,7 @@ var ismypassword = function(value) {
 							var ws = plus.webview.currentWebview();
 							plus.webview.close(ws);
 							var account = accountBox.value;
+							console.log(account)
 							//获得详情页面
 							if (!reg_shanghu_tijiao) {
 								reg_shanghu_tijiao = plus.webview.getWebviewById("reg_shanghu_tijiao");
@@ -174,6 +177,7 @@ var ismypassword = function(value) {
 			});
 		});
 		btn.addEventListener("tap", function(event) {
+			console.log(plus.storage.getItem("url"))
 			var name = {};
 			//*****************验证手机号**************************
 			var check_phone_number = /^1[3458]\d{9}$/;
@@ -195,7 +199,7 @@ var ismypassword = function(value) {
 					plus.nativeUI.toast(err);
 					return;
 				}
-				mui.ajax("http://" + plus.storage.getItem("url") + "/home/fs_codebound", {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/home/shanghu_fs_codebound", {
 					data: {
 						"phone_zh": accountBox.value
 					},
@@ -220,6 +224,7 @@ var ismypassword = function(value) {
 mui.init({
 	swipeBack: true //启用右滑关闭功能
 });
+mui.plusReady(function() {
 (function($, doc) {
 	$.init();
 	$.ready(function() {
@@ -277,6 +282,7 @@ mui.init({
 		}, false);
 	});
 })(mui, document);
+})
 var test = {
 	node: null,
 	count: 60,

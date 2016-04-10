@@ -73,13 +73,17 @@
 						brandid: id
 					},
 					dataType: "json", //服务器返回json格式数据
-					async: false,
+					async: true,
 					type: "GET", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						var str = "";
 						for (var i = 0; i < data.length; i++) { //										
-							str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data[i].Image1 + "\" /><a class=\"font-green\" href=\"#\">" + data[i].Names + "</a><p class=\"black\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Price2 + "</span></p><p class=\"black\">促销价：<span class=\"sm_jiage\">￥" + data[i].Price1 + "</span></p><p class=\"red font-bai\">距结束：<span class=\" settime\" style=\"font-family:arial;padding: 5px 10px;\" endtime=\"" + data[i].EndTime + "\"></span></p><p>销量：" + data[i].Quantity + "件</p></li>";
+							str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data[i].Image1 + "\" /><a class=\"font-green\" href=\"#\">" + data[i].Names + "</a>";
+							if (data[i].activity!="1") {
+								str+="<p class=\"black\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Price2 + "</span></p><p class=\"black\">促销价：<span class=\"sm_jiage\">￥" + data[i].Price1 + "</span></p><p class=\"red font-bai\">距结束：<span class=\" settime\" style=\"font-family:arial;padding: 5px 10px;\" endtime=\"" + data[i].EndTime + "\"></span></p><p>销量：" + data[i].Quantity + "件</p>";
+							} 
+							str +="</li>";
 						}
 						$("#Panicbuy").html(str);
 					}
@@ -90,7 +94,7 @@
 						id: id
 					},
 					dataType: "json", //服务器返回json格式数据
-					async: false,
+					async: true,
 					type: "GET", //HTTP请求类型,
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
@@ -108,7 +112,6 @@
 			//添加列表项的点击事件
 			mui("#Panicbuy").on("tap", "li", function(e) {
 				var id = this.getAttribute("id");
-//				alert(id)
 				//获得详情页面
 				if (!detailPage) {
 					detailPage = plus.webview.getWebviewById("shop_detail.html");
