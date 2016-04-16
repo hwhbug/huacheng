@@ -61,7 +61,7 @@
 				<header class="mui-bar mui-bar-nav">
 					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 					<h1 class="mui-title">在线商城</h1>
-					<span id="icon-menu" class="mui-icon mui-icon-bars mui-pull-right font-blue"></span>
+					<!--<span id="icon-menu" class="mui-icon mui-icon-bars mui-pull-right font-blue"></span>-->
 				</header>
 				<!--主界面区域-->
 				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop">
@@ -183,13 +183,13 @@
 				});
 				//				plus.nativeUI.showWaiting();
 			});
-			document.getElementById("icon-menu").addEventListener("tap", function() {
-				//打开关于页面
-				mui.openWindow({
-					url: "shop_nav.html",
-					id: "shop_nav"
-				});
-			});
+//			document.getElementById("icon-menu").addEventListener("tap", function() {
+//				//打开关于页面
+//				mui.openWindow({
+//					url: "shop_nav.html",
+//					id: "shop_nav"
+//				});
+//			});
 			var url = "";
 			mui.plusReady(function() {
 				url = plus.storage.getItem("url");

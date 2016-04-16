@@ -14,23 +14,23 @@
 		<link href="../css/mui.poppicker.css" rel="stylesheet" />
 		<link href="../css/mui.picker.css" rel="stylesheet" />
 		<script src="../js/mui.city.data.js"></script>
-		<script type="text/javascript" charset="utf-8">
-			mui.init();
-		</script>
 		<style type="text/css">
 			.repair4_table .tijiao {
 				text-align: center;
-				font:20px/40px "微软雅黑";
+				font: 20px/40px "微软雅黑";
 				margin-top: 10px;
 				color: #333333;
 			}
-			body{
+			
+			body {
 				background: #FFFFFF !important;
 			}
-			p{
+			
+			p {
 				font-size: 0.8em;
 				text-align: center;
 			}
+			
 			.mui-content {
 				background: #FFFFFF;
 			}
@@ -38,16 +38,10 @@
 	</head>
 
 	<body>
-
-		<!-- 侧滑导航根容器 -->
-
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
-
-			<!-- 菜单容器 -->
 			<aside id="offCanvasSide" class="mui-off-canvas-left">
 				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
 					<div class="mui-scroll">
-						<!-- 菜单具体展示内容 -->
 						<h3><span class=" icon-homefill mui-icon" href="###">
 							<a href="###">主页 ></a>
 							<!--<button id="offCanvasHide" type="button">关闭</button>-->
@@ -67,39 +61,16 @@
 							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
 							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
 						</ul>
-
 					</div>
 				</div>
 			</aside>
-			<!-- 左侧菜单结束 -->
-
-			<!-- 主页面容器 -->
-
 			<div class="mui-inner-wrap   repair2_container">
-
-				<!-- 主页面标题 -->
-
 				<header class="mui-bar mui-bar-nav">
 					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 					<h1 class="mui-title">订单完成</h1>
 				</header>
-				<!--主界面区域-->
 				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<div class="repair4_table">
-							<!--此处为当前进度图像结束-->
-							<p class="black">尊敬的 李先生</p>
-							<p class="tijiao"><span class="mui-icon icon-tijiao"></span>您的订单已经提交成功</p>
-							<p class="font-yellow">请您保持电话畅通，方便服务人员与您取得联系！</p>
-							<p class="black"><span class="mui-icon mui-icon-paperclip yellow-font">订单号：</span>10020051111</p>
-						</div>      
-						<div class="repair4_table">
-							<a class="sm_btn mui-pull-right">返回</a>
-							<a class="sm_btn">查看状态</a>
-						</div>					
-						<!-- 主界面具体展示内容 -->
-						<!-- 侧滑后右侧变黑-->
-						<div class="mui-off-canvas-backdrop"></div>
+					<div class="mui-scroll" id="ordContent">
 					</div>
 				</div>
 			</div>
@@ -110,3 +81,49 @@
 	</body>
 
 </html>
+<script>
+
+	var zhuangtaiPage = null;
+	window.addEventListener("overId", function(event) {
+		document.getElementById("ordContent").innerHTML = "";
+		var ordid = event.detail.jzOrdId;
+		mui.ajax("http://101.201.196.202:82/JiaZhengOrder/QueryJzOrdById", {
+			data: {
+				ordId: ordid
+			},
+			dataType: "json",
+			type: "get",
+			success: function(data) {
+				var content = "";
+				content = "<div class=\"repair4_table\"><p class=\"black\">尊敬的 " + data.DeliveryAddress.ConsigneeName + "</p><p class=\"tijiao\"><span class=\"mui-icon icon-tijiao\"></span>您的订单已经提交成功</p>" +
+					"<p class=\"font-yellow\">请您保持电话畅通，方便服务人员与您取得联系！</p><p class=\"black\"><span class=\"mui-icon mui-icon-paperclip yellow-font\">订单号：</span>" + data.orderSerialNumber + "</p></div>" +
+					"<div class=\"repair4_table\"><a id=\"backIndex\" class=\"sm_btn mui-pull-right\">返回</a><a class=\"sm_btn\" id=\"lookOrdstatus\" data-ordId=\"" + data.jiazhengOrdID + "\">查看状态</a></div><div class=\"mui-off-canvas-backdrop\"></div>";
+				document.getElementById("ordContent").innerHTML = content;
+				document.getElementById("lookOrdstatus").addEventListener("tap", function() {
+					var ordId = this.getAttribute("data-ordId");
+
+					mui.openWindow({
+						url: "jiazheng_zhuangtai.html",
+						extras:{
+							ordId:ordId
+						}
+					});
+					
+				});
+
+				document.getElementById("backIndex").addEventListener("tap", function() {
+					var all = plus.webview.all();
+					var current = plus.webview.currentWebview().id;
+					for (var i = 0, len = all.length; i < len; i++) {
+						if (all[i].id !== current) {
+							all[i].close();
+						}
+					}
+					mui.openWindow({
+						url: "/index.html"
+					})
+				})
+			}
+		})
+	})
+</script>

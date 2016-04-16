@@ -121,203 +121,194 @@
 
 		<script>
 			mui.init({
+				preloadPages: [{
+					url: "jiazheng_ayi.html",
+					id: "jiazheng_ayi.html"
+				}],
 				swipeBack: true //启用右滑关闭功能
 			});
-			//				document.getElementById('tiaozhuanayi').addEventListener('tap', function() {
-			//					//打开关于页面
-			//					mui.openWindow({
-			//						url: 'jiazheng_ayi.html',
-			//						id: 'tiaozhuanayi'
-			//					});
-			//				});
-			document.getElementById('tiaozhuanayi').addEventListener('tap', function() {
-				var baomuLvl = document.getElementById('userResult').innerText;
-				var workExper = document.getElementById('userResult2').innerText;
-				var ageRange = document.getElementById('userResult3').innerText;
-				var xueliRange = document.getElementById('userResult4').innerText;
-				var salaryRange = document.getElementById('userResult5').innerText;
-				if (baomuLvl == "选择保姆级别") {
-					baomuLvl = "";
-				}
-				if (workExper == "选择保姆工作经验") {
-					workExper = "";
-				}
-				if (ageRange == "选择年龄范围") {
-					ageRange = "";
-				}
-				if (xueliRange == "选择学历要求") {
-					xueliRange = "";
-				}
-				if (salaryRange == "选择价格区间") {
-					salaryRange = "";
-				}
-				mui.openWindow({
-					url: 'jiazheng_ayi.html',
-					extras: {
+			var ayiPage = null;
+			window.addEventListener("baomuid", function(event) {
+				var uuid = event.detail.uuid;
+				var cateid = event.detail.cateId;
+				document.getElementById('tiaozhuanayi').addEventListener('tap', function() {
+					var baomuLvl = document.getElementById('userResult').innerText;
+					var workExper = document.getElementById('userResult2').innerText;
+					var ageRange = document.getElementById('userResult3').innerText;
+					var xueliRange = document.getElementById('userResult4').innerText;
+					var salaryRange = document.getElementById('userResult5').innerText;
+					if (baomuLvl == "选择保姆级别") {
+						baomuLvl = "";
+					}
+					if (workExper == "选择保姆工作经验") {
+						workExper = "";
+					}
+					if (ageRange == "选择年龄范围") {
+						ageRange = "";
+					}
+					if (xueliRange == "选择学历要求") {
+						xueliRange = "";
+					}
+					if (salaryRange == "选择价格区间") {
+						salaryRange = "";
+					}
+					if (!ayiPage) {
+						ayiPage = plus.webview.getWebviewById("jiazheng_ayi.html");
+					}
+					mui.fire(ayiPage, "ayiId", {
 						baomuLvl: baomuLvl,
 						workExper: workExper,
 						ageRange: ageRange,
 						xueliRange: xueliRange,
 						salaryRange: salaryRange,
-						baomuFlag: "4" //月嫂
-					}
-					//设置show的autoShow为false，则B页面在其loaded事件发生后，不会自动显示；
-					//,
-					//show: {
-					//autoShow: false
-					//}
+						baomuFlag: "4",
+						cateID: cateid,
+						uuid2: uuid
+					})
+					mui.openWindow({
+						id: 'jiazheng_ayi.html'
+					});
 				});
-			});
-			(function($, doc) {
-				$.init();
-				$.ready(function() {
-					var userPicker = new $.PopPicker();
-					userPicker.setData([{
-						value: 'ywj',
-						text: '初级保姆'
-					}, {
-						value: 'aaa',
-						text: '中级保姆'
-					}, {
-						value: 'lj',
-						text: '高级保姆'
-					}, {
-						value: 'lj',
-						text: '特级保姆'
-					}, ]);
-					var showUserPickerButton = doc.getElementById('showUserPicker');
-					var userResult = doc.getElementById('userResult');
-					showUserPickerButton.addEventListener('tap', function(event) {
-						userPicker.show(function(items) {
-							userResult.innerText = (items[0] || {}).text;
-							//返回 false 可以阻止选择框的关闭
-							//return false;
-						});
-					}, false);
-				});
-			})(mui, document);
-		</script>
-		<script>
-			(function($, doc) {
-				$.init();
-				$.ready(function() {
-					var userPicker = new $.PopPicker();
-					userPicker.setData([{
-						value: 'ywj',
-						text: '1年-3年'
-					}, {
-						value: 'aaa',
-						text: '3年-5年'
-					}, {
-						value: 'lj',
-						text: '5年-10年'
-					}, {
-						value: 'lj',
-						text: '10年以上'
-					}, ]);
-					var showUserPickerButton = doc.getElementById('showUserPicker2');
-					var userResult = doc.getElementById('userResult2');
-					showUserPickerButton.addEventListener('tap', function(event) {
-						userPicker.show(function(items) {
-							userResult.innerText = (items[0] || {}).text;
-							//返回 false 可以阻止选择框的关闭
-							//return false;
-						});
-					}, false);
-				});
-			})(mui, document);
-			(function($, doc) {
-				$.init();
-				$.ready(function() {
-					var userPicker = new $.PopPicker();
-					userPicker.setData([{
-						value: 'ywj',
-						text: '20岁-25岁'
-					}, {
-						value: 'aaa',
-						text: '25岁-30岁'
-					}, {
-						value: 'lj',
-						text: '30岁-40岁'
-					}, {
-						value: 'lj',
-						text: '40岁以上'
-					}, ]);
-					var showUserPickerButton = doc.getElementById('showUserPicker3');
-					var userResult = doc.getElementById('userResult3');
-					showUserPickerButton.addEventListener('tap', function(event) {
-						userPicker.show(function(items) {
-							userResult.innerText = (items[0] || {}).text;
-							//返回 false 可以阻止选择框的关闭
-							//return false;
-						});
-					}, false);
-				});
-			})(mui, document);
-			(function($, doc) {
-				$.init();
-				$.ready(function() {
-					var userPicker = new $.PopPicker();
-					userPicker.setData([{
-						value: 'ywj',
-						text: '小学'
-					}, {
-						value: 'aaa',
-						text: '初中'
-					}, {
-						value: 'lj',
-						text: '高中'
-					}, {
-						value: 'lj',
-						text: '本科'
-					}, ]);
-					var showUserPickerButton = doc.getElementById('showUserPicker4');
-					var userResult = doc.getElementById('userResult4');
-					showUserPickerButton.addEventListener('tap', function(event) {
-						userPicker.show(function(items) {
-							userResult.innerText = (items[0] || {}).text;
-							//返回 false 可以阻止选择框的关闭
-							//return false;
-						});
-					}, false);
-				});
-			})(mui, document);
-			(function($, doc) {
-				$.init();
-				$.ready(function() {
-					var userPicker = new $.PopPicker();
-					userPicker.setData([{
-						value: 'ywj',
-						text: '2000元-3000元'
-					}, {
-						value: 'aaa',
-						text: '3000元-4000元'
-					}, {
-						value: 'lj',
-						text: '4000元-5000元'
-					}, {
-						value: 'lj',
-						text: '5000元以上'
-					}, ]);
-					var showUserPickerButton = doc.getElementById('showUserPicker5');
-					var userResult = doc.getElementById('userResult5');
-					showUserPickerButton.addEventListener('tap', function(event) {
-						userPicker.show(function(items) {
-							userResult.innerText = (items[0] || {}).text;
-							//返回 false 可以阻止选择框的关闭
-							//return false;
-						});
-					}, false);
-				});
-			})(mui, document);
-		</script>
-		<script>
-			document.getElementById('ayi').addEventListener('tap', function() {
-				//打开关于页面
-				mui.openWindow({
-					url: 'jiazheng_ayi.html',
-					id: 'jiazheng_ayi'
-				});
+				(function($, doc) {
+					$.init();
+					$.ready(function() {
+						var userPicker = new $.PopPicker();
+						userPicker.setData([{
+							value: 'ywj',
+							text: '初级保姆'
+						}, {
+							value: 'aaa',
+							text: '中级保姆'
+						}, {
+							value: 'lj',
+							text: '高级保姆'
+						}, {
+							value: 'lj',
+							text: '特级保姆'
+						}, ]);
+						var showUserPickerButton = doc.getElementById('showUserPicker');
+						var userResult = doc.getElementById('userResult');
+						showUserPickerButton.addEventListener('tap', function(event) {
+							userPicker.show(function(items) {
+								userResult.innerText = (items[0] || {}).text;
+								//返回 false 可以阻止选择框的关闭
+								//return false;
+							});
+						}, false);
+					});
+				})(mui, document);
+				(function($, doc) {
+					$.init();
+					$.ready(function() {
+						var userPicker = new $.PopPicker();
+						userPicker.setData([{
+							value: 'ywj',
+							text: '1年-3年'
+						}, {
+							value: 'aaa',
+							text: '3年-5年'
+						}, {
+							value: 'lj',
+							text: '5年-10年'
+						}, {
+							value: 'lj',
+							text: '10年以上'
+						}, ]);
+						var showUserPickerButton = doc.getElementById('showUserPicker2');
+						var userResult = doc.getElementById('userResult2');
+						showUserPickerButton.addEventListener('tap', function(event) {
+							userPicker.show(function(items) {
+								userResult.innerText = (items[0] || {}).text;
+								//返回 false 可以阻止选择框的关闭
+								//return false;
+							});
+						}, false);
+					});
+				})(mui, document);
+				(function($, doc) {
+					$.init();
+					$.ready(function() {
+						var userPicker = new $.PopPicker();
+						userPicker.setData([{
+							value: 'ywj',
+							text: '20岁-25岁'
+						}, {
+							value: 'aaa',
+							text: '25岁-30岁'
+						}, {
+							value: 'lj',
+							text: '30岁-40岁'
+						}, {
+							value: 'lj',
+							text: '40岁以上'
+						}, ]);
+						var showUserPickerButton = doc.getElementById('showUserPicker3');
+						var userResult = doc.getElementById('userResult3');
+						showUserPickerButton.addEventListener('tap', function(event) {
+							userPicker.show(function(items) {
+								userResult.innerText = (items[0] || {}).text;
+								//返回 false 可以阻止选择框的关闭
+								//return false;
+							});
+						}, false);
+					});
+				})(mui, document);
+				(function($, doc) {
+					$.init();
+					$.ready(function() {
+						var userPicker = new $.PopPicker();
+						userPicker.setData([{
+							value: 'ywj',
+							text: '小学'
+						}, {
+							value: 'aaa',
+							text: '初中'
+						}, {
+							value: 'lj',
+							text: '高中'
+						}, {
+							value: 'lj',
+							text: '本科'
+						}, ]);
+						var showUserPickerButton = doc.getElementById('showUserPicker4');
+						var userResult = doc.getElementById('userResult4');
+						showUserPickerButton.addEventListener('tap', function(event) {
+							userPicker.show(function(items) {
+								userResult.innerText = (items[0] || {}).text;
+								//返回 false 可以阻止选择框的关闭
+								//return false;
+							});
+						}, false);
+					});
+				})(mui, document);
+				(function($, doc) {
+					$.init();
+					$.ready(function() {
+						var userPicker = new $.PopPicker();
+						userPicker.setData([{
+							value: 'ywj',
+							text: '2000元-3000元'
+						}, {
+							value: 'aaa',
+							text: '3000元-4000元'
+						}, {
+							value: 'lj',
+							text: '4000元-5000元'
+						}, {
+							value: 'lj',
+							text: '5000元以上'
+						}, ]);
+						var showUserPickerButton = doc.getElementById('showUserPicker5');
+						var userResult = doc.getElementById('userResult5');
+						showUserPickerButton.addEventListener('tap', function(event) {
+							userPicker.show(function(items) {
+								userResult.innerText = (items[0] || {}).text;
+								//返回 false 可以阻止选择框的关闭
+								//return false;
+							});
+						}, false);
+					});
+				})(mui, document);
 			});
 		</script>
 		<script src="../js/mui.picker.js"></script>

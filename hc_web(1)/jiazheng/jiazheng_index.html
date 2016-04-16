@@ -10,30 +10,29 @@
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link href="../css/style.css" rel="stylesheet" />
 		<link href="../css/iconfont.css" rel="stylesheet" />
-		<script type="text/javascript" charset="utf-8">
-			mui.init();
-		</script>
 		<style type="text/css">
 			.repair_container li {
 				background: #FFFFFF;
 			}
-			.repair_container li p{
+			
+			.repair_container li p {
 				color: #000000;
 			}
-			.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
 				padding: 11px;
-				border-right:1px solid #EEEEEE;
-				border-bottom:1px solid #EEEEEE;
+				border-right: 1px solid #EEEEEE;
+				border-bottom: 1px solid #EEEEEE;
 			}
-			.guanggao .mui-table-view-cell{
+			
+			.guanggao .mui-table-view-cell {
 				border: none !important;
 				border: 2px solid #EEEEEE !important;
 				padding: 0 !important;
-				
 			}
 		</style>
 
-	</head> 
+	</head>
 
 	<body>
 
@@ -77,9 +76,6 @@
 			<!-- 主页面容器 -->
 
 			<div class="mui-inner-wrap   repair_container">
-
-				<!-- 主页面标题 -->
-
 				<header class="mui-bar mui-bar-nav">
 					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 					<h1 class="mui-title">家政服务</h1>
@@ -87,68 +83,17 @@
 				<!--主界面区域-->
 				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
 					<div class="mui-scroll">
-
-						<!-- 主界面具体展示内容 -->
-
-						<!--按钮区域-->
-
+						<input type="hidden" id="uid">
 						<div id="container">
-							<ul class="mui-table-view mui-grid-view mui-grid-9">
-								<li id="yuesao" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<span class="mui-icon icon-yuesao"></span>
-									<p class="black">月嫂</p>
-								</li>
-								<li id="yuersao" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<span class="mui-icon icon-yinger"></span>
-									<p class="black">育儿嫂</p>
-								</li>
-								<li id="baomu" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<span class="mui-icon icon-baomu"></span>
-									<p class="black">住家保姆</p>
-								</li>
-								<!--<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<span class="mui-icon icon-laoren"></span>
-									<p class="black">老人陪护</p>
-								</li>-->
-								<li id="peihu" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<span class="mui-icon icon-lunyi"></span>
-									<p class="black">陪护</p>
-								</li>
-								<!--<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<span class="mui-icon icon-zhongdianbaoji"></span>
-									<p class="black">钟点工</p>
-								</li>-->
-								<!--<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<span class="mui-icon icon-zhongdiangong"></span>
-									<p class="black">临时保洁</p>
-								</li>-->
-
+							<ul class="mui-table-view mui-grid-view mui-grid-9 jiazheng_cate" id="jiazheng_cate">
 							</ul>
-
 							<ul class="mui-table-view mui-grid-view mui-grid-9 guanggao" id="guanggao">
-								<!--<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-									<img src="http://101.200.232.167:81/Images/jiazheng/jiaz_03.gif" />
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-									<img src="http://101.200.232.167:81/Images/jiazheng/jiaz_05.gif" />
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-									<img src="http://101.200.232.167:81/Images/jiazheng/jiaz_03.gif" />
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-									<img src="http://101.200.232.167:81/Images/jiazheng/jiaz_05.gif" />
-								</li>-->
-
 							</ul>
 							<div class="phone">
 								<img src="../image/baoxiu_19.gif" /> 紧急呼叫： <strong>400-800-8000</strong>
 							</div>
-							
+
 						</div>
-
-						<!--按钮区域结束-->
-						<!-- 侧滑后右侧变黑-->
-
 					</div>
 					<div class="mui-off-canvas-backdrop"></div>
 				</div>
@@ -156,47 +101,118 @@
 		</div>
 
 		<script>
-		mui.ajax("http://101.201.196.202:82/JiaZhengAdvertisings/JZADIndex",{
-			dataType:"json",
-			type:"get",
-			success:function(data){
-				var jiazhengAD="";
-				for (var i = 0; i < data.length; i++) {
-						jiazhengAD+="<li class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://101.201.196.202:82/Images/JiaZhengAdvertisingsImg/"+data[i].JiaZhengADImg+"\" /></li>"
+			mui.init({
+				preloadPages: [{
+					url: 'jiazheng_sever_yuesao.html',
+					id: 'jiazheng_sever_yuesao.html'
+				}, {
+					url: 'jiazheng_sever_yuersao.html',
+					id: 'jiazheng_sever_yuersao.html'
+				}, {
+					url: 'jiazheng_sever_baomu.html',
+					id: 'jiazheng_sever_baomu.html'
+				}, {
+					url: 'jiazheng_sever_peihu.html',
+					id: 'jiazheng_sever_peihu.html'
+				}]
+			});
+			mui.ajax("http://101.201.196.202:82/JiaZhengCategory/Index", {
+				dataType: "json",
+				type: "get",
+				success: function(data) {
+					var jzcate = "";
+					for (var i = 0; i < data.length; i++) {
+						jzcate += "<li id=\"" + data[i].ID + "\" data-name=\"" + data[i].jiazheng_name + "\" class=\"mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3\"><span class=\"mui-icon " + data[i].jiazheng_cateBackAttr + "\"></span><p class=\"black\">" + data[i].jiazheng_name + "</p></li>"
+					}
+					document.getElementById("jiazheng_cate").innerHTML = jzcate;
 				}
-				document.getElementById("guanggao").innerHTML=jiazhengAD;
-			}
-		})
-		
+			})
+			var yuesaoPage = null;
+			var yuersaoPage = null;
+			var baomuPage = null;
+			var peihuPage = null;
+			mui('.jiazheng_cate').on('tap', '.mui-table-view-cell', function() {
+				mui.ajax('http://101.201.196.202:82/home/login_cache', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					async: false,
+					type: 'GET', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.nAccountID != null && data.nAccountID != "") {
+							var accountID = data.nAccountID;
+							document.getElementById("uid").value = accountID;
+						} else {
+							mui.toast("请先登录");
+							return;
+						}
+					}
+				})
+				var cateId_ = this.getAttribute("id");
+				var cateName = this.getAttribute("data-name");
+				var uuid = document.getElementById("uid").value;
+				if (cateName == "月嫂") {
+					document.getElementById("uid").value = "";
+					if (!yuesaoPage) {
+						yuesaoPage = plus.webview.getWebviewById("jiazheng_sever_yuesao.html");
+					}
+					mui.fire(yuesaoPage, "yuesaoid", {
+						cateId: cateId_,
+						uuid: uuid
+					})
+					mui.openWindow({
+						id: 'jiazheng_sever_yuesao.html'
+					});
+				} else if (cateName == "育儿嫂") {
+					document.getElementById("uid").value = "";
+					if (!yuersaoPage) {
+						yuersaoPage = plus.webview.getWebviewById("jiazheng_sever_yuersao.html");
+					}
+					mui.fire(yuersaoPage, "yuersaoid", {
+						cateId: cateId_,
+						uuid: uuid
+					})
+					mui.openWindow({
+						id: 'jiazheng_sever_yuersao.html'
+					});
+				} else if (cateName == "住家保姆") {
+					document.getElementById("uid").value = "";
+					if (!baomuPage) {
+						baomuPage = plus.webview.getWebviewById("jiazheng_sever_baomu.html");
+					}
+					mui.fire(baomuPage, "baomuid", {
+						cateId: cateId_,
+						uuid: uuid
+					})
+					mui.openWindow({
+						id: 'jiazheng_sever_baomu.html'
+					});
+				} else if (cateName == "陪护") {
+					document.getElementById("uid").value = "";
+					if (!peihuPage) {
+						peihuPage = plus.webview.getWebviewById("jiazheng_sever_peihu.html");
+					}
+					mui.fire(peihuPage, "peihuid", {
+						cateId: cateId_,
+						uuid: uuid
+					})
+					mui.openWindow({
+						id: 'jiazheng_sever_peihu.html'
+					});
+				}
+			})
+			mui.ajax("http://101.201.196.202:82/JiaZhengAdvertisings/JZADIndex", {
+				dataType: "json",
+				type: "get",
+				success: function(data) {
+					var jiazhengAD = "";
+					for (var i = 0; i < data.length; i++) {
+						jiazhengAD += "<li class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://101.201.196.202:82/Images/JiaZhengAdvertisingsImg/" + data[i].JiaZhengADImg + "\" /></li>"
+					}
+					document.getElementById("guanggao").innerHTML = jiazhengAD;
+				}
+			})
 			mui('.mui-scroll-wrapper').scroll();
-			document.getElementById('yuesao').addEventListener('tap', function() {
-					//打开关于页面
-					mui.openWindow({
-						url: 'jiazheng_sever_yuesao.html',
-						id: 'jiazheng_sever_yuesao'
-					});
-				});
-			document.getElementById('yuersao').addEventListener('tap', function() {
-					//打开关于页面
-					mui.openWindow({
-						url: 'jiazheng_sever_yuersao.html',
-						id: 'jiazheng_sever_yuersao'
-					});
-				});
-			document.getElementById('baomu').addEventListener('tap', function() {
-					//打开关于页面
-					mui.openWindow({
-						url: 'jiazheng_sever_baomu.html',
-						id: 'jiazheng_sever_baomu'
-					});
-				});
-			document.getElementById('peihu').addEventListener('tap', function() {
-					//打开关于页面
-					mui.openWindow({
-						url: 'jiazheng_sever_peihu.html',
-						id: 'jiazheng_sever_peihu'
-					});
-				});	
 		</script>
 	</body>
 

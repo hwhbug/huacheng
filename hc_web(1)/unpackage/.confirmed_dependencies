@@ -33,7 +33,10 @@
 			"ershou/ershou_index.html",
 			"falv/falv_index.html",
 			"gonggao/gonggao_liebiao.html",
-			"wuye/wuye_dingdan.html"
+			"wuye/wuye_dingdan.html",
+			"yanglao/yanglao_index.html",
+			"gonggao/gonggao_huodong.html",
+			"tousu/tousu_index.html"
 		]
 	},
 	"shopping/shop_cuxiao_acter.html": {
@@ -227,7 +230,8 @@
 			"css/mui.css"
 		],
 		"refer": [
-			"shopping/shop_car.html"
+			"shopping/shop_car.html",
+			"shopping/shop_list.html"
 		]
 	},
 	"shopping/shop_user.html": {
@@ -301,7 +305,8 @@
 			"user/user_dingdan.html",
 			"user/user_fuwu.html",
 			"index.html",
-			"user/user_xinxi.html"
+			"user/user_xinxi.html",
+			"login.html"
 		]
 	},
 	"reg_shanghu.html": {
@@ -414,7 +419,9 @@
 			"css/style.css",
 			"js/mui.js"
 		],
-		"refer": []
+		"refer": [
+			"user/order_detail.html"
+		]
 	},
 	"shopping/shop_dizhi.html": {
 		"resources": [
@@ -749,7 +756,8 @@
 			"css/iconfont.css",
 			"css/style.css",
 			"fonts/iconfont.ttf",
-			"css/mui.css"
+			"css/mui.css",
+			"image/baoxiu_19.gif"
 		],
 		"refer": [
 			"login.html",
@@ -823,7 +831,16 @@
 		"refer": [
 			"falv/falv_over.html"
 		],
-		"resources": []
+		"resources": [
+			"js/jquery-1.9.1.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/mui.css"
+		]
 	},
 	"shopping/shop_list.html": {
 		"resources": [
@@ -893,8 +910,129 @@
 			"css/mui.min.css",
 			"js/mui.js",
 			"css/iconfont.css",
-			"css/style.css"
+			"css/style.css",
+			"js/jquery-1.9.1.min.js"
 		],
-		"refer": []
+		"refer": [
+			"wuye/wuye_jiesuan.html"
+		]
+	},
+	"wuye/wuye_jiesuan.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/cross-down.css",
+			"js/jquery-1.9.1.min.js",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/mui.ttf"
+		]
+	},
+	"user/order_detail.html": {
+		"resources": [
+			"css/mui.imageviewer.css",
+			"css/feedback-page.css",
+			"js/mui.picker.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"css/mui.css",
+			"css/mui.picker.css",
+			"image/cp3.jpg",
+			"js/city.data-3.js",
+			"js/mui.min.js",
+			"js/mui.poppicker.js",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"fonts/iconfont.ttf",
+			"css/mui.poppicker.css",
+			"js/jquery-1.9.1.min.js"
+		]
+	},
+	"yanglao/yanglao_index.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"image/baoxiu_19.gif",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/mui.css"
+		],
+		"refer": [
+			"yanglao/yanglao_huodong.html",
+			"yanglao/acter_acter.html",
+			"yanglao/yanglao_wangdian.html"
+		]
+	},
+	"yanglao/yanglao_huodong.html": {
+		"resources": [
+			"js/jquery-1.9.1.min.js"
+		]
+	},
+	"yanglao/acter_acter.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/mui.js",
+			"css/mui.imageviewer.css"
+		]
+	},
+	"yanglao/yanglao_wangdian.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/mui.css"
+		]
+	},
+	"gonggao/gonggao_huodong.html": {
+		"resources": [
+			"js/mui.min.js",
+			"js/jquery-1.9.1.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"css/mui.css"
+		]
+	},
+	"tousu/tousu_index.html": {
+		"resources": [
+			"js/jquery-1.9.1.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/mui.css"
+		],
+		"refer": [
+			"tousu/tousu_acter.html",
+			"tousu/tousu_user.html"
+		]
+	},
+	"tousu/tousu_acter.html": {
+		"resources": [
+			"js/jquery-1.9.1.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/mui.css"
+		]
+	},
+	"tousu/tousu_user.html": {
+		"refer": [
+			"tousu/tousu_index.html"
+		]
 	}
 }

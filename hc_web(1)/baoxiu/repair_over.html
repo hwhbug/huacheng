@@ -69,11 +69,6 @@
 		<script src="../js/app.js"></script>
 		<script src="../js/myapp.js"></script>
 		<script>
-			//			mui.init({
-			//				id: "repair_4.html",
-			//				url: "repair_4.html"
-			//			});
-			//			var repair4Page = null;
 			mui.ajax('http://101.201.196.202:82/home/login_cache', {
 				data: {},
 				dataType: 'json', //服务器返回json格式数据
@@ -96,28 +91,8 @@
 						var ordhtml = "<span class=\"mui-icon mui-icon-paperclip yellow-font\">订单号：</span>" + data.ro_num + ""
 						document.getElementById("or_num").innerHTML = ordhtml;
 					});
-				//				document.getElementById("lookOrder").addEventListener("tap", function() {
-				//					if (!repair4Page) {
-				//						repair4Page = plus.webview.getWebviewById("repair_4.html");
-				//					}
-				//					mui.fire(repair4Page, "repairOverId", {
-				//						roId: roId
-				//					});
-				//					mui.openWindow({
-				//						id: "repair_4.html"
-				//					})
-				//				})
 			})
 			document.getElementById("lookOrder").addEventListener("tap", function() {
-				//				if (!repair4Page) {
-				//					repair4Page = plus.webview.getWebviewById("repair_4.html");
-				//				}
-				//				mui.fire(repair4Page, "repairOverId", {
-				//					roId: document.getElementById("roId").value
-				//				});
-				//				mui.openWindow({
-				//						id: "repair_4.html"
-				//					})
 				mui.openWindow({
 					url: "repair_4.html",
 					extras: {

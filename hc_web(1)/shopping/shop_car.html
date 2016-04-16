@@ -199,7 +199,6 @@
 
 			function download() {
 				mui.plusReady(function() {
-					var ceshi = "";
 					mui.ajax("http://" + plus.storage.getItem("url") + "/ShoppingCart/index", {
 						data: {},
 						async: true,
@@ -217,7 +216,7 @@
 									console.log("?productid=" + data[i].ProReBusiness_ID + "&businessid=" + data[i].Business_ID)
 									shopcar += "<h4 class=\"font-red\">￥" + data[i].ProReBusiness.Price + "</h4>";
 									shopcar += "<p>属性：" + data[i].ProAttrName.replace("/\,/g", "&nbsp;") + "</p><p id=\"Quantity\">数量：" + data[i].Quantity + "</p>";
-									console.log(ceshi)
+									
 								}
 								if (data[i].Business_ID != null) {
 									mui.ajax("http://" + plus.storage.getItem("url") + "/Business/Business_Detail", {

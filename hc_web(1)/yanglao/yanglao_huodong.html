@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			.repair_container li {
+				background: #FFFFFF;
+			}
+			
+			.repair_container li p {
+				color: #000000;
+			}
+			
+			input[type=search] {
+				background: #FFFFFF;
+			}
+			
+			.mui-btn-primary {
+				background: #F17E25;
+			}
+			
+			p {
+				margin-bottom: 2px;
+			}
+			
+			header .icon-shaixuan {
+				padding: 10px 10px 0 0 !important;
+				margin: 0;
+			}
+			
+			header .icon-shaixuan:before {
+				padding-right: 10px;
+			}
+			
+			.mui-off-canvas-left,
+			.mui-off-canvas-right {
+				width: 40% !important;
+				background: #EEEEEE;
+			}
+			
+			.max-font {
+				font-size: 16px;
+				margin-top: 5px;
+			}
+			
+			.ershou_bar {
+				border: none;
+			}
+			
+			ul.chepai {
+				line-height: 25px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+			<!--菜单部分-->
+			<aside id="offCanvasSide" class="mui-off-canvas-right">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll" style="padding: 0 10px;">
+						<p style="margin: 10px 15px;">
+							<button id="offCanvasHide" type="button" class="mui-btn mui-btn-danger mui-btn-block mui-action-back" style="padding: 5px 20px;">关闭侧滑菜单</button>
+						</p>
+						<p class="font-blue" id="comm">小区选择</p>
+
+						<!--<p class="max-font font-blue">A</p>
+						<ul class="chepai">
+							<li>爱尚佳小区</li>
+						</ul>
+						<p class="max-font font-blue">B</p>
+						<ul class="chepai">
+							<li>B开头小区</li>
+						</ul>-->
+					</div>
+				</div>
+			</aside>
+
+			<div class="mui-inner-wrap repair_container">
+				<header class="mui-bar mui-bar-nav">
+					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<h1 class="mui-title">老年活动</h1>
+					<a id="offCanvasBtn" href="#offCanvasSide" class="icon-shaixuan mui-icon mui-pull-right"></a>
+				</header>
+				<!--主界面区域-->
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div id="container">
+							<ul class="ershou_tuijian" id="huodong_content">
+								<!--<li>
+									<div class="img"><img src="../image/repair_23.gif" /></div>
+									<p class="max-font">迎宾小区开展五一送温暖活动</p>
+									<p>时间：2015.5.2——2015.5.8</p>
+									<p class="font-yellow">小区：迎宾小区</p>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="mui-off-canvas-backdrop"></div>
+			</div>
+		</div>
+		<script>
+			mui.ajax("http://101.201.196.202:82/Community/Index", {
+				dataType: "json",
+				type: "get",
+				success: function(data) {
+					var community_content = "";
+					for (var i = 0; i < data.length; i++) {
+						community_content += "<ul class=\"chepai\" id=\"" + data[i].ID + "\"><li>" + data[i].CommunityName + "</li></ul>";
+					}
+					$("#comm").html(community_content);
+				}
+			});
+			mui('.mui-scroll').on('tap', '.chepai', function() {
+				var comm_id = this.getAttribute("id");
+				mui.ajax("http://101.201.196.202:82/YangLaoHuoDong1/Index", {
+					data: {
+						commId: comm_id
+					},
+					dataType: "json",
+					type: "get",
+					success: function(data) {
+						if (data == "") {
+							alert("没有对应信息");
+						} else {
+							var cnt = "";
+							for (var i = 0; i < data.length; i++) {
+								cnt += "<li><div class=\"img\"><img src=\"http://101.201.196.202:82/Images/YanglaoImg/" + data[i].huodongImage + "\" /></div><p class=\"max-font\">" + data[i].huodongTitle + "</p>" +
+									"<p>时间：" + jsonDateFormat(data[i].StartTime) + "——" + jsonDateFormat(data[i].EndTime) + "</p><p class=\"font-yellow\">小区：" + data[i].Community.CommunityName + "</p></li>"
+							}
+							$("#huodong_content").html(cnt);
+						}
+					}
+				})
+			});
+
+			function jsonDateFormat(jsonDate) {
+				try {
+					var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+					var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+					var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+					var hours = date.getHours();
+					var minutes = date.getMinutes();
+					var seconds = date.getSeconds();
+					var milliseconds = date.getMilliseconds();
+					//return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+					return date.getFullYear() + "-" + month + "-" + day;
+				} catch (e) {
+					//TODO handle the exception
+				}
+			}
+			mui.ajax("http://101.201.196.202:82/YangLaoHuoDong1/Index", {
+				dataType: "json",
+				type: "get",
+				success: function(data) {
+					var cnt = "";
+					for (var i = 0; i < data.length; i++) {
+						cnt += "<li><div class=\"img\"><img src=\"http://101.201.196.202:82/Images/YanglaoImg/" + data[i].huodongImage + "\" /></div><p class=\"max-font\">" + data[i].huodongTitle + "</p>" +
+							"<p>时间：" + jsonDateFormat(data[i].StartTime) + "——" + jsonDateFormat(data[i].EndTime) + "</p><p class=\"font-yellow\">小区：" + data[i].Community.CommunityName + "</p></li>"
+					}
+					document.getElementById("huodong_content").innerHTML = cnt;
+				}
+			});
+			mui('.mui-scroll-wrapper').scroll();
+			mui.init({
+				swipeBack: false,
+			});
+			//侧滑容器父节点
+			var offCanvasWrapper = mui('#offCanvasWrapper');
+			//主界面容器
+			var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+			//菜单容器
+			var offCanvasSide = document.getElementById("offCanvasSide");
+			//Android暂不支持整体移动动画
+			var moveTogether = false;
+			//侧滑容器的class列表，增加.mui-slide-in即可实现菜单移动、主界面不动的效果；
+			var classList = offCanvasWrapper[0].classList;
+			//变换侧滑动画移动效果；
+			mui('.mui-input-group').on('change', 'input', function() {
+				if (this.checked) {
+					offCanvasSide.classList.remove('mui-transitioning');
+					offCanvasSide.setAttribute('style', '');
+					classList.remove('mui-slide-in');
+					classList.remove('mui-scalable');
+					switch (this.value) {
+						case 'main-move':
+							if (moveTogether) {
+								//仅主内容滑动时，侧滑菜单在off-canvas-wrap内，和主界面并列
+								offCanvasWrapper[0].insertBefore(offCanvasSide, offCanvasWrapper[0].firstElementChild);
+								moveTogether = false;
+							}
+							break;
+						case 'main-move-scalable':
+							if (moveTogether) {
+								//仅主内容滑动时，侧滑菜单在off-canvas-wrap内，和主界面并列
+								offCanvasWrapper[0].insertBefore(offCanvasSide, offCanvasWrapper[0].firstElementChild);
+							}
+							classList.add('mui-scalable');
+							break;
+						case 'menu-move':
+							classList.add('mui-slide-in');
+							break;
+						case 'all-move':
+							moveTogether = true;
+							//整体滑动时，侧滑菜单在inner-wrap内
+							offCanvasInner.insertBefore(offCanvasSide, offCanvasInner.firstElementChild);
+							break;
+					}
+					offCanvasWrapper.offCanvas().refresh();
+				}
+			});
+			//主界面和侧滑菜单界面均支持区域滚动；
+			mui('#offCanvasSideScroll').scroll();
+			mui('#offCanvasContentScroll').scroll();
+			//实现ios平台的侧滑关闭页面；
+			if (mui.os.plus && mui.os.ios) {
+				offCanvasWrapper[0].addEventListener('shown', function(e) { //菜单显示完成事件
+					plus.webview.currentWebview().setStyle({
+						'popGesture': 'none'
+					});
+				});
+				offCanvasWrapper[0].addEventListener('hidden', function(e) { //菜单关闭完成事件
+					plus.webview.currentWebview().setStyle({
+						'popGesture': 'close'
+					});
+				});
+			}
+		</script>
+
+	</body>
+
+</html>

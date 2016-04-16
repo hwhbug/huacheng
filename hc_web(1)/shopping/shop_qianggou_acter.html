@@ -130,7 +130,7 @@
 							<a>数量 :</a>
 							<div class="mui-numbox mui-pull-right" data-numbox-min="1" data-numbox-max="20">
 								<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
-								<input id="buynumber"  style="margin-top:0 !important;" class="mui-numbox-input" type="number" value="1" />
+								<input id="buynumber" style="margin-top:0 !important;" class="mui-numbox-input" type="number" value="1" />
 								<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
 							</div>
 						</div>
@@ -185,10 +185,10 @@
 			});
 		</script>
 		<script>
-		//*************************************结算************************************
+			//*************************************结算************************************
 			document.getElementById("shop_car").addEventListener("tap", function() {
 				//打开关于页面
-				mui.ajax("http://"+plus.storage.getItem("url")+"/product/whetherlogin", {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/product/whetherlogin", {
 					data: {},
 					dataType: "json", //服务器返回json格式数据
 					async: true,
@@ -210,9 +210,10 @@
 			mui("body").on("shown", ".mui-popover", function(e) {});
 			mui("body").on("hidden", ".mui-popover", function(e) {});
 			///////////////////**********************************以下为获取数据**********************************************
+			var id = "";
 			window.addEventListener("newsId", function(event) {
 				//获得事件参数
-				var id = event.detail.id;
+				id = event.detail.id;
 				//************************************每次加载页面要先清空原页面数据，防止出现页面闪屏的问题**************************
 				$(".mui-title").empty();
 				$(".left .pro_name").empty();
@@ -226,8 +227,9 @@
 				$(".tanchu_shuxing").empty();
 				$(".choise").empty();
 				$(".Quantity").empty();
+				$("#choise_productattrname").empty();
 				//根据id向服务器请求新闻详情
-				mui.ajax("http://"+plus.storage.getItem("url")+"//product/Panicbuy_Detail", {
+				mui.ajax("http://" + plus.storage.getItem("url") + "//product/Panicbuy_Detail", {
 					data: {
 						id: id,
 					},
@@ -241,15 +243,15 @@
 						$(".left .pro_name").html(data.Names);
 						$(".left .font-red.mx_jiage").html("￥" + data.Price2);
 						$(".left .zhonghuaxian").html("￥" + data.Price1);
-						$(".shop_main").html(data.Description.replace(/\/Images/g,"http://"+plus.storage.getItem("url")+"/Images"));
+						$(".shop_main").html(data.Description.replace(/\/Images/g, "http://" + plus.storage.getItem("url") + "/Images"));
 						$(".right .pro_name").html(data.Names);
 						$(".settime").attr("endtime", data.EndTime);
 						$(".right .font-red.mx_jiage").html("￥" + data.Price1);
 						$(".right .zhonghuaxian").html("￥" + data.Price2);
 						$(".Quantity").html(data.Quantity);
-						$(".sm_shop_img").html("<img src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data.Brand.brand_logo + " \"/>");
+						$(".sm_shop_img").html("<img src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data.Brand.brand_logo + " \"/>");
 						//获取产品的相册列表
-						mui.ajax("http://"+plus.storage.getItem("url")+"/product/Panicbuy", {
+						mui.ajax("http://" + plus.storage.getItem("url") + "/product/Panicbuy", {
 							data: {
 								productid: data.ID
 							},
@@ -260,13 +262,13 @@
 							success: function(data1) {
 								var gallery = "";
 								for (var j = 0; j < data1.length; j++) {
-									gallery += "<div class=\"mui-slider-item\"><img src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data1[j].Names + "\" /></div>";
+									gallery += "<div class=\"mui-slider-item\"><img src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data1[j].Names + "\" /></div>";
 								}
 								$(".mui-slider-group").html(gallery);
 							}
 						});
 						//获取属性列表
-						mui.ajax("http://"+plus.storage.getItem("url")+"/product/Panicbuy_Purchase", {
+						mui.ajax("http://" + plus.storage.getItem("url") + "/product/Panicbuy_Purchase", {
 							data: {
 								producttypeid: data.ProductsType_ID,
 							},
@@ -278,7 +280,7 @@
 								//获取所属产品的属性列表
 								var ProductAttribute = "";
 								var post_attr = "";
-								mui.getJSON("http://"+plus.storage.getItem("url")+"/product/Customers_Detail", {
+								mui.getJSON("http://" + plus.storage.getItem("url") + "/product/Customers_Detail", {
 										productid: data.ID,
 									},
 									function(data3) {
@@ -311,47 +313,47 @@
 						});
 					}
 				})
-				var settings = app.getSettings();
-				var add_shop_car = document.getElementById("add_shop_car");
-				var choise_productattrname = document.getElementById("choise_productattrname");
-				var buynumber = document.getElementById("buynumber");
-				var productattr = document.getElementById("productattr");
-				//正则表达式判断空格出现的次数
-				var re = new RegExp("&nbsp;", "g");
-				var reattr = new RegExp(",", "g");
-				add_shop_car.addEventListener("tap", function(event) {
-					if (choise_productattrname.innerHTML.replace(/\&nbsp;/g, ",") == "") {
-						plus.ui.toast("请完善信息");
+			});
+			var settings = app.getSettings();
+			var add_shop_car = document.getElementById("add_shop_car");
+			var choise_productattrname = document.getElementById("choise_productattrname");
+			var buynumber = document.getElementById("buynumber");
+			var productattr = document.getElementById("productattr");
+			//正则表达式判断空格出现的次数
+			var re = new RegExp("&nbsp;", "g");
+			var reattr = new RegExp(",", "g");
+			add_shop_car.addEventListener("tap", function(event) {
+				if (choise_productattrname.innerHTML.replace(/\&nbsp;/g, ",") == "") {
+					plus.ui.toast("请完善信息");
+					return;
+				} else {
+					if (choise_productattrname.innerHTML.match(re).length != productattr.innerHTML.match(reattr).length) {
+						plus.ui.toast("属性选择不完善");
 						return;
-					} else {
-						if (choise_productattrname.innerHTML.match(re).length != productattr.innerHTML.match(reattr).length) {
-							plus.ui.toast("属性选择不完善");
-							return;
+					}
+				}
+				//****************************用户提交成功返回*********************************
+				mui.ajax("http://" + plus.storage.getItem("url") + "/product/AddCart", {
+					data: {
+						"ProAttrType": productattr.innerHTML,
+						"Quantity": buynumber.value,
+						"ProAttrName": choise_productattrname.innerHTML.replace(/\&nbsp;/g, ","), //正则表达式替换所有字符
+						"Products_ID": id,
+						"ShoppingCartType": "4"
+							//								"Business_ID":""
+					},
+					dataType: "json", //服务器返回json格式数据
+					async: true,
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode == 200) {
+							plus.ui.toast(data.message);
+						} else {
+							plus.ui.toast(data.message);
 						}
 					}
-					//****************************用户提交成功返回*********************************
-					mui.ajax("http://"+plus.storage.getItem("url")+"/product/AddCart", {
-						data: {
-							"ProAttrType": productattr.innerHTML,
-							"Quantity": buynumber.value,
-							"ProAttrName": choise_productattrname.innerHTML.replace(/\&nbsp;/g, ","), //正则表达式替换所有字符
-							"Products_ID": id,
-							"ShoppingCartType": "4"
-								//								"Business_ID":""
-						},
-						dataType: "json", //服务器返回json格式数据
-						async: true,
-						type: "Post", //HTTP请求类型,
-						timeout: 10000, //超时时间设置为10秒；
-						success: function(data) {
-							if (data.statusCode == 200) {
-								plus.ui.toast(data.message);
-							} else {
-								plus.ui.toast(data.message);
-							}
-						}
-					})
-				});
+				})
 			});
 		</script>
 		<script>

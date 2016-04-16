@@ -153,12 +153,12 @@
 		</div>
 
 		<script>
-			mui.init({
-				preloadPages: [{
-					id: "index",
-					url: "index.html"
-				}]
-			});
+//			mui.init({
+//				preloadPages: [{
+//					id: "../index",
+//					url: "../index.html"
+//				}]
+//			});
 			var detailPage = null;
 			mui(".mui-scroll-wrapper").scroll();
 			//******************************我的订单点击事件******************************
@@ -218,18 +218,15 @@
 								wobj.close()
 							}
 							//获得详情页面
-							if (!detailPage) {
-								detailPage = plus.webview.getWebviewById("index");
-							}
-							//触发详情页面的newsId事件
-							mui.fire(detailPage, "newsId", {});
-							//							plus.webview.close(plus.webview.currentWebview());
+//							if (!detailPage) {
+//								detailPage = plus.webview.getWebviewById("index");
+//							}
+//							//触发详情页面的newsId事件
+//							mui.fire(detailPage, "newsId", {});
 							mui.openWindow({
 								url: "../index.html",
 								id: "../index"
 							});
-							//							wobj.reload()
-							//							mui.back();
 						}
 					}
 				})
@@ -264,7 +261,15 @@
 						type: "Post", //HTTP请求类型,
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
-							$("#uname").html(data.name.substring(0, 1) + "先生");
+							if (data.sex != null) {
+								if (data.sex == "男") {
+									$("#uname").html(data.name.substring(0, 1) + "先生");
+								} else {
+									$("#uname").html(data.name.substring(0, 1) + "女士");
+								}
+							} else {
+								$("#uname").html("");
+							}
 							$("#tel").html("手机：" + data.mp.substring(0, 3) + "****" + data.mp.substring(7, 11));
 							$("#jifeng").html("积分：" + data.nCredit);
 							$(".font-yellow.mx_jiage").html(data.nVal);

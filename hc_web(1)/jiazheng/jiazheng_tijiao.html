@@ -57,30 +57,33 @@
 			<h1 class="mui-title">订单状态</h1>
 		</header>
 
+		<input type="hidden" id="cateId2">
+		<input type="hidden" id="uid2">
+		<input type="hidden" id="serLvl2">
+		<input type="hidden" id="workingExp2">
+		<input type="hidden" id="ageRange2">
+		<input type="hidden" id="xueLi2">
+		<input type="hidden" id="salaryRange2">
+		<input type="hidden" id="services2">
+		<input type="hidden" id="serviceAddress2">
+		<input type="hidden" id="serviceContactNumber2">
+		<input type="hidden" id="serviceCreateDate2">
+		<input type="hidden" id="servicesBrief2">
+		<input type="hidden" id="age2">
+		<input type="hidden" id="salary2">
+		<input type="hidden" id="ayiImg2">
+		<input type="hidden" id="provinceId2">
+		<input type="hidden" id="cityId2">
+		<input type="hidden" id="provinceName2">
+		<input type="hidden" id="babyAge2">
+		<input type="hidden" id="period">
+		<input type="hidden" id="yuyuemoney">
 		<div class="mui-content jiazheng">
 			<div class="repair3_table">
 				<!--<p class="black"><span class="mui-icon mui-icon-paperclip yellow-font">订单号：</span>10020051111</p>-->
 				<div class="jiazheng-zhuangtai" id="ayiCnt">
-					<!--<div class="touxiang"><img src="../image/baomu1.jpg" /></div>
-					<div class="touxiang2">
-						<p class="black">姓名：张爱玲</p>
-						<p>山西|45岁</p>
-						<p>薪资：<strong class="font-yellow">3000元/月</strong></p>
-						<p class="black">服务级别：初级月嫂</p>
-					</div>
-					<div style="clear: both;"></div>-->
-
 				</div>
 				<div class="qr_dizhi">
-					<!--<div id="bt" class="repair_bar red">确认地址信息 </div>
-					<input type="text" class="mui-input-speech sm_input" placeholder="李晨源" />
-					<input type="text" class="mui-input-speech sm_input" placeholder="汇通新城" />
-					<div class="mui-input-row">
-						<input type="text" class="mui-input-speech mui-input-clear" placeholder="详细地址" />
-					</div>
-					<div class="mui-input-row">
-						<input type="text" class="mui-input-speech mui-input-clear" placeholder="15035667535" />
-					</div>-->
 				</div>
 				<div class="jiazheng-zhuangtai">
 					<div class="xuanze-jiazheng">
@@ -89,61 +92,197 @@
 							<div id='userResult' class="ui-alert">选择雇佣时长</div>
 						</button>
 					</div>
-					<textarea class="mui-input-clear question" placeholder="补充您的其他要求"></textarea>
+					<textarea id="question" class="mui-input-clear question" placeholder="补充您的其他要求"></textarea>
 				</div>
-				<p class="red_txt center sm_txt">预约金：¥200元</p>
-				<p class="red_txt center">总价：¥6000元</p>
+				<p id="yuyuejin" class="red_txt center sm_txt"></p>
+				<!--<p class="red_txt center">总价：¥6000元</p>-->
 				<p class="shuomin smm_txt"><span class="mui-icon mui-icon-help"></span> 订单提交后，您拥有2天的服务试用期,服务不满意的话我们会为您免费更换人员或全额退款</p>
-				<button id='zhifu' class="mui-btn mui-btn-block mui-btn-primary btn_login">立即支付</button>
+				<button id='zhifu' class="mui-btn mui-btn-block mui-btn-primary btn_login zhifu">提交订单</button>
 			</div>
 		</div>
 
 	</body>
 	<script>
+		var phoneReg = function(value) {
+			var pReg = /1[3|5|6|8][0-9]\d{8}/;
+			var p = pReg.test(value);
+			return p;
+		}
 		mui.init({
+			preloadPages: [{
+				url: "jiazheng_over.html",
+				id: "jiazheng_over.html"
+			}],
 			swipeBack: true //启用右滑关闭功能
 		});
-		mui.plusReady(function() {
-			var self = plus.webview.currentWebview();
-			var fid = self.fid;
-			var ayiName = self.ayiName;
-			var area1 = self.area1;
-			var age = self.age;
-			var salary = self.salary;
-			var serverLvl = self.serverLvl;
-			var ayiImg = self.ayiImg;
-			//			alert("id=" + fid);
-			var tijiaoCnt = "<div class=\"touxiang\"><img src=\"" + ayiImg + "\" /></div><div class=\"touxiang2\"><p class=\"black\">姓名：" + ayiName + "</p>" +
-				"<p>" + area1 + "|" + age + "岁</p><p>薪资：<strong class=\"font-yellow\">" + salary + "元/月</strong></p><p class=\"black\">服务级别：" + serverLvl + "</p></div>" +
+		var overpage = null;
+		window.addEventListener("tijiaoId", function(event) {
+			var cateId2 = event.detail.jiazhengCateId;
+			var uid2 = event.detail.uid;
+			var serLvl2 = event.detail.serviceLevel;
+			var workingExp2 = event.detail.workingExperience;
+			var ageRange2 = event.detail.ageRange;
+			var xueLi2 = event.detail.xueLi;
+			var salaryRange2 = event.detail.salaryRange;
+			var services2 = event.detail.services;
+			var serviceAddress2 = event.detail.serviceAddress;
+			var serviceContactNumber2 = event.detail.serviceContactNumber;
+			var serviceCreateDate2 = event.detail.serviceCreateDate;
+			var servicesBrief2 = event.detail.servicesBrief;
+			var age2 = event.detail.age;
+			var salary2 = event.detail.salary;
+			var ayiImg2 = event.detail.ayiImg;
+			var provinceId2 = event.detail.provinceId;
+			var cityId2 = event.detail.cityId;
+			var provinceName2 = event.detail.provinceName;
+			var babyAge2 = event.detail.babyAge;
+			var yuyuemoney = event.detail.yuyuemoney;
+			document.getElementById("yuyuejin").innerHTML = "本次订单需支付预约金：¥" + yuyuemoney + "元";
+			document.getElementById("cateId2").value = cateId2;
+			document.getElementById("uid2").value = uid2;
+			document.getElementById("serLvl2").value = serLvl2;
+			document.getElementById("workingExp2").value = workingExp2;
+			document.getElementById("ageRange2").value = ageRange2;
+			document.getElementById("xueLi2").value = xueLi2;
+			document.getElementById("salaryRange2").value = salaryRange2;
+			document.getElementById("services2").value = services2;
+
+			document.getElementById("serviceAddress2").value = serviceAddress2;
+			document.getElementById("serviceContactNumber2").value = serviceContactNumber2;
+			document.getElementById("serviceCreateDate2").value = serviceCreateDate2;
+			document.getElementById("servicesBrief2").value = servicesBrief2;
+			document.getElementById("age2").value = age2;
+			document.getElementById("salary2").value = salary2;
+			document.getElementById("ayiImg2").value = ayiImg2;
+			document.getElementById("provinceId2").value = provinceId2;
+			document.getElementById("cityId2").value = cityId2;
+			document.getElementById("provinceName2").value = provinceName2;
+			document.getElementById("babyAge2").value = babyAge2;
+			document.getElementById("yuyuemoney").value = yuyuemoney;
+			var tijiaoCnt = "<div class=\"touxiang\"><img src=\"http://101.201.196.202:82/Images/jiazheng/" + ayiImg2 + "\" /></div><div class=\"touxiang2\"><p class=\"black\">服务机构：" + services2 + "</p>" +
+				//				"<p>" + provinceName2 + "|" + age2 + "岁</p><p>薪资：<strong class=\"font-yellow\">" + salary2 + "元/月</strong></p><p class=\"black\">服务级别：" + serLvl2 + "</p></div>" +
+				"<p>" + provinceName2 + "</p><p class=\"black\">服务级别：" + serLvl2 + "</p></div>" +
 				"<div style=\"clear: both;\"></div>";
 			$("#ayiCnt").html(tijiaoCnt);
-			var accountID = self.accountID;
-
-			mui.ajax('http://101.201.196.202:82/home/userinfo', {
-				data: {
-					uid: accountID
-				},
+			mui.ajax('http://101.201.196.202:82/DeliveryAddress/index', {
+				data: {},
 				dataType: 'json', //服务器返回json格式数据
 				async: false,
 				type: 'GET', //HTTP请求类型,
 				timeout: 10000, //超时时间设置为10秒；
 				success: function(data) {
-//					alert("name=" + data.name);
-//					alert("diqu=" + data.Community.CommunityName);
-					var dizhi = "<div id=\"bt\" class=\"repair_bar red\">确认地址信息 </div><input type=\"text\" class=\"mui-input-speech sm_input\" placeholder=\""+data.name+"\"  />" +
-						"<input type=\"text\" class=\"mui-input-speech sm_input\" placeholder=\""+data.Community.CommunityName+"\" />" +
-						"<div class=\"mui-input-row\"><input type=\"text\" class=\"mui-input-speech mui-input-clear\" placeholder=\""+data.Community.Description+"\" /></div>" +
-						"<div class=\"mui-input-row\"><input type=\"text\" class=\"mui-input-speech mui-input-clear\" placeholder=\""+data.mp+"\" /></div>";
+					var dizhi = "<div id=\"bt\" class=\"repair_bar red\" >确认地址信息 </div><input type=\"text\" id=\"ConsigneeName\" class=\"mui-input-speech sm_input\"  placeholder=\"请输入姓名\"  value=" + data[0].ConsigneeName + ">" +
+						"<div class=\"mui-input-row\"><input type=\"text\" id=\"Address\" class=\"mui-input-speech mui-input-clear\" placeholder=\"请输入地址\" value=" + data[0].Address + "></div>" +
+						"<div class=\"mui-input-row\"><input type=\"text\" id=\"ConsigneePhone\" class=\"mui-input-speech mui-input-clear\" placeholder=\"请输入手机号码\" value=" + data[0].ConsigneePhone + "></div>";
 					$(".qr_dizhi").html(dizhi);
 				}
 			});
-			//				document.getElementById('zhifu').addEventListener('tap', function() {
-			//					//打开关于页面
-			//					mui.openWindow({
-			//						url: 'jiazheng_over.html',
-			//						id: 'jiazheng_over'
-			//					});
-			//				});
+		})
+		document.getElementById('zhifu').addEventListener('tap', function() {
+			var ConsigneeName = document.getElementById("ConsigneeName").value;
+			var Address = document.getElementById("Address").value;
+			var ConsigneePhone = document.getElementById("ConsigneePhone").value;
+			//			var period = document.getElementById("period").value;
+			var periodText = document.getElementById('userResult').innerText;
+			if (ConsigneeName == "") {
+				mui.toast("请输入用户名");
+				return;
+			}
+			if (periodText == "选择雇佣时长") {
+				mui.toast("请选择雇佣时长");
+				return;
+			}
+			if (Address == "") {
+				mui.toast("请输入地址");
+				return;
+			}
+			if (ConsigneePhone == "") {
+				mui.toast("请输入手机号");
+				return;
+			}
+			if (!phoneReg(ConsigneePhone)) {
+				mui.toast("不是完整的11位手机号或者正确的手机号前7位");
+				return;
+			}
+			document.getElementById("ConsigneeName").value = "";
+						document.getElementById("ConsigneePhone").value = "";
+						document.getElementById("Address").value = "";
+						mui.ajax('http://101.201.196.202:82/DeliveryAddress/getdeliveryaddressbyid', {
+							data: {
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'get', //HTTP请求类型,
+							timeout: 10000, //超时时间设置为10秒；
+							success: function(data) {
+								var deliverId = data.ID; //获取收获地址ID
+								var cateId3 = document.getElementById("cateId2").value;
+								var uid3 = document.getElementById("uid2").value;
+								var serLvl3 = document.getElementById("serLvl2").value;
+								var workingExp3 = document.getElementById("workingExp2").value;
+								var ageRange3 = document.getElementById("ageRange2").value;
+								var xueLi3 = document.getElementById("xueLi2").value;
+								var salaryRange3 = document.getElementById("salaryRange2").value;
+								var services3 = document.getElementById("services2").value;
+								var serviceAddress3 = document.getElementById("serviceAddress2").value;
+								var serviceContactNumber3 = document.getElementById("serviceContactNumber2").value;
+								var serviceCreateDate3 = document.getElementById("serviceCreateDate2").value;
+								var servicesBrief3 = document.getElementById("servicesBrief2").value;
+								var age3 = document.getElementById("age2").value;
+								var salary3 = document.getElementById("salary2").value;
+								var ayiImg3 = document.getElementById("ayiImg2").value;
+								var provinceId3 = document.getElementById("provinceId2").value;
+								var cityId3 = document.getElementById("cityId2").value;
+								var provinceName3 = document.getElementById("provinceName2").value;
+								var babyAge3 = document.getElementById("babyAge2").value;
+								var question = document.getElementById("question").value;
+								mui.ajax('http://101.201.196.202:82/JZYuesao/Create', {
+									data: {
+										"ayiImg": ayiImg3,
+										"jiazhengCateId": cateId3,
+										"uid": uid3,
+										"serviceLevel": serLvl3,
+										"workingExperience": workingExp3,
+										"ageRange": ageRange3,
+										"xueLi": xueLi3,
+										"salaryRange": salaryRange3,
+										"services": services3,
+										"serviceAddress": serviceAddress3,
+										"serviceContactNumber": serviceContactNumber3,
+										"serviceCreateDate": serviceCreateDate3,
+										"servicesBrief": servicesBrief3,
+										"T_ProvinceID": provinceId3,
+										"T_CityID": cityId3,
+										"age": age3,
+										"salary": salary3,
+										"deliverID": deliverId,
+										"babyAge": babyAge3,
+										"orderSataus": 0,
+										"employmentTimeDesc": periodText,
+										"Description": question
+									},
+									dataType: 'json', //服务器返回json格式数据
+									type: 'post', //HTTP请求类型
+									timeout: 10000, //超时时间设置为10秒；
+									success: function(data) {
+										if (data.statusCode == "200") {
+											if (!overpage) {
+												overpage = plus.webview.getWebviewById("jiazheng_over.html");
+											}
+											mui.fire(overpage, "overId", {
+												jzOrdId: data.data
+											})
+											mui.openWindow({
+												id: "jiazheng_over.html"
+											})
+										} else {
+											mui.toast(data.message);
+										}
+									}
+								});
+							}
+						})
+			
+			
 		});
 		(function($, doc) {
 			$.init();
@@ -164,6 +303,7 @@
 				showUserPickerButton.addEventListener('tap', function(event) {
 					userPicker.show(function(items) {
 						userResult.innerText = (items[0] || {}).text;
+						//						document.getElementById("period").text = (items[0] || {}).value;
 						//返回 false 可以阻止选择框的关闭
 						//return false;
 					});
@@ -171,4 +311,5 @@
 			});
 		})(mui, document);
 	</script>
+
 </html>

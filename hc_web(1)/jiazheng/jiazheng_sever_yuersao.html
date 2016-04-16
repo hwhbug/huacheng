@@ -134,85 +134,89 @@
 		</div>
 		<script>
 			mui.init({
+				preloadPages: [{
+					url: "jiazheng_ayi.html",
+					id: "jiazheng_ayi.html"
+				}],
 				swipeBack: true //启用右滑关闭功能
 			});
-			//				document.getElementById('tiaozhuanayi').addEventListener('tap', function() {
-			//					//打开关于页面
-			//					mui.openWindow({
-			//						url: 'jiazheng_ayi.html',
-			//						id: 'tiaozhuanayi'
-			//					});
-			//				});
-			document.getElementById('tiaozhuanayi').addEventListener('tap', function() {
-				var yuersaoLvl = document.getElementById('userResult1').innerText;
-				var workExper = document.getElementById('userResult2').innerText;
-				var ageRange = document.getElementById('userResult3').innerText;
-				var xueliRange = document.getElementById('userResult4').innerText;
-				var salaryRange = document.getElementById('userResult5').innerText;
-				var babyRange = document.getElementById('userResult6').innerText;
-				if (yuersaoLvl == "选择育儿嫂") {
-					yuersaoLvl = "";
-				}
-				if (workExper == "选择保姆工作经验") {
-					workExper = "";
-				}
-				if (ageRange == "选择年龄范围") {
-					ageRange = "";
-				}
-				if (xueliRange == "选择学历要求") {
-					xueliRange = "";
-				}
-				if (salaryRange == "选择价格区间") {
-					salaryRange = "";
-				}
-				if (babyRange == "选择婴儿年龄") {
-					babyRange = "";
-				}
-				mui.openWindow({
-					url: 'jiazheng_ayi.html',
-					extras: {
-						yuersaoLvl: yuersaoLvl,
-						workExper: workExper,
-						ageRange: ageRange,
-						xueliRange: xueliRange,
-						salaryRange: salaryRange,
-						babyRange:babyRange,
-						baomuFlag: "2" //月嫂
-					}
-					//设置show的autoShow为false，则B页面在其loaded事件发生后，不会自动显示；
-					//,
-					//show: {
-					//autoShow: false
-					//}
-				});
-			});
-			(function($, doc) {
-				$.init();
-				$.ready(function() {
-					var userPicker = new $.PopPicker();
-					userPicker.setData([{
-						value: 'ywj',
-						text: '初级育儿嫂'
-					}, {
-						value: 'aaa',
-						text: '中级育儿嫂'
-					}, {
-						value: 'lj',
-						text: '高级育儿嫂'
-					}, ]);
-					var showUserPickerButton = doc.getElementById('showUserPicker');
-					var userResult = doc.getElementById('userResult1');
-					showUserPickerButton.addEventListener('tap', function(event) {
-						userPicker.show(function(items) {
-							userResult.innerText = (items[0] || {}).text;
-							//返回 false 可以阻止选择框的关闭
-							//return false;
+			var ayiPage = null;
+			window.addEventListener("yuersaoid", function(event) {
+					var uuid = event.detail.uuid;
+					var cateid = event.detail.cateId;
+					//				alert(cateid);
+					document.getElementById('tiaozhuanayi').addEventListener('tap', function() {
+						var yuersaoLvl = document.getElementById('userResult1').innerText;
+						var workExper = document.getElementById('userResult2').innerText;
+						var ageRange = document.getElementById('userResult3').innerText;
+						var xueliRange = document.getElementById('userResult4').innerText;
+						var salaryRange = document.getElementById('userResult5').innerText;
+						var babyRange = document.getElementById('userResult6').innerText;
+						if (yuersaoLvl == "选择育儿嫂") {
+							yuersaoLvl = "";
+						}
+						if (workExper == "选择保姆工作经验") {
+							workExper = "";
+						}
+						if (ageRange == "选择年龄范围") {
+							ageRange = "";
+						}
+						if (xueliRange == "选择学历要求") {
+							xueliRange = "";
+						}
+						if (salaryRange == "选择价格区间") {
+							salaryRange = "";
+						}
+						if (babyRange == "选择婴儿年龄") {
+							babyRange = "";
+						}
+						if (!ayiPage) {
+							ayiPage = plus.webview.getWebviewById("jiazheng_ayi.html");
+						}
+						mui.fire(ayiPage, "ayiId", {
+							yuersaoLvl: yuersaoLvl,
+							workExper: workExper,
+							ageRange: ageRange,
+							xueliRange: xueliRange,
+							salaryRange: salaryRange,
+							babyRange: babyRange,
+							baomuFlag: "2",
+							cateID: cateid,
+							uuid2: uuid
+						})
+						mui.openWindow({
+							id: 'jiazheng_ayi.html'
 						});
-					}, false);
-				});
-			})(mui, document);
+					});
+				})
+				
 		</script>
-		<script>
+<script>
+(function($, doc) {
+					$.init();
+					$.ready(function() {
+						var userPicker = new $.PopPicker();
+						userPicker.setData([{
+							value: 'ywj',
+							text: '初级育儿嫂'
+						}, {
+							value: 'aaa',
+							text: '中级育儿嫂'
+						}, {
+							value: 'lj',
+							text: '高级育儿嫂'
+						}, ]);
+						var showUserPickerButton = doc.getElementById('showUserPicker');
+						var userResult = doc.getElementById('userResult1');
+						showUserPickerButton.addEventListener('tap', function(event) {
+							userPicker.show(function(items) {
+								userResult.innerText = (items[0] || {}).text;
+								//返回 false 可以阻止选择框的关闭
+								//return false;
+							});
+						}, false);
+					});
+				})(mui, document);
 			(function($, doc) {
 				$.init();
 				$.ready(function() {
@@ -356,8 +360,7 @@
 					}, false);
 				});
 			})(mui, document);
-		</script>
-
+</script>
 		<script src="../js/mui.picker.js"></script>
 		<script src="../js/mui.poppicker.js"></script>
 	</body>

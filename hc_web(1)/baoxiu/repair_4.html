@@ -22,17 +22,11 @@
 	</head>
 
 	<body>
-
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
-			<!-- 主页面容器 -->
-
 			<div class="mui-inner-wrap   repair2_container">
-
-				<!-- 主页面标题 -->
-
 				<header class="mui-bar mui-bar-nav">
 					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-					<h1 class="mui-title">家电</h1>
+					<h1 class="mui-title" id="mui-title"></h1>
 				</header>
 				<!--主界面区域-->
 				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
@@ -57,10 +51,9 @@
 
 						<div class="repair3_main">
 							<p>本次维修需支付</p>
-							<h1>¥</h1>
-							<p class="yellow-font">本次交易可获得100积分</p>
-
-							<button class="repair1_sc">
+							<h1 id="money"></h1>
+							<p class="yellow-font" id="integral"></p>
+							<button class="repair1_sc" id="repair_pay">
 								立即支付
 							</button>
 
@@ -89,8 +82,14 @@
 				type: "post",
 				timeout: 10000,
 				success: function(data) {
-					document.getElementById("ordid").innerText = data.ro_num; //订单号
-					//alert(data.ro_status); 
+					var ordNo = data.ro_num; //订单号
+					document.getElementById("ordid").innerText = ordNo;
+					document.getElementById("mui-title").innerText = data.RepaCategory.rc_name;
+					document.getElementById("money").innerHTML = "¥" + data.estimatedAmount;
+					document.getElementById("integral").innerHTML = "本次交易可获得" + data.AccountUser.nCredit + "积分";
+					if (data.ro_status == 4) {
+						$("#repair_pay").attr("disabled", "true").html("已支付").css("background-color", "#777777");
+					}
 					//0确定中,1已派单,2维修中,3已完成
 					if (data.ro_status == 0) {
 						$(".bar").html("<img src=\"../image/b1.jpg\" />")
@@ -108,9 +107,76 @@
 					//var nowDate= jsonShortDateFormat("/Date(" + Date.now() + ")/");//转换后Date.now()
 					//alert(nowDate);
 					//alert("转换前 Date.now()=" + Date.now() + "， 转换后Date.now()=" + jsonShortDateFormat("/Date(" + Date.now() + ")/"));
-					var basicInfo = "<p class=\"black\">姓名：" + data.ro_uname + "</p><p class=\"black\">地址：" + data.ro_community + "" + data.ro_address + "</p><p class=\"black\">联系方式：" + data.ro_phone + "</p><p class=\"black\">维修设备：" + data.RepaCategory.rc_name + "</p>" +
-						"<p class=\"black\">设备故障：" + data.RepaLabelDesc.rld_liNames + "</p><p class=\"black\">维修人员：" + data.RepaMan.rm_name + "（工号：" + data.RepaMan.rm_jobNum + "）</p><p class=\"black\">预约时间：今天  " + data.ro_resTimeDesc + "</p>"
+					var basicInfo = "<p class=\"black\">姓名：" + data.ro_uname + "</p><p class=\"black\">地址：" + data.ro_community + "" + data.ro_address + "</p><p class=\"black\">联系方式：" + data.ro_phone + "</p><p class=\"black\">维修设备：" + data.RepaCateSub_.cs_name_ + "</p>" +
+						"<p class=\"black\">设备故障：" + data.RepaLabelDesc.rld_liNames + "</p><p class=\"black\">维修人员：" + data.RepaMan.rm_name + "（工号：" + data.RepaMan.rm_jobNum + "）</p><p class=\"black\">预约时间：  " + data.ro_resTimeDesc + "</p>"
 					$("#ordBasicInfo").html(basicInfo);
+					//***************************==============================**************************
+					//*****************************以下为调用支付宝开始支付操作****************************
+					var channels = null;
+					// 监听plusready事件  
+					// 扩展API加载完毕，现在可以正常调用扩展API
+					plus.payment.getChannels(function(s) {
+						//							console.log(s)
+						for (var i in s) {
+							var channel = s[i];
+							if (channel.id === 'alipay') {
+								channels = channel;
+							}
+						}
+					}, function(e) {
+						alert("获取支付通道列表失败：" + e.message);
+					});
+					document.getElementById("repair_pay").addEventListener("tap", function() {
+						// 必须从业务服务器获取支付信息
+						var statement = "";
+						mui.ajax('http://101.201.196.202:82/AlipayRepair/GetPayInfo', {
+							data: {
+								orderid: ordNo
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'Post', //HTTP请求类型,
+							timeout: 10000, //超时时间设置为10秒；
+							success: function(data) {
+								statement = data;
+//								console.log(channels)
+								plus.payment.request(channels, statement, function() {
+									mui.toast("支付成功！");
+									$("#repair_pay").attr("disabled", "true").html("已支付").css("background-color", "#777777");
+								}, function(e) {
+									if (e.message.indexOf("62000") >= 0) {
+										plus.ui.toast("请先安装支付宝插件！");
+									}
+									if (e.message.indexOf("62001") >= 0) {
+										plus.ui.toast("您已取消操作");
+									}
+									if (e.message.indexOf("62002") >= 0) {
+										plus.ui.toast("此设备不支持支付");
+									}
+									if (e.message.indexOf("62003") >= 0) {
+										plus.ui.toast("数据格式错误");
+									}
+									if (e.message.indexOf("62004") >= 0) {
+										plus.ui.toast("支付账号状态错误");
+									}
+									if (e.message.indexOf("62005") >= 0) {
+										plus.ui.toast("订单信息错误");
+									}
+									if (e.message.indexOf("62006") >= 0) {
+										plus.ui.toast("支付操作内部错误");
+									}
+									if (e.message.indexOf("62007") >= 0) {
+										plus.ui.toast("支付服务器错误");
+									}
+									if (e.message.indexOf("62008") >= 0) {
+										plus.ui.toast("网络问题引起的错误");
+									}
+									if (e.message.indexOf("62009") >= 0) {
+										plus.ui.toast("其它未定义的错误");
+									}
+								});
+							}
+						})
+					})
 				},
 				error: function(xhr, type, errorThrown) {
 					//异常处理；
@@ -118,6 +184,7 @@
 				}
 			})
 		})
+
 		function jsonShortDateFormat(jsonDate) { //json日期格式转换为正常格式
 			try { //出自http://www.cnblogs.com/ahjesus 尊重作者辛苦劳动成果,转载请注明出处,谢谢!
 				var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));

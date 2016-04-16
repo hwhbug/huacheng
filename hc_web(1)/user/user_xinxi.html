@@ -67,6 +67,11 @@
 			.mui-radio input[type=radio]:before {
 				color: #F17E25;
 			}
+			
+			.yellow {
+				padding: 3px 6px;
+				border-radius: 4px;
+			}
 		</style>
 		<!--<script src="../js/mui.js"></script>-->
 		<link href="../css/mui.poppicker.css" rel="stylesheet" />
@@ -129,7 +134,7 @@
 				</button>
 
 				<p id="btn_code" style="height: 30px; padding: 5px;">
-					<input type="button" class="yanzhengma mui-pull-right" style="width:120px;">发送验证码</input>
+					<a class="mui-pull-right font-bai yellow" href="###">发送验证码</a>
 				</p>
 				<div class="mui-input-row">
 					<label>验证</label>
@@ -146,10 +151,6 @@
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/app.js"></script>
-		<!--<script src="../libs/easymob-webim-sdk/jquery-1.11.1.js"></script>
-		<script src="../libs/easymob-webim-sdk/strophe-custom-2.0.0.js"></script>
-		<script src="../libs/easymob-webim-sdk/json2.js"></script>
-		<script src="../libs/easymob-webim-sdk/easemob.im-1.0.5.js"></script>-->
 		<script>
 			(function($, doc) {
 				$.init();
@@ -167,16 +168,17 @@
 					var UnitID = doc.getElementById("UnitID");
 					var RoomID = doc.getElementById("RoomID");
 					var Codes = doc.getElementById("Codes");
-					var sexceshi = doc.getElementsByName('radio1');
+					var HouseResult = document.getElementById("HouseResult");
+					var FloorResult = document.getElementById("FloorResult");
+					var UnitResult = document.getElementById("UnitResult");
+					var RoomResult = document.getElementById("RoomResult");
 					var sex = "";
 					submission.addEventListener("tap", function(event) {
 						mui("#sex input").each(function() {
 							//若当前input为空，则alert提醒
-							console.log(this.toString());
 							if (this.checked) {
 								sex = this.value;
 							}
-							console.log(sex);
 						});
 						var regInfo = {};
 						//*****************验证手机号**************************
@@ -228,8 +230,15 @@
 							plus.nativeUI.toast("验证码不合法");
 							return;
 						}
-						console.log(T_ProvinceID.value+"&"+T_CityID.value+"&"+T_DistrictID.value+"&"+HouseID.value)
-						console.log(FloorID.value +"&"+ UnitID.value +"&"+ RoomID.value)
+						//						console.log(T_ProvinceID.value + "&" + T_CityID.value + "&" + T_DistrictID.value + "&" + HouseID.value);
+						//						console.log(FloorID.value + "&" + UnitID.value + "&" + RoomID.value);
+						//						console.log(HouseID.value);
+						//						console.log(HouseResult.innerText);
+						//						console.log(FloorID.value);
+						//						console.log(FloorResult.innerText);
+						//						console.log(UnitResult.innerText);
+						//						console.log(RoomID.value);
+						//						console.log(RoomResult.innerText);
 						//****************************用户提交成功返回*********************************
 						app.reg(regInfo, function(err) {
 							if (err) {
@@ -244,17 +253,19 @@
 									"T_ProvinceID": T_ProvinceID.value,
 									"T_CityID": T_CityID.value,
 									"T_DistrictID": T_DistrictID.value,
-									"CommunityID": HouseID.value,
-									"Floor_Name": FloorID.value,
-									"UnitNumber_Name": UnitID.value,
-									"DoorNo_Name": RoomID.value,
+									"CommunityNameID": HouseID.value,
+									"CommunityName": HouseResult.innerText,
+									"BuildingNameID": FloorID.value,
+									"BuildingName": FloorResult.innerText,
+									"UnitName": UnitResult.innerText,
+									"RoomNameID": RoomID.value,
+									"RoomName": RoomResult.innerText,
 									"codes": Codes.value
 								},
 								dataType: "json", //服务器返回json格式数据
 								type: "Post", //HTTP请求类型,
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(data) {
-									alert(data)
 									if (data.statusCode == 200) {
 										plus.ui.toast(data.message);
 										mui.back();
@@ -287,8 +298,9 @@
 								timeout: 10000, //超时时间设置为10秒；
 								success: function(data) {
 									if (data.statusCode == "200") {
-										plus.ui.toast(data.message)
-											//										test.init(btn);
+										plus.ui.toast(data.message);
+										//成功后刷新页面数据
+										refresh();
 									} else {
 										plus.ui.toast(data.message);
 									}
@@ -314,8 +326,11 @@
 						var UnitID = doc.getElementById("UnitID");
 						var RoomID = doc.getElementById("RoomID");
 						var userPicker = new $.PopPicker();
+						var FloorPicker = new $.PopPicker();
+						var RoomPicker = new $.PopPicker();
+						var UnitPicker = new $.PopPicker();
 						//**************************************获取小区列表**********************************
-						console.log(plus.storage.getItem("url"))
+						//						console.log(plus.storage.getItem("url"))
 						mui.ajax("http://" + plus.storage.getItem("url") + "/info/Community_Load", {
 							data: {},
 							async: false,
@@ -323,7 +338,7 @@
 							type: "Post", //HTTP请求类型,
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(Community_data) {
-								console.log(eval(Community_data).length)
+								//								console.log(eval(Community_data).length)
 								userPicker.setData(eval(Community_data));
 							}
 						})
@@ -331,11 +346,11 @@
 						var HouseResult = doc.getElementById("HouseResult");
 						showUserPickerButton.addEventListener("tap", function(event) {
 							userPicker.show(function(items) {
-								HouseResult.innerText = "你选择:" + (items[0] || {}).text;
+								HouseResult.innerText = (items[0] || {}).text;
 								//给隐藏的小区id赋值
 								HouseID.value = (items[0] || {}).value;
 								Community_id = (items[0] || {}).value;
-								var FloorPicker = new $.PopPicker();
+								
 								//*************************************根据小区ID获取建筑列表**********************
 								mui.ajax("http://" + plus.storage.getItem("url") + "/info/Floor_Load", {
 									data: {
@@ -355,11 +370,10 @@
 								var FloorResult = doc.getElementById("FloorResult");
 								showFloorPickerButton.addEventListener("tap", function(event) {
 									FloorPicker.show(function(items) {
-										FloorResult.innerText = "你选择:" + (items[0] || {}).text;
+										FloorResult.innerText = (items[0] || {}).text;
 										FloorID.value = (items[0] || {}).value;
 										Floor_id = (items[0] || {}).value;
 										//************************************选择楼号后改变单元数据******************************
-										var UnitPicker = new $.PopPicker();
 										mui.ajax("http://" + plus.storage.getItem("url") + "/info/Unit_Load", {
 											data: {
 												Community_id: Community_id,
@@ -378,10 +392,10 @@
 										var UnitResult = doc.getElementById("UnitResult");
 										showUnitPickerButton.addEventListener("tap", function(event) {
 											UnitPicker.show(function(items) {
-												UnitResult.innerText = "你选择:" + (items[0] || {}).text;
+												UnitResult.innerText = (items[0] || {}).text;
 												UnitID.value = (items[0] || {}).value;
 												Unit_id = (items[0] || {}).value;
-												var RoomPicker = new $.PopPicker();
+												
 												mui.ajax("http://" + plus.storage.getItem("url") + "/info/Room_Load", {
 													data: {
 														Community_id: Community_id,
@@ -401,7 +415,7 @@
 												var RoomResult = doc.getElementById("RoomResult");
 												showRoomPicker.addEventListener("tap", function(event) {
 													RoomPicker.show(function(items) {
-														RoomResult.innerText = "你选择:" + (items[0] || {}).text;
+														RoomResult.innerText = (items[0] || {}).text;
 														RoomID.value = (items[0] || {}).value;
 													});
 												}, false);
@@ -442,18 +456,73 @@
 						showCityPickerButton.addEventListener("tap", function(event) {
 							cityPicker3.show(function(items) {
 								cityResult3.innerText = "你选择:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
-								//							Community_Load((items[2] || {}).value)
 								T_ProvinceID.value = (items[0] || {}).value
 								T_CityID.value = (items[1] || {}).value
 								T_DistrictID.value = (items[2] || {}).value
-									//cityResult3.innerText = (items[2] || {}).text;
-									//返回 false 可以阻止选择框的关闭
-									//return false
 							});
 						}, false);
 					});
 				})
 			})(mui, document);
+			refresh();
+
+			function refresh() {
+				
+				mui.plusReady(function() {
+					plus.nativeUI.showWaiting();
+					var realname = document.getElementById("realname");
+					var Age = document.getElementById("Age");
+					var cityResult3 = document.getElementById("cityResult3");
+					var HouseResult = document.getElementById("HouseResult");
+					var FloorResult = document.getElementById("FloorResult");
+					var UnitResult = document.getElementById("UnitResult");
+					var RoomResult = document.getElementById("RoomResult");
+					var HouseID = document.getElementById("HouseID");
+					var FloorID = document.getElementById("FloorID");
+					var UnitID = document.getElementById("UnitID");
+					var RoomID = document.getElementById("RoomID");
+					var T_ProvinceID = document.getElementById("T_ProvinceID");
+					var T_CityID = document.getElementById("T_CityID");
+					var T_DistrictID = document.getElementById("T_DistrictID");
+					var sex = "";
+					mui.ajax("http://" + plus.storage.getItem("url") + "/info/Account_Info", {
+						data: {},
+						async: false,
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(accountdata) {
+//							alert(accountdata)
+							if (accountdata != "登陆已过期." && accountdata != "") {
+								realname.value = accountdata.name;
+								mui("#sex input").each(function() {
+									//若当前input为空，则alert提醒
+									if (accountdata.sex == this.value) {
+										this.checked = true;
+									}
+								});
+								Age.value = accountdata.Age;
+								cityResult3.innerText = accountdata.T_Province.ProName + accountdata.T_City.CityName + accountdata.T_District.DisName;
+								T_ProvinceID.value=accountdata.T_ProvinceID;
+								T_CityID.value=accountdata.T_CityID;
+								T_DistrictID.value=accountdata.T_DistrictID;
+								HouseResult.innerText = accountdata.Community.CommunityName;
+								HouseID.value = accountdata.Community.CommunityNameID;
+								FloorResult.innerText = accountdata.Community.BuildingName;
+								FloorID.value = accountdata.Community.BuildingNameID;
+								UnitResult.innerText = accountdata.Community.UnitName;
+								UnitID.value = accountdata.Community.UnitName;
+								RoomResult.innerText = accountdata.Community.RoomName;
+								RoomID.value = accountdata.Community.RoomNameID;
+								plus.nativeUI.closeWaiting();
+							} else {
+								plus.ui.toast(accountdata);
+								plus.nativeUI.closeWaiting();
+							}
+						}
+					})
+				})
+			}
 		</script>
 		<script src="../js/mui.picker.js"></script>
 		<script src="../js/mui.poppicker.js"></script>

@@ -157,19 +157,19 @@
 									<div class="mui-media-body">法律援助</div>
 								</a>
 							</li>
-							<li class="tubiao">
+							<li id="yanglao" class="tubiao">
 								<a href="#">
 									<span class="mui-icon icon-usersecret"></span>
 									<div class="mui-media-body">居家养老</div>
 								</a>
 							</li>
-							<li class="tubiao">
+							<li id="tousu" class="tubiao">
 								<a href="#">
 									<span class="mui-icon icon-woyaotousu"></span>
 									<div class="mui-media-body">投诉专区</div>
 								</a>
 							</li>
-							<li class="tubiao" id="gonggao">
+							<li id="communityBulletin" class="tubiao" id="gonggao">
 								<a href="#">
 									<span class="mui-icon icon-gonggao"></span>
 									<div class="mui-media-body">小区公告</div>
@@ -208,8 +208,16 @@
 							type: "GET", //HTTP请求类型,
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data) {
-								if (data.uname != null && data.uname != "") {
-									$(".login").html("<p>" + data.uname + "</p>")
+								
+								if (data.name != null && data.name != "") {
+									console.log(data.name)
+									$(".login").html("<p>" + data.name + "</p>");
+								} else {
+									console.log(data.name)
+									if (data.uname != "" && data.uname != null) {
+										console.log(data.name)
+										$(".login").html("<p></p>");
+									}
 								}
 							}
 						})
@@ -241,19 +249,43 @@
 					//*********************退出应用*****************************
 					var first = null;
 					mui.back = function() {
-							if (!first) {
-								first = new Date().getTime();
-								plus.nativeUI.toast("再按一次退出应用");
-								setTimeout(function() {
-									first = null;
-								}, 1000);
-							} else {
-								if (new Date().getTime() - first < 1000) {
-									plus.runtime.quit();
-								}
+						if (!first) {
+							first = new Date().getTime();
+							plus.nativeUI.toast("再按一次退出应用");
+							setTimeout(function() {
+								first = null;
+							}, 1000);
+						} else {
+							if (new Date().getTime() - first < 1000) {
+								plus.runtime.quit();
 							}
 						}
-						//			// 扩展API加载完毕后调用onPlusReady回调函数 
+					}
+//					window.addEventListener("newsId", function(event) {
+//							//获得事件参数
+//							mui.ajax("http://" + plus.storage.getItem("url") + "/home/login_cache", {
+//								data: {},
+//								dataType: "json", //服务器返回json格式数据
+//								async: true,
+//								type: "GET", //HTTP请求类型,
+//								timeout: 10000, //超时时间设置为10秒；
+//								success: function(data) {
+//									//									if (data.name != null && data.name != "") {
+//									//										$(".login").html("<p>" + data.name + "</p>")
+//									//									}
+//									console.log(data.name)
+//									alert()
+//									if (data.name != null && data.name != "") {
+//										$(".login").html("<p>" + data.name + "</p>");
+//									} else {
+//										if (data.uname != "" && data.uname != null) {
+//											$(".login").html("<p></p>");
+//										}
+//									}
+//								}
+//							})
+//						})
+						// 扩展API加载完毕后调用onPlusReady回调函数 
 					document.addEventListener("plusready", onPlusReady, false);
 					// 扩展API加载完毕，现在可以正常调用扩展API
 					function onPlusReady() {
@@ -282,22 +314,18 @@
 										timeout: 10000, //超时时间设置为10秒；
 										success: function(Communitydata) {
 											if (Communitydata != "" && Communitydata != null) {
-												mui.ajax("http://" + plus.storage.getItem("url") + "/info/Community_Load1", {
-													data: {
-														id: Communitydata.ID
-													},
-													async: true,
+												mui.ajax("http://" + plus.storage.getItem("url") + "/info/Community_Load", {
+													data: {},
+													async: false,
 													dataType: "json", //服务器返回json格式数据
 													type: "Post", //HTTP请求类型,
 													timeout: 10000, //超时时间设置为10秒；
-													success: function(Communitydatanew) {
+													success: function(Community_data) {
 														(function($, doc) {
 															$.init();
 															$.ready(function() {
-																//-----------------------------------------
-																//					//级联示例
 																var cityPicker3 = new $.PopPicker();
-																cityPicker3.setData(eval(Communitydatanew));
+																cityPicker3.setData(eval(Community_data));
 																var showCityPickerButton = doc.getElementById("showCityPicker3");
 																var cityResult3 = doc.getElementById("cityResult3");
 																if (Communitydata == null) {
@@ -358,40 +386,63 @@
 							}
 						});
 					}
-					window.addEventListener("newsId", function(event) {
-							//获得事件参数
-							mui.ajax("http://" + plus.storage.getItem("url") + "/home/login_cache", {
-								data: {},
-								dataType: "json", //服务器返回json格式数据
-								async: true,
-								type: "GET", //HTTP请求类型,
-								timeout: 10000, //超时时间设置为10秒；
-								success: function(data) {
-									if (data.name != null && data.name != "") {
-										$(".login").html("<p>" + data.name + "</p>")
-									}
-								}
-							})
-						})
-						//													if (state == 0) {
-						//														if (result.currentNumber <= 0) {
-						//															alert("没有检索到结果");
-						//														}
-						//														for (var i = 0; i < result.currentNumber; i++) {
-						//															var pos = result.getPosition(i);
-						//															//															if (eval(Communitydata).contains(pos.name)) {
-						//															//																alert(pos.name)
-						//															//															} 
-						//															console.log(JSON.stringify(pos))
-						//															console.log(pos.name+"   "+pos.point.getLat()+"   "+pos.point.getLng());
-						//															console.log();
-						//															//								var marker = new plus.maps.Marker(pos.point);
-						//															//								marker.setLabel(pos.name);
-						//															//								map.addOverlay(marker)
-						//														}
-						//													} else {
-						//														alert("检索失败");
-						//													}
+					//						//********************************头部小区选择**************************************
+					//						mui.ajax("http://" + plus.storage.getItem("url") + "/info/Community_Load1", {
+					//							data: {
+					//								//								id: Communitydata.ID
+					//							},
+					//							async: true,
+					//							dataType: "json", //服务器返回json格式数据
+					//							type: "Post", //HTTP请求类型,
+					//							timeout: 10000, //超时时间设置为10秒；
+					//							success: function(Communitydatanew) {
+					//								(function($, doc) {
+					//									$.init();
+					//									$.ready(function() {
+					//										//-----------------------------------------
+					//										//					//级联示例
+					//										var cityPicker3 = new $.PopPicker();
+					//										//																console.log(eval(Communitydatanew))
+					//										cityPicker3.setData(eval(Communitydatanew));
+					//										var showCityPickerButton = doc.getElementById("showCityPicker3");
+					//										var cityResult3 = doc.getElementById("cityResult3");
+					////										if (Communitydata == null) {
+					////											cityResult3.innerText = "暂未覆盖该区域"
+					////										} else {
+					//											if (plus.storage.getItem("Community") != null) {
+					//												cityResult3.innerText = plus.storage.getItem("Community");
+					//											} else {
+					//												cityResult3.innerText = "选择小区"
+					//											}
+					//											//*************************************小区选择点击事件*************************************
+					//											showCityPickerButton.addEventListener("tap", function(event) {
+					//												cityPicker3.show(function(items) {
+					//													cityResult3.innerText = (items[0] || {}).text;
+					//													plus.storage.setItem("Community", (items[0] || {}).text);
+					//													///**********************************获取用户选择小区的坐标*********************************
+					//													searchObj.onPoiSearchComplete = function(state, result) {
+					//														if (state == 0) {
+					//															if (result.currentNumber <= 0) {
+					//																alert("没有检索到结果");
+					//															}
+					//															for (var i = 0; i < 1; i++) {
+					//																var pos = result.getPosition(i);
+					//																console.log(JSON.stringify(pos.point))
+					//																plus.storage.setItem("Communitycoord", JSON.stringify(pos.point));
+					//															}
+					//														} else {
+					//															alert("检索失败");
+					//														}
+					//													}
+					//													searchObj.poiSearchNearBy((items[0] || {}).text, point, 10000); //周边检索
+					//												});
+					//											}, false);
+					////										}
+					//									});
+					//								})(mui, document);
+					//								//}
+					//							}
+					//						})
 				</script>
 	</body>
 

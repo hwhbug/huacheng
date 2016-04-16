@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<!--<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>-->
+		<style type="text/css">
+			.repair_container li {
+				background: #FFFFFF;
+			}
+			
+			.repair_container li p {
+				color: #000000;
+			}
+			
+			input[type=search] {
+				background: #FFFFFF;
+			}
+			
+			.mui-btn-primary {
+				background: #F17E25;
+			}
+			
+			p {
+				margin-bottom: 2px;
+			}
+			
+			header .icon-shaixuan {
+				padding: 10px 10px 0 0 !important;
+				margin: 0;
+			}
+			
+			header .icon-shaixuan:before {
+				padding-right: 10px;
+			}
+			
+			.mui-off-canvas-left,
+			.mui-off-canvas-right {
+				width: 40% !important;
+				background: #EEEEEE;
+			}
+			
+			.max-font {
+				font-size: 16px;
+				margin-top: 5px;
+			}
+			
+			.ershou_bar {
+				border: none;
+			}
+			
+			.right_top_btn {
+				width: 80px;
+				color: #FFFFFF;
+				font-size: 0.8em;
+				text-align: center;
+				margin: 5px 5px 0 0;
+				border-radius: 5px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<!-- 主页面标题 -->
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title ">投诉专区</h1>
+			<a class="mui-pull-right right_top_btn blue" id="addtousu">我要投诉</a>
+		</header>
+		<!--主界面区域-->
+		<div class="mui-scroll-wrapper mui-content">
+			<div class="mui-scroll">
+				<div id="container" style="background: none !important;">
+					<ul class="tousu" id="tousu"></ul>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			var uid;
+			mui.ajax('http://101.201.196.202:82/home/login_cache', {
+				dataType: 'json', //服务器返回json格式数据
+				//					async: false,
+				type: 'GET', //HTTP请求类型,
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+					if (data.nAccountID != null && data.nAccountID != "") {
+						uid = data.nAccountID;
+						//alert("1 " + uid)
+					} else {
+						mui.toast("用户数据为空,请重新登陆");
+						//return;
+					}
+				}
+			})
+			mui.ajax("http://101.201.196.202:82/ComplaintsContent/Index", {
+				dataType: "json",
+				type: "get",
+				success: function(data) {
+					var tousu = "";
+//					var replyCount;
+					for (var i = 0; i < data.length; i++) {
+//						mui.ajax("http://101.201.196.202:82/ComplaintsReply/ReplyCount", {
+//							data: {
+//								contentID: data[i].ID,
+//								uid: uid
+//							},
+//							dataType: "json",
+//							type: "get",
+//							success: function(datacount) {	
+//								alert(i+"-"+ datacount)
+//								replyCount = datacount;
+//							
+//								//alert(data1)
+//							}
+//						});
+						tousu += "<li id=\"" + data[i].ID + "\"><div class=\"top\"><div class=\"mypic\"><img src=\"http://101.201.196.202:82/Images/AccountUserImage/" + data[i].AccountUser.userImg + "\" />" +
+							"</div><div class=\"myname\"><p class=\"font-blue\">" + data[i].AccountUser.name + "</p><p>" + jsonDateFormat(data[i].Operatingtime) + "</p></div>" +
+//							"<div class=\"huifu\"><span class=\"mui-icon icon-wd6\"></span><span class=\"replyCount\">" + replyCount + "</span></div>" +
+							"</div><div class=\"clear\"></div>" +
+							"<div class=\"wenzi\"><p class=\"font-hei max-font\">" + data[i].title + "</p><p>" + data[i].Description + "</p></div></li>";
+					}
+					$("#tousu").html(tousu);
+					$("#tousu").on("tap", "li", function() {
+						var id = this.getAttribute("id");
+						mui.openWindow({
+							url: "/tousu/tousu_acter.html",
+							extras: {
+								contentId: id,
+								uid: uid
+							}
+						})
+					})
+				}
+			});
+			window.addEventListener("tousuIndex", function() {
+				mui.ajax("http://101.201.196.202:82/ComplaintsContent/Index", {
+					dataType: "json",
+					type: "get",
+					success: function(data) {
+						var tousu = "";
+						for (var i = 0; i < data.length; i++) {
+							tousu += "<li id=\"" + data[i].ID + "\"><div class=\"top\"><div class=\"mypic\"><img src=\"http://101.201.196.202:82/Images/AccountUserImage/" + data[i].AccountUser.userImg + "\" />" +
+								"</div><div class=\"myname\"><p class=\"font-blue\">" + data[i].AccountUser.name + "</p><p>" + jsonDateFormat(data[i].Operatingtime) + "</p></div>" +
+								//							<div class=\"huifu\"><span class=\"mui-icon icon-wd6\"></span> 12</div>
+								"</div><div class=\"clear\"></div>" +
+								"<div class=\"wenzi\"><p class=\"font-hei max-font\">" + data[i].title + "</p><p>" + data[i].Description + "</p></div></li>";
+						}
+						$("#tousu").html(tousu);
+					}
+				});
+			})
+			$("#addtousu").click(function() {
+				mui.openWindow({
+					url: '/tousu/tousu_user.html'
+						//id: 'tousu_user.html',
+				});
+			})
+
+			function jsonDateFormat(jsonDate) {
+				try {
+					var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+					var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+					var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+					var hours = date.getHours();
+					var minutes = date.getMinutes();
+					var seconds = date.getSeconds();
+					var milliseconds = date.getMilliseconds();
+					//return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+					return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes;
+				} catch (e) {
+					//TODO handle the exception
+				}
+			}
+			mui('.mui-scroll-wrapper').scroll();
+			mui.init({
+				swipeBack: false,
+			});
+		</script>
+	</body>
+
+</html>

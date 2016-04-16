@@ -206,12 +206,16 @@
 				</div>
 			</div>
 		</div>
-		//自定义给标签赋值
+		<!--自定义给标签赋值-->
 		<input type="hidden" id="mid">
 		<input type="hidden" id="orldId">
 		<input type="hidden" id="ocId">
 		<input type="hidden" id="osId">
 		<input type="hidden" id="getDate">
+
+		<input type="hidden" id="minEcost">
+		<input type="hidden" id="maxEcost">
+		<input type="hidden" id="ecostDesc">
 		<div id="set" class="mui-page">
 			<!-- 主页面容器 -->
 			<div class="mui-navbar-inner mui-bar mui-bar-nav">
@@ -228,6 +232,7 @@
 						<div class="repair3_table">
 							<h4><span class="yellow-font sm_txt">报修类型：</span><a id="sname"></a></h4>
 							<h4><span class="yellow-font sm_txt">故障描述：</span><a id="lbname"></a></h4>
+
 							<p><span class="icon-sponsorfill mui-icon yellow-font"></span> 维修价格预计在<span class="yellow-font" id="priceRange"></span>之间，具体费用以师傅上门后确定</p>
 						</div>
 						<div class="repair3_table">
@@ -294,12 +299,6 @@
 		<script src="../js/mui.picker.js"></script>
 		<script src="../js/mui.poppicker.js"></script>
 		<script>
-			mui.init({
-				preloadPages: [{
-					id: "repair_over.html",
-					url: "repair_over.html"
-				}]
-			});
 			(function($, doc) {
 				//$.init();
 				$.ready(function() {
@@ -350,7 +349,12 @@
 	<script src="../js/mui.view.js"></script>
 	<script src="../js/baoxiu_repair3.js"></script>
 	<script>
-		var overPage = null;
+		mui.init({
+			preloadPages: [{
+				id: "repair_over.html",
+				url: "repair_over.html"
+			}]
+		});
 		//初始化单页view
 		var viewApi = mui('#app').view({
 			defaultPage: '#set'
@@ -358,6 +362,7 @@
 		mui('.mui-scroll-wrapper').scroll();
 		var cid;
 		window.addEventListener("paizhaoId", function(event) {
+			var overPage = null;
 			var cid = event.detail.cid;
 			var rld_id = event.detail.rld_id;
 			var sname = event.detail.sname;
@@ -369,8 +374,10 @@
 				function(data) {
 					document.getElementById("lbname").innerText = data.rld_liNames;
 					document.getElementById("osId").value = data.rld_csId_;
-					var price2 = parseInt(data.rld_estimatedCost) + 50;
-					document.getElementById("priceRange").innerText = "¥" + data.rld_estimatedCost + "-¥" + price2;
+					document.getElementById("minEcost").value = data.rld_minEstimatedCost;
+					document.getElementById("maxEcost").value = data.rld_maxEstimatedCost;
+					document.getElementById("ecostDesc").value = data.rld_minEstimatedCost + "-" + data.rld_maxEstimatedCost;
+					document.getElementById("priceRange").innerText = "¥" + data.rld_minEstimatedCost + "-¥" + data.rld_maxEstimatedCost;
 				});
 			//获得事件参数
 			mui.ajax('http://101.201.196.202:82/RepaMan/Index?cid=' + cid, {
@@ -409,6 +416,9 @@
 				var odateTime = document.getElementById('userResult').innerText.substr(5);
 				var getDate = document.getElementById("getDate").value;
 				var newTime = document.getElementById('userResult').innerText;
+				var minEcost = document.getElementById("minEcost").value;
+				var maxEcost = document.getElementById("maxEcost").value;
+				var ecostDesc = document.getElementById("ecostDesc").value;
 				if (ouname == "") {
 					mui.toast("请输入姓名");
 					return;
@@ -423,8 +433,6 @@
 					return;
 				} else if (!phoneReg(omp)) {
 					mui.toast("不是完整的11位手机号或者正确的手机号前7位");
-					return;
-				} else if (odateTime == "") {
 					return;
 				} else if (newTime == "预约服务时间") {
 					mui.toast("请选择预约服务时间");
@@ -443,7 +451,10 @@
 						omid: omid,
 						odateTime: odateTime,
 						getDate: getDate,
-						uid: uid
+						uid: uid,
+						minecost: minEcost,
+						maxecost: maxEcost,
+						ecost: ecostDesc
 					},
 					dataType: "json",
 					type: "get",

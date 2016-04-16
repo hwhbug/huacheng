@@ -302,7 +302,10 @@
 					"ershou/ershou_index.html",
 					"falv/falv_index.html",
 					"gonggao/gonggao_liebiao.html",
-					"wuye/wuye_dingdan.html"
+					"wuye/wuye_dingdan.html",
+					"yanglao/yanglao_index.html",
+					"gonggao/gonggao_huodong.html",
+					"tousu/tousu_index.html"
 				],
 				"priority": 0
 			},
@@ -877,7 +880,8 @@
 					"user/user_dingdan.html",
 					"shopping/shop_car.html",
 					"index.html",
-					"user/user_xinxi.html"
+					"user/user_xinxi.html",
+					"login.html"
 				],
 				"priority": 0
 			},
@@ -943,7 +947,9 @@
 					"js/jquery-1.9.1.min.js",
 					null
 				],
-				"refer": [],
+				"refer": [
+					"user/order_detail.html"
+				],
 				"priority": 0
 			},
 			"jiazheng/jiazheng_index.html": {
@@ -1223,7 +1229,8 @@
 					"css/iconfont.css",
 					"css/style.css",
 					"fonts/iconfont.ttf",
-					"css/mui.css"
+					"css/mui.css",
+					"image/baoxiu_19.gif"
 				],
 				"refer": [
 					"login.html",
@@ -1293,7 +1300,16 @@
 				"priority": 0
 			},
 			"falv/falv_tijiao.html": {
-				"resources": [],
+				"resources": [
+					"js/jquery-1.9.1.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"js/mui.js",
+					"css/mui.css"
+				],
 				"refer": [
 					"falv/falv_over.html"
 				],
@@ -1355,9 +1371,148 @@
 					"css/mui.min.css",
 					"js/mui.js",
 					"css/iconfont.css",
-					"css/style.css"
+					"css/style.css",
+					"js/jquery-1.9.1.min.js"
+				],
+				"refer": [
+					"wuye/wuye_jiesuan.html"
+				],
+				"priority": 0
+			},
+			"wuye/wuye_jiesuan.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/cross-down.css",
+					"js/jquery-1.9.1.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"fonts/mui.ttf"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"user/order_detail.html": {
+				"resources": [
+					"css/mui.imageviewer.css",
+					"css/feedback-page.css",
+					"js/mui.picker.js",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"css/mui.css",
+					"css/mui.picker.css",
+					"image/cp3.jpg",
+					"js/city.data-3.js",
+					"js/mui.min.js",
+					"js/mui.poppicker.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"fonts/iconfont.ttf",
+					"css/mui.poppicker.css",
+					"js/jquery-1.9.1.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"yanglao/yanglao_index.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"image/baoxiu_19.gif",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"js/mui.js",
+					"css/mui.css"
+				],
+				"refer": [
+					"yanglao/yanglao_huodong.html",
+					"yanglao/acter_acter.html",
+					"yanglao/yanglao_wangdian.html"
+				],
+				"priority": 0
+			},
+			"yanglao/yanglao_huodong.html": {
+				"resources": [
+					"js/jquery-1.9.1.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"yanglao/acter_acter.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/mui.js",
+					"css/mui.imageviewer.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"yanglao/yanglao_wangdian.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"js/mui.js",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"gonggao/gonggao_huodong.html": {
+				"resources": [
+					"js/mui.min.js",
+					"js/jquery-1.9.1.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"tousu/tousu_index.html": {
+				"resources": [
+					"js/jquery-1.9.1.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"js/mui.js",
+					"css/mui.css"
+				],
+				"refer": [
+					"tousu/tousu_acter.html",
+					"tousu/tousu_user.html"
+				],
+				"priority": 0
+			},
+			"tousu/tousu_acter.html": {
+				"resources": [
+					"js/jquery-1.9.1.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"fonts/iconfont.ttf",
+					"js/mui.js",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"tousu/tousu_user.html": {
+				"resources": [],
+				"refer": [
+					"tousu/tousu_index.html"
+				],
 				"priority": 0
 			}
 		},

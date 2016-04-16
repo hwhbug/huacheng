@@ -274,7 +274,7 @@
 					})
 				})
 			}
-			mui("#item1").on("tap", ".mui-btn-red", function(e) {
+			mui("#container").on("tap", ".mui-btn-red", function(e) {
 				var orderid = this.getAttribute("id");
 				mui.ajax("http://" + plus.storage.getItem("url") + "/MyOrders/Delete", {
 					data: {
@@ -294,6 +294,30 @@
 						}
 					}
 				})
+			});
+			mui.init({
+				preloadPages: [{
+					id: "order_detail",
+					url: "order_detail.html"
+				}]
+			});
+			var detailPage=null;
+			mui("#container").on("tap", ".mui-btn-yellow", function(e) {
+				var orderid = this.getAttribute("id");
+				console.log(orderid)
+				//获得详情页面
+				if (!detailPage) {
+					detailPage = plus.webview.getWebviewById("order_detail");
+				}
+				//触发详情页面的newsId事件
+				mui.fire(detailPage, "detail", {
+					id: orderid
+				});
+				//打开详情页面          
+				mui.openWindow({
+					url: "order_detail.html",
+					id: "order_detail"
+				});
 			});
 		</script>
 
