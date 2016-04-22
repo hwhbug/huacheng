@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<!--<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>-->
+		<link href="../css/cross-down.css" rel="stylesheet" />
+		<script src="../js/jquery-1.9.1.min.js" type="application/javascript"></script>
+		<style>
+			.list_shop li {
+				height: 300px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="container" class="mui-content mui-scroll-wrapper"> 
+			<div class="mui-scroll">
+				<div class="mui-slider">
+					<div class="mui-slider-group">
+						<div class="mui-slider-item">
+							<!--<img src="../image/gg1.jpg" />-->
+						</div>
+					</div>
+				</div>
+				<!--周边新开列表-->
+				<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Panicbuy">
+				</ul>
+			</div>
+
+			<script>
+				//***************************获取商场头部广告的列表数据**********************************
+				mui.plusReady(function() {
+					mui.ajax("http://" + plus.storage.getItem("url") + "/product/ProductsAdverts", {
+						data: {
+							type: "抢购头部",
+						},
+						dataType: "json", //服务器返回json格式数据
+						async: true,
+						type: "GET", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var str = "";
+							for (var i = 0; i < data.length; i++) { //										
+								str += "<div class=\"mui-slider-item\"><img src=\"http://" + plus.storage.getItem("url") + "/Images/ProductsAdvertsImg/" + data[i].image + "\" /></div>";
+							}
+							$(".mui-slider-group").html(str);
+						}
+					})
+				})
+				mui.init({
+					preloadPages: [{
+						id: "shop_qianggou_acter.html",
+						url: "shop_qianggou_acter.html"
+					}]
+				});
+				var detailPage = null;
+				//添加列表项的点击事件
+				mui(".list_shop").on("tap", "li", function(e) {
+					var id = this.getAttribute("id");
+					//获得详情页面
+					if (!detailPage) {
+						detailPage = plus.webview.getWebviewById("shop_qianggou_acter.html");
+					}
+					//触发详情页面的newsId事件
+					mui.fire(detailPage, "newsId", {
+						id: id
+					});
+					//打开详情页面          
+					mui.openWindow({
+						url: "shop_qianggou_acter.html",
+						id: "shop_qianggou_acter.html"
+					});
+				});
+				mui.init({
+					pullRefresh: {
+						container: "#container",
+						up: {
+							contentrefresh: "正在加载...",
+							callback: pullupRefresh
+						}
+					}
+				});
+				var count = 0;
+				/**
+				 * 上拉加载具体业务实现
+				 */
+				function pullupRefresh() {
+					++count;
+					mui.ajax("http://" + plus.storage.getItem("url") + "//product/Panicbuypage", {
+							data: {
+								activity: "4",
+								pageindex: count,
+								pagesize: 4
+							},
+							dataType: "json", //服务器返回json格式数据
+							async: true,
+							type: "GET", //HTTP请求类型,
+							timeout: 10000, //超时时间设置为10秒；
+							success: function(data) {
+								var str = "";
+								for (var i = 0; i < data.length; i++) { //										
+									str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].Image1 + "\" /><a class=\"font-green\" href=\"#\">" + data[i].Names + "</a><p class=\"black\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Price2 + "</span></p><p class=\"black\">促销价：<span class=\"sm_jiage\">￥" + data[i].Price1 + "</span></p><p class=\"red font-bai\">距结束：<span class=\" settime\" style=\"font-family:arial;padding: 5px 10px;\" endtime=\"" + data[i].EndTime + "\"></span></p><p>销量：" + data[i].Quantity + "件</p></li>";
+								}
+								//					$("#Panicbuy").append(str);
+								$(".mui-table-view").append(str);
+								mui("#container").pullRefresh().endPullupToRefresh((data.length == 0));
+							}
+						})
+						//参数为true代表没有更多数据了。++count > 2
+				}
+				if (mui.os.plus) {
+					mui.plusReady(function() {
+						setTimeout(function() {
+							mui("#container").pullRefresh().pullupLoading();
+						}, 1000);
+					});
+				} else {
+					mui.ready(function() {
+						mui("#container").pullRefresh().pullupLoading();
+					});
+				}
+			</script>
+			<script>
+				$(function() {
+					updateEndTime();
+				});
+				//***********************************倒计时函数********************************
+				function updateEndTime() {
+					var date = new Date();
+					var time = date.getTime(); //当前时间距1970年1月1日之间的毫秒数
+					$(".settime").each(function(i) {
+						var endDate = this.getAttribute("endTime"); //结束时间字符串
+						//转换为时间日期类型
+						var endDate1 = eval("new Date(" + endDate.replace(/\d+(?=-[^-]+$)/,
+							function(a) {
+								return parseInt(a, 10) - 1;
+							}).match(/\d+/g) + ")");
+						var endTime = endDate1.getTime(); //结束时间毫秒数
+						var lag = (endTime - time) / 1000; //当前时间和结束时间之间的秒数
+						if (lag > 0) {
+							var second = Math.floor(lag % 60);
+							var minite = Math.floor((lag / 60) % 60);
+							var hour = Math.floor((lag / 3600) % 24);
+							var day = Math.floor((lag / 3600) / 24);
+							$(this).html(day + "天" + hour + "小时" + minite + "分" + second + "秒");
+						} else
+							$(this).html("活动结束啦！");
+					});
+					setTimeout("updateEndTime()", 1000);
+				}
+			</script>
+	</body>
+
+</html>

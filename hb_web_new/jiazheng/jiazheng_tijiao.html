@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<style>
+			.mui-btn,
+			button,
+			input[type=button],
+			input[type=reset],
+			input[type=submit] {
+				position: initial !important;
+			}
+			
+			.font-jiazheng .mui-icon {
+				float: left;
+				padding: 13px 8px;
+			}
+			
+			.font-jiazheng .mui-icon:before {
+				color: #FFFFFF;
+			}
+			
+			.btn_login {
+				margin-top: 10px;
+			}
+			
+			.smm_txt {
+				font-size: 12px !important;
+				margin: 0;
+				padding: 0 5px 10px 5px;
+				text-align: center !important;
+			}
+			
+			body {
+				background: #FFFFFF !important;
+			}
+			
+			.font-blue {
+				text-align: center;
+			}
+			
+			.mui-views,
+			.mui-view,
+			.mui-pages,
+			.mui-page,
+			.mui-page-content {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #FFFFFF;
+			}
+			
+			.mui-pages {
+				top: 46px;
+				height: auto;
+			}
+			
+			.mui-scroll-wrapper,
+			.mui-scroll {
+				background-color: #FFFFFF;
+			}
+			
+			.mui-page.mui-transitioning {
+				-webkit-transition: -webkit-transform 300ms ease;
+				transition: transform 300ms ease;
+			}
+			
+			.mui-page-left {
+				-webkit-transform: translate3d(0, 0, 0);
+				transform: translate3d(0, 0, 0);
+			}
+			
+			.mui-ios .mui-page-left {
+				-webkit-transform: translate3d(-20%, 0, 0);
+				transform: translate3d(-20%, 0, 0);
+			}
+			
+			.mui-navbar {
+				position: fixed;
+				right: 0;
+				left: 0;
+				z-index: 10;
+				height: 44px;
+				background-color: #f7f7f8;
+			}
+			
+			.mui-navbar .mui-bar {
+				position: absolute;
+				background: transparent;
+				text-align: center;
+			}
+			
+			.mui-android .mui-navbar-inner.mui-navbar-left {
+				opacity: 0;
+			}
+			
+			.mui-ios .mui-navbar-left .mui-left,
+			.mui-ios .mui-navbar-left .mui-center,
+			.mui-ios .mui-navbar-left .mui-right {
+				opacity: 0;
+			}
+			
+			.mui-navbar .mui-btn-nav {
+				-webkit-transition: none;
+				transition: none;
+				-webkit-transition-duration: .0s;
+				transition-duration: .0s;
+			}
+			
+			.mui-navbar .mui-bar .mui-title {
+				display: inline-block;
+				width: auto;
+			}
+			
+			.mui-page-shadow {
+				position: absolute;
+				right: 100%;
+				top: 0;
+				width: 16px;
+				height: 100%;
+				z-index: -1;
+				content: "";
+			}
+			
+			.mui-page-shadow {
+				background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+				background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+			}
+			
+			.mui-navbar-inner.mui-transitioning,
+			.mui-navbar-inner .mui-transitioning {
+				-webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+				transition: opacity 300ms ease, transform 300ms ease;
+			}
+			
+			.mui-page {
+				display: none;
+			}
+			
+			.mui-pages .mui-page {
+				display: block;
+			}
+			
+			.mui-page .mui-table-view:first-child {
+				margin-top: 15px;
+			}
+			
+			.mui-page .mui-table-view:last-child {
+				margin-bottom: 30px;
+			}
+			
+			.mui-table-view {
+				margin-top: 20px;
+			}
+			
+			.mui-table-view span.mui-pull-right {
+				color: #999;
+			}
+			
+			.mui-table-view-divider {
+				background-color: #FFFFFF;
+				font-size: 14px;
+			}
+			
+			.mui-table-view-divider:before,
+			.mui-table-view-divider:after {
+				height: 0;
+			}
+			
+			.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			
+			.mui-ios .mui-navbar .mui-bar .mui-title {
+				position: static;
+			}
+			
+			.left_jiage {
+				float: left;
+				padding: 10px 0;
+				margin-top: 6px;
+			}
+			
+			html {
+				background: #FFFFFF;
+			}
+			
+			.zhifu {
+				width: 30%;
+				float: right;
+				background: #CF2D28;
+				color: #FFFFFF;
+				border: none;
+				margin-top: 25px;
+			}
+			
+			.footer {
+				padding: 0 10px;
+				border-top: 1px solid #EEE;
+			}
+			
+			.mui-slider-right {
+				position: relative;
+			}
+			
+			.mui-slider-right .mui-btn {
+				position: relative;
+				top: 0px;
+			}
+			
+			.huise {
+				position: relative !important;
+			}
+			
+			.mui-table-view-cell:after {
+				display: none;
+			}
+			
+			p {
+				margin-bottom: 0;
+				line-height: 1.5em;
+			}
+			
+			.jiesuan li {
+				border-bottom: 1px solid #EEEEEE;
+				padding: 10px 0;
+				`
+			}
+			
+			.mui-table-view-cell {
+				font-size: 16px;
+			}
+			
+			.neirong {
+				min-height: 200px;
+			}
+			
+			.footer {
+				border: none !important;
+				padding: 5px;
+				border-top: 1px solid #CCCCCC !important;
+				height: 80px !important;
+			}
+			
+			.mui-table-view {
+				margin-top: 0;
+			}
+			
+			.mui-input-row label {
+				width: auto;
+				padding: 10px 10px 15px 5px;
+			}
+			
+			.mui-input-row label~input {
+				width: 70%;
+				padding: 10px 0;
+			}
+			
+			#bottomPopover {
+				left: 0 !important;
+			}
+			
+			.dizhi {
+				padding: 5px !important;
+			}
+			
+			.dizhi a {
+				font-size: 16px !important;
+			}
+		</style>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+	</head>
+
+	<body>
+
+		<!--页面主结构开始-->
+		<div id="app" class="mui-views">
+			<div class="mui-view">
+				<div class="mui-navbar">
+				</div>
+				<div class="mui-pages">
+				</div>
+			</div>
+		</div>
+		<!--页面主结构结束-->
+		<!--单页面开始-->
+		<div id="setting" class="mui-page">
+			<!--页面标题栏开始-->
+			<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>
+				</button>
+				<h1 class="mui-center mui-title">订单状态</h1>
+			</div>
+			<!--页面主内容区开始-->
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+
+						<div class="mui-content jiazheng">
+							<div class="repair3_table">
+								<!--<p class="black"><span class="mui-icon mui-icon-paperclip yellow-font">订单号：</span>10020051111</p>-->
+								<div class="jiazheng-zhuangtai" id="ayiCnt">
+								</div>
+								<!--<div class="qr_dizhi">
+				</div>-->
+								<div id="dizhisub" class="dizhisub" style="line-height: 30px; color:#666666;"></div>
+
+								<p><a href="#change_address" class="font-blue" style="text-align: center !important; display: block !important;">选择地址</a></p>
+								<div class="jiazheng-zhuangtai">
+									<div class="xuanze-jiazheng">
+										<div class="mui-pull-left font-jiazheng"><span class="mui-icon icon-gongzuojingyan"></span>服务时长：</div>
+										<button style="border:none; border-bottom: 1px solid #DDDDDD;" id='showUserPicker' class="mui-btn mui-btn-block adress mui-pull-left alert-jiazheng " type='button'>
+											<div id='userResult' class="ui-alert">选择雇佣时长</div>
+										</button>
+									</div>
+									<textarea id="question" class="mui-input-clear question" placeholder="补充您的其他要求"></textarea>
+								</div>
+								<p id="yuyuejin" class="red_txt center sm_txt"></p>
+								<!--<p class="red_txt center">总价：¥6000元</p>-->
+								<p class="shuomin smm_txt"><span class="mui-icon mui-icon-help"></span> 订单提交后，您拥有2天的服务试用期,服务不满意的话我们会为您免费更换人员或全额退款</p>
+								<button id='zhifu' class="mui-btn mui-btn-block mui-btn-primary btn_login zhifu">提交订单</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--页面主内容区结束-->
+		</div>
+		<!--收货地址 start-->
+		<div id="change_address" class="mui-page">
+			<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>订单状态
+				</button>
+
+				<h1 class="mui-center mui-title">更换地址</h1>
+			</div>
+
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<ul id="DeliveryAddress" class="mui-table-view">
+
+					</ul>
+					<!--<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell">
+							<a href="#bottomPopover" class="mui-navigate-right">添加新地址</a>
+						</li>
+					</ul>-->
+					<a href="#bottomPopover" class="mui-btn-primary mui-btn" style="width: 30%; margin: 10px 30%;">添加新地址</a>
+				</div>
+			</div>
+		</div>
+		<a href="#bottomPopover" class="mui-btn-primary mui-btn" style="width: 30%; margin: 10px 30%;">添加新地址</a>
+
+		<div id="bottomPopover" class="mui-popover mui-popover-bottom">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll" style="padding: 5px;">
+					<div class="mui-input-row">
+						<label>姓名：</label>
+						<input id="uname" placeholder="收货人姓名">
+						<input id="ID" type="hidden">
+					</div>
+					<div class="mui-input-row">
+						<label>电话：</label>
+						<input id="tel" placeholder="收货人手机号，方便联系收货">
+					</div>
+					<div id="mySwitch" class="mui-input-row mui-switch mui-active right">
+
+						<div class="mui-switch-handle right"></div>
+					</div>
+					<!--<label>设置默认：</label>-->
+					<textarea id="adderss" class="mui-input-clear question" placeholder="填写常用地址"></textarea>
+					<a id="addressbtn" href="#bottomPopover" class="mui-btn-primary mui-btn mui-pull-right" style="width:15%; margin: 5px 20px">确定</a>
+				</div>
+			</div>
+		</div>
+		<!--收货地址 end-->
+	</body>
+	<script src="../js/mui.view.js "></script>
+	<script>
+		mui(".mui-scroll-wrapper").scroll();
+		var viewApi = mui("#app").view({
+			defaultPage: "#setting"
+		});
+		//*****************************获取默认收货地址**********************************
+		mui.plusReady(function() {
+			url = plus.storage.getItem("url");
+			mui.ajax("http://" + url + "/DeliveryAddress/Default", {
+				data: {},
+				dataType: "json", //服务器返回json格式数据
+				type: "Post", //HTTP请求类型,
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+					if (data.ConsigneeName != null) {
+						$(".dizhisub").html("<p id=\"" + data.ID + "\" class=\"black\">收货人：" + data.ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data.ConsigneePhone + "</span></p><p id=\"default_address\">地址：" + data.Address + "</p>");
+					}
+				}
+			})
+		})
+		var phoneReg = function(value) {
+			var pReg = /1[3|5|6|8][0-9]\d{8}/;
+			var p = pReg.test(value);
+			return p;
+		}
+		mui.init({
+			preloadPages: [{
+				url: "jiazheng_over.html",
+				id: "jiazheng_over.html"
+			}],
+			swipeBack: true //启用右滑关闭功能
+		});
+		var overpage = null;
+		mui.plusReady(function() {
+			url = plus.storage.getItem("url");
+			window.addEventListener("tijiaoId", function(event) {
+				var cateId2 = event.detail.jiazhengCateId;
+				var uid2 = event.detail.uid;
+				var serLvl2 = event.detail.serviceLevel;
+				var workingExp2 = event.detail.workingExperience;
+				var ageRange2 = event.detail.ageRange;
+				var xueLi2 = event.detail.xueLi;
+				var salaryRange2 = event.detail.salaryRange;
+				var services2 = event.detail.services;
+				var serviceAddress2 = event.detail.serviceAddress;
+				var serviceContactNumber2 = event.detail.serviceContactNumber;
+				var serviceCreateDate2 = event.detail.serviceCreateDate;
+				var servicesBrief2 = event.detail.servicesBrief;
+				var age2 = event.detail.age;
+				var salary2 = event.detail.salary;
+				var ayiImg2 = event.detail.ayiImg;
+				var provinceId2 = event.detail.provinceId;
+				var cityId2 = event.detail.cityId;
+				var provinceName2 = event.detail.provinceName;
+				var babyAge2 = event.detail.babyAge;
+				var yuyuemoney = event.detail.yuyuemoney;
+				document.getElementById("yuyuejin").innerHTML = "本次订单需支付预约金：¥" + yuyuemoney + "元";
+				document.getElementById("cateId2").value = cateId2;
+				document.getElementById("uid2").value = uid2;
+				document.getElementById("serLvl2").value = serLvl2;
+				document.getElementById("workingExp2").value = workingExp2;
+				document.getElementById("ageRange2").value = ageRange2;
+				document.getElementById("xueLi2").value = xueLi2;
+				document.getElementById("salaryRange2").value = salaryRange2;
+				document.getElementById("services2").value = services2;
+				document.getElementById("serviceAddress2").value = serviceAddress2;
+				document.getElementById("serviceContactNumber2").value = serviceContactNumber2;
+				document.getElementById("serviceCreateDate2").value = serviceCreateDate2;
+				document.getElementById("servicesBrief2").value = servicesBrief2;
+				document.getElementById("age2").value = age2;
+				document.getElementById("salary2").value = salary2;
+				document.getElementById("ayiImg2").value = ayiImg2;
+				document.getElementById("provinceId2").value = provinceId2;
+				document.getElementById("cityId2").value = cityId2;
+				document.getElementById("provinceName2").value = provinceName2;
+				document.getElementById("babyAge2").value = babyAge2;
+				document.getElementById("yuyuemoney").value = yuyuemoney;
+				var tijiaoCnt = "<div class=\"touxiang\"><img src=\"http://" + url + "/Images/jiazheng/" + ayiImg2 + "\" /></div><div class=\"touxiang2\"><p class=\"black\">服务机构：" + services2 + "</p>" +
+					//				"<p>" + provinceName2 + "|" + age2 + "岁</p><p>薪资：<strong class=\"font-yellow\">" + salary2 + "元/月</strong></p><p class=\"black\">服务级别：" + serLvl2 + "</p></div>" +
+					"<p>" + provinceName2 + "</p><p class=\"black\">服务级别：" + serLvl2 + "</p></div>" +
+					"<div style=\"clear: both;\"></div>";
+				$("#ayiCnt").html(tijiaoCnt);
+				mui.ajax("http://" + url + "/DeliveryAddress/index", {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					async: false,
+					type: 'GET', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var dizhi = "<div id=\"" + data.ID + "\"  class=\"repair_bar red\" >确认地址信息 </div><input type=\"text\" id=\"ConsigneeName\" class=\"mui-input-speech sm_input\"  placeholder=\"请输入姓名\"  value=" + data[0].ConsigneeName + ">" +
+							"<div class=\"mui-input-row\"><input type=\"text\" id=\"Address\" class=\"mui-input-speech mui-input-clear\" placeholder=\"请输入地址\" value=" + data[0].Address + "></div>" +
+							"<div class=\"mui-input-row\"><input type=\"text\" id=\"ConsigneePhone\" class=\"mui-input-speech mui-input-clear\" placeholder=\"请输入手机号码\" value=" + data[0].ConsigneePhone + "></div>";
+						$(".qr_dizhi").html(dizhi);
+					}
+				});
+			})
+			document.getElementById('zhifu').addEventListener('tap', function() {
+				var ConsigneeName = document.getElementById("ConsigneeName").value;
+				var Address = document.getElementById("Address").value;
+				var ConsigneePhone = document.getElementById("ConsigneePhone").value;
+				// var period = document.getElementById("period").value;
+				var periodText = document.getElementById('userResult').innerText;
+				if (ConsigneeName == "") {
+					mui.toast("请输入用户名");
+					return;
+				}
+				if (periodText == "选择雇佣时长") {
+					mui.toast("请选择雇佣时长");
+					return;
+				}
+				if (Address == "") {
+					mui.toast("请输入地址");
+					return;
+				}
+				if (ConsigneePhone == "") {
+					mui.toast("请输入手机号");
+					return;
+				}
+				if (!phoneReg(ConsigneePhone)) {
+					mui.toast("不是完整的11位手机号或者正确的手机号前7位");
+					return;
+				}
+				document.getElementById("ConsigneeName").value = "";
+				document.getElementById("ConsigneePhone").value = "";
+				document.getElementById("Address").value = "";
+				var deliverId = $("#dizhisub div").attr("id"); //获取收获地址ID
+				var cateId3 = document.getElementById("cateId2").value;
+				var uid3 = document.getElementById("uid2").value;
+				var serLvl3 = document.getElementById("serLvl2").value;
+				var workingExp3 = document.getElementById("workingExp2").value;
+				var ageRange3 = document.getElementById("ageRange2").value;
+				var xueLi3 = document.getElementById("xueLi2").value;
+				var salaryRange3 = document.getElementById("salaryRange2").value;
+				var services3 = document.getElementById("services2").value;
+				var serviceAddress3 = document.getElementById("serviceAddress2").value;
+				var serviceContactNumber3 = document.getElementById("serviceContactNumber2").value;
+				var serviceCreateDate3 = document.getElementById("serviceCreateDate2").value;
+				var servicesBrief3 = document.getElementById("servicesBrief2").value;
+				var age3 = document.getElementById("age2").value;
+				var salary3 = document.getElementById("salary2").value;
+				var ayiImg3 = document.getElementById("ayiImg2").value;
+				var provinceId3 = document.getElementById("provinceId2").value;
+				var cityId3 = document.getElementById("cityId2").value;
+				var provinceName3 = document.getElementById("provinceName2").value;
+				var babyAge3 = document.getElementById("babyAge2").value;
+				var question = document.getElementById("question").value;
+				mui.ajax("http://" + url + "/JZYuesao/Create", {
+					data: {
+						"ayiImg": ayiImg3,
+						"jiazhengCateId": cateId3,
+						"uid": uid3,
+						"serviceLevel": serLvl3,
+						"workingExperience": workingExp3,
+						"ageRange": ageRange3,
+						"xueLi": xueLi3,
+						"salaryRange": salaryRange3,
+						"services": services3,
+						"serviceAddress": serviceAddress3,
+						"serviceContactNumber": serviceContactNumber3,
+						"serviceCreateDate": serviceCreateDate3,
+						"servicesBrief": servicesBrief3,
+						"T_ProvinceID": provinceId3,
+						"T_CityID": cityId3,
+						"age": age3,
+						"salary": salary3,
+						"deliverID": deliverId,
+						"babyAge": babyAge3,
+						"orderSataus": 0,
+						"employmentTimeDesc": periodText,
+						"Description": question
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode == "200") {
+							if (!overpage) {
+								overpage = plus.webview.getWebviewById("jiazheng_over.html");
+							}
+							mui.fire(overpage, "overId", {
+								jzOrdId: data.data
+							})
+							mui.openWindow({
+								id: "jiazheng_over.html"
+							})
+						} else {
+							mui.toast(data.message);
+						}
+					}
+				});
+			});
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'ywj',
+						text: '一个月'
+					}, {
+						value: 'aaa',
+						text: '二个月'
+					}, {
+						value: 'lj',
+						text: '三个月'
+					}, ]);
+					var showUserPickerButton = doc.getElementById('showUserPicker');
+					var userResult = doc.getElementById('userResult');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							userResult.innerText = (items[0] || {}).text;
+							//document.getElementById("period").text = (items[0] || {}).value;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+			})(mui, document);
+			////********************************************************更换地址的数据代码开始*****************************************
+			getaddress();
+
+			function getaddress() {
+				mui.plusReady(function() {
+					mui.ajax("http://" + url + "/DeliveryAddress/index", {
+						data: {},
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var str = "";
+							for (var i = 0; i < data.length; i++) {
+								str += "<div  class=\"dizhi\" style=\"line-height: 30px; color:#666666;\"><div id=\"" + data[i].ID + "\" class=\"dizhilist\"><p class=\"black\">收货人：" + data[i].ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data[i].ConsigneePhone + "</span></p><p>收货地址：" + data[i].Address + "</p></div><a class=\"mui-pull-right font-red\" style=\"margin-left: 10px;\">删除 </a><a href=\"#bottomPopover\" class=\"mui-pull-right font-blue\"> 修改信息</a><div style=\"clear: both;\"></div></div>";
+							}
+							$("#DeliveryAddress").html(str);
+						}
+					})
+				})
+			}
+			//**********************************************添加、修改收货地址提交代码**************************************
+			var isActive = document.getElementById("mySwitch").classList.contains("mui-active");
+			//		if (isActive) {
+			//			console.log("打开状态");
+			//		} else {
+			//			console.log("关闭状态");
+			//		}
+			var addressbtn = document.getElementById("addressbtn");
+			var uname = document.getElementById("uname");
+			var tel = document.getElementById("tel");
+			var adderss = document.getElementById("adderss");
+			var ID = document.getElementById("ID");
+			addressbtn.addEventListener("tap", function(event) {
+				if (uname.value == "") {
+					plus.ui.toast("收货人姓名不能为空");
+					return;
+				}
+				if (tel.value == "") {
+					plus.ui.toast("收货人电话不能为空");
+					return;
+				}
+				if (adderss.value == "") {
+					plus.ui.toast("收货地址不能为空");
+					return;
+				}
+				//****************************用户提交成功返回*********************************
+				mui.ajax("http://" + url + "/DeliveryAddress/Creates", {
+					data: {
+						"ConsigneeName": uname.value,
+						"ConsigneePhone": tel.value,
+						"Address": adderss.value,
+						"ID": ID.value,
+						"isDefault": "0"
+					},
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode == 200) {
+							plus.ui.toast(data.message);
+							uname.value = "";
+							tel.value = "";
+							adderss.value = "";
+							getaddress();
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
+			});
+			////********************************************************删除地址信息*****************************************
+			mui("#DeliveryAddress").on("tap", ".font-red", function(e) {
+				var DeliveryAddressid = this.parentElement.childNodes[0].getAttribute("id");
+				mui.ajax("http://" + url + "/DeliveryAddress/Delete", {
+					data: {
+						id: DeliveryAddressid,
+					},
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode = "200") {
+							plus.ui.toast(data.message);
+							getaddress();
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
+			});
+			////********************************************************修改地址信息*****************************************
+			mui("#DeliveryAddress").on("tap", ".font-blue", function(e) {
+				var DeliveryAddressid = this.parentElement.childNodes[0].getAttribute("id");
+				mui.ajax("http://" + url + "/DeliveryAddress/getdeliveryaddressbyid", {
+					data: {
+						id: DeliveryAddressid,
+					},
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						ID.value = data.ID;
+						uname.value = data.ConsigneeName;
+						tel.value = data.ConsigneePhone;
+						adderss.value = data.Address;
+					}
+				})
+			});
+			////********************************************************更换地址的数据代码开始*****************************************
+			//**********************************以下为页面切换代码******************************
+			var view = viewApi.view;
+			(function($, doc) {
+				//处理view的后退与webview后退
+				var oldBack = $.back;
+				$.back = function() {
+					if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+						viewApi.back();
+					} else { //执行webview后退
+						oldBack();
+					}
+				};
+				//监听页面切换事件方案1,通过view元素监听所有页面切换事件，目前提供pageBeforeShow|pageShow|pageBeforeBack|pageBack四种事件(before事件为动画开始前触发)
+				//第一个参数为事件名称，第二个参数为事件回调，其中e.detail.page为当前页面的html对象
+				view.addEventListener("pageBeforeShow", function(e) {});
+				view.addEventListener("pageShow", function(e) {});
+				view.addEventListener("pageBeforeBack", function(e) {});
+				view.addEventListener("pageBack", function(e) {});
+				//*************************************地址点击带回********************************
+				var dizhisub = doc.getElementById("dizhisub");
+				mui("#DeliveryAddress").on("tap", ".dizhilist", function(e) {
+					var DeliveryAddressid = this.getAttribute("id");
+					mui.ajax("http://" + url + "/DeliveryAddress/getdeliveryaddressbyid", {
+						data: {
+							id: DeliveryAddressid,
+						},
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							if (data.ID != null) {
+								var dizhi = "<div id=\"" + data.ID + "\"  class=\"repair_bar red\" >确认地址信息 </div><input type=\"text\" id=\"ConsigneeName\" class=\"mui-input-speech sm_input\"  placeholder=\"请输入姓名\"  value=" + data.ConsigneeName + ">" +
+									"<div class=\"mui-input-row\"><input type=\"text\" id=\"Address\" class=\"mui-input-speech mui-input-clear\" placeholder=\"请输入地址\" value=" + data.Address + "></div>" +
+									"<div class=\"mui-input-row\"><input type=\"text\" id=\"ConsigneePhone\" class=\"mui-input-speech mui-input-clear\" placeholder=\"请输入手机号码\" value=" + data.ConsigneePhone + "></div>";
+								//							var dizhidata = "<p id=\"" + data.ID + "\" class=\"black\">收货人：" + data.ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data.ConsigneePhone + "</span></p><p id=\"default_address\">地址：" + data.Address + "</p>"
+								dizhisub.innerHTML = dizhi;
+								viewApi.back();
+							} else {
+								plus.ui.toast(data);
+							}
+						}
+					})
+				});
+				//*************************************地址点击带回结束********************************
+			})(mui, document);
+		})
+	</script>
+	<input type="hidden" id="cateId2">
+	<input type="hidden" id="uid2">
+	<input type="hidden" id="serLvl2">
+	<input type="hidden" id="workingExp2">
+	<input type="hidden" id="ageRange2">
+	<input type="hidden" id="xueLi2">
+	<input type="hidden" id="salaryRange2">
+	<input type="hidden" id="services2">
+	<input type="hidden" id="serviceAddress2">
+	<input type="hidden" id="serviceContactNumber2">
+	<input type="hidden" id="serviceCreateDate2">
+	<input type="hidden" id="servicesBrief2">
+	<input type="hidden" id="age2">
+	<input type="hidden" id="salary2">
+	<input type="hidden" id="ayiImg2">
+	<input type="hidden" id="provinceId2">
+	<input type="hidden" id="cityId2">
+	<input type="hidden" id="provinceName2">
+	<input type="hidden" id="babyAge2">
+	<input type="hidden" id="period">
+	<input type="hidden" id="yuyuemoney">
+
+</html>

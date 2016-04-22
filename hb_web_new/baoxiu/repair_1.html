@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+		</script>
+		<script type="text/javascript" src="../js/mui.picker.js"></script>
+		<script type="text/javascript" src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<style>
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+				height: 200px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!-- 侧滑导航根容器 -->
+
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+
+			<!-- 菜单容器 -->
+			<aside id="offCanvasSide" class="mui-off-canvas-left">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!-- 菜单具体展示内容 -->
+
+						<h3><span class=" icon-homefill mui-icon" href="###">
+							<a href="###">主页 ></a>
+							<!--<button id="offCanvasHide" type="button">关闭</button>-->
+						</h3>
+						<ul class="left_btn">
+							<li id="offCanvasHide"><a href="http://www.baidu.com" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
+							<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
+							<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
+							<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
+							<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
+							<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
+							<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
+							<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
+							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
+							<li><a href="###"><span class=" icon-iconfontjifen36 mui-icon" href="###"></span>金融理财></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+						</ul>
+					</div>
+				</div>
+			</aside>
+			<div class="mui-inner-wrap   repair_container">
+				<header class="mui-bar mui-bar-nav">
+					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<h1 class="mui-title">报修服务</h1>
+				</header>
+				<!--主界面区域-->
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="mui-slider">
+							<div class="mui-slider-group mui-slider-loop" id="topAD">
+							</div>
+						</div>
+						<div id="container">
+							<ul class="mui-table-view mui-grid-view mui-grid-9" id="rp">
+
+							</ul>
+
+							<div class="phone">
+								<img src="../image/baoxiu_19.gif" /> 紧急呼叫： <strong>400-800-8000</strong>
+							</div>
+
+							<button class="repair1_sc">
+								<span class="mui-icon mui-icon-help"></span>不想维修想换新？点击这里
+							</button>
+						</div>
+
+					</div>
+					<div class="mui-off-canvas-backdrop"></div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			mui.init({
+				preloadPages: [{
+					id: "repair_2.html",
+					url: "repair_2.html"
+				}]
+			});
+			var repair2Page = null;
+			//主界面‘显示侧滑菜单’按钮的点击事件
+			mui('.mui-scroll-wrapper').scroll();
+			mui.plusReady(function() {
+				url = plus.storage.getItem("url");
+				mui.ajax("http://" + url + "/RepaAdvertisings/RapaADIndex", {
+					dataType: "json",
+					type: "get",
+					success: function(data) {
+						var repairAD = "";
+						for (var i = 0; i < data.length; i++) {
+							repairAD += "<div class=\"mui-slider-item\"><img src=\"http://" + url + "/Images/RepaAdvertisingsImg/" + data[i].RepaADImg + "\" /></div>"
+						}
+						$("#topAD").html(repairAD);
+						var gallery = mui('.mui-slider');
+						gallery.slider({
+							interval: 5000 //自动轮播周期，若为0则不自动播放，默认为0；
+						});
+					}
+				});
+				//获得slider插件对象
+				mui.ajax("http://" + url + "/RepaCategorySub/Index", {
+					//data: {
+					//username: 'username',
+					//password: 'password'
+					//},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'GET', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var rep = "";
+						for (var i = 0; i < data.length; i++) {
+							rep += "<li data-name='" + data[i].RepaCategory.rc_name + "' id='" + data[i].rcs_cId + "'  class=\"mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 " + data[i].RepaCategory.cateBackGColor + "\"><img src=\"http://" + url + "/Images/baoxiu/" + data[i].RepaCategory.cateImg + "\"/><a href=\"#\">" + data[i].RepaCategory.rc_name + "</a><p>" + data[i].rcs_name + "</p></li>";
+						}
+						$("#rp").html(rep);
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理
+						console.log(type);
+					}
+				});
+				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
+					var cid = this.getAttribute("id");
+					var dataName = this.getAttribute("data-name");
+					mui.ajax("http://" + url + "/home/login_cache", {
+						data: {},
+						dataType: 'json', //服务器返回json格式数据
+						async: false,
+						type: 'GET', //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							if (data.nAccountID != null && data.nAccountID != "") {
+								//打开repair_2.html
+								if (!repair2Page) {
+									repair2Page = plus.webview.getWebviewById("repair_2.html");
+								}
+								mui.fire(repair2Page, 'repair1Id', {
+									uid: data.nAccountID,
+									cid: cid,
+									dataName: dataName
+								})
+								mui.openWindow({
+									id: "repair_2.html"
+										//								,
+										//								extras: {
+										//									uid: data.nAccountID,
+										//									cid: cid,
+										//									dataName: dataName
+										//								}
+										//设置show的autoShow为false，则B页面在其loaded事件发生后，不会自动显示；
+										//					,
+										//					show: {
+										//						autoShow: false
+										//					}
+								});
+							} else {
+								mui.toast("请先登录，如未注册，请注册");
+								mui.openWindow({
+									url: '/login.html',
+									id: 'login'
+								});
+							}
+						}
+					})
+				})
+			})
+		</script>
+	</body>
+
+</html>

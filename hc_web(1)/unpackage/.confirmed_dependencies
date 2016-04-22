@@ -21,7 +21,11 @@
 			"css/mui.poppicker.css",
 			"js/city.data.js",
 			"image/cp1.jpg",
-			"image/bn_40.gif"
+			"image/bn_40.gif",
+			"image/sl1.jpg",
+			"image/zz1.jpg",
+			"image/zz2.jpg",
+			"image/zz3.jpg"
 		],
 		"refer": [
 			"shopping/shop_cuxiao_acter.html",
@@ -79,7 +83,8 @@
 			"shopping/shop_tehui.html",
 			"shopping/shop_qianggou.html",
 			"shopping/shop_shop.html",
-			"shopping/shop_nav.html"
+			"shopping/shop_nav.html",
+			"shopping/shop_detail.html"
 		]
 	},
 	"login.html": {

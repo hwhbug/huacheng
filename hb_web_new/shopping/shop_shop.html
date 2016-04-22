@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<!--<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>-->
+		<script src="../js/jquery-1.9.1.min.js" type="application/javascript"></script>
+		<link href="../css/cross-down.css" rel="stylesheet" />
+		<style>
+			.list_shop li {
+				height: 300px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!-- 主页面标题 -->
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">周边商户</h1>
+		</header>
+	
+		<script type="text/javascript">
+		
+			mui('.mui-scroll-wrapper').scroll();
+			
+			//启用双击监听
+			mui.init({
+				gestureConfig: {
+					doubletap: true
+				},
+				subpages: [{
+					url: 'shop_refresh_shop.html',
+					id: 'shop_refresh_shop.html',
+					styles: {
+						top: '45px',
+						bottom: '0px',
+					}
+				}]
+			});
+			var contentWebview = null;
+			document.querySelector('header').addEventListener('doubletap', function() {
+				if (contentWebview == null) {
+					contentWebview = plus.webview.currentWebview().children()[0];
+				}
+				contentWebview.evalJS("mui('#container').pullRefresh().scrollTo(0, 0,100)");
+			});
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			.repair_container li {
+				background: #FFFFFF;
+			}
+			.repair_container li p{
+				color: #000000;
+			}
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+				padding: 11px;
+				border-right:1px solid #EEEEEE;
+				border-bottom:1px solid #EEEEEE;
+			}
+			.guanggao .mui-table-view-cell{
+				border: none !important;
+				border: 2px solid #EEEEEE !important;
+				padding: 0 !important;	
+			}
+			input[type=search]{
+				background: #FFFFFF;
+				
+			}
+			.mui-btn-primary{
+				background:#F17E25;
+			}
+			.serch{
+				width: 18%;
+				height: 30px;
+				font: 16px/28px "微软雅黑";
+				padding: 0;
+				margin-top: 10px;;
+			}
+			p{
+				margin-bottom: 2px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<!-- 侧滑导航根容器 -->
+
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+
+			<!-- 菜单容器 -->
+			<aside id="offCanvasSide" class="mui-off-canvas-left">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!-- 菜单具体展示内容 -->
+
+						<h3><span class=" icon-homefill mui-icon" href="###">
+							<a href="###">主页 ></a>
+							<!--<button id="offCanvasHide" type="button">关闭</button>-->
+						
+						</h3>
+						<ul class="left_btn">
+							<li id="offCanvasHide"><a href="http://www.baidu.com" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
+							<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
+							<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
+							<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
+							<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
+							<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
+							<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
+							<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
+							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
+							<li><a href="###"><span cilass=" icon-iconfontjifen36 mui-icon" href="###"></span>金融理财></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+
+						</ul>
+
+					</div>
+				</div>
+			</aside>
+			<!-- 左侧菜单结束 -->
+
+			<!-- 主页面容器 -->
+
+			<div class="mui-inner-wrap   repair_container">
+
+				<!-- 主页面标题 -->
+
+				<header class="mui-bar mui-bar-nav">
+					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<h1 class="mui-title">二手市场</h1>
+					<button class="mui-pull-right right_btn yellow font-bai">发布消息</button>
+				</header>
+				<!--主界面区域-->
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+
+						<!-- 主界面具体展示内容 -->
+
+						<!--按钮区域-->
+
+						<div id="container">
+							<ul class="mui-table-view mui-grid-view mui-grid-9">
+								<li id="ershou_che" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-che"></span>
+									<p class="black">二手车</p>
+								</li>
+								<li id="ershou_fangzi" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-iconfonthaofangtuo53"></span>
+									<p class="black">二手房</p>
+								</li>
+								<li id="ershou_gongzuo" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-gongzuo"></span>
+									<p class="black">找工作</p>
+								</li>
+								<!--<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-laoren"></span>
+									<p class="black">老人陪护</p>
+								</li>-->
+								<li id="ershou_duixiang" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-xiangqinjiaoyou"></span>
+									<p class="black">找对象</p>
+								</li>
+								<!--<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-zhongdianbaoji"></span>
+									<p class="black">钟点工</p>
+								</li>-->
+								<!--<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<span class="mui-icon icon-zhongdiangong"></span>
+									<p class="black">临时保洁</p>
+								</li>-->
+
+							</ul>
+							<div class="ershou_serch">
+								<div class="mui-input-row mui-search">
+									<input id="search" type="search" class="mui-input-speech mui-input-clear" placeholder="带语音输入的搜索框">
+								</div>
+								<button class="mui-btn-primary serch mui-pull-right">搜索</button>
+							</div>
+							<div class="ershou_bar"><div class="shutiao"></div> 精选推荐</div>
+							<ul class="ershou_tuijian">
+								<li>
+									<div class="img"><img src="../image/repair_23.gif" /></div>
+									<p class="max-font">120平米临街旺铺出租</p>
+									<p>地址：晋中市榆次区锦纶路与新华街口（锦纶路113号）</p>
+									<p class="yellow-font">价格：¥80,000/年</p>
+								</li>
+								<li>
+									<div class="img"><img src="../image/che1.jpg" /></div>
+									<p class="max-font">别克君越2015 高配款</p>
+									<p>品牌：别克</p>
+									<p>公里数：1.2万</p>
+									
+									<p class="yellow-font">价格：¥220,000</p>
+								</li>
+								<li>
+									<div class="img"><img src="../image/repair_21.gif">
+									<p class="max-font">200平米临街旺铺出租</p>
+									<p>地址：晋中市榆次区锦纶路130号</p>
+									<p class="yellow-font">价格：¥120,000/年</p>
+								</li>
+								<li>
+									<div class="img"><img src="../image/repair_19.gif">
+									<p class="max-font">130平米精装房出租</p>
+									<p>地址：御景花苑1号楼2单元1802</p>
+									<p class="yellow-font">价格：¥1,500/月</p>
+								</li>
+							</ul>
+							</div>
+							
+
+						<!--按钮区域结束-->
+						<!-- 侧滑后右侧变黑-->
+
+					</div>
+					<div class="mui-off-canvas-backdrop"></div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			mui('.mui-scroll-wrapper').scroll();
+			document.getElementById('ershou_che').addEventListener('tap', function() {
+					//打开关于页面
+					mui.openWindow({
+						url: 'ershou_che.html',
+						id: 'ershou_che'
+					});
+				});
+			document.getElementById('ershou_fangzi').addEventListener('tap', function() {
+					//打开关于页面
+					mui.openWindow({
+						url: 'ershou_fangzi.html',
+						id: 'ershou_fangzi'
+					});
+				});
+			document.getElementById('ershou_gongzuo').addEventListener('tap', function() {
+					//打开关于页面
+					mui.openWindow({
+						url: 'ershou_gongzuo.html',
+						id: 'ershou_gongzuo'
+					});
+				});
+			document.getElementById('ershou_duixiang').addEventListener('tap', function() {
+					//打开关于页面
+					mui.openWindow({
+						url: 'ershou_duixiang.html',
+						id: 'ershou_duixiang'
+					});
+				});
+		</script>
+	</body>
+
+</html>

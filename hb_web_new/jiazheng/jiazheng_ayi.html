@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<style>
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+				padding: 5px;
+				background: #FFFFFF;
+			}
+			
+			.mui-content > .mui-table-view:first-child {
+				margin: 0;
+			}
+			
+			.icon-wujiaoxing {
+				width: 14px;
+				height: 22px;
+				font-size: 22px !important;
+				color: #EC971F;
+			}
+		</style>
+		<script src="../js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-icon">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">挑选阿姨</h1>
+		</header>
+		<!--<input type="hidden"  id="ayiName">
+		<input type="hidden"  id="ayijProvince">
+		<input type="hidden"  id="ayiAge">
+		<input type="hidden"  id="ayiSalary">
+		<input type="hidden"  id="ayiServerLvl">
+		<input type="hidden"  id="ayiImg">-->
+		<input type="hidden" id="uid">
+		<div class="mui-content jiazheng">
+			<ul class="mui-table-view mui-grid-view mui-grid-9" id="ayiC">
+			</ul>
+		</div>
+
+	</body>
+	<script>
+		mui.init({
+			preloadPages: [{
+				url: 'jiazheng_tijiao.html',
+				id: 'jiazheng_tijiao.html'
+			}]
+		})
+		var tijiaoPage = null;
+		mui.plusReady(function() {
+			url = plus.storage.getItem("url");
+			window.addEventListener("ayiId", function(event) {
+				var uuid2 = event.detail.uuid2;
+				document.getElementById("uid").value = uuid2;
+				var cateId = event.detail.cateID;
+				var yuesaoLvl = event.detail.yuesaoLvl;
+				var yuersaoLvl = event.detail.yuersaoLvl;
+				var baomuLvl = event.detail.baomuLvl;
+				var peihuLvl = event.detail.peihuLvl;
+				var workExper = event.detail.workExper;
+				var ageRange = event.detail.ageRange;
+				var xueliRange = event.detail.xueliRange;
+				var salaryRange = event.detail.salaryRange;
+				var babyRange = event.detail.babyRange;
+				var baomuFlag = event.detail.baomuFlag;
+				if (baomuFlag == "1") {
+					$("#ayiC").html("");
+					mui.ajax("http://" + url + "/JiaZhengBasic/Index", {
+						data: {
+							serverLvl: yuesaoLvl,
+							workExper: workExper,
+							ageRange: ageRange,
+							xueli: xueliRange,
+							salaryRange: salaryRange,
+							cateId: cateId
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'GET', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var ayiCnt = "";
+							if (data.length > 0) {
+								for (var i = 0; i < data.length; i++) {
+									ayiCnt += "<li id=\"\" data-yuyuemoney=\"" + data[i].JiaZhengCategory.jiazheng_price + "\" data-provinceID=\"" + data[i].T_ProvinceID + "\" data-cityID=\"" + data[i].T_CityID + "\"  data-ageRange=\"" + data[i].ageRange + "\" data-salaryRange=\"" + data[i].salaryRange + "\" data-xueliRange=\"" + data[i].xueLi + "\" data-workExper=\"" + data[i].workingExperience + "\"  data-cate=\"" + cateId + "\" data-services=\"" + data[i].services + "\" data-serviceAddress=\"" + data[i].serviceAddress + "\" data-serviceContactNumber=\"" + data[i].serviceContactNumber + "\" data-serviceCreateDate=\"" + data[i].serviceCreateDate + "\" data-servicesBrief=\"" + data[i].servicesBrief + "\" data-area=\"" + data[i].T_Province.ProName + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"" + data[i].ayiImg + "\" " +
+										"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://" + url + "/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+										"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].services + "</span></p><p>" + data[i].T_Province.ProName + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
+										"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
+										"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+								}
+								$("#ayiC").html(ayiCnt);
+							} else {
+								mui.toast("没有找到相关信息");
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理
+							console.log(type)
+						}
+					});
+				} else if (baomuFlag == "2") {
+					$("#ayiC").html("");
+					mui.ajax("http://" + url + "/JiaZhengBasic/Index", {
+						data: {
+							serverLvl: yuersaoLvl,
+							workExper: workExper,
+							ageRange: ageRange,
+							xueli: xueliRange,
+							salaryRange: salaryRange,
+							babyAge: babyRange,
+							cateId: cateId
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'GET', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var ayiCnt = "";
+							if (data.length > 0) {
+								for (var i = 0; i < data.length; i++) {
+									ayiCnt += "<li id=\"\" data-yuyuemoney=\"" + data[i].JiaZhengCategory.jiazheng_price + "\" data-provinceID=\"" + data[i].T_ProvinceID + "\" data-cityID=\"" + data[i].T_CityID + "\"  data-ageRange=\"" + data[i].ageRange + "\" data-salaryRange=\"" + data[i].salaryRange + "\" data-xueliRange=\"" + data[i].xueLi + "\" data-workExper=\"" + data[i].workingExperience + "\"  data-cate=\"" + cateId + "\" data-services=\"" + data[i].services + "\" data-serviceAddress=\"" + data[i].serviceAddress + "\" data-serviceContactNumber=\"" + data[i].serviceContactNumber + "\" data-serviceCreateDate=\"" + data[i].serviceCreateDate + "\" data-servicesBrief=\"" + data[i].servicesBrief + "\" data-area=\"" + data[i].T_Province.ProName + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"" + data[i].ayiImg + "\" " +
+										"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://" + url + "/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+										"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].services + "</span></p><p>" + data[i].T_Province.ProName + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
+										"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
+										"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+								}
+								$("#ayiC").html(ayiCnt);
+							} else {
+								mui.toast("没有找到相关信息");
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理
+							console.log(type)
+						}
+					});
+				} else if (baomuFlag == "3") {
+					$("#ayiC").html("");
+					mui.ajax("http://" + url + "/JiaZhengBasic/Index", {
+						data: {
+							serverLvl: peihuLvl,
+							workExper: workExper,
+							ageRange: ageRange,
+							xueli: xueliRange,
+							salaryRange: salaryRange,
+							cateId: cateId
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'GET', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var ayiCnt = "";
+							if (data.length > 0) {
+								for (var i = 0; i < data.length; i++) {
+									ayiCnt += "<li id=\"\" data-yuyuemoney=\"" + data[i].JiaZhengCategory.jiazheng_price + "\" data-provinceID=\"" + data[i].T_ProvinceID + "\" data-cityID=\"" + data[i].T_CityID + "\"  data-ageRange=\"" + data[i].ageRange + "\" data-salaryRange=\"" + data[i].salaryRange + "\" data-xueliRange=\"" + data[i].xueLi + "\" data-workExper=\"" + data[i].workingExperience + "\"  data-cate=\"" + cateId + "\" data-services=\"" + data[i].services + "\" data-serviceAddress=\"" + data[i].serviceAddress + "\" data-serviceContactNumber=\"" + data[i].serviceContactNumber + "\" data-serviceCreateDate=\"" + data[i].serviceCreateDate + "\" data-servicesBrief=\"" + data[i].servicesBrief + "\" data-area=\"" + data[i].T_Province.ProName + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"" + data[i].ayiImg + "\" " +
+										"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://" + url + "/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+										"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].services + "</span></p><p>" + data[i].T_Province.ProName + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
+										"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
+										"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+								}
+								$("#ayiC").html(ayiCnt);
+							} else {
+								mui.toast("没有找到相关信息");
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理
+							console.log(type)
+						}
+					});
+				} else if (baomuFlag == "4") {
+					$("#ayiC").html("");
+					mui.ajax("http://" + url + "/JiaZhengBasic/Index", {
+						data: {
+							serverLvl: baomuLvl,
+							workExper: workExper,
+							ageRange: ageRange,
+							xueli: xueliRange,
+							salaryRange: salaryRange,
+							cateId: cateId
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'GET', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var ayiCnt = "";
+							if (data.length > 0) {
+								for (var i = 0; i < data.length; i++) {
+									ayiCnt += "<li id=\"\" data-yuyuemoney=\"" + data[i].JiaZhengCategory.jiazheng_price + "\" data-provinceID=\"" + data[i].T_ProvinceID + "\" data-cityID=\"" + data[i].T_CityID + "\"  data-ageRange=\"" + data[i].ageRange + "\" data-salaryRange=\"" + data[i].salaryRange + "\" data-xueliRange=\"" + data[i].xueLi + "\" data-workExper=\"" + data[i].workingExperience + "\"  data-cate=\"" + cateId + "\" data-services=\"" + data[i].services + "\" data-serviceAddress=\"" + data[i].serviceAddress + "\" data-serviceContactNumber=\"" + data[i].serviceContactNumber + "\" data-serviceCreateDate=\"" + data[i].serviceCreateDate + "\" data-servicesBrief=\"" + data[i].servicesBrief + "\" data-area=\"" + data[i].T_Province.ProName + "\"   data-age=\"" + data[i].age + "\" data-salary=\"" + data[i].salary + "\"  data-serverLvl=\"" + data[i].serviceLevel + "\" data-Img=\"" + data[i].ayiImg + "\" " +
+										"class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><div class=\"touxiang\"><img src=\"http://" + url + "/Images/jiazheng/" + data[i].ayiImg + "\" /></div>" +
+										"<div class=\"touxiang2\"><p class=\"font-red\"><span>" + data[i].services + "</span></p><p>" + data[i].T_Province.ProName + "|" + data[i].age + "</p><p>薪资/月：</p><p><span class=\"font-yellow\">" + data[i].salary + "元</span></p>" +
+										"<p><strong class=\"font-yellow mui-icon icon-zan\"></strong>" + data[i].goodRating + "</p></div>" +
+										"<div style=\"clear: both;\"></div><p class=\"pinjia\">好评率：<span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span><span class=\"mui-icon icon-wujiaoxing\"></span></p></li>";
+								}
+								$("#ayiC").html(ayiCnt);
+							} else {
+								mui.toast("没有找到相关信息");
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理
+							console.log(type)
+						}
+					});
+				}
+			})
+		})
+		mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
+			var cateId = this.getAttribute("data-cate");
+			var services = this.getAttribute("data-services");
+			var serviceAddress = this.getAttribute("data-serviceAddress");
+			var serviceContactNumber = this.getAttribute("data-serviceContactNumber");
+			var serviceCreateDate = this.getAttribute("data-serviceCreateDate");
+			var servicesBrief = this.getAttribute("data-servicesBrief");
+			var provinceName = this.getAttribute("data-area");
+			var age = this.getAttribute("data-age");
+			var salary = this.getAttribute("data-salary");
+			var serverLvl = this.getAttribute("data-serverLvl");
+			var ayiImg = this.getAttribute("data-Img");
+			var uid2 = document.getElementById("uid").value;
+			var ageRange = this.getAttribute("data-ageRange");
+			var salaryRange = this.getAttribute("data-salaryRange");
+			var xueliRange = this.getAttribute("data-xueliRange");
+			var workExper = this.getAttribute("data-workExper");
+			var provinceId = this.getAttribute("data-provinceID");
+			var cityId = this.getAttribute("data-cityID");
+			var babyAge = this.getAttribute("data-babyAge");
+			var yuyuemoney = this.getAttribute("data-yuyuemoney");
+			if (!tijiaoPage) {
+				tijiaoPage = plus.webview.getWebviewById("jiazheng_tijiao.html");
+			}
+			mui.fire(tijiaoPage, "tijiaoId", {
+				jiazhengCateId: cateId,
+				uid: uid2,
+				serviceLevel: serverLvl,
+				workingExperience: workExper,
+				ageRange: ageRange,
+				xueLi: xueliRange,
+				salaryRange: salaryRange,
+				services: services,
+				serviceAddress: serviceAddress,
+				serviceContactNumber: serviceContactNumber,
+				serviceCreateDate: serviceCreateDate,
+				servicesBrief: servicesBrief,
+				provinceName: provinceName,
+				age: age,
+				salary: salary,
+				ayiImg: ayiImg,
+				provinceId: provinceId,
+				cityId: cityId,
+				babyAge: babyAge,
+				yuyuemoney: yuyuemoney
+			})
+			mui.openWindow({
+				id: 'jiazheng_tijiao.html'
+			});
+		})
+	</script>
+
+</html>

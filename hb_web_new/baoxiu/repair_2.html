@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/feedback-page.css" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/mui.imageviewer.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<script type="application/javascript" src="../js/mui.picker.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			//			mui.init();
+		</script>
+		<style>
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-content {}
+			
+			.mui-content a {
+				color: #8F8F94;
+			}
+			
+			.mui-content a.active {
+				color: #007aff;
+			}
+			
+			.mui-title {
+				font-family: simhei;
+			}
+			
+			.btn_1 {
+				position: absolute;
+				bottom: 100px;
+				left: 10px;
+				right: 10px;
+			}
+			
+			.btn_2 {
+				position: absolute;
+				bottom: 20px;
+				left: 10px;
+				right: 10px;
+			}
+			
+			.mui-btn-block {
+				width: 90%;
+				margin: 0 auto;
+			}
+			
+			body {
+				overflow: hidden;
+			}
+			
+			.showimg {
+				margin: 20px 10px auto 10px;
+				text-align: center;
+			}
+			
+			#operate {
+				width: 60px;
+				height: 60px;
+			}
+			
+			.mui-selected img {
+				border-color: #3EA8DA;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- 侧滑导航根容器 -->
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+			<!-- 主页面容器 -->
+			<div class="mui-inner-wrap   repair2_container">
+				<!-- 主页面标题 -->
+				<header class="mui-bar mui-bar-nav">
+					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<h1 class="mui-title" id="mui-title"></h1>
+				</header>
+				<input type="hidden" id="cid">
+				<input type="hidden" id="csid">
+
+				<input type="hidden" id="sname">
+				<input type="hidden" id="csname_">
+				<input type="hidden" id="clNames">
+				<input type="hidden" id="imgTexts">
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="repair_bar">选择需要维修的电器 ></div>
+						<div class="mui-slider" style="background: #FFFFFF;">
+							<div class="mui-slider-group mui-slider-loop">
+								<div class="mui-slider-item">
+									<ul class="mui-table-view mui-grid-view mui-table-view-radio" id="muiv2">
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="repair_bar">选择对应的问题 ></div>
+						<div class="repair2_nav2">
+							<ul class="mui-table-view mui-grid-view mui-grid-9" id="muiv3">
+							</ul>
+						</div>
+						<div class="repair_bar yellow">问题简述 ></div>
+						<div class="mui-input-row">
+							<input type="text" class="mui-input-speech mui-input-clear" placeholder="语音输入" />
+						</div>
+						<!--16.1.7 14:59 星期四 停止之前思考-->
+						<div class="repair2_main">
+							<input id="repair_3" class="repair1_sc" type="button" name="button" value="下一步" style="background-color: #eb2c2c;color: #FFFFFF;font: 16px/30px " 微软雅黑 ";"/>
+							<p class="shuomin"><span class="mui-icon mui-icon-help"></span> 报修提交后，我们会在15分钟内为您确认订单
+							</p>
+						</div>
+					</div>
+					<div class="mui-off-canvas-backdrop"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			preloadPages: [{
+				id: "user_paizhao.html",
+				url: "/user/user_paizhao.html"
+			}]
+		});
+		var paizhaoPage = null;
+		mui(".mui-scroll-wrapper").scroll();
+		var rep003;
+		var cid;
+		var csid;
+		var csname1 = "";
+		mui.plusReady(function() {
+			url = plus.storage.getItem("url");
+			// 全局数组对象，添加文件,用于压缩上传使用
+			window.addEventListener("repair1Id", function(event) {
+				var cid = event.detail.cid;
+				var dataName = event.detail.dataName;
+				var uid = event.detail.uid;
+				//获得事件参数
+				cid = cid;
+				//给虚拟标签赋值
+				document.getElementById("cid").value = cid;
+				var dataName = dataName;
+				document.getElementById("mui-title").innerText = dataName;
+				mui.getJSON("http://"+url+"/Findback/CateSub_backByCid?cateId=" + cid, {},
+					function(data) {
+						var rep02;
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						for (var i = 0; i < data.length; i++) {
+							rep02 += "<li class=\"mui-table-view-cell mui-media mui-col-xs-4\" csname_=\"" + data[i].cs_name_ + "\" id=\"" + data[i].rc_id + "\" data-cs_id=\"" + data[i].cs_id_ + "\" ><a href=\"#\"><img class=\"mui-media-object\" src=\"http://"+url+"/Images/baoxiu/" + data[i].subImg_ + "\"><div class=\"mui-media-body\"  >" + data[i].cs_name_ + "</div></a></li>";
+						}
+						document.getElementById("cid").value = cid = document.getElementById("cid").value;
+						document.getElementById("csid").value = csid = data[0].cs_id_;
+						document.getElementById("sname").value = csname1 = data[0].cs_name_;
+						$("#muiv2").html(rep02);
+						mui.getJSON("http://"+url+"/Findback/CateLab_backByCidSid?cid=" + cid + "&sid=" + csid, {},
+							function(data1) {
+								var rep03 = "";
+								//服务器返回响应，根据响应结果，分析是否登录成功；
+								for (var j = 0; j < data1.length; j++) {
+									rep03 += "<li class=\"mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 mui-checkbox  \">" + data1[j].cl_name_ + "<input id=\"a" + j + "\" name=\"a\" alt=\"" + data1[j].cl_name_ + "\" value=\"" + data1[j].cl_id_ + "\"  type=\"checkbox\"></li>"
+								}
+								$("#muiv3").html(rep03);
+							});
+					});
+				//***点击事件点选内容
+				mui("#muiv2").on("tap", "li", function() {
+					document.getElementById("sname").value = this.getAttribute("csname_");
+					document.getElementById("cid").value = cid = document.getElementById("cid").value;
+					document.getElementById("csid").value = csid = this.getAttribute("data-cs_id");
+					mui.getJSON("http://"+url+"/Findback/CateLab_backByCidSid?cid=" + cid + "&sid=" + csid, {},
+						function(data1) {
+							var rep03 = "";
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							for (var j = 0; j < data1.length; j++) {
+								rep03 += "<li class=\"mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 mui-checkbox \">" + data1[j].cl_name_ + "<input id=\"a" + j + "\" name=\"a\" alt=\"" + data1[j].cl_name_ + "\" value=\"" + data1[j].cl_id_ + "\"  type=\"checkbox\"></li>"
+							}
+							$("#muiv3").html(rep03);
+						});
+				});
+				document.getElementById("repair_3").addEventListener("tap", function() {
+					var sname = document.getElementById("sname").value;
+					var len = "";
+					var str = document.getElementsByName("a");
+					var objarray = str.length;
+					var chestr = "";
+					var clNames = "";
+					for (i = 0; i < objarray; i++) {
+						if (str[i].checked == true) {
+							chestr += str[i].value + ",";
+							clNames += str[i].alt + " ";
+						}
+					}
+					document.getElementById("clNames").value = clNames;
+					if (chestr == "") {
+						alert("请先选择一个对应问题～！");
+						return false;
+					} else {
+						cid = document.getElementById("cid").value;
+						csid = document.getElementById("csid").value;
+						var speech = $(".mui-input-speech").val();
+						var clNames1 = document.getElementById("clNames").value;
+						//清空选择项
+						//					for (i = 0; i < objarray; i++) {
+						//						if (str[i].checked == true) {
+						//							str[i].checked = false;
+						//						}
+						//					}
+						document.getElementById("cid").value = "";
+						document.getElementById("csid").value = "";
+						document.getElementById("sname").value = "";
+						document.getElementById("clNames").value = "";
+						$(".mui-input-speech").val("");
+						if (!paizhaoPage) {
+							paizhaoPage = plus.webview.getWebviewById("user_paizhao.html");
+						}
+						mui.fire(paizhaoPage, "repair2Id", {
+							cid: cid,
+							csid: csid,
+							lds_: chestr,
+							speech: speech,
+							cl_names: clNames1,
+							sname: sname,
+							uid: uid
+						});
+						mui.openWindow({
+							id: "user_paizhao.html"
+						});
+					}
+				});
+			})
+		});
+	</script>
+
+</html>

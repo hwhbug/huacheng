@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html class="ui-page-login feedback">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<link href="css/mui.imageviewer.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/feedback-page.css" />
+		<script src="js/jquery-1.9.1.min.js" type="application/javascript"></script>
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row {
+				border-bottom: 1px solid #EEEEEE;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.yellow p {
+				margin: 0;
+				color: #FFFFFF;
+			}
+			
+			.mui-input-row {
+				background: #FFFFFF;
+				border-bottom: 1px solid #EEEEEE;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-icon">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">商户资料提交</h1>
+			<!--<a class="mui-pull-right mui-icon mui-icon-upload" onclick="imgupgrade()"></a>-->
+		</header>
+		<div class="mui-content ">
+			<div class="repair3_main yellow" id="admininfo">
+				<!--<p>商户帐号：150****7535</p>
+				<p>商户名称：海澜之家</p>
+				<p>营业地址：山西省晋中市榆次区汇通路113号</p>
+				<p>经营类型：服装</p>-->
+
+			</div>
+			<div class="mui-input-row">
+				<label>负责人姓名</label>
+				<input id='pic' type="text" class="mui-input-clear mui-input" placeholder="输入商户负责人姓名">
+				<input type="hidden" id="admin_mp" />
+			</div>
+			<div class="mui-input-row">
+				<label>固定电话</label>
+				<input id='tel' type="text" class="mui-input-clear mui-input" placeholder="输入商户常用固定电话">
+				<input type="hidden" id="images" />
+			</div>
+			<div id="bt" class="repair_bar yellow">上传负责人身份证复印件/商户经营执照</div>
+
+			<div class="mui-content">
+				<div id="showimg" class="showimg">
+				</div>
+				<button type="button" class="mui-btn mui-btn-primary mui-btn-block  btn_1" onclick="galleryImgs()">从相册中选择图片</button>
+			</div>
+
+			<div id="bt" class="repair_bar yellow">示例</div>
+			<div class="image_shili">
+				<img src="image/sl1.jpg" />
+				<img src="image/sl2.jpg" />
+			</div>
+
+			<div class="mui-content-padded">
+				<button id='shenhezhong' class="mui-btn mui-btn-block mui-btn-primary btn_login">提交审核</button>
+			</div>
+			<div class="mui-contewnt-padded">
+				<p style="text-align: center;">信息提交后，审核时长为2个工作日，您可以通过商户登录来查看审核状态。</p>
+			</div>
+
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<!--<script src='libs/easymob-webim-sdk/jquery-1.11.1.js'></script>
+		<script src='libs/easymob-webim-sdk/strophe-custom-2.0.0.js'></script>
+		<script src='libs/easymob-webim-sdk/json2.js'></script>
+		<script src="libs/easymob-webim-sdk/easemob.im-1.0.5.js"></script>-->
+		<!--<script src='js/feedback.js'></script>-->
+		<!--<script src="js/feedback-page.js"></script>-->
+		<script type="application/javascript" src="js/canvasResize.js"></script>
+		<script type="application/javascript" src="js/binaryajax.js"></script>
+		<script type="application/javascript" src="js/exif.js"></script>
+		<script>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			window.addEventListener("adminmp", function(event) {
+				//获得事件参数
+				var id = event.detail.id;
+				console.log(id)
+					//将上一个页面的手机号码传入到这个页面以便提交使用
+				mui.ajax("http://" + plus.storage.getItem("url") + "/home/Admininfo_sub", {
+					data: {
+						"adminmp": id
+					},
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						console.log(data)
+						var info = "<p>商户帐号：" + data.uname + "</p><p>商户名称：" + data.name + "</p><p>营业地址：" + data.Address + "</p><p>经营类型：" + data.ProductsType.Names + "</p>";
+						$("#admininfo").html(info);
+						document.getElementById("admin_mp").value = data.uname;
+					}
+				})
+			});
+			mui.init({
+				preloadPages: [{
+					url: "shenhezhong.html",
+					id: "shenhezhong"
+				}]
+			});
+			(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					var settings = app.getSettings();
+					var shenhezhong = doc.getElementById("shenhezhong");
+					var pic = doc.getElementById("pic");
+					var tel = doc.getElementById("tel");
+					var images = doc.getElementById("images");
+					var admin_mp = doc.getElementById("admin_mp");
+					shenhezhong.addEventListener("tap", function(event) {
+						//*********************验证负责人输入********************
+						var pic_reg = /^[\u2E80-\u9FFF]+$/;
+						if (pic.value == "") {
+							plus.nativeUI.toast("负责人不能为空");
+							return;
+						}
+						if (!pic.value.match(pic_reg)) {
+							plus.nativeUI.toast("负责人只能为汉子");
+							return;
+						}
+						//*********************验证固定电话输入********************
+						var tel_reg = /^\d{3}-\d{8}|\d{4}-\d{7}$/;
+						if (tel.value == "") {
+							plus.nativeUI.toast("固定电话不能为空");
+							return;
+						}
+						if (!tel.value.match(tel_reg)) {
+							plus.nativeUI.toast("固定电话格式不正确");
+							return;
+						}
+						//*****************判断是否选择了图片******************************
+						if (document.getElementById("showimg").innerHTML.trim() == "") {
+							plus.nativeUI.toast("请选择上传图片");
+							return;
+						}
+						//****************************用户提交成功返回*********************************
+						mui.ajax("http://" + plus.storage.getItem("url") + "/home/BusinessAdd", {
+							data: {
+								"FixedNumber": tel.value,
+								"Names": pic.value,
+//								"images": images.value,
+								"adminnum": admin_mp.value
+							},
+							dataType: "json", //服务器返回json格式数据
+							type: "Post", //HTTP请求类型,
+							timeout: 10000, //超时时间设置为10秒；
+							success: function(data) {
+								if (data.statusCode == 200) {
+									//商户id生成成功，将图片上传并保存
+									var task = plus.uploader.createUpload("http://" + plus.storage.getItem("url") + "/home/request_img", {
+										method: "post"
+									}, function(t, status) {
+										var data = eval("(" + t.responseText + ")")
+										document.getElementById("images").value = data.data;
+										// 上传完成
+										if (data.statusCode == "200") {
+											plus.ui.toast(data.message);
+											//关闭当前窗体
+											var ws = plus.webview.currentWebview();
+											plus.webview.close(ws);
+											//打开详情页面  
+											mui.openWindow({
+												url: "index.html",
+												id: "index"
+											});
+										} else {
+											mui.toast("文件上传失败");
+										}
+									});
+									for (var i = 0; i < file1.length; i++) {
+										task.addFile(fileurl[i], {
+											key: file1[i],
+											name: file1[i],
+										});
+										//多文件上传需要多次触发文件上传uploader.start()
+										task.start();
+									}
+								} else {
+									plus.ui.toast(data.message);
+								}
+							}
+						})
+					});
+				});
+			}(mui, document));
+			mui.init();
+			mui.plusReady(function() {})
+
+			function galleryImgs() {
+				//每次拍摄或选择图片前清空数组对象
+				file1.splice(0, file1.length);
+				fileurl.splice(0, fileurl.length);
+				document.getElementsByClassName("showimg")[0].innerHTML = null;
+				// 从相册中选择图片
+				plus.gallery.pick(function(e) {
+					if (e.files.length != 2) {
+						mui.toast("请选择身份证正面和背面照片共两张");
+						return false;
+					}
+					for (var i in e.files) {
+						showImg(e.files[i]);
+					}
+				}, function(e) {
+					mui.toast("取消选择图片");
+				}, {
+					filter: "image",
+					multiple: true
+				});
+			}
+			// 拍照添加文件
+			function cameraimages() {
+				//每次拍摄或选择图片前清空数组对象
+				file1.splice(0, file1.length);
+				fileurl.splice(0, fileurl.length);
+				document.getElementsByClassName("showimg")[0].innerHTML = null;
+				var cmr = plus.camera.getCamera();
+				cmr.captureImage(function(p) {
+					plus.io.resolveLocalFileSystemURL(p, function(entry) {
+						var localurl = entry.toLocalURL(); //把拍照的目录路径，变成本地url路径，例如file:///........之类的。
+						showImg(localurl);
+					});
+				}, function(e) {
+					mui.toast("很抱歉，获取失败 " + e);
+				});
+			}
+			// 全局数组对象，添加文件,用于压缩上传使用
+			var fileurl = new Array();
+			var file1 = new Array();
+
+			function showImg(url) {
+				// 兼容以“file:”开头的情况
+				if (0 != url.toString().indexOf("file://")) {
+					url = "file://" + url;
+				}
+				var _div_ = document.getElementsByClassName("showimg")[0];
+				var _img_ = new Image();
+				_img_.src = url; // 传过来的图片路径在这里用。
+				_img_.onclick = function() {
+					plus.runtime.openFile(url);
+				};
+				_img_.onload = function() {
+					var tmph = _img_.height;
+					var tmpw = _img_.width;
+					var isHengTu = tmpw > tmph;
+					var max = Math.max(tmpw, tmph);
+					var min = Math.min(tmpw, tmph);
+					var bili = min / max;
+					if (max > 1200) {
+						max = 1200;
+						min = Math.floor(bili * max);
+					}
+					tmph = isHengTu ? min : max;
+					tmpw = isHengTu ? max : min;
+					_img_.style.border = "1px solid rgb(200,199,204)";
+					_img_.style.margin = "10px";
+					_img_.style.width = "150px";
+					_img_.style.height = "150px";
+					_img_.onload = null;
+					plus.io.resolveLocalFileSystemURL(url, function(entry) {
+							entry.file(function(file) {
+								canvasResize(file, {
+									width: tmpw,
+									height: tmph,
+									crop: false,
+									quality: 50, //压缩质量
+									rotate: 0,
+									callback: function(data, width, height) {
+										fileurl.push(url);
+										file1.push(file.name);
+										_img_.src = data;
+										_div_.appendChild(_img_);
+										plus.nativeUI.closeWaiting();
+									}
+								});
+							});
+						},
+						function(e) {
+							plus.nativeUI.closeWaiting();
+							console.log(e.message);
+						});
+				};
+			};
+			// 扩展API加载完毕后调用onPlusReady回调函数
+			document.addEventListener("plusready", onPlusReady, false);
+			var r = null;
+			// 扩展API加载完毕，现在可以正常调用扩展API
+			function onPlusReady() {}
+			// 创建上传任务
+			function imgupgrade() {}
+		</script>
+
+	</body>
+
+</html>

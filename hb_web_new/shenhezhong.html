@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html class="ui-page-login feedback yellow">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<link href="css/mui.imageviewer.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/feedback-page.css" />
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<style>
+			.mui-icon-spinner {
+				color: #FFFFFF;
+				text-align: center;
+				font-size: 50px;
+				margin-bottom: 20px;
+			}
+			
+			p {
+				color: #FFFFFF;
+				text-align: center;
+				margin: 0;
+			}
+			
+			.mx_jiage {
+				margin: 20px 0;
+			}
+			
+			.yellow {
+				padding-top: 20%;
+			}
+		</style>
+		<script src="js/mui.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-icon">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">商户审核状态</h1>
+		</header>
+		<div id="admininfo" class="mui-content yellow">
+			
+
+		</div>
+		<script>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			window.addEventListener("businessId", function(event) {
+				//获得事件参数
+				
+				var id = event.detail.businessId;
+				//将上一个页面的手机号码传入到这个页面以便提交使用
+				mui.ajax("http://"+plus.storage.getItem("url")+"/home/Admininfo", {
+					data: {
+						"adminmp": id
+					},
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						console.log(data)
+						var info = "<p>商户帐号：" + data.Admin_User.uname + "</p><p>商户名称：" + data.Admin_User.name + "</p><p>营业地址：" + data.Admin_User.Address + "</p><p>经营类型：" + data.ProductsType.Names + "</p>";
+						if (data.Admin_User.is_valid!=0) {
+							info+="<p class=\"mx_jiage\">审核中...请您耐心等待</p><p>如有疑问：请致电400-8500-1256 社区慧生活客户服务中心</p>";
+						}else{
+							info+="<p class=\"mx_jiage\">已通过，请登录网址：</p><p>如有疑问：请致电400-8500-1256 社区慧生活客户服务中心</p>";
+						}
+						$("#admininfo").html(info);
+					}
+				})
+			});
+		</script>
+	</body>
+
+</html>

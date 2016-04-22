@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script src="../js/jquery-1.9.1.min.js"></script>
+		<!--<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>-->
+		<style>
+			.mui-icon-email {
+				line-height: 30px;
+				font-size: 26px !important;
+				padding-right: 10px !important;
+				margin: 0 !important;
+			}
+			
+			p {
+				color: #666666;
+				margin-bottom: 5px;
+			}
+			
+			.icon-fenxiang:before {
+				color: #3EA8DA;
+			}
+			
+			.yellow,
+			.red {
+				border: none !important;
+			}
+			
+			ul {
+				border: none !important;
+			}
+			
+			.btn_user li {
+				border-bottom: 1px solid #C0C0C0;
+			}
+			
+			.mui-segmented-control {
+				border: 1px solid #FFFFFF;
+			}
+			
+			.mui-segmented-control .mui-control-item.mui-active {
+				background: #D82F4E;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				border-left: 1px solid #FFFFFF;
+				color: #FFFFFF;
+				background: #f79c0c;
+			}
+			
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			
+			.mui-content {
+				height: 100%
+			}
+			
+			.mui-control-content {
+				height: 100%;
+			}
+			
+			.mui-slider-right {
+				position: relative;
+			}
+			
+			.mui-slider-right .mui-btn {
+				position: relative;
+				top: 0px;
+			}
+			
+			.huise {
+				position: relative !important;
+			}
+			
+			.mui-table-view-cell:after {
+				display: none;
+			}
+			
+			.blue {
+				padding: 3px 6px;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-icon mui-action-back mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">物业订单管理
+			</h1>
+
+		</header>
+
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="container">
+					<div style="padding: 10px 10px;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1">
+								全部订单<span id="orders_num"></span>
+							</a>
+							<a class="mui-control-item" href="#item2">
+								未完成<span id="unpay_num"></span>
+							</a>
+							<a class="mui-control-item" href="#item3">
+								已完成<span id="pay_num"></span>
+							</a>
+						</div>
+					</div>
+					<!--全部订单开始-->
+					<div>
+						<div id="item1" class="mui-control-content mui-active">
+							<ul class="mui-table-view" id="allorders">
+								<!--<li class="mui-table-view-cell mui-media huise">
+									<div class="mui-slider-handle">
+										<img class="mui-media-object mui-pull-left" src="../image/shop-3.jpg">
+										<div class="mui-media-body">
+											蓝月亮洗衣液 <button class="not mui-pull-right">未完成</button>
+											<h4 class="font-red">￥16.90</h4>
+											<p>属性：5L 薰衣草 牛仔</p>
+											<p>商家：美特好（文化中心）<a class="mui-pull-right font-bai blue">立即支付</a></p>
+										</div>
+									</div>
+								</li>-->
+							</ul>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul class="mui-table-view" id="unpay_orders">
+
+							</ul>
+						</div>
+						<div id="item3" class="mui-control-content">
+							<ul class="mui-table-view" id="payed_orders">
+
+							</ul>
+						</div>
+					</div>
+					<!--全部订单结束-->
+					<!-- 侧滑后右侧变黑-->
+
+				</div>
+
+			</div>
+		</div>
+		</div>
+
+		<script>
+			mui('.mui-scroll-wrapper').scroll();
+			var shop_id = "";
+			download();
+			//**************************************好麻烦******************************写的有点麻烦
+			function download() {
+				mui.plusReady(function() {
+					mui.ajax("http://" + plus.storage.getItem("url") + "/Payment/Bill", {
+						data: {},
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//							console.log(data)
+							//							console.log(eval(data)[0].data[0].name)
+							if (data != "登陆已过期，请重新登陆") {
+								shop_id = eval(data)[0].ShopID;
+								var allorders = "";
+								var unpayorders = "";
+								var payedorders = "";
+								var unpay_num = 0;
+//								"Is_p":				"nBVal":						"nDVal":						"is_d":
+								for (var i = 0; i < eval(data)[0].data.length; i++) {
+									//********************************全部订单代码开始******************************
+									allorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-handle\"><div class=\"mui-media-body\">" + eval(data)[0].data[i].name;
+									if (eval(data)[0].data[i].is_p == "0") {
+										allorders += "<button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥" + ((parseInt(eval(data)[0].data[i].nBVal) - parseInt(eval(data)[0].data[i].nDVal)) / 100) + "<p style=\"float: right;\"></p></h4><p>";
+										if (eval(data)[0].data[i].nDVal == 0) {
+											allorders += "<p>日期：" + eval(data)[0].data[i].t1 + "到" + eval(data)[0].data[i].t2;
+											allorders += "<a id=\"" + eval(data)[0].data[i].BID + "\" Is_p=\"" + eval(data)[0].data[i].is_p + "\" nBVal=\"" + eval(data)[0].data[i].nBVal + "\" nDVal=\"" + eval(data)[0].data[i].nDVal + "\" is_d=\"" + eval(data)[0].data[i].is_d + "\" name=\"" + eval(data)[0].data[i].name + "\" price=\"" + ((parseInt(eval(data)[0].data[i].nBVal) - parseInt(eval(data)[0].data[i].nDVal)) / 100) + "\" class=\"mui-pull-right font-bai blue\">立即支付</a></p></div></div></li>";
+											
+											unpayorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-handle\"><div class=\"mui-media-body\">" + eval(data)[0].data[i].name + "<button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥" + ((parseInt(eval(data)[0].data[i].nBVal) - parseInt(eval(data)[0].data[i].nDVal)) / 100) + "</h4><p>日期：" + eval(data)[0].data[i].t1 + "到" + eval(data)[0].data[i].t2;
+											unpayorders +="<a id=\"" + eval(data)[0].data[i].BID + "\" Is_p=\"" + eval(data)[0].data[i].is_p + "\" nBVal=\"" + eval(data)[0].data[i].nBVal + "\" nDVal=\"" + eval(data)[0].data[i].nDVal + "\" is_d=\"" + eval(data)[0].data[i].is_d + "\" name=\"" + eval(data)[0].data[i].name + "\" price=\"" + ((parseInt(eval(data)[0].data[i].nBVal) - parseInt(eval(data)[0].data[i].nDVal)) / 100) + "\" class=\"mui-pull-right font-bai blue\">立即支付</a></p></div></div></li>";
+										} else {
+											allorders += "<p>减免费用：" + (eval(data)[0].data[i].nDVal / 100) + "</p><p>日期：" + eval(data)[0].data[i].t1 + "到" + eval(data)[0].data[i].t2;
+											allorders += "<a id=\"" + eval(data)[0].data[i].BID + "\" Is_p=\"" + eval(data)[0].data[i].is_p + "\" nBVal=\"" + eval(data)[0].data[i].nBVal + "\" nDVal=\"" + eval(data)[0].data[i].nDVal + "\" is_d=\"" + eval(data)[0].data[i].is_d + "\" name=\"" + eval(data)[0].data[i].name + "\" price=\"" + ((parseInt(eval(data)[0].data[i].nBVal) - parseInt(eval(data)[0].data[i].nDVal)) / 100) + "\" class=\"mui-pull-right font-bai blue\">立即支付</a></p></div></div></li>";
+											unpayorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-handle\"><div class=\"mui-media-body\">" + eval(data)[0].data[i].name + "<button class=\"not mui-pull-right\">未完成</button><h4 class=\"font-red\">￥" + ((parseInt(eval(data)[0].data[i].nBVal) - parseInt(eval(data)[0].data[i].nDVal)) / 100) + "</h4><p>减免费用：" + (eval(data)[0].data[i].nDVal / 100) + "</p><p>日期：" + eval(data)[0].data[i].t1 + "到" + eval(data)[0].data[i].t2;
+											unpayorders += "<a id=\"" + eval(data)[0].data[i].BID + "\" Is_p=\"" + eval(data)[0].data[i].is_p + "\" nBVal=\"" + eval(data)[0].data[i].nBVal + "\" nDVal=\"" + eval(data)[0].data[i].nDVal + "\" is_d=\"" + eval(data)[0].data[i].is_d + "\" name=\"" + eval(data)[0].data[i].name + "\" price=\"" + ((parseInt(eval(data)[0].data[i].nBVal) - parseInt(eval(data)[0].data[i].nDVal)) / 100) + "\" class=\"mui-pull-right font-bai blue\">立即支付</a></p></div></div></li>";
+										}
+										unpay_num += 1;
+									} else {
+										allorders += "<button class=\"yes mui-pull-right\">已完成</button><h4 class=\"font-red\">￥" + ((parseInt(eval(data)[0].data[i].nBVal) - parseInt(eval(data)[0].data[i].nDVal)) / 100) + "<p style=\"float: right;\"></p></h4>";
+										if (eval(data)[0].data[i].nDVal == 0) {
+											allorders += "<p>日期：" + eval(data)[0].data[i].t1 + "到" + eval(data)[0].data[i].t2;
+											allorders += "</p></div></div></li>";//<a id=\"" + eval(data)[0].data[i].BID + "\" Is_p=\"" + eval(data)[0].data[i].is_p + "\" nBVal=\"" + eval(data)[0].data[i].nBVal + "\" nDVal=\"" + eval(data)[0].data[i].nDVal + "\" is_d=\"" + eval(data)[0].data[i].is_d + "\" name=\"" + eval(data)[0].data[i].name + "\" price=\"" + ((parseInt(eval(data)[0].data[i].nBVal) - parseInt(eval(data)[0].data[i].nDVal)) / 100) + "\" class=\"mui-pull-right font-bai blue\">立即支付</a>
+											payedorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-handle\"><div class=\"mui-media-body\">" + eval(data)[0].data[i].name + "<button class=\"yes mui-pull-right\">已完成</button><h4 class=\"font-red\">￥" + ((parseInt(eval(data)[0].data[i].nBVal) - parseInt(eval(data)[0].data[i].nDVal)) / 100) + "</h4><p>日期：" + eval(data)[0].data[i].t1 + "到" + eval(data)[0].data[i].t2 + "</p></div></div></li>";
+										} else {
+											allorders += "<p>减免费用：" + (eval(data)[0].data[i].nDVal / 100) + "</p><p>日期：" + eval(data)[0].data[i].t1 + "到" + eval(data)[0].data[i].t2;
+											allorders += "</p></div></div></li>";//<a id=\"" + eval(data)[0].data[i].BID + "\" Is_p=\"" + eval(data)[0].data[i].is_p + "\" nBVal=\"" + eval(data)[0].data[i].nBVal + "\" nDVal=\"" + eval(data)[0].data[i].nDVal + "\" is_d=\"" + eval(data)[0].data[i].is_d + "\" name=\"" + eval(data)[0].data[i].name + "\" price=\"" + ((parseInt(eval(data)[0].data[i].nBVal) - parseInt(eval(data)[0].data[i].nDVal)) / 100) + "\" class=\"mui-pull-right font-bai blue\">立即支付</a>
+											payedorders += "<li class=\"mui-table-view-cell mui-media huise\"><div class=\"mui-slider-handle\"><div class=\"mui-media-body\">" + eval(data)[0].data[i].name + "<button class=\"yes mui-pull-right\">已完成</button><h4 class=\"font-red\">￥" + ((parseInt(eval(data)[0].data[i].nBVal) - parseInt(eval(data)[0].data[i].nDVal)) / 100) + "</h4><p>减免费用：" + (eval(data)[0].data[i].nDVal / 100) + "</p><p>日期：" + eval(data)[0].data[i].t1 + "到" + eval(data)[0].data[i].t2 + "</p></div></div></li>";
+										}
+									}
+								}
+								$("#allorders").html(allorders);
+								$("#unpay_orders").html(unpayorders);
+								$("#payed_orders").html(payedorders);
+								$("#orders_num").html("(" + eval(data)[0].data.length + ")");
+								$("#unpay_num").html("(" + unpay_num + ")");
+								$("#pay_num").html("(" + (eval(data)[0].data.length - unpay_num) + ")");
+								console.log(shop_id)
+							} else {
+								plus.ui.toast(data);
+							}
+						}
+					})
+				})
+			}
+			mui.init({
+				preloadPages: [{
+					id: "wuye_jiesuan",
+					url: "wuye_jiesuan.html"
+				}]
+			});
+			//**************************************点击缴费*************************************************
+			var detailPage = null;
+			mui("#container").on("tap", ".font-bai", function(e) {
+				var orderid = this.getAttribute("id");
+				var ordername = this.getAttribute("name");
+				var totalprice = this.getAttribute("price");
+				var Is_p = this.getAttribute("Is_p");
+				var nBVal = this.getAttribute("nBVal");
+				var nDVal = this.getAttribute("nDVal");
+				var is_d = this.getAttribute("is_d");
+				console.log(orderid)
+				console.log(ordername)
+				console.log(totalprice)
+				console.log(Is_p)
+				console.log(nBVal)
+				console.log(nDVal)
+				console.log(is_d)
+				mui.ajax("http://" + plus.storage.getItem("url") + "/PropertyPayment/Create_PropertyPayment", {
+					data: {
+						"PaymentID":orderid,
+						"ShopID":shop_id,
+						"Is_p":Is_p,
+						"nBVal":nBVal,
+						"nDVal":nDVal,
+						"is_d":is_d,
+						"PaymentName":ordername,
+						"PaymentMoneys":totalprice
+					},
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+//						alert(data)
+						if (data.statusCode == "200") {
+							//获得详情页面
+							if (!detailPage) {
+								detailPage = plus.webview.getWebviewById("wuye_jiesuan");
+							}
+							//触发详情页面的newsId事件
+							mui.fire(detailPage, "newsId", {
+								id: orderid,
+								name: ordername,
+								price: totalprice,
+								shop_id: shop_id
+							});
+							//打开详情页面          
+							mui.openWindow({
+								url: "wuye_jiesuan.html",
+								id: "wuye_jiesuan"
+							});
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
+			});
+		</script>
+
+	</body>
+
+</html>

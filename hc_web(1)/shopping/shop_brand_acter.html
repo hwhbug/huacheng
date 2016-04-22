@@ -134,7 +134,7 @@
 				var id = this.getAttribute("id");
 				//获得详情页面
 				if (!detailPage) {
-					detailPage = plus.webview.getWebviewById("shop_detail.html");
+					detailPage = plus.webview.getWebviewById("shop_detail");
 				}
 				//触发详情页面的newsId事件
 				mui.fire(detailPage, "productsId", {

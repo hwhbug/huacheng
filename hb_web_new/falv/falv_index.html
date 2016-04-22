@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			.repair_container li {
+				background: #FFFFFF;
+			}
+			
+			.repair_container li p {
+				color: #000000;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+				padding: 11px;
+				border-right: 1px solid #EEEEEE;
+				border-bottom: 1px solid #EEEEEE;
+			}
+			
+			.guanggao .mui-table-view-cell {
+				border: none !important;
+				border: 2px solid #EEEEEE !important;
+				padding: 0 !important;
+			}
+			
+			.tubiao {
+				padding: 10% 3%;
+				border-bottom: 1px solid #D8D8D8;
+				border-right: 1px solid #D8D8D8;
+			}
+			
+			.tubiao {
+				width: 33.3%;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<!-- 侧滑导航根容器 -->
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+
+			<!-- 菜单容器 -->
+			<aside id="offCanvasSide" class="mui-off-canvas-left">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!-- 菜单具体展示内容 -->
+						<h3><span class=" icon-homefill mui-icon" href="###">
+							<a href="###">主页 ></a>
+							<!--<button id="offCanvasHide" type="button">关闭</button>-->
+						
+						</h3>
+						<ul class="left_btn">
+							<li id="offCanvasHide"><a href="http://www.baidu.com" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
+							<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
+							<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
+							<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
+							<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
+							<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
+							<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
+							<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
+							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+						</ul>
+
+					</div>
+				</div>
+			</aside>
+			<!-- 左侧菜单结束 -->
+
+			<!-- 主页面容器 -->
+
+			<div class="mui-inner-wrap repair_container">
+
+				<!-- 主页面标题 -->
+
+				<header class="mui-bar mui-bar-nav">
+					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<h1 class="mui-title">法律援助</h1>
+				</header>
+				<!--主界面区域-->
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div id="container">
+							<ul id="falvCate" class="mui-table-view mui-grid-view mui-grid-9 btn_nav">
+
+							</ul>
+						</div>
+						<!-- 侧滑后右侧变黑-->
+						<div class="phone">
+							<img src="../image/baoxiu_19.gif" />援助热线： <strong>400-800-8000</strong>
+						</div>
+					</div>
+					<div class="mui-off-canvas-backdrop"></div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			mui('.mui-scroll-wrapper').scroll();
+		</script>
+	</body>
+
+</html>
+<script>
+	mui.plusReady(function() {
+		url = plus.storage.getItem("url");
+		mui.ajax("http://" + url + "/LegalAidCate/laCateIndex", {
+			dataType: "json",
+			type: "GET",
+			timeout: 10000,
+			success: function(data) {
+				var str = "";
+				for (var i = 0; i < data.length; i++) {
+					str += "<li class=\"tubiao\" data-name=\"" + data[i].laCateName + "\" id=\"" + data[i].laCateId + "\"><a href=\"#\"><span class=\"mui-icon icon-" + data[i].laCateIconName + "\"></span><div class=\"mui-media-body\">" + data[i].laCateName + "</div></a></li>";
+				}
+				$("#falvCate").html(str);
+			},
+			error: function(xhr, type, errorThrown) {
+				console.log(type);
+			}
+		});
+		mui('.mui-table-view').on('tap', 'li', function() {
+			var cateId = this.getAttribute("id");
+			var cateName = this.getAttribute("data-name");
+			mui.ajax("http://" + url + "/home/login_cache", {
+				//			data: {},
+				dataType: 'json', //服务器返回json格式数据
+				async: false,
+				type: 'GET', //HTTP请求类型,
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+					if (data.nAccountID != null && data.nAccountID != "") {
+						//获取id
+						mui.openWindow({
+							url: 'falv_tijiao.html',
+							extras: {
+								cateId: cateId,
+								cateName: cateName,
+								uid: data.nAccountID,
+								uname: data.name
+							}
+						});
+					} else {
+						mui.toast("请先登录");
+					}
+				}
+			})
+		})
+	})
+</script>

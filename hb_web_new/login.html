@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+			}
+			
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.mui-radio {
+				width: 50%;
+				float: left;
+				clear: none;
+				text-align: center;
+			}
+			
+			.mui-card {
+				border: none;
+				padding-top: 10px;
+			}
+			
+			.mui-checkbox input[type=checkbox]:before,
+			.mui-radio input[type=radio]:before {
+				color: #F17E25;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">登录</h1>
+		</header>
+		<div class="mui-content">
+			<form id="login-form" class="mui-input-group">
+				<div class="mui-input-row">
+					<label>账号</label>
+					<input id="account" type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input id="password" type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+				</div>
+				<div class="clear"></div>
+				<div class="mui-card">
+					<form class="mui-input-group">
+						<div class="mui-input-row mui-radio">
+							<input id="radio1" name="radio1" type="radio" checked> 个人
+						</div>
+						<div class="mui-input-row mui-radio">
+							<input name="radio1" type="radio"> 商户
+						</div>
+					</form>
+				</div>
+			</form>
+			<form class="mui-input-group">
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell">
+						自动登录
+						<div id="autoLogin" class="mui-switch">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+				</ul>
+			</form>
+			<div class="mui-content-padded">
+				<button id="login" class="mui-btn mui-btn-block mui-btn-primary btn_login">登录</button>
+				<div class="link-area"><span class="mui-icon mui-icon-contact"></span><a id="login2">账户注册</a> <span class="spliter">|</span> <span class="mui-icon mui-icon-locked"></span><a id="forgetPassword">忘记密码</a>
+				</div>
+			</div>
+			<div class="mui-content-padded oauth-area">
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+			mui.init({
+				preloadPages: [{
+					id: "index",
+					url: "index.html"
+				}, {
+					id: "shenhezhong",
+					url: "shenhezhong.html"
+				}, {
+					id: "reg_shanghu_tijiao",
+					url: "reg_shanghu_tijiao.html"
+				}]
+			});
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			document.getElementById("login2").addEventListener("tap", function() {
+				//打开关于页面
+				mui.openWindow({
+					url: "login2.html",
+					id: "login2"
+				});
+			});
+			document.getElementById("forgetPassword").addEventListener("tap", function() {
+				//打开关于页面
+				mui.openWindow({
+					url: "forget_password.html",
+					id: "forgetPassword"
+				});
+			});
+			//***********************密码由字母和数字组合********************
+			var ismypassword = function(value) {
+				var regu1 = /[A-Za-z]/;
+				var regu2 = /\d/;
+				var b1 = regu1.test(value);
+				var b2 = regu2.test(value);
+				var b = b1 && b2;
+				return b;
+			};
+			var detailPage = null;
+			(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					var settings = app.getSettings();
+					var loginButton = doc.getElementById("login");
+					var accountBox = doc.getElementById("account");
+					var passwordBox = doc.getElementById("password");
+					var autoLogin = doc.getElementById("autoLogin");
+					var radio = doc.getElementById("radio1");
+					loginButton.addEventListener("tap", function(event) {
+						if (autoLogin.classList.contains("mui-active")) {
+							//							plus.storage.setItem("autoLogin", "1");
+							plus.storage.setItem("account", accountBox.value);
+							plus.storage.setItem("password", passwordBox.value);
+							plus.storage.setItem("radio", radio.checked ? "true" : "false");
+						}
+						var loginInfo = {};
+						//						alert()
+						//*****************验证手机号**************************
+						var check_phone_number = /^1[3458]\d{9}$/;
+						if (accountBox.value.length == 0) {
+							plus.ui.toast("手机号不能为空");
+							return;
+						}
+						if (accountBox.value.length != 11) {
+							plus.ui.toast("请输入有效的手机号！");
+							return;
+						}
+						if (!accountBox.value.match(check_phone_number)) {
+							plus.ui.toast("请输入有效的手机号");
+							return;
+						}
+						//*********************验证密码输入********************
+						if (passwordBox.value == "") {
+							plus.nativeUI.toast("密码不能为空");
+							return;
+						}
+						if (passwordBox.value.length < 6) {
+							plus.nativeUI.toast("密码需要至少六位字符");
+							return;
+						}
+						if (!ismypassword(passwordBox.value)) {
+							plus.nativeUI.toast("密码需要字母和数字组合");
+							return;
+						}
+						//****************************用户提交成功返回*********************************
+						mui.ajax("http://" + plus.storage.getItem("url") + "/home/Login_on", {
+							data: {
+								"name": accountBox.value,
+								"pwd": passwordBox.value,
+								"radio": radio.checked
+							},
+							dataType: "json", //服务器返回json格式数据
+							type: "Post", //HTTP请求类型,
+							timeout: 10000, //超时时间设置为10秒；
+							success: function(data) {
+								if (data.statusCode == 200) {
+									plus.ui.toast(data.message);
+									if (radio.checked) {
+										///*************************************关闭需要刷新的页面，调用自定义方法重新打开******************************
+										var wobj = plus.webview.getWebviewById("index");
+										if (wobj != null) {
+											wobj.close()
+										}
+										//获得详情页面
+										if (!detailPage) {
+											detailPage = plus.webview.getWebviewById("index");
+										}
+										//触发详情页面的newsId事件
+										mui.fire(detailPage, "newsId", {});
+										plus.webview.close(plus.webview.currentWebview());
+										mui.openWindow({
+											url: "index.html",
+											id: "index"
+										});
+									} else {
+										plus.webview.close(plus.webview.currentWebview());
+										var businessId = accountBox.value;
+										if (data.data == "已完善") {
+											if (!detailPage) {
+												detailPage = plus.webview.getWebviewById("shenhezhong");
+											}
+											//触发详情页面的newsId事件
+											mui.fire(detailPage, "businessId", {
+												businessId: businessId
+											});
+											mui.openWindow({
+												url: "shenhezhong.html",
+												id: "shenhezhong"
+											})
+										} else {
+											if (!detailPage) {
+												detailPage = plus.webview.getWebviewById("reg_shanghu_tijiao");
+											}
+											//触发详情页面的newsId事件
+											mui.fire(detailPage, "adminmp", {
+												id: businessId
+											});
+											mui.openWindow({
+												url: "reg_shanghu_tijiao.html",
+												id: "reg_shanghu_tijiao"
+											})
+										}
+									}
+								} else {
+									plus.ui.toast(data.message);
+								}
+							}
+						})
+					});
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

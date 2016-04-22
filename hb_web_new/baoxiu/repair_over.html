@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/mui.imageviewer.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<script src="../js/city.data.js"></script>
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+		</script>
+		<style type="text/css">
+			.repair4_table .tijiao {
+				text-align: center;
+				font: 20px/40px "微软雅黑";
+				margin-top: 10px;
+				color: #333333;
+			}
+			
+			body {
+				background: #FFFFFF !important;
+			}
+			
+			p {
+				font-size: 0.8em;
+				text-align: center;
+			}
+			
+			.mui-content {
+				background: #FFFFFF;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+			<div class="mui-inner-wrap   repair2_container">
+				<header class="mui-bar mui-bar-nav">
+					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<h1 class="mui-title">订单完成</h1>
+				</header>
+				<input type="hidden" id="roId">
+				<!--主界面区域-->
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="repair4_table">
+							<p class="black" id="uname">尊敬的 *先生</p>
+							<p class="tijiao"><span class="mui-icon icon-tijiao"></span>您的报修订单已经提交成功</p>
+							<p class="font-yellow">请您保持电话畅通，方便维修师傅与您取得联系！</p>
+							<p class="black" id="or_num"></p>
+						</div>
+						<div class="repair4_table">
+							<a class="sm_btn mui-pull-right" id="oback">返回</a>
+							<a class="sm_btn" id="lookOrder">查看状态</a>
+						</div>
+						<div class="mui-off-canvas-backdrop"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/app.js"></script>
+		<script src="../js/myapp.js"></script>
+		<script>
+			mui.plusReady(function() {
+				url = plus.storage.getItem("url");
+				mui.ajax("http://" + url + "/home/login_cache", {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					async: false,
+					type: 'GET', //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.nAccountID != null && data.nAccountID != "") {
+							$("#uname").html("尊敬的 " + data.name);
+						}
+					}
+				})
+				window.addEventListener("repair3Id", function(event) {
+					var roId = event.detail.roId;
+					document.getElementById("roId").value = roId;
+					mui.getJSON("http://" + url + "/RepairOrder/QueryOrderById", {
+							roId: roId
+						},
+						function(data) {
+							var ordhtml = "<span class=\"mui-icon mui-icon-paperclip yellow-font\">订单号：</span>" + data.ro_num + ""
+							document.getElementById("or_num").innerHTML = ordhtml;
+						});
+				})
+				document.getElementById("lookOrder").addEventListener("tap", function() {
+					mui.openWindow({
+						url: "repair_4.html",
+						extras: {
+							roId: document.getElementById("roId").value
+						}
+					})
+				})
+				document.getElementById("oback").addEventListener("tap", function() {
+					var all = plus.webview.all();
+					var current = plus.webview.currentWebview().id;
+					//				  plus.webview.getWebviewById("repair_4.html") ;
+					for (var i = 0, len = all.length; i < len; i++) {
+						if (all[i].id !== current) {
+							all[i].close();
+						}
+					}
+					mui.openWindow({
+						url: "/index.html"
+					})
+				})
+			})
+		</script>
+	</body>
+
+</html>

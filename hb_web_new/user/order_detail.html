@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script src="../js/jquery-1.9.1.min.js"></script>
+		<style>
+			.dingdan-zhuangtai {
+				width: 100%;
+				padding: 5px;
+				border-bottom: 5px solid #f3f3f3;
+				clear: both;
+			}
+			
+			.dingdan-zhuangtai .left {
+				width: 40%;
+				padding: 2px;
+				float: left;
+				min-height: 120px;
+			}
+			
+			.dingdan-zhuangtai .left img {
+				width: 100%;
+			}
+			
+			.dingdan-zhuangtai .right {
+				width: 60%;
+				padding: 2px 5px;
+				float: left;
+			}
+			
+			p {
+				margin: 0;
+			}
+			
+			body {
+				background: #FFFFFF !important;
+			}
+			
+			button {
+				width: 20%;
+				height: 36px;
+				float: right;
+				margin-right: 5px;
+			}
+		</style>
+
+		<script src="../js/mui.min.js"></script>
+
+		<body>
+			<header class="mui-bar mui-bar-nav mui-icon">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">订单状态</h1>
+			</header>
+
+			<div class="mui-content jiazheng">
+				<div class="repair3_table">
+					<!--<p class="black"><span class="mui-icon mui-icon-paperclip yellow-font">订单号：</span>10020051111</p>-->
+					<div class="dingdan-zhuangtai">
+						<div class="left"><img src="../image/cp3.jpg"></div>
+						<div class="right">
+							<p id="ordername"></p>
+							<button id="status" class="mui-pull-right"></button>
+							<h4 class="font-red"></h4>
+							<p id="attr"></p>
+							<p id="business"></p>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+					<div class="dingdan-zhuangtai" id="DeliveryAddress">
+
+					</div>
+					<div class="dingdan-zhuangtai">
+						<p id="orderNo"></p>
+						<p id="creattime"></p>
+					</div>
+					<div class="dingdan-zhuangtai" style="padding:5px">
+						<button id="delete">删除订单</button>
+						<button id="pay" class="red font-bai" style="display: none;">立即支付</button>
+						<div style="clear: both;"></div>
+					</div>
+				</div>
+			</div>
+
+		</body>
+		<script type="application/javascript">
+			var orderid = "";
+			window.addEventListener("detail", function(event) {
+				//获得事件参数
+				orderid = event.detail.id;
+				$("#DeliveryAddress").html("");
+				$("#ordername").html("");
+				$("#attr").html("");
+				$("#orderNo").html("");
+				$("#creattime").html("");
+				mui.ajax("http://" + plus.storage.getItem("url") + "/MyOrders/getorder_byid", {
+					data: {
+						order_id: orderid,
+					},
+					async: false,
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						$("#ordername").html(data.OrdersName);
+						$("#attr").html(data.ProAttrName);
+						$("#orderNo").html("订单号：" + data.OrdersNO);
+						$("#creattime").html("时间：" + ChangeDateFormat(data.Createtime));
+						if (data.States == "1") {
+							$("#status").addClass("not");
+							$("#status").html("待付款");
+							$("#pay").show();
+						} else {
+							$("#status").addClass("yes");
+							$("#status").html("已付款");
+							$("#pay").hide();
+						}
+						if (data.ProReBusiness_ID != null) {
+							$(".left").html("<img src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data.ProReBusiness.Image1 + "\">");
+							//$("#business").html(data.Business.);
+							$(".font-red").html("￥" + data.ProReBusiness.Price);
+						} else {
+							$(".left").html("<img src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data.Products.Image1 + "\">");
+							$(".font-red").html("￥" + data.Products.Price2 + "<p style=\"float: right;\">原价：<span class=\"zhonghuaxian\">￥" + data.Products.Price1 + "</span></p>");
+						}
+						if (data.DeliveryAddressID != null) {
+							$("#DeliveryAddress").html("<p class=\"black\"><span class=\"mui-icon mui-icon-location\"></span>收货人：" + data.DeliveryAddress.ConsigneeName + "</p><p class=\"black\">收货地址：" + data.DeliveryAddress.Address + "</p><p class=\"black\">联系电话：" + data.DeliveryAddress.ConsigneePhone + "</p>");
+						}
+					}
+				})
+			});
+			//json时间转换为正常时间  
+			function ChangeDateFormat(cellval) {
+				try {
+					var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
+					var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+					var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+					return date.getFullYear() + "-" + month + "-" + currentDate;
+				} catch (e) {
+					return "";
+				}
+			}
+			mui.init({
+				preloadPages: [{
+					id: "../shopping/shop_jiesuan",
+					url: "../shopping/shop_jiesuan.html"
+				}]
+			});
+			var detailPage = null;
+			//立即支付
+			document.getElementById("pay").addEventListener("tap", function() {
+				//**************************将选中的id传到下一个页面*******************************
+				var id = orderid;
+				console.log(orderid)
+				//获得详情页面
+				if (!detailPage) {
+					detailPage = plus.webview.getWebviewById("../shopping/shop_jiesuan");
+				}
+				//触发详情页面的newsId事件
+				mui.fire(detailPage, "newsId", {
+					id: id
+				});
+				//打开详情页面          
+				mui.openWindow({
+					url: "../shopping/shop_jiesuan.html",
+					id: "../shopping/shop_jiesuan"
+				});
+			});
+			//删除订单
+			document.getElementById("delete").addEventListener("tap", function() {
+				//				alert(orderid);
+				mui.ajax("http://" + plus.storage.getItem("url") + "/MyOrders/Delete", {
+					data: {
+						id: orderid,
+					},
+					async: false,
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						alert(data.statusCode)
+						if (data.statusCode = "200") {
+							plus.ui.toast(data.message);
+							var ws = plus.webview.currentWebview();
+							plus.webview.close(ws);
+							var wobj = plus.webview.getWebviewById("user_dingdan");
+							if (wobj != null) {
+								wobj.reload()
+							}
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
+			});
+		</script>
+
+</html>

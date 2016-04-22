@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html class="ui-page-login feedback">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/mui.imageviewer.css" rel="stylesheet" />
+		<link rel="../stylesheet" type="text/css" href="css/feedback-page.css" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<style>
+			.mui-content,
+			html {
+				background: #FFFFFF;
+			}
+			
+			p {
+				margin: 0 !important;
+				padding: 5px 10px !important;
+				text-indent: 24px;
+				color: #000000;
+			}
+			
+			.mx_jiage {
+				margin: 5px 0;
+			}
+			
+			.mui-content img {
+				width: 100%;
+			}
+		</style>
+		<script src="../js/mui.js"></script>
+	</head>
+
+	<body>
+
+	</body>
+
+</html>
+<script>
+	mui.init({
+		swipeBack: true //启用右滑关闭功能
+	});
+	mui.plusReady(function() {
+		url=plus.storage.getItem("url");
+		var self = plus.webview.currentWebview();
+		var id = self.huodongId;
+		mui.ajax("http://"+url+"/YangLaoHuoDong1Desc/Index", {
+			data: {
+				huodongId: id
+			},
+			dataType: "json",
+			type: "get",
+			success: function(data) {
+				if (data == "") {
+					mui.toast("没有详情");
+					var tempCnt = "<header class=\"mui-bar mui-bar-nav mui-icon\"><a class=\"mui-action-back mui-icon mui-icon-left-nav mui-pull-left\"></a></header>" +
+						"<div class=\"mui-content\"></div>";
+					$("body").html(tempCnt);
+				} else {
+					var tempCnt = "<header class=\"mui-bar mui-bar-nav mui-icon\"><a class=\"mui-action-back mui-icon mui-icon-left-nav mui-pull-left\"></a><h1 class=\"mui-title\">" + (data[0].YangLaoHuoDong1 == null ? "" : data[0].YangLaoHuoDong1.community2Name) + "</h1></header>" +
+						"<div class=\"mui-content\"><img src=\"http://"+url+"/Images/YanglaoImg/" + data[0].image + "\" /><p>如有疑问：请致电<div id=\"mobile\">" + data[0].callPhone + "</div> 社区慧生活客户服务中心</p></div>";
+					$("body").html(tempCnt);
+				}
+			}
+		})
+	})
+</script>

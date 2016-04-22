@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style>
+			.mui-active {
+				position: relative !important;
+			}
+			
+			.mui-selected {
+				background: #267ebc !important;
+			}
+			
+			.mui-selected h2,
+			.mui-selected p,
+			.mui-selected .black {
+				color: #FFFFFF !important;
+			}
+			
+			.mui-selected .font-yellow {
+				color: #ffd83e !important;
+			}
+			
+			.kankan {
+				background: #F0AD4E;
+				width: 100%;
+				border: none;
+				color: #FFFFFF;
+			}
+			
+			.mui-selected .kankan {
+				background: #FFFFFF;
+				color: #267EBC;
+			}
+			
+			.mui-icon-redo {
+				font-size: 18px !important;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<!-- 侧滑导航根容器 -->
+
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+
+			<!-- 菜单容器 -->
+			<aside id="offCanvasSide" class="mui-off-canvas-left">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!-- 菜单具体展示内容 -->
+
+						<h3><span class=" icon-homefill mui-icon" href="###">
+							<a href="###">主页 ></a>
+							<!--<button id="offCanvasHide" type="button">关闭</button>-->
+						
+						</h3>
+						<ul class="left_btn mui-table-view mui-grid-view mui-grid-9">
+							<li><a href="http://www.baidu.com" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
+							<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
+							<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
+							<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
+							<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
+							<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
+							<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
+							<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
+							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
+							<li><a href="###"><span class=" icon-iconfontjifen36 mui-icon" href="###"></span>金融理财></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
+
+						</ul>
+
+					</div>
+				</div>
+			</aside>
+			<!-- 左侧菜单结束 -->
+
+			<!-- 主页面容器 -->
+
+			<div class="mui-inner-wrap">
+
+				<!-- 主页面标题 -->
+
+				<header class="mui-bar mui-bar-nav">
+					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<h1 class="mui-title">选择商家</h1>
+
+				</header>
+				<!--主界面区域-->
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop">
+
+					<!--按钮区域-->
+
+					<div id="container">
+
+						<!--按钮区域结束-->
+						<!--商家列表-->
+						<div id="slider" class="mui-slider" style="height:100%;">
+							<div id="slider2SegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+								<a class="mui-control-item" href="#item1mobile">
+								1公里内
+								</a>
+								<a class="mui-control-item" href="#item2mobile">
+								5公里内
+								</a>
+								<a class="mui-control-item" href="#item3mobile">
+								所有
+								</a>
+							</div>
+							<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+							<div class="mui-slider-group">
+								<!--1公里内-->
+								<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+									<div id="scroll1" class="mui-scroll-wrapper">
+										<div class="mui-scroll">
+											<!--商家列表分类-->
+											<ul class="mui-table-view mui-grid-view mui-grid-9 list_shop mui-table-view-radio">
+												<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 mui-selected shanghu_list">
+													<h2>美特好超市</h2>
+													<p class="black">地址：榆次区文化中心顺城街23号</p>
+													<ul class=" shop_biaoqian">
+														<li class="shop_biaoqian font-yellow">货到付款</li>
+														<li class="shop_biaoqian font-yellow">2年质保</li>
+														<li class="shop_biaoqian font-yellow">送货上门</li>
+														<li class="shop_biaoqian font-yellow">30分钟到</li>
+														<li class="shop_biaoqian font-yellow">七天退换</li>
+														<li class="shop_biaoqian font-yellow">积分赠送</li>
+													</ul>
+													<button id="shop_user" class="kankan">
+															<span class="mui-icon mui-icon-redo"></span>进店看看
+													</button>
+													<p class="black fuwu">更多服务：</p>
+													<p>1.五公里内免费配送</p>
+													<p>2.消费满1000赠送热水器一个</p>
+													<p>3.购物成功一次享受其他产品8折</p>
+													<p>
+														<span style="font-size:16px ;" class="black">评分：</span>
+														<span class="mui-icon mui-icon-star-filled"></span>
+														<span class="mui-icon mui-icon-star-filled"></span>
+														<span class="mui-icon mui-icon-star-filled"></span>
+														<span class="mui-icon mui-icon-star-filled"></span>
+														<span class="mui-icon mui-icon-star-filled"></span>
+													</p>
+													<p>销量：120笔</p>
+												</li>
+												<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 shanghu_list">
+													<h2 class="">居然之家</h2>
+													<p class="black">地址：榆次区汇通路天森超市下</p>
+													<ul class=" shop_biaoqian">
+														<li class="shop_biaoqian font-yellow">货到付款</li>
+														<li class="shop_biaoqian font-yellow">2年质保</li>
+														<li class="shop_biaoqian font-yellow">送货上门</li>
+														<li class="shop_biaoqian font-yellow">30分钟到</li>
+														<li class="shop_biaoqian font-yellow">七天退换</li>
+														<li class="shop_biaoqian font-yellow">积分赠送</li>
+													</ul>
+													<button id="shop_user" class="kankan">
+															<span class="mui-icon mui-icon-redo"></span>进店看看
+													</button>
+													<p class="black fuwu">更多服务：</p>
+													<p>1.五公里内免费配送</p>
+													<p>2.消费满1000赠送热水器一个</p>
+													<p>3.购物成功一次享受其他产品8折</p>
+													<p>4.赠送电影票一张</p>
+													<p>5.购物成功一次享受其他产品8折</p>
+													<p>
+														<span style="font-size:16px ;" class="black">评分：</span>
+														<span class="mui-icon mui-icon-star-filled"></span>
+														<span class="mui-icon mui-icon-star-filled"></span>
+														<span class="mui-icon mui-icon-star-filled"></span>
+														<span class="mui-icon mui-icon-star-filled"></span>
+														<span class="mui-icon mui-icon-star-filled"></span>
+													</p>
+													<p>销量：120笔</p>
+												</li>
+
+											</ul>
+
+											<!--商家列表结束-->
+
+										</div>
+									</div>
+								</div>
+								<!--5公里内-->
+								<div id="item2mobile" class="mui-slider-item mui-control-content">
+									<div id="scroll2" class="mui-scroll-wrapper">
+										<div class="mui-scroll">
+											<div class="mui-loading">
+												<ul class="mui-table-view mui-grid-view mui-grid-9 list_shop mui-table-view-radio">
+
+												</ul>
+
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<!--所有的-->
+								<div id="item3mobile" class="mui-slider-item mui-control-content">
+									<div id="scroll3" class="mui-scroll-wrapper">
+										<div class="mui-scroll">
+											<div class="mui-loading">
+												<ul class="mui-table-view mui-grid-view mui-grid-9 list_shop mui-table-view-radio">
+
+												</ul>
+
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- 侧滑后右侧变黑-->
+
+					<div class="mui-off-canvas-backdrop"></div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<script src="../js/myapp.js"></script>
+		<script>
+			document.getElementById('shop_user').addEventListener('tap', function() {
+				//打开关于页面
+				mui.openWindow({
+					url: 'shop_user.html',
+					id: 'shop_user'
+				});
+			});
+			mui.init({
+				swipeBack: false
+			});
+			(function($) {
+				$('.mui-scroll-wrapper').scroll({
+					indicators: true //是否显示滚动条
+				});
+			})(mui);
+		</script>
+
+	</body>
+
+</html>

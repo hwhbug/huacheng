@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<style>
+			.mui-icon-email {
+				line-height: 30px;
+				font-size: 26px !important;
+				padding-right: 10px !important;
+				margin: 0 !important;
+			}
+			
+			p {
+				color: #666666;
+				margin-bottom: 5px;
+			}
+			
+			.icon-fenxiang:before {
+				color: #3EA8DA;
+			}
+			
+			.yellow,
+			.red {
+				border: none !important;
+			}
+			
+			ul {
+				border: none !important;
+			}
+			
+			.btn_user li {
+				border-bottom: 1px solid #C0C0C0;
+			}
+			
+			.mui-segmented-control {
+				border: 1px solid #FFFFFF;
+			}
+			
+			.mui-segmented-control .mui-control-item.mui-active {
+				background: #D82F4E;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				border-left: 1px solid #FFFFFF;
+				color: #FFFFFF;
+				background: #f79c0c;
+			}
+			
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			
+			.mui-content {
+				height: 100%
+			}
+			
+			.mui-control-content {
+				height: 100%;
+			}
+			
+			.mui-slider-right {
+				position: relative;
+			}
+			
+			.mui-slider-right .mui-btn {
+				position: relative;
+				top: 0px;
+			}
+			
+			.huise {
+				position: relative !important;
+			}
+			
+			.mui-table-view-cell:after {
+				display: none;
+			}
+			
+			.mui-table-view .mui-media-object {
+				max-width: 100px;
+				max-height: 120px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-icon mui-action-back mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的服务
+			</h1>
+		</header>
+
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="container">
+					<div style="padding: 10px 10px;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1">
+								报修订单
+							</a>
+							<a class="mui-control-item" href="#item2">
+								家政订单
+							</a>
+							<!--<a class="mui-control-item" href="#item3">
+								法律服务
+							</a>-->
+						</div>
+					</div>
+					<!--全部订单开始-->
+					<div>
+						<div id="item1" class="mui-control-content mui-active">
+							<ul class="mui-table-view" id="repair_part">
+								<!--<li class="mui-table-view-cell mui-media huise">
+									<div class="mui-slider-right mui-disabled">
+										<a class="mui-btn mui-btn-yellow">查看订单</a>
+										<a class="mui-btn mui-btn-red">删除记录</a>
+									</div>
+									<div class="mui-slider-handle">
+										<img class="mui-media-object mui-pull-left" src="../image/sf_03_03.gif">
+										<div class="mui-media-body">
+											家电报修（空调）
+											<button class="not mui-pull-right">未完成</button>
+											<h4 class="font-red">￥待定
+												    <p style="float: right;"></h4>
+											<p>报修问题：漏电、不制冷</p>
+											<p>维修师傅：廖师傅</p>
+											<p>上门时间：2015.12.10 15:00-18:00</p>
+										</div>
+
+									</div>
+								</li>-->
+							</ul>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul class="mui-table-view" id="jiazheng_part">
+							</ul>
+						</div>
+						<!--<div id="item3" class="mui-control-content">
+							<ul class="mui-table-view" id="falv_part">
+							</ul>
+						</div>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script>
+	mui('.mui-scroll-wrapper').scroll();
+
+	function jsonShortDateFormat(jsonDate) { //json日期格式转换为正常格式
+		try { //出自http://www.cnblogs.com/ahjesus 尊重作者辛苦劳动成果,转载请注明出处,谢谢!
+			var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+			var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+			var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+			return date.getFullYear() + "-" + month + "-" + day;
+		} catch (ex) { //出自http://www.cnblogs.com/ahjesus 尊重作者辛苦劳动成果,转载请注明出处,谢谢!
+			return "";
+		}
+	}
+	mui.plusReady(function() {
+		url = plus.storage.getItem("url");
+		var self = plus.webview.currentWebview();
+		var uid_ = self.uid;
+		$("#repair_part").html("");
+		mui.ajax("http://" + url + "/RepairOrder/Index", {
+			data: {
+				uid: uid_
+			},
+			dataType: "json",
+			type: "get",
+			success: function(data) {
+				var repair = "";
+				for (var i = 0; i < data.length; i++) {
+					var status_des = "";
+					if (data[i].ro_status == 0) {
+						status_des = "未完成"
+					} else if (data[i].ro_status == 1) {
+						status_des = "已派单"
+					} else if (data[i].ro_status == 2) {
+						status_des = "维修中"
+					} else if (data[i].ro_status == 3) {
+						status_des = "已完成"
+					}
+					repair += " <li id=\"" + data[i].ro_id + "\" data-name=\"" + data[i].ro_uname + "\" class= \"mui-table-view-cell mui-media huise\"><div class = \"mui-slider-right mui-disabled\" >" +
+						"<a class = \"mui-btn mui-btn-yellow\" > 查看订单 </a><a class=\"mui-btn mui-btn-red delRepairOrd\" id=\"" + data[i].ro_id + "\">删除记录</a >" +
+						"</div> <div class = \"mui-slider-handle\"> <img class = \"mui-media-object mui-pull-left\" src = \"http://" + url + "/Images/RepaManImg/" + data[i].RepaMan.rm_headPortrait + "\" >" +
+						"<div class = \"mui-media-body\"> " + data[i].RepaCategory.rc_name + "报修（" + data[i].RepaCateSub_.cs_name_ + "） <button class = \"not mui-pull-right\" > " + status_des + " </button>" +
+						"<h4 class = \"font-red\" > ￥待定 <p style = \"float: right;\" > </h4><p>报修问题：" + data[i].RepaLabelDesc.rld_liNames + "</p> <p> 维修师傅： " + data[i].RepaMan.rm_name + " </p> <p> 上门时间： " + jsonShortDateFormat(data[i].ro_reserveTime) + " " + data[i].ro_resTimeDesc + " </p></div></div></li>";
+				}
+				$("#repair_part").html(repair);
+				mui("#repair_part").on("tap", ".mui-table-view-cell", function() {
+						var rid = this.getAttribute("id");
+						mui.openWindow({
+							url: "/baoxiu/repair_4.html",
+							extras: {
+								roId: rid
+							}
+						})
+					})
+					//删除订单
+				mui("#repair_part").on("tap", ".delRepairOrd", function() {
+					var rid = this.getAttribute("id");
+					mui.ajax('http://"+url+"/RepairOrder/Delete', {
+						data: {
+							id: rid
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'Post', //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							if (data.statusCode == "200") {
+								mui.toast("订单删除成功");
+								plus.webview.currentWebview().reload();
+							}
+						}
+					});
+				})
+			}
+		})
+		$("#jiazheng_part").html("");
+		mui.ajax("http://" + url + "/JiaZhengOrder/Index", {
+			data: {
+				uid: uid_
+			},
+			dataType: "json",
+			type: "get",
+			success: function(data) {
+				var jiazheng = "";
+				for (var i = 0; i < data.length; i++) {
+					var ordStatus = "";
+					if (data[i].orderSataus == "0") {
+						ordStatus = "未支付";
+					} else if (data[i].orderSataus == "1") {
+						ordStatus = "已支付";
+					}
+					jiazheng += " <li id=\"" + data[i].jiazhengOrdID + "\" data- class= \"mui-table-view-cell mui-media huise\"><div class = \"mui-slider-right mui-disabled\" >" +
+						"<a class = \"mui-btn mui-btn-yellow\" > 查看订单 </a><a class=\"mui-btn mui-btn-red deljzOrd\" id=\"" + data[i].jiazhengOrdID + "\">删除记录</a >" +
+						"</div> <div class = \"mui-slider-handle\"> <img class = \"mui-media-object mui-pull-left\" src = \"http://" + url + "/Images/jiazheng/" + data[i].ayiImg + "\" >" +
+						"<div class = \"mui-media-body\"> " + data[i].services + " <button class = \"not mui-pull-right\" > " + ordStatus + " </button>" +
+						"<div class=\"jiazheng-zhuangtai\"><p class=\"black\">服务地址：" + data[i].DeliveryAddress.Address + "</p><p class=\"black\">联系电话：" + data[i].DeliveryAddress.ConsigneePhone + "</p></div>";
+				}
+				$("#jiazheng_part").html(jiazheng);
+				mui("#jiazheng_part").on("tap", ".mui-table-view-cell", function() {
+					var rid = this.getAttribute("id");
+					mui.openWindow({
+						url: "/jiazheng/jiazheng_zhuangtai.html",
+						extras: {
+							ordId: rid
+						}
+					})
+				})
+				mui("#jiazheng_part").on("tap", ".deljzOrd", function() {
+					var id = this.getAttribute("id");
+					mui.ajax("http://" + url + "/JiaZhengOrder/Delete", {
+						data: {
+							id: id
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'Post', //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							if (data.statusCode == "200") {
+								mui.toast("订单删除成功");
+								plus.webview.currentWebview().reload();
+							}
+						}
+					});
+				})
+			}
+		});
+		//		mui.ajax('http://"+url+"/LAContact/laConIndex', {
+		//			data: {
+		//				uid: uid_
+		//			},
+		//			dataType: "json",
+		//			type: "get",
+		//			success: function(data) {
+		//				var repair = "";
+		//				for (var i = 0; i < data.length; i++) {
+		//					var status_des = "";
+		//					if (data[i].ro_status == 0) {
+		//						status_des = "未完成"
+		//					} else if (data[i].ro_status == 1) {
+		//						status_des = "已派单"
+		//					} else if (data[i].ro_status == 2) {
+		//						status_des = "维修中"
+		//					} else if (data[i].ro_status == 3) {
+		//						status_des = "已完成"
+		//					}
+		//					repair += " <li class = \"mui-table-view-cell mui-media huise\"><div class = \"mui-slider-right mui-disabled\" >" +
+		//						"<a class = \"mui-btn mui-btn-yellow\" > 查看订单 < /a><a class=\"mui-btn mui-btn-red\">删除记录</a >" +
+		//						"</div> <div class = \"mui-slider-handle\"> <img class = \"mui-media-object mui-pull-left\" src = \"http://"+url+"/Images/RepaManImg/" + data[i].RepaMan.rm_headPortrait + "\" >" +
+		//						"<div class = \"mui-media-body\"> " + data[i].RepaCategory.rc_name + "报修（" + data[i].RepaCateSub_.cs_name_ + "） <button class = \"not mui-pull-right\" > " + status_des + " </button>" +
+		//						"<h4 class = \"font-red\" > ￥待定 <p style = \"float: right;\" > </h4><p>报修问题：" + data[i].RepaLabelDesc.rld_liNames + "</p> <p> 维修师傅： " + data[i].RepaMan.rm_name + " </p> <p> 上门时间： " + jsonShortDateFormat(data[i].ro_reserveTime) + " " + data[i].ro_resTimeDesc + " </p></div></div></li>";
+		//				}
+		//				$("#repair_part").html(repair);
+		//			}
+		//		})
+	})
+</script>

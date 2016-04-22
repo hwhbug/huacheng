@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/cross-down.css" rel="stylesheet" />
+		<script type="application/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<style>
+			.mui-backdrop {
+				position: absolute !important;
+				z-index: 100 !important;
+				height: 40%;
+				top: 0;
+			}
+			
+			.active {
+				border: 1px solid #CF2D28;
+				color: #CF2D28;
+			}
+			
+			a {
+				color: #333333;
+			}
+			
+			p {
+				margin-bottom: 0;
+			}
+			
+			button {
+				width: 100%;
+				height: 80px;
+				margin-top: 5px;
+				font-size: 20px !important;
+				border: none;
+				color: #FFFFFF;
+				font-family: "微软雅黑" !important;
+			}
+			
+			.mui-icon-navigate {
+				font-size: 28px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!-- 侧滑导航根容器 -->
+
+		<!-- 主页面标题 -->
+
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title"></h1>
+		</header>
+		<!--主界面区域-->
+		<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop">
+			<div class="mui-scroll">
+				<!--banner-->
+				<div class="mui-slider">
+					<!--<img src="../image/mth.jpg" />-->
+				</div>
+				<!--banner区域结束-->
+				<!--按钮区域-->
+
+				<div class="shop_acter_text">
+					<div class="left">
+
+					</div>
+					<div class="right" id="gothere">
+						<button class="adress yellow"><span class=" mui-icon mui-icon-navigate"></span> 到这去</button>
+					</div>
+				</div>
+
+				<div class="red font-bai" style="padding: 5px; margin-top: 5px;">热销产品</div>
+				<ul id="productlist" class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop">
+					<!--<li id="shangpin" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+						<img src="../image/shop-3.jpg" />
+						<a class="font-green">蓝月亮天然洗衣液15L</a>
+						<p class="black">原价：<span class="zhonghuaxian">￥36.00</span></p>
+						<p class="black">促销价：<span class="font-red">￥16.90</span></p>
+						<p>销量：1150件</p>
+					</li>-->
+				</ul>
+				<div class="yellow font-bai" style="padding: 5px; margin-top: 5px;">商户简介</div>
+				<div class="shop_main">
+
+				</div>
+			</div>
+			<div class="mui-off-canvas-backdrop"></div>
+
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script>
+			mui(".mui-scroll-wrapper").scroll();
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			window.addEventListener("business", function(event) {
+				var Destination="";
+				var Destination_des="";
+				//获得事件参数
+				var shanghu_id = event.detail.shanghu_id;
+				$(".left").empty();
+				$(".mui-title").empty();
+				$(".mui-slider").empty();
+				$(".shop_main").empty();
+				//				页面加载时，清空数据层的缓存数据
+				//*********************************************获取商户的数据************************************
+				mui.ajax("http://"+plus.storage.getItem("url")+"/Business/Business_Detail", {
+					data: {
+						id: shanghu_id,
+					},
+					dataType: "json", //服务器返回json格式数据
+					async: true,
+					type: "GET", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						$(".left").html("<h2>" + data.Admin_User.name + "</h2><p class=\"black\">地址：" + data.Admin_User.Address + "</p><p>主营：" + data.ProductsType.Names + "</p>");
+						$(".mui-title").html(data.Admin_User.name);
+						$(".mui-slider").html("<img src=\"http://"+plus.storage.getItem("url")+"/Images/BusinessImg/" + data.topimage3 + "\" />");
+						$(".shop_main").html(data.Description);
+						Destination="{\"longitude\":"+data.Admin_User.longitude+",\"latitude\":"+data.Admin_User.latitude+"}";
+						Destination_des=data.Admin_User.name;
+					}
+				})
+				document.getElementById("gothere").addEventListener("tap", function() {
+					console.log(Destination)
+					console.log(plus.storage.getItem("Locate"))
+					
+					// 设置目标位置坐标点和其实位置坐标点
+					var dst = new plus.maps.Point(Destination); // 目的地 
+					var src = new plus.maps.Point(plus.storage.getItem("Locate")); // 当前坐标
+					// 调用系统地图显示 
+					if (plus.maps.openSysMap(dst, Destination_des, src)==undefined) {
+						plus.nativeUI.toast("请先安装百度地图.");
+					} else{
+						plus.maps.openSysMap(dst, Destination_des, src);
+					}
+				});
+				//*****************************************商品列表***************************************
+				mui.ajax("http://"+plus.storage.getItem("url")+"/Business/Business_Products", {
+						data: {
+							id: shanghu_id,
+						},
+						dataType: "json", //服务器返回json格式数据
+						async: true,
+						type: "GET", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var str = "";
+							for (var i = 0; i < data.length; i++) { //
+								if (data[i].isDisplay != false) {
+									str += "<li  id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4\"><img src=\"http://"+plus.storage.getItem("url")+"/Images/ProductImg/" + data[i].Image1 + "\"/><a class=\"font-green\">" + "</a><p class=\"black\">促销价：<span class=\"font-red\">￥" + data[i].Price + "</span></p><p>销量：" + data[i].Quantity + "件</p></li>";
+								}
+							}
+							$("#productlist").html(str);
+						}
+					})
+					//**************************************商品详情点击事件*********************************
+				mui("#productlist").on("tap", "li", function(e) {
+					var productid = this.getAttribute("id");
+					//获得详情页面
+					if (!detailPage) {
+						detailPage = plus.webview.getWebviewById("shop_acter");
+					}
+					//触发详情页面的newsId事件
+					mui.fire(detailPage, "productsId", {
+						productid: productid,
+						businessid: shanghu_id
+					});
+					//打开详情页面          
+					mui.openWindow({
+						url: "shop_acter.html",
+						id: "shop_acter"
+					});
+				});
+			})
+			mui.init({
+				preloadPages: [{
+					url: "shop_acter.html",
+					id: "shop_acter"
+				}]
+			});
+			var detailPage = null;
+		</script>
+
+	</body>
+
+</html>

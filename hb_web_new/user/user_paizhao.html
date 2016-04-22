@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+		</script>
+		<style>
+			.mui-btn-blue,
+			.mui-btn-primary,
+			input[type=submit] {
+				border: none;
+			}
+		</style>
+		<script type="text/javascript" src="../js/binaryajax.js"></script>
+		<script type="text/javascript" src="../js/exif.js"></script>
+		<script type="text/javascript" src="../js/canvasResize.js"></script>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-icon mui-action-back mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">拍照</h1>
+			<button id="jumpOver" style="width: 25%;" class="mui-pull-right right_btn blue font-bai">跳过</button>
+		</header>
+
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="container">
+					<div class="paizhao" id="paizhao">
+						<div class="xiangji"><span class="mui-icon mui-icon-camera"></span></div>
+						<p class="max-font font-bai center ">亲，配上图片展示更好哦~</p>
+					</div>
+					<ul class="zhaopin2">
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+
+					<div style="clear: both;"></div>
+					<div class="mui-content-padded" id="release">
+						<button class="mui-btn mui-btn-block mui-btn-primary btn_login">立即发布</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id="cid">
+		<input type="hidden" id="csid">
+		<input type="hidden" id="lds">
+		<input type="hidden" id="speech">
+		<input type="hidden" id="cl_names">
+		<input type="hidden" id="sname">
+		<input type="hidden" id="uid">
+		<script>
+			mui.init({
+				preloadPages: [{
+					id: "repair_3.html",
+					url: "/baoxiu/repair_3.html"
+				}]
+			});
+			mui.plusReady(function() {
+				url = plus.storage.getItem("url");
+				window.addEventListener("repair2Id", function(event) {
+						var repair3page = null;
+						document.getElementById("cid").value = event.detail.cid;
+						document.getElementById("csid").value = event.detail.csid;
+						document.getElementById("lds").value = event.detail.lds_;
+						document.getElementById("speech").value = event.detail.speech;
+						document.getElementById("cl_names").value = event.detail.cl_names;
+						document.getElementById("sname").value = event.detail.sname;
+						document.getElementById("uid").value = event.detail.uid;
+						var cid = document.getElementById("cid").value;
+						var csid = document.getElementById("csid").value;
+						var lds = document.getElementById("lds").value;
+						var speech = document.getElementById("speech").value;
+						var cl_names = document.getElementById("cl_names").value;
+						var sname = document.getElementById("sname").value;
+						var uid = document.getElementById("uid").value;
+					
+						// 跳过发布
+						document.getElementById("jumpOver").addEventListener("tap", function() {
+							mui.ajax("http://"+url+"/RepaLabelDesc/Creates", {
+								data: {
+									cid: cid,
+									sid_: csid,
+									lds_: lds,
+									speech: speech,
+									cl_names: cl_names,
+									uid: uid
+								},
+								dataType: 'json', //服务器返回json格式数据
+								type: 'post', //HTTP请求类型
+								timeout: 10000,
+								success: function(data) {
+//									alert(data.statusCode)
+									if (data.statusCode == "200") {
+										var rld_id = data.data1;
+										var cid = data.divid;
+										document.getElementById("cid").value = "";
+										document.getElementById("csid").value = "";
+										document.getElementById("lds").value = "";
+										document.getElementById("speech").value = "";
+										document.getElementById("cl_names").value = "";
+										document.getElementById("sname").value = "";
+										document.getElementById("uid").value = "";
+										if (!repair3page) {
+											repair3page = plus.webview.getWebviewById("repair_3.html");
+										}
+										mui.fire(repair3page, "paizhaoId", {
+											cid: cid,
+											rld_id: rld_id,
+											sname: sname,
+											uid: uid
+										})
+										mui.openWindow({
+											id: 'repair_3.html'
+										});
+									} else {
+										alert("抱歉,页面找不到了");
+									}
+								},
+								error: function(xhr, type, errorThrown) {
+									//异常处理
+									console.log(type)
+								}
+							}); //end
+						});
+						//立即发布
+						mui("#release").on('tap', 'button', function() {
+							if (file1 == "") {
+								alert("请先选择图片上传");
+								return false;
+							} else {
+								var task = plus.uploader.createUpload("http://"+url+"/RepaLabelDesc/UploadImgs", {
+									method: "post"
+								}, function(t, status) {
+									// 上传完成
+									if (t.responseText.indexOf(200) == 15) {
+										var val = eval("(" + t.responseText + ")");
+										var rldId = val.data;
+										var imgs = val.divid;
+										document.getElementById("cid").value = "";
+										document.getElementById("csid").value = "";
+										document.getElementById("lds").value = "";
+										document.getElementById("speech").value = "";
+										document.getElementById("cl_names").value = "";
+										document.getElementById("sname").value = "";
+										document.getElementById("uid").value = "";
+										//上传其它数据
+										mui.ajax("http://"+url+"/RepaLabelDesc/Creates", {
+											data: {
+												cid: cid,
+												sid_: csid,
+												lds_: lds,
+												speech: speech,
+												rldId: rldId,
+												imgs: imgs,
+												cl_names: cl_names,
+												uid: uid
+											},
+											dataType: 'json', //服务器返回json格式数据
+											type: 'post', //HTTP请求类型
+											timeout: 10000,
+											success: function(data) {
+												if (data.statusCode == "200") {
+													document.getElementsByClassName("zhaopin2")[0].innerHTML = null;
+													var rld_id = data.data1;
+													var cid = data.divid;
+													if (!repair3page) {
+														repair3page = plus.webview.getWebviewById("repair_3.html");
+													}
+													mui.fire(repair3page, "paizhaoId", {
+														cid: cid,
+														rld_id: rld_id,
+														sname: sname,
+														uid: uid
+													})
+													mui.openWindow({
+														id: 'repair_3.html'
+													});
+												} else {
+													alert("抱歉,页面找不到了");
+												}
+											},
+											error: function(xhr, type, errorThrown) {
+												//异常处理
+												console.log(type)
+											}
+										}); //end
+									} else {
+										alert("文件上传失败");
+									}
+								});
+								for (var i = 0; i < file1.length; i++) {
+									task.addFile(fileurl[i], {
+										key: file1[i],
+										name: file1[i]
+									});
+									console.log(filetype[i])
+									task.start();
+								}
+								console.log(task.totalSize);
+							}
+						});
+					})
+					//处理图片上传
+				document.getElementById('paizhao').addEventListener('tap', function() {
+					var a = [{
+						title: "拍照"
+					}, {
+						title: "从手机相册选择"
+					}];
+					plus.nativeUI.actionSheet({
+						title: "请选择操作",
+						cancel: "取消",
+						buttons: a
+					}, function(b) {
+						switch (b.index) {
+							case 0:
+								break;
+							case 1:
+								cameraimages();
+								break;
+							case 2:
+								galleryImgs();
+								break;
+							default:
+								break
+						}
+					})
+				});
+				var f1 = new Array();
+				var fileurl = new Array();
+				var file1 = new Array();
+				var filetype = new Array();
+				//上传单张图片
+				function galleryImg() {
+					//每次拍摄或选择图片前清空数组对象
+					f1.splice(0, f1.length);
+					document.getElementsByClassName("zhaopin2")[0].innerHTML = null;
+					// 从相册中选择图片
+					mui.toast("从相册中选择一张图片");
+					plus.gallery.pick(function(path) {
+						showImg(path);
+					}, function(e) {
+						mui.toast("取消选择图片");
+					}, {
+						filter: "image",
+						multiple: false
+					});
+				}
+				//上传多张图片
+				function galleryImgs() {
+					//每次拍摄或选择图片前清空数组对象
+					f1.splice(0, f1.length);
+					document.getElementsByClassName("zhaopin2")[0].innerHTML = null;
+					// 从相册中选择图片
+					plus.gallery.pick(function(e) {
+						if (e.files.length > 4) {
+							mui.toast("上传不能超过四张以上图片");
+							return false;
+						}
+						for (var i in e.files) {
+							showImg(e.files[i]);
+						}
+					}, function(e) {
+						mui.toast("取消选择图片");
+					}, {
+						filter: "image",
+						multiple: true
+					});
+				}
+				// 拍照添加文件
+				function cameraimages() {
+					//每次拍摄或选择图片前清空数组对象
+					f1.splice(0, f1.length);
+					document.getElementsByClassName("zhaopin2")[0].innerHTML = null;
+					var cmr = plus.camera.getCamera();
+					cmr.captureImage(function(p) {
+						plus.io.resolveLocalFileSystemURL(p, function(entry) {
+							var localurl = entry.toLocalURL(); //把拍照的目录路径，变成本地url路径，例如file:///........之类的。
+							showImg(localurl);
+						});
+					}, function(e) {
+						mui.toast("很抱歉，获取失败 " + e);
+					}, {
+						filter: "image",
+						multiple: true
+					});
+				}
+
+				function showImg(url) {
+					// 兼容以“file:”开头的情况
+					if (0 != url.toString().indexOf("file://")) {
+						url = "file://" + url;
+					}
+					var _div_ = document.getElementsByClassName("zhaopin2")[0];
+					var _img_ = new Image();
+					_img_.src = url; // 传过来的图片路径在这里用。
+					_img_.onclick = function() {
+						plus.runtime.openFile(url);
+					};
+					_img_.onload = function() {
+						var tmph = _img_.height;
+						var tmpw = _img_.width;
+						var isHengTu = tmpw > tmph;
+						var max = Math.max(tmpw, tmph);
+						var min = Math.min(tmpw, tmph);
+						var bili = min / max;
+						if (max > 1200) {
+							max = 1200;
+							min = Math.floor(bili * max);
+						}
+						tmph = isHengTu ? min : max;
+						tmpw = isHengTu ? max : min;
+						_img_.style.border = "1px solid rgb(200,199,204)";
+						_img_.style.margin = "10px";
+						_img_.style.width = "80px";
+						_img_.style.height = "80px";
+						_img_.onload = null;
+						plus.io.resolveLocalFileSystemURL(url, function(entry) {
+								entry.file(function(file) {
+									console.log(file.size + '--' + file.name);
+									canvasResize(file, {
+										width: tmpw,
+										height: tmph,
+										crop: false,
+										quality: 50, //压缩质量
+										rotate: 0,
+										callback: function(data, width, height) {
+											f1.push(data);
+											fileurl.push(url);
+											file1.push(file.name);
+											filetype.push(file.type);
+											//console.log(filetype);
+											_img_.src = data;
+											_div_.appendChild(_img_);
+											plus.nativeUI.closeWaiting();
+										}
+									});
+								});
+							},
+							function(e) {
+								plus.nativeUI.closeWaiting();
+								console.log(e.message);
+							});
+					};
+				};
+			})
+		</script>
+
+	</body>
+
+</html>

@@ -21,32 +21,22 @@
 
 		<!-- 侧滑导航根容器 -->
 
-		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable mui-slide-in">
 
 			<!-- 菜单容器 -->
-			<aside id="offCanvasSide" class="mui-off-canvas-left">
+			<aside id="offCanvasSide" class="mui-off-canvas-right">
 				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<!-- 菜单具体展示内容 -->
-						<h3><span class=" icon-homefill mui-icon" href="###">
-							<a href="###">主页 ></a>
-							<!--<button id="offCanvasHide" type="button">关闭</button>-->
-						</h3>
-						<ul class="left_btn mui-table-view mui-grid-view mui-grid-9">
-							<li><a href="http://www.baidu.com" target="_blank"><span class=" icon-shangpu mui-icon" href="###"></span>周边商户></a></li>
-							<li><a href="###"><span class=" icon-coinyen mui-icon" href="###"></span>物业缴费></a></li>
-							<li><a href="###"><span class=" icon-wrench mui-icon" href="###"></span>家用报修></a></li>
-							<li><a href="###"><span class=" icon-xinshenger mui-icon" href="###"></span>家政服务></a></li>
-							<li><a href="###"><span class=" icon-cartfill mui-icon" href="###"></span>购物></a></li>
-							<li><a href="###"><span class=" icon-diancan mui-icon" href="###"></span>订餐></a></li>
-							<li><a href="###"><span class=" icon-airplane  mui-icon" href="###"></span>外出旅游></a></li>
-							<li><a href="###"><span class=" icon-usersecret mui-icon" href="###"></span>居家养老></a></li>
-							<li><a href="###"><span class=" icon-jilijiangjin mui-icon" href="###"></span>二手交易></a></li>
-							<li><a href="###"><span class=" icon-iconfontjifen36 mui-icon" href="###"></span>金融理财></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-							<li><a href="###"><span class=" icon-myfill mui-icon" href="###"></span>个人账户></a></li>
-						</ul>
+					<div class="mui-content mui-row mui-fullscreen">
+						<div class="mui-col-xs-3">
+							<div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+
+							</div>
+						</div>
+						<div id="segmentedControlContents" class="mui-col-xs-9" style="border-left: 1px solid #c8c7cc;">
+							<div id="item1" class="mui-control-content mui-active">
+
+							</div>
+						</div>
 					</div>
 				</div>
 			</aside>
@@ -61,7 +51,8 @@
 				<header class="mui-bar mui-bar-nav">
 					<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 					<h1 class="mui-title">在线商城</h1>
-					<!--<span id="icon-menu" class="mui-icon mui-icon-bars mui-pull-right font-blue"></span>-->
+					<a id="offCanvasBtn" href="#offCanvasSide" class="icon-shaixuan mui-icon mui-pull-right"></a>
+					<!--<a id="offCanvasBtn" href="#offCanvasSide" class="icon-shaixuan mui-icon mui-pull-right"></a>-->
 				</header>
 				<!--主界面区域-->
 				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper shop">
@@ -82,7 +73,10 @@
 						</div>
 						<!--banner区域结束-->
 						<!--按钮区域-->
-
+						<div id="container_refresh" style="display: none;">
+							<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Panicbuy_refresh" >
+							</ul>
+						</div>
 						<div id="container">
 							<ul class="mui-table-view mui-grid-view mui-grid-9 shop_nav">
 								<li id="zhoubian" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
@@ -111,12 +105,6 @@
 							<!--周边新开列表-->
 							<div class="shop_bar red">周边新开</div>
 							<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Aroundbusiness">
-								<!--<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-									<img src="../image/shop-1.jpg" />
-									<a class="font-red" href="#">肯德基田森店</a>
-									<p class="black">主营：快餐、饮品、外卖</p>
-									<p class="black">地址：榆次区汇通路天森超市下</p>
-								</li>-->
 							</ul>
 							<!--周边新开列表结束-->
 							<!--热门促销列表-->
@@ -125,9 +113,6 @@
 							</ul>
 							<!--热门促销列表结束-->
 
-							<!--<div class="shop_bar yellow">特惠商户</div>
-							<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Business">
-							</ul>-->
 							<div class="shop_bar purple">限时抢购</div>
 
 							<ul class="mui-table-view mui-grid-view mui-grid-9 shifu list_shop" id="Panicbuy">
@@ -147,12 +132,11 @@
 
 		<script src="../js/myapp.js"></script>
 		<script>
-			
-//			if (window.plus) {
-//				plusReady();
-//			} else {
-//				document.addEventListener("plusready", plusReady, false);
-//			}
+			//			if (window.plus) {
+			//				plusReady();
+			//			} else {
+			//				document.addEventListener("plusready", plusReady, false);
+			//			}
 			mui.init();
 			document.getElementById("qianggou").addEventListener("tap", function() {
 				//打开关于页面
@@ -183,13 +167,13 @@
 				});
 				//				plus.nativeUI.showWaiting();
 			});
-//			document.getElementById("icon-menu").addEventListener("tap", function() {
-//				//打开关于页面
-//				mui.openWindow({
-//					url: "shop_nav.html",
-//					id: "shop_nav"
-//				});
-//			});
+			//			document.getElementById("icon-menu").addEventListener("tap", function() {
+			//				//打开关于页面
+			//				mui.openWindow({
+			//					url: "shop_nav.html",
+			//					id: "shop_nav"
+			//				});
+			//			});
 			var url = "";
 			mui.plusReady(function() {
 				url = plus.storage.getItem("url");
@@ -255,13 +239,16 @@
 					}, {
 						url: "shop_user.html",
 						id: "shop_user"
+					}, {
+						id: "shop_detail",
+						url: "shop_detail.html"
 					}]
 				});
 				var detailPage = null;
 				//添加列表项的点击事件
 				mui("#Panicbuy").on("tap", "li", function(e) {
-				var h = plus.webview.getWebviewById("shop_cuxiao_acter");
-				h.close();
+					var h = plus.webview.getWebviewById("shop_cuxiao_acter");
+					h.close();
 					var id = this.getAttribute("id");
 					//获得详情页面
 					if (!detailPage) {
@@ -296,25 +283,7 @@
 						id: "shop_cuxiao_acter"
 					});
 				});
-				//*****************特惠商户店铺详情页面*************************
 				var shanghu_detailPage = null;
-				//添加列表项的点击事件
-				//				mui("#Business").on("tap", "li", function(e) {
-				//					var shanghu_id = this.getAttribute("id");
-				//					//获得详情页面
-				//					if (!shanghu_detailPage) {
-				//						shanghu_detailPage = plus.webview.getWebviewById("shop_user");
-				//					}
-				//					//触发详情页面的newsId事件
-				//					mui.fire(shanghu_detailPage, "business", {
-				//						shanghu_id: shanghu_id
-				//					});
-				//					//打开详情页面          
-				//					mui.openWindow({
-				//						url: "shop_user.html",
-				//						id: "shop_user"
-				//					});
-				//				});
 				//*****************周边商户店铺详情页面*************************
 				//添加列表项的点击事件
 				mui("#Aroundbusiness").on("tap", "li", function(e) {
@@ -387,56 +356,113 @@
 				});
 				setTimeout("updateEndTime()", 1000);
 			}
-			//****************************************定位，同时获取附近商户******************************************
-			// 扩展API加载完毕后调用onPlusReady回调函数 
-			//			document.addEventListener("plusready", onPlusReady, false);
-			//			// 扩展API加载完毕，现在可以正常调用扩展API
-			//			function onPlusReady() {
-			//				// 使用百度地图地位模块获取位置信息
-			//				var weidu = null;
-			//				var jingdu = null;
-			////				alert(plus.storage.getItem("Locate"));
-			//				var map = new plus.maps.Map("map");
-			//				map.hide();
-			//				// 将检索到结果作为标点添加到地图中
-			//				var searchObj = new plus.maps.Search(map);
-			//				//地图获取当前位置
-			//				map.getUserLocation(function(state, point) {
-			//					if (0 == state) {
-			//						//根据坐标获取地理位置信息
-			//						plus.maps.Map.reverseGeocode(point, {}, function(event) {
-			//							var address = event.address; // 转换后的地理位置
-			//							console.log(address.substring(address.indexOf("区") - 2, address.indexOf("区")))
-			//
-			//						}, function(e) {
-			//							alert("Failed:" + JSON.stringify(e));
-			//						});
-			//						searchObj.poiSearchNearBy("小区", point, 1000, 0);
-			//						map.setCenter(point);
-			//						map.setZoom(15)
-			//					} else {
-			//						alert("获取当前位置失败，请检查网络");
-			//					}
-			//				});
-			//			}
-			//***********************************获取周边商户的商品数据********************************
-			//			mui.ajax("http://" + url + "/Business/Index", {
-			//				data: {
-			//					isdisplay: "1",
-			//					Formulate: "1"
-			//				},
-			//				dataType: "json", //服务器返回json格式数据
-			//				async: true,
-			//				type: "GET", //HTTP请求类型,
-			//				timeout: 10000, //超时时间设置为10秒；
-			//				success: function(data) {
-			//					var str = "";
-			//					for (var i = 0; i < data.length; i++) {
-			//						str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://" + url + "/Images/BusinessImg/" + data[i].topimage3 + "\" /><a class=\"font-red\" href=\"#\">" + data[i].Admin_User.name + "</a><p class=\"black\">主营：" + data[i].ProductsType.Names + "</p><p class=\"black\">地址：" + data[i].Admin_User.Address + "</p></li>";
-			//					}
-			//					$("#Aroundbusiness").html(str);
-			//				}
-			//			})
+		</script>
+		<script>
+			mui.plusReady(function() {
+				mui.ajax("http://101.201.196.202:82/product/ProductType_Load", {
+					data: {
+						//						parentid: "0"
+					},
+					dataType: "json", //服务器返回json格式数据
+					async: true,
+					type: "GET", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//						alert(data.length)
+						var str = "";
+						var content = "";
+						var a = 0;
+						for (var i = 0; i < data.length; i++) {
+							if (data[i].ParentId == "0") {
+								a += 1;
+								if (i == 0) {
+									str += "<a class=\"mui-control-item mui-active\" href=\"#content" + a + "\">" + data[i].Names + "</a>";
+									content += "<div id=\"content" + a + "\" class=\"mui-control-content mui-active\"><ul class=\"mui-table-view\">";
+								} else {
+									str += "<a class=\"mui-control-item\" href=\"#content" + a + "\">" + data[i].Names + "</a>";
+									content += "<div id=\"content" + a + "\" class=\"mui-control-content\"><ul class=\"mui-table-view\">";
+								}
+							} else {
+								content += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell\">" + data[i].Names + "</li>";
+							}
+							if (i == data.length - 1) {} else {
+								if (data[i + 1].ParentId == "0") {
+									content += "</ul></div>";
+								}
+							}
+						}
+						$("#segmentedControls").html(str);
+						$("#item1").html(content);
+					}
+				})
+			})
+			mui("#segmentedControlContents").on("tap", "li", function(e) {
+				var id = this.getAttribute("id");
+				$("#container").hide();
+				$("#container_refresh").show();
+				shuaixuan(id);
+			});
+
+			function shuaixuan(typeid) {
+				console.log(typeid)
+				mui.ajax("http://101.201.196.202:82/product/procucts_bytypeid", {
+					data: {
+						producttypeid: typeid
+					},
+					dataType: "json", //服务器返回json格式数据
+					async: true,
+					type: "GET", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var str = "";
+						for (var i = 0; i < data.length; i++) {
+							if (data[i].activity == "2") {
+								str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].Image1 + "\" /><a class=\"font-green\" href=\"#\">" + data[i].Names + "</a>";
+								str += "<p class=\"black\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Price1 + "</span></p><p class=\"black\">促销价：<span class=\"sm_jiage\">￥" + data[i].Price2 + "</span></p><p>销量：" + data[i].Quantity + "件</p>";
+							}
+							if (data[i].activity == "4") {
+								str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].Image1 + "\" /><a class=\"font-green\" href=\"#\">" + data[i].Names + "</a>";
+								str += "<p class=\"black\">原价：<span class=\"zhonghuaxian\">￥" + data[i].Price1 + "</span></p><p class=\"black\">抢购价：<span class=\"sm_jiage\">￥" + data[i].Price2 + "</span></p><p class=\"red font-bai\">距结束：<span class=\" settime\" style=\"font-family:arial;padding: 5px 10px;\" endtime=\"" + data[i].EndTime + "\"></span></p><p>销量：" + data[i].Quantity + "件</p>";
+							}
+							if (data[i].activity == "1") {
+								str += "<li id=\"" + data[i].ID + "\" class=\"mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6\"><img src=\"http://" + plus.storage.getItem("url") + "/Images/ProductImg/" + data[i].Image1 + "\" /><a class=\"font-green\" href=\"#\">" + data[i].Names + "</a>";
+								str += "<p class=\"black\">价格：<span id=\"business_price\" >￥" + "</span></p>";
+								mui.ajax("http://" + plus.storage.getItem("url") + "/Business/price_byproductid", {
+									data: {
+										product_id: data[i].ID,
+									},
+									dataType: "json", //服务器返回json格式数据
+									async: true,
+									type: "GET", //HTTP请求类型,
+									timeout: 10000, //超时时间设置为10秒；
+									success: function(price_data) {
+										$("#business_price").html("￥" + price_data);
+									}
+								})
+							}
+							str += "</li>";
+						}
+						$("#Panicbuy_refresh").html(str);
+					}
+				})
+			}
+			var detailPage = null;
+			mui("#Panicbuy_refresh").on("tap", "li", function(e) {
+				var id = this.getAttribute("id");
+					//获得详情页面
+				if (!detailPage) {
+					detailPage = plus.webview.getWebviewById("shop_detail");
+				}
+				//触发详情页面的newsId事件
+				mui.fire(detailPage, "productsId", {
+					id: id
+				});
+				//打开详情页面          
+				mui.openWindow({
+					url: "shop_detail.html",
+					id: "shop_detail.html"
+				});
+			});
 		</script>
 	</body>
 

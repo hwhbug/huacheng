@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="ui-page-login feedback">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/mui.imageviewer.css" rel="stylesheet" />
+		<link rel="../stylesheet" type="text/css" href="css/feedback-page.css" />
+		<script src="../js/jquery-1.9.1.min.js"></script>
+		<style>
+			.mui-content,
+			html {
+				background: #FFFFFF;
+			}
+			
+			p {
+				margin: 0 !important;
+				padding: 5px 10px !important;
+				text-indent: 24px;
+				color: #000000;
+			}
+			
+			.mx_jiage {
+				margin: 5px 0;
+			}
+			
+			.mui-content img {
+				width: 100%;
+			}
+		</style>
+		<script src="../js/mui.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-icon">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">关于我们</h1>
+		</header>
+		<div class="mui-content">
+			<p>如有疑问：请致电400-8500-1256 社区慧生活客户服务中心</p>
+		</div>
+		<script>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			mui.plusReady(function() {
+						mui.ajax("http://" + plus.storage.getItem("url") + "/UsedInfo/ContactUs", {
+								data: {},
+								async: false,
+								dataType: "json", //服务器返回json格式数据
+								type: "Post", //HTTP请求类型,
+								timeout: 10000, //超时时间设置为10秒；
+								success: function(data) {
+									if(data!=null&&data!=""){
+										$(".mui-content").html(data.Description.replace(/\/Images/g, "http://" + plus.storage.getItem("url") + "/Images"));
+									}else{
+										$(".mui-content").html("<p>如有疑问：请致电400-8500-1256 社区慧生活客户服务中心</p>");
+									}
+								}
+							})
+						})
+		</script>
+	</body>
+
+</html>

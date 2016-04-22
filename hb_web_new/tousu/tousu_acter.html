@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			.repair_container li {
+				background: #FFFFFF;
+			}
+			
+			.repair_container li p {
+				color: #000000;
+			}
+			
+			input[type=search] {
+				background: #FFFFFF;
+			}
+			
+			.mui-btn-primary {
+				background: #F17E25;
+			}
+			
+			p {
+				margin-bottom: 2px;
+			}
+			
+			header .icon-shaixuan {
+				padding: 10px 10px 0 0 !important;
+				margin: 0;
+			}
+			
+			header .icon-shaixuan:before {
+				padding-right: 10px;
+			}
+			
+			.mui-off-canvas-left,
+			.mui-off-canvas-right {
+				width: 40% !important;
+				background: #EEEEEE;
+			}
+			
+			.max-font {
+				font-size: 16px;
+				margin-top: 5px;
+			}
+			
+			.ershou_bar {
+				border: none;
+			}
+			
+			.biantiao {
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				position: absolute;
+				border-right: 2px solid #248d76;
+				border-bottom: 2px solid #248d76;
+				z-index: 10;
+				display: block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- 主页面标题 -->
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">投诉专区</h1>
+
+		</header>
+		<!--主界面区域-->
+		<div class="mui-scroll-wrapper mui-content">
+			<div class="mui-scroll">
+				<div id="container" style="background: none !important;">
+					<ul id="tousu" class="tousu">
+
+					</ul>
+					<ul id="tousu2" class="tousu">
+<!--<img src="../images/user/20160412164212_4488.jpg"-->
+					</ul>
+				</div>
+
+			</div>
+
+		</div>
+
+		<script>
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var contentId = self.contentId;
+				var uid= self.uid;
+				mui.ajax("http://101.201.196.202:82/ComplaintsContent/ComplaintsContentGetById", {
+					data: {
+						contentId: contentId
+					},
+					dataType: "json",
+					type: "get",
+					success: function(data) {
+						var tousu = "";
+						
+						tousu = "<li id=\"" + data.ID + "\"><div class=\"top\"><div class=\"mypic\"><img src=\"http://101.201.196.202:82/Images/AccountUserImage/" + data.AccountUser.userImg + "\" />" +
+							"</div><div class=\"myname\"><p class=\"font-blue\">" + data.AccountUser.name + "</p><p>" + jsonDateFormat(data.Operatingtime) + "</p></div>" +
+							//<div class=\"huifu\"><span class=\"mui-icon icon-wd6\"></span> 12</div>
+							"</div><div class=\"clear\"></div>" +
+							"<div class=\"wenzi\"><p class=\"font-hei max-font\">" + data.title + "</p><p>" + data.Description + "</p></div></li>";
+						$("#tousu").html(tousu);
+					}
+				});
+
+				mui.ajax("http://101.201.196.202:82/ComplaintsReply/ReplyByContentID", {
+					data: {
+						contentID: contentId,
+						uid: uid
+					},
+					dataType: "json",
+					type: "get",
+					success: function(data) {
+						var tosu2="";
+						for (var i = 0; i < data.length; i++) {
+							tosu2 += "<li><div class=\"top\"><div class=\"mypic\"><img src=\"../images/user/20160412164212_4488.jpg\" /></div><div class=\"myname\">"+
+							"<p class=\"font-red\">" + data[i].Admin_User.name + "</p><p>" + jsonDateFormat(data[i].Operatingtime) + "</p></div>" +
+								"<div class=\"huifu\">已回复</div></div><div class=\"clear\"></div><div class=\"wenzi\"><p>" + data[i].title + "</p><p>" + data[i].Description + "</p></div></li>";
+						}
+						$("#tousu2").html(tosu2);
+					}
+				});
+			});
+
+			function jsonDateFormat(jsonDate) {
+				try {
+					var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+					var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+					var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+					var hours = date.getHours();
+					var minutes = date.getMinutes();
+					var seconds = date.getSeconds();
+					var milliseconds = date.getMilliseconds();
+					//return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+					return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes;
+				} catch (e) {
+					//TODO handle the exception
+				}
+			}
+			mui('.mui-scroll-wrapper').scroll();
+			mui.init({
+				swipeBack: false,
+			});
+		</script>
+
+	</body>
+
+</html>

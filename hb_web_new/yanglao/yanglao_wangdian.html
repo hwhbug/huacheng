@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			.repair_container li {
+				background: #FFFFFF;
+			}
+			p {
+				color: #000000;
+			}
+			input[type=search] {
+				background: #FFFFFF;
+			}
+			.mui-btn-primary {
+				background: #F17E25;
+			}
+			p {
+				margin-bottom: 2px;
+			}
+			.max-font {
+				font-size: 16px;
+				margin-top: 5px;
+			}
+			.ershou_bar {
+				border: none;
+			}
+			img {
+				width: 100%;
+				height: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back_index" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">线下网点</h1>
+		</header>
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="container">
+
+					<ul class="ershou_tuijian" id="wangdian">
+						<!--<li>
+							<div class="img"><img src="../image/repair_23.gif" /></div>
+							<p class="max-font">迎宾小区服务点</p>
+							<p>地址：</p>
+							<p class="font-yellow">营业电话：</p>
+
+						</li>-->
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="mui-off-canvas-backdrop"></div>
+		</div>
+	</body>
+
+</html>
+<script>
+	mui.plusReady(function() {
+		url = plus.storage.getItem("url");
+		mui.ajax("http://" + url + "/YangLaoOffline1/Index", {
+			dataType: "json",
+			type: "get",
+			success: function(data) {
+				var cnt = "";
+				for (var i = 0; i < data.length; i++) {
+					cnt += "<li><div class=\"img\"><img src=\"http://" + url + "/Images/YanglaoImg/" + data[i].offlineImage + "\" /></div><p class=\"max-font\">" + data[i].offlineTitle + "</p><p>地址：" + data[i].offlineAddress + "</p><p class=\"font-yellow\">营业电话：" + data[i].offlineBusinessPhone + "</p></li>"
+				}
+				document.getElementById("wangdian").innerHTML = cnt;
+			}
+		});
+	})
+	mui('.mui-scroll-wrapper').scroll();
+</script>

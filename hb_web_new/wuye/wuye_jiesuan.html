@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/cross-down.css" rel="stylesheet" />
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-1.9.1.min.js" type="text/javascript"></script>
+		<style>
+			.left_jiage {
+				float: left;
+				padding: 10px 0;
+				margin-top: 6px;
+			}
+			
+			html {
+				background: #FFFFFF;
+			}
+			
+			.zhifu {
+				width: 30%;
+				float: right;
+				background: #CF2D28;
+				color: #FFFFFF;
+				border: none;
+				margin-top: 25px;
+			}
+			
+			.footer {
+				padding: 0 10px;
+				border-top: 1px solid #EEE;
+			}
+			
+			.mui-slider-right {
+				position: relative;
+			}
+			
+			.mui-slider-right .mui-btn {
+				position: relative;
+				top: 0px;
+			}
+			
+			.huise {
+				position: relative !important;
+			}
+			
+			.mui-table-view-cell:after {
+				display: none;
+			}
+			
+			p {
+				margin-bottom: 0;
+				line-height: 1.5em;
+			}
+			
+			.jiesuan li {
+				border-bottom: 1px solid #EEEEEE;
+				padding: 10px 0;
+				`
+			}
+			
+			.mui-table-view-cell {
+				font-size: 16px;
+			}
+			
+			.neirong {
+				min-height: 200px;
+			}
+			
+			.footer {
+				border: none !important;
+				padding: 5px;
+				border-top: 1px solid #CCCCCC !important;
+				height: 80px !important;
+			}
+			
+			.mui-table-view {
+				margin-top: 0;
+			}
+			
+			.mui-input-row label {
+				width: auto;
+				padding: 10px 10px 15px 5px;
+			}
+			
+			.mui-input-row label~input {
+				width: 70%;
+				padding: 10px 0;
+			}
+			
+			#bottomPopover {
+				left: 0 !important;
+			}
+			
+			.dizhi {
+				padding: 5px !important;
+			}
+			
+			.dizhi a {
+				font-size: 16px !important;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!--页面标题栏开始-->
+		<div class="mui-navbar-inner mui-bar mui-bar-nav">
+			<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>
+				</button>
+			<h1 class="mui-center mui-title">结算中心</h1>
+		</div>
+		<!--页面标题栏结束-->
+		<!--页面主内容区开始-->
+		<div class="mui-page-content">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+
+					<ul style="padding-top: 48px;" id="myorders" class="mui-table-view mui-table-view-chevron neirong">
+						<!--<li id="11">
+								<p>物业费<span class="font-red mui-pull-right">￥193.5</span></p>
+								
+							</li>-->
+					</ul>
+
+					<!-- FOOTER区域-->
+					<nav class=" footer">
+						<p class="black" style="margin-top: 25px;">支付方式</p>
+						<ul class="mui-table-view mui-table-view-radio">
+							<li class="mui-table-view-cell"><a class="mui-navigate-right">华晟一卡通(记名卡)</a></li>
+							<div style="display:none;" id="enter">
+								<div class="mui-input-row">
+									<label>账号</label>
+									<input id="yktaccount" type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+								</div>
+								<div class="mui-input-row">
+									<label>密码</label>
+									<input id="yktpassword" type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+								</div>
+								<div class="mui-input-row">
+									<label>验证码</label>
+									<input id="Propertycode" type="password" class="mui-input-clear mui-input" placeholder="请输入验证码">
+									<button id="codebtn" style="float: right; background: #CF2D28;color: #FFFFFF;">获取验证码</button>
+								</div>
+							</div>
+							<li class="mui-table-view-cell mui-selected"><a class="mui-navigate-right">支付宝</a></li>
+						</ul>
+
+						<div class="clear"></div>
+						<div class="left_jiage">
+
+							<strong>共计：<span id="mx_jiage" class="font-red mx_jiage">￥</span></strong>
+							<p id="jifeng">本次消费可获得积分：</p>
+						</div>
+						<button id="zhifu" class="zhifu">
+								去结算
+							</button>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<script>
+			//监听卡号输入
+			document.getElementById("yktaccount").addEventListener('input', function() {
+				mui.ajax("http://" + plus.storage.getItem("url") + "/MerchandisePay/Reserved", {
+					data: {
+						"card": document.getElementById("yktaccount").value
+					},
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						console.log(data)
+						if (data != "") {
+							document.getElementById('Propertycode').setAttribute("placeholder", "预留手机号为:" + data)
+						}
+					}
+				})
+			});
+			//获取验证码
+			document.getElementById("codebtn").addEventListener("tap", function() {
+				//打开关于页面
+				mui.ajax("http://" + plus.storage.getItem("url") + "/MerchandisePay/getcode", {
+					data: {
+						"card": document.getElementById("yktaccount").value
+					},
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode == "200") {
+							plus.ui.toast(data.message);
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
+			});
+			//********************************************************需要结算的订单数据代码*****************************************
+			var orderids = "";
+			var wuye_price = "";
+			var shop_id = "";
+			window.addEventListener("newsId", function(event) {
+					//获得事件参数
+					var wuye_id = event.detail.id;
+					var wuye_name = event.detail.name;
+					wuye_price = event.detail.price;
+					shop_id = event.detail.shop_id;
+					var order = "<li id=\"" + wuye_id + "\"><p>" + wuye_name + "<span class=\"font-red mui-pull-right\">￥" + wuye_price + "</span></p></li>";
+					$("#myorders").html(order);
+					orderids = wuye_id;
+					$("#mx_jiage").html("￥" + wuye_price);
+					$("#jifeng").html("本次消费可获得积分：" + parseInt(wuye_price));
+				})
+				//*****************************以下为调用支付宝开始支付操作****************************
+			var channels = null;
+			// 监听plusready事件  
+			document.addEventListener("plusready", function() {
+				// 扩展API加载完毕，现在可以正常调用扩展API
+				plus.payment.getChannels(function(s) {
+					for (var i in s) {
+						var channel = s[i];
+						if (channel.id === "alipay") {
+							channels = channel;
+						}
+					}
+				}, function(e) {
+					alert("获取支付通道列表失败：" + e.message);
+				});
+			}, false);
+			//一卡通账号密码
+			var yktaccount = document.getElementById("yktaccount");
+			var yktpassword = document.getElementById("yktpassword");
+			var Propertycode = document.getElementById("Propertycode");
+			var dizhisub = document.getElementById("dizhisub");
+			var paymethod = document.querySelector(".mui-table-view-cell.mui-selected").innerText;
+			var list = document.querySelector(".mui-table-view.mui-table-view-radio");
+			//*************************************监听radio的选择事件******************************
+			list.addEventListener("selected", function(e) {
+				paymethod = e.detail.el.innerText;
+				//				console.log(paymethod);
+				if (paymethod.length > 4) {
+					$("#enter").show();
+				} else {
+					$("#enter").hide();
+				}
+			});
+			document.getElementById("zhifu").addEventListener("tap", function() {
+				// 必须从业务服务器获取支付信息
+				var statement = "";
+				//******************************************选择支付宝支付************************************
+				console.log(orderids)
+				if (paymethod.length == 4) {
+					console.log(plus.storage.getItem("url"))
+					mui.ajax("http://" + plus.storage.getItem("url") + "/AlipayWuye/GetPayInfo", {
+						data: {
+							orderid: orderids
+						},
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//														alert(data)
+							console.log(JSON.stringify(data))
+							if (channels != null) {
+								plus.nativeUI.closeWaiting("支付宝启动中……");
+							}
+							statement = data;
+							plus.payment.request(channels, statement, function() {
+								plus.ui.toast("支付操作成功！");
+								//关闭当前页面
+								var ws = plus.webview.currentWebview();
+								plus.webview.close(ws);
+								var refresh = plus.webview.getWebviewById("wuyedingdan");
+								refresh.reload();
+							}, function(e) {
+								if (e.message.indexOf("62000") >= 0) {
+									plus.ui.toast("请先安装支付宝插件！");
+								}
+								if (e.message.indexOf("62001") >= 0) {
+									plus.ui.toast("您已取消操作");
+								}
+								if (e.message.indexOf("62002") >= 0) {
+									plus.ui.toast("此设备不支持支付");
+								}
+								if (e.message.indexOf("62003") >= 0) {
+									plus.ui.toast("数据格式错误");
+								}
+								if (e.message.indexOf("62004") >= 0) {
+									plus.ui.toast("支付账号状态错误");
+								}
+								if (e.message.indexOf("62005") >= 0) {
+									plus.ui.toast("订单信息错误");
+								}
+								if (e.message.indexOf("62006") >= 0) {
+									plus.ui.toast("支付操作内部错误");
+								}
+								if (e.message.indexOf("62007") >= 0) {
+									plus.ui.toast("支付服务器错误");
+								}
+								if (e.message.indexOf("62008") >= 0) {
+									plus.ui.toast("网络问题引起的错误");
+								}
+								if (e.message.indexOf("62009") >= 0) {
+									plus.ui.toast("其它未定义的错误");
+								}
+							});
+						}
+					})
+				} else {
+					if (yktaccount.value == "") {
+						plus.ui.toast("请添写账号");
+						return;
+					}
+					if (yktpassword.value == "") {
+						plus.ui.toast("请添写密码");
+						return;
+					}
+					if (Propertycode.value == "") {
+						plus.ui.toast("请添写验证码");
+						return;
+					}
+					//*****************************************选择华城一卡通支付******************************************
+					mui.ajax("http://" + plus.storage.getItem("url") + "/MerchandisePay/MerPay_Wuye", {
+							data: {
+								"orderid": orderids,
+								"yktaccount": yktaccount.value,
+								"yktpassword": yktpassword.value,
+								"price": wuye_price,
+								"code": Propertycode.value,
+								"shop_id": shop_id
+							},
+							dataType: "json", //服务器返回json格式数据
+							type: "Post", //HTTP请求类型,
+							timeout: 10000, //超时时间设置为10秒；
+							success: function(data) {
+								if (data.statusCode == "200") {
+									plus.ui.toast(data.message);
+									//关闭当前页面
+									var ws = plus.webview.currentWebview();
+									plus.webview.close(ws);
+									var refresh = plus.webview.getWebviewById("wuyedingdan");
+									refresh.reload();
+								} else {
+									plus.ui.toast(data.message);
+								}
+							}
+						})
+						//													console.log(yktaccount.value+"+++++"+yktpassword.value)
+				}
+			})
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html class="ui-page-login feedback">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/mui.imageviewer.css" rel="stylesheet" />
+		<link rel="../stylesheet" type="text/css" href="css/feedback-page.css" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<style>
+			.mui-content,
+			html {
+				background: #FFFFFF;
+			}
+			
+			p {
+				margin: 0 !important;
+				padding: 5px 10px !important;
+				text-indent: 24px;
+				color: #000000;
+			}
+			
+			.mx_jiage {
+				margin: 5px 0;
+			}
+			
+			.mui-content img {
+				width: 100%;
+			}
+		</style>
+		<script src="../js/mui.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-icon">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">小区公告</h1>
+		</header>
+		<div class="mui-content" id="content">
+
+		</div>
+		<script>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			mui.plusReady(function() {
+				url= plus.storage.getItem("url") ;
+				var self = plus.webview.currentWebview();
+				var id = self.tempId;
+				mui.ajax("http://"+url+"/CommunityBulletinDesc/SingleByBulletinId", {
+					data: {
+						bulletinID: id
+					},
+					dataType: "json",
+					type: "get",
+					success: function(data) {
+						var tempCnt = "<p class=\"max-font center\">" + data.CommunityBulletin.title + "</p><p class=\"center\">" +jsonDateFormat(data.CommunityBulletin.Createtime) + "</p><img src=\"http://"+url+"/Images/BulletinImg/" + data.image + "\" />"+
+						"<p>如有疑问：请致电" + data.callPhone + " 社区慧生活客户服务中心</p>";
+						$("#content").html(tempCnt);
+					}
+				})
+			})
+			function jsonDateFormat(jsonDate) {
+				try {
+					var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+					var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+					var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+					var hours = date.getHours();
+					var minutes = date.getMinutes();
+					var seconds = date.getSeconds();
+					var milliseconds = date.getMilliseconds();
+					//return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+					return date.getFullYear() + "-" + month + "-" + day;
+				} catch (e) {
+					//TODO handle the exception
+				}
+			}
+		</script>
+	</body>
+
+</html>

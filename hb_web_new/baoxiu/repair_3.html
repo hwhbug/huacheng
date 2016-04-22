@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<!--<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />-->
+		<title></title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.css" rel="stylesheet" />
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-views,
+			.mui-view,
+			.mui-pages,
+			.mui-page,
+			.mui-page-content {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #efeff4;
+			}
+			
+			.mui-pages {
+				top: 46px;
+				height: auto;
+			}
+			
+			.mui-scroll-wrapper,
+			.mui-scroll {
+				background-color: #efeff4;
+			}
+			
+			.mui-page.mui-transitioning {
+				-webkit-transition: -webkit-transform 300ms ease;
+				transition: transform 300ms ease;
+			}
+			
+			.mui-page-left {
+				-webkit-transform: translate3d(0, 0, 0);
+				transform: translate3d(0, 0, 0);
+			}
+			
+			.mui-ios .mui-page-left {
+				-webkit-transform: translate3d(-20%, 0, 0);
+				transform: translate3d(-20%, 0, 0);
+			}
+			
+			.mui-navbar {
+				position: fixed;
+				right: 0;
+				left: 0;
+				z-index: 10;
+				height: 44px;
+				background-color: #f7f7f8;
+			}
+			
+			.mui-navbar .mui-bar {
+				position: absolute;
+				background: transparent;
+				text-align: center;
+			}
+			
+			.mui-android .mui-navbar-inner.mui-navbar-left {
+				opacity: 0;
+			}
+			
+			.mui-ios .mui-navbar-left .mui-left,
+			.mui-ios .mui-navbar-left .mui-center,
+			.mui-ios .mui-navbar-left .mui-right {
+				opacity: 0;
+			}
+			
+			.mui-navbar .mui-btn-nav {
+				-webkit-transition: none;
+				transition: none;
+				-webkit-transition-duration: .0s;
+				transition-duration: .0s;
+			}
+			
+			.mui-navbar .mui-bar .mui-title {
+				display: inline-block;
+				width: auto;
+			}
+			
+			.mui-page-shadow {
+				position: absolute;
+				right: 100%;
+				top: 0;
+				width: 16px;
+				height: 100%;
+				z-index: -1;
+				content: '';
+			}
+			
+			.mui-page-shadow {
+				background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+				background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+			}
+			
+			.mui-navbar-inner.mui-transitioning,
+			.mui-navbar-inner .mui-transitioning {
+				-webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+				transition: opacity 300ms ease, transform 300ms ease;
+			}
+			
+			.mui-page {
+				display: none;
+			}
+			
+			.mui-pages .mui-page {
+				display: block;
+			}
+			
+			.mui-page .mui-table-view:first-child {
+				margin-top: 15px;
+			}
+			
+			.mui-page .mui-table-view:last-child {
+				margin-bottom: 30px;
+			}
+			
+			.mui-table-view {
+				margin-top: 20px;
+			}
+			
+			.mui-table-view span.mui-pull-right {
+				color: #999;
+			}
+			
+			.mui-table-view-divider {
+				background-color: #efeff4;
+				font-size: 14px;
+			}
+			
+			.mui-table-view-divider:before,
+			.mui-table-view-divider:after {
+				height: 0;
+			}
+			
+			.head {
+				height: 40px;
+			}
+			
+			#head {
+				line-height: 40px;
+			}
+			
+			.head-img {
+				width: 40px;
+				height: 40px;
+			}
+			
+			#head-img1 {
+				position: absolute;
+				bottom: 10px;
+				right: 40px;
+				width: 40px;
+				height: 40px;
+			}
+			
+			.update {
+				font-style: normal;
+				color: #999999;
+				margin-right: -25px;
+				font-size: 15px
+			}
+			
+			.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			
+			.mui-ios .mui-navbar .mui-bar .mui-title {
+				position: static;
+			}
+		</style>
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/mui.imageviewer.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<script src="../js/jquery-1.9.1.min.js"></script>
+	</head>
+
+	<body>
+		<!--页面主结构开始-->
+		<div id="app" class="mui-views">
+			<div class="mui-view">
+				<div class="mui-navbar">
+				</div>
+				<div class="mui-pages">
+				</div>
+			</div>
+		</div>
+		<!--自定义给标签赋值-->
+		<input type="hidden" id="mid">
+		<input type="hidden" id="orldId">
+		<input type="hidden" id="ocId">
+		<input type="hidden" id="osId">
+		<input type="hidden" id="getDate">
+
+		<input type="hidden" id="minEcost">
+		<input type="hidden" id="maxEcost">
+		<input type="hidden" id="ecostDesc">
+		<div id="set" class="mui-page">
+			<!-- 主页面容器 -->
+			<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>
+				</button>
+
+				<h1 class="mui-center mui-title">确认订单信息</h1>
+			</div>
+			<!--主界面区域-->
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="repair3_table">
+							<h4><span class="yellow-font sm_txt">报修类型：</span><a id="sname"></a></h4>
+							<h4><span class="yellow-font sm_txt">故障描述：</span><a id="lbname"></a></h4>
+							<p><span class="icon-sponsorfill mui-icon yellow-font"></span> 维修价格预计在<span class="yellow-font" id="priceRange"></span>之间，具体费用以师傅上门后确定</p>
+						</div>
+						<!--<div class="repair3_table">
+							<input type="text" class="sm_input" placeholder="请输入所在小区" style="width: 100% !important;" id="communityName" />
+						</div>-->
+						<div class="repair3_table">
+							<div id="dizhisub" class="dizhisub" style="color:#666666;"></div>
+							<a href="#change_address" class="font-blue" style="font-size: 16px;text-align: center !important;display: block !important; ">选择地址</a>
+						</div>
+
+						<!--<div class="repair3_table">
+							<div id="bt" class="repair_bar blue">确认地址信息 </div>
+
+							<input type="text" class="sm_input" placeholder="姓名" id="yourName" />
+							<input type="text" class="sm_input" placeholder="小区" id="communityName" />
+							<div class="mui-input-row">
+								<input type="text" class="mui-input-speech mui-input-clear" placeholder="详细地址" id="address" />
+
+							</div>
+							<div class="mui-input-row">
+								<input type="text" class="mui-input-speech mui-input-clear" placeholder="手机号" id="mp" />
+							</div>
+						</div>-->
+
+						<!--选择时间-->
+						<div class="repair3_table">
+
+							<!--选择时间结束-->
+							<button style="border:none;" id='showUserPicker' class="mui-btn mui-btn-block pick_time" type='button'>
+								<div id='userResult' class="ui-alert">预约服务时间</div>
+							</button>
+						</div>
+						<!--按钮区域结束-->
+						<div class="mui-table-view mui-table-view-chevron repair3_table blue">
+							<div id="shifu" class="mui-table-view-cell mui-media sf_img">
+								<a class="mui-navigate-right" href="#account">
+									<img src="" />
+									<h4 style="text-align: center; color: #FFFFFF;">选择师傅</h4>
+								</a>
+							</div>
+						</div>
+
+						<div id="repair_4" class="repair2_main">
+							<button class="repair1_sc">
+								确认并提交
+							</button>
+						</div>
+						<div class="footer-left">
+							<i id='msg-image' class="mui-icon mui-icon-camera" style="font-size: 28px;"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--单页面结束-->
+		<div id="account" class="mui-page">
+			<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>报修师傅
+				</button>
+				<h1 class="mui-center mui-title" id="cname"></h1>
+			</div>
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<ul class="mui-table-view mui-grid-view mui-grid-9 mui-action-back shifu">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--收货地址 start-->
+		<div id="change_address" class="mui-page">
+			<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>订单状态
+				</button>
+
+				<h1 class="mui-center mui-title">更换地址</h1>
+			</div>
+
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<ul id="DeliveryAddress" class="mui-table-view">
+
+					</ul>
+					<!--<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell">
+							<a href="#bottomPopover" class="mui-navigate-right">添加新地址</a>
+						</li>
+					</ul>-->
+					<a href="#bottomPopover" class="mui-btn-primary mui-btn" style="width: 30%; margin: 10px 30%;">添加新地址</a>
+				</div>
+			</div>
+		</div>
+		<a href="#bottomPopover" class="mui-btn-primary mui-btn" style="width: 30%; margin: 10px 30%;">添加新地址</a>
+
+		<div id="bottomPopover" class="mui-popover mui-popover-bottom">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll" style="padding: 5px;">
+					<div class="mui-input-row">
+						<label>姓名：</label>
+						<input id="uname" placeholder="收货人姓名">
+						<input id="ID" type="hidden">
+					</div>
+					<div class="mui-input-row">
+						<label>电话：</label>
+						<input id="tel" placeholder="收货人手机号，方便联系收货">
+					</div>
+					<div id="mySwitch" class="mui-input-row mui-switch mui-active right">
+
+						<div class="mui-switch-handle right"></div>
+					</div>
+					<!--<label>设置默认：</label>-->
+					<textarea id="adderss" class="mui-input-clear question" placeholder="填写常用地址"></textarea>
+					<a id="addressbtn" href="#bottomPopover" class="mui-btn-primary mui-btn mui-pull-right" style="width:15%; margin: 5px 20px">确定</a>
+				</div>
+			</div>
+		</div>
+		<!--收货地址 end-->
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<script>
+			(function($, doc) {
+				//$.init();
+				$.ready(function() {
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'today1',
+						text: '今天 9:00-11:00'
+					}, {
+						value: 'today2',
+						text: '今天 14:30-17:30'
+					}, {
+						value: 'today3',
+						text: '今天 19:00-21:00'
+					}, {
+						value: 'mingtian1',
+						text: '明天 9:00-11:00'
+					}, {
+						value: 'mingtian2',
+						text: '明天 14:30-17:30'
+					}, {
+						value: 'mingtian3',
+						text: '明天 19:00-21:00'
+					}, {
+						value: 'houtian1',
+						text: '后天 9:00-11:00'
+					}, {
+						value: 'houtian2',
+						text: '后天 14:30-17:30'
+					}, {
+						value: 'houtian3',
+						text: '后天 19:00-21:00'
+					}]);
+					var showUserPickerButton = doc.getElementById('showUserPicker');
+					var userResult = doc.getElementById('userResult');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							userResult.innerText = "预约时间:" + (items[0] || {}).text;
+							document.getElementById("getDate").value = (items[0] || {}).value;
+							//							alert((items[0] || {}).value);
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+			})(mui, document);
+		</script>
+	</body>
+	<script src="../js/mui.view.js"></script>
+	<script src="../js/baoxiu_repair3.js"></script>
+	<script>
+		mui.init({
+			preloadPages: [{
+				id: "repair_over.html",
+				url: "repair_over.html"
+			}]
+		});
+		//初始化单页view
+		var viewApi = mui('#app').view({
+			defaultPage: '#set'
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		var cid;
+		mui.plusReady(function() {
+			url = plus.storage.getItem("url");
+			window.addEventListener("paizhaoId", function(event) {
+					var overPage = null;
+					var cid = event.detail.cid;
+					var rld_id = event.detail.rld_id;
+					var sname = event.detail.sname;
+					var uid = event.detail.uid;
+					document.getElementById("orldId").value = rld_id;
+					document.getElementById("ocId").value = cid;
+					document.getElementById("sname").innerText = sname;
+					mui.getJSON("http://"+url+"/RepaLabelDesc/GetLableDescById?ldid=" + rld_id, {},
+						function(data) {
+							document.getElementById("lbname").innerText = data.rld_liNames;
+							document.getElementById("osId").value = data.rld_csId_;
+							document.getElementById("minEcost").value = data.rld_minEstimatedCost;
+							document.getElementById("maxEcost").value = data.rld_maxEstimatedCost;
+							document.getElementById("ecostDesc").value = data.rld_minEstimatedCost + "-" + data.rld_maxEstimatedCost;
+							document.getElementById("priceRange").innerText = "¥" + data.rld_minEstimatedCost + "-¥" + data.rld_maxEstimatedCost;
+						});
+					//获得事件参数
+					mui.ajax("http://"+url+"/RepaMan/Index?cid=" + cid, {
+						//data: {
+						//username: 'username',
+						//password: 'password'
+						//},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'GET', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var sf = "";
+							for (var i = 0; i < data.length; i++) {
+								var rc_name = data[i].RepaCategory.rc_name;
+								document.getElementById("cname").innerText = data[i].RepaCategory.rc_name;
+								sf += "<li class=\"mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4\" id=\"" + data[i].rm_id + "\"><img src=\"http://" + url + "/Images/RepaManImg/" + data[i].rm_headPortrait + "\" ><a class=\"black\" href=\"#\">" + data[i].rm_name + "</a><p>工号：" + data[i].rm_jobNum + "</p><p class=\"black\">评分</p><p>" +
+									"<span class=\"mui-icon mui-icon-star-filled\"></span><span class=\"mui-icon mui-icon-star-filled\"></span><span class=\"mui-icon mui-icon-star-filled\"></span><span class=\"mui-icon mui-icon-star-filled\"></span><span class=\"mui-icon mui-icon-star-filled\"></span></p></li>";
+							}
+							$(".shifu").html(sf);
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理
+							console.log(type)
+						}
+					});
+					//提交订单事件
+					mui(".mui-page-content").on("tap", "#repair_4", function() {
+						var orldId = document.getElementById("orldId").value;
+						var ocId = document.getElementById("ocId").value;
+						var osId = document.getElementById("osId").value;
+						var omid = document.getElementById("mid").value;
+						var odateTime = document.getElementById('userResult').innerText.substr(5);
+						var getDate = document.getElementById("getDate").value;
+						var newTime = document.getElementById('userResult').innerText;
+						var minEcost = document.getElementById("minEcost").value;
+						var maxEcost = document.getElementById("maxEcost").value;
+						var ecostDesc = document.getElementById("ecostDesc").value;
+						if (newTime == "预约服务时间") {
+							mui.toast("请选择预约服务时间");
+							return;
+						}
+						var deliveryId;
+						if ($("#dizhisub div").attr("id") == undefined) {
+							mui.toast("请选择地址");
+							return;
+						} else {
+							deliveryId = $("#dizhisub div").attr("id");
+						}
+						//添加订单
+						mui.ajax("http://" + url + "/RepaLabelDesc/Update", {
+							data: {
+								deliveryId: deliveryId, //收货地址id
+								orldId: orldId,
+								ocId: ocId,
+								osId: osId,
+								omid: omid,
+								odateTime: odateTime,
+								getDate: getDate,
+								uid: uid,
+								minecost: minEcost,
+								maxecost: maxEcost,
+								ecost: ecostDesc
+							},
+							dataType: "json",
+							type: "get",
+							success: function(data) {
+								if (data.statusCode == "200") {
+									document.getElementById("sname").value = "";
+									document.getElementById("lbname").value = "";
+									document.getElementById("priceRange").innerText = "¥0";
+									document.getElementById('userResult').innerText = "预约服务时间"
+									$("#shifu").html("<a class=\"mui-navigate-right\" href=\"#account\">" +
+										"<img src=\"\" /><h4 style=\"text-align: center; color: #FFFFFF;\">选择师傅</h4></a>");
+									if (!overPage) {
+										overPage = plus.webview.getWebviewById("repair_over.html");
+									}
+									mui.fire(overPage, "repair3Id", {
+										roId: data.data1
+									})
+									mui.openWindow({
+										id: "repair_over.html"
+									})
+								} else {
+									console.log();
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								//异常处理
+								console.log(type)
+							}
+						})
+					});
+				})
+				////********************************************************更换地址的数据代码开始*****************************************
+			getaddress();
+
+			function getaddress() {
+				mui.ajax("http://" + url+ "/DeliveryAddress/index", {
+						data: {},
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							var str = "";
+							for (var i = 0; i < data.length; i++) {
+								str += "<div  class=\"dizhi\" style=\"line-height: 30px; color:#666666;\"><div id=\"" + data[i].ID + "\" class=\"dizhilist\"><p class=\"black\">收货人：" + data[i].ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data[i].ConsigneePhone + "</span></p><p>收货地址：" + data[i].Address + "</p></div><a class=\"mui-pull-right font-red\" style=\"margin-left: 10px;\">删除 </a><a href=\"#bottomPopover\" class=\"mui-pull-right font-blue\"> 修改信息</a><div style=\"clear: both;\"></div></div>";
+							}
+							$("#DeliveryAddress").html(str);
+						}
+					})
+			}
+			//**********************************************添加、修改收货地址提交代码**************************************
+			var isActive = document.getElementById("mySwitch").classList.contains("mui-active");
+			//		if (isActive) {
+			//			console.log("打开状态");
+			//		} else {
+			//			console.log("关闭状态");
+			//		}
+			var addressbtn = document.getElementById("addressbtn");
+			var uname = document.getElementById("uname");
+			var tel = document.getElementById("tel");
+			var adderss = document.getElementById("adderss");
+			var ID = document.getElementById("ID");
+			addressbtn.addEventListener("tap", function(event) {
+				if (uname.value == "") {
+					plus.ui.toast("收货人姓名不能为空");
+					return;
+				}
+				if (tel.value == "") {
+					plus.ui.toast("收货人电话不能为空");
+					return;
+				}
+				if (adderss.value == "") {
+					plus.ui.toast("收货地址不能为空");
+					return;
+				}
+				//****************************用户提交成功返回*********************************
+				mui.ajax("http://" + url+ "/DeliveryAddress/Creates", {
+					data: {
+						"ConsigneeName": uname.value,
+						"ConsigneePhone": tel.value,
+						"Address": adderss.value,
+						"ID": ID.value,
+						"isDefault": "0"
+					},
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode == 200) {
+							plus.ui.toast(data.message);
+							uname.value = "";
+							tel.value = "";
+							adderss.value = "";
+							getaddress();
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
+			});
+			////********************************************************删除地址信息*****************************************
+			mui("#DeliveryAddress").on("tap", ".font-red", function(e) {
+				var DeliveryAddressid = this.parentElement.childNodes[0].getAttribute("id");
+				mui.ajax("http://" + url + "/DeliveryAddress/Delete", {
+					data: {
+						id: DeliveryAddressid,
+					},
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.statusCode = "200") {
+							plus.ui.toast(data.message);
+							getaddress();
+						} else {
+							plus.ui.toast(data.message);
+						}
+					}
+				})
+			});
+			////********************************************************修改地址信息*****************************************
+			mui("#DeliveryAddress").on("tap", ".font-blue", function(e) {
+				var DeliveryAddressid = this.parentElement.childNodes[0].getAttribute("id");
+				mui.ajax("http://" + url + "/DeliveryAddress/getdeliveryaddressbyid", {
+					data: {
+						id: DeliveryAddressid,
+					},
+					dataType: "json", //服务器返回json格式数据
+					type: "Post", //HTTP请求类型,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						ID.value = data.ID;
+						uname.value = data.ConsigneeName;
+						tel.value = data.ConsigneePhone;
+						adderss.value = data.Address;
+					}
+				})
+			});
+			////********************************************************更换地址的数据代码开始*****************************************
+			//********************************************************选择师傅开始********************************************************
+			mui(".shifu").on("tap", ".mui-table-view-cell", function() {
+				var mid = this.getAttribute("id");
+				document.getElementById("mid").value = mid;
+				mui.getJSON("http://"+url+"/RepaMan/GetDataByMid?mid=" + mid, {},
+					function(data) {
+						var imgHtml = "<a class=\"mui-navigate-right\" href=\"#account\"><img src=\"http://" + url + "/Images/RepaManImg/" + data.rm_headPortrait + "\" /><h4 style=\"text-align: center; color: #FFFFFF;\">" + data.rm_name + "</h4></a>";
+						$("#shifu").html(imgHtml);
+					})
+			});
+			//********************************************************选择师傅结束********************************************************
+			var view = viewApi.view;
+			(function($, doc) {
+				//处理view的后退与webview后退
+				var oldBack = $.back;
+				$.back = function() {
+					if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+						viewApi.back();
+					} else { //执行webview后退
+						oldBack();
+					}
+				};
+				//监听页面切换事件方案1,通过view元素监听所有页面切换事件，目前提供pageBeforeShow|pageShow|pageBeforeBack|pageBack四种事件(before事件为动画开始前触发)
+				//第一个参数为事件名称，第二个参数为事件回调，其中e.detail.page为当前页面的html对象
+				view.addEventListener('pageBeforeShow', function(e) {
+					//				console.log(e.detail.page.id + ' beforeShow');
+				});
+				view.addEventListener('pageShow', function(e) {
+					//				console.log(e.detail.page.id + ' show');
+				});
+				view.addEventListener('pageBeforeBack', function(e) {
+					//				console.log(e.detail.page.id + ' beforeBack');
+				});
+				view.addEventListener('pageBack', function(e) {
+					//				console.log(e.detail.page.id + ' back');
+				});
+				//*************************************地址点击带回********************************
+				var dizhisub = doc.getElementById("dizhisub");
+				mui("#DeliveryAddress").on("tap", ".dizhilist", function(e) {
+					var DeliveryAddressid = this.getAttribute("id");
+					mui.ajax("http://" + url + "/DeliveryAddress/getdeliveryaddressbyid", {
+						data: {
+							id: DeliveryAddressid,
+						},
+						dataType: "json", //服务器返回json格式数据
+						type: "Post", //HTTP请求类型,
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							if (data.ID != null) {
+								var dizhi = "<div id=\"" + data.ID + "\"  class=\"repair_bar red\" >确认地址信息 </div><input type=\"text\" id=\"ConsigneeName\" class=\"mui-input-speech sm_input\"  placeholder=\"请输入姓名\"  value=" + data.ConsigneeName + ">" +
+									"<div class=\"mui-input-row\"><input type=\"text\" id=\"Address\" class=\"mui-input-speech mui-input-clear\" placeholder=\"请输入地址\" value=" + data.Address + "></div>" +
+									"<div class=\"mui-input-row\"><input type=\"text\" id=\"ConsigneePhone\" class=\"mui-input-speech mui-input-clear\" placeholder=\"请输入手机号码\" value=" + data.ConsigneePhone + "></div>";
+								//							var dizhidata = "<p id=\"" + data.ID + "\" class=\"black\">收货人：" + data.ConsigneeName + " <span class=\"mui-pull-right\" ：>联系电话：" + data.ConsigneePhone + "</span></p><p id=\"default_address\">地址：" + data.Address + "</p>"
+								dizhisub.innerHTML = dizhi;
+								viewApi.back();
+							} else {
+								plus.ui.toast(data);
+							}
+						}
+					})
+				});
+				//*************************************地址点击带回结束********************************
+			})(mui, document);
+		});
+	</script>
+
+</html>
